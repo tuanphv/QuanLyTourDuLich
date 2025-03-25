@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,6 +33,7 @@ public class Table extends JTable {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 com.setBackground(Color.WHITE);
+                setBorder(new EmptyBorder(5, 5, 5, 5));
                 if (isSelected) {
                     setForeground(new Color(0x4A90E2));
                 } else {
