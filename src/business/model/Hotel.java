@@ -4,20 +4,22 @@
  */
 package business.model;
 
+import business.model.Service;
+
 /**
  *
  * @author pc
  */
-public class HotelService extends Service{
+public class Hotel extends Service{
     private String hotelName;
     private int starRating;
     private String location;
     private Boolean hasBreakfast;
 
-    public HotelService() {
+    public Hotel() {
     }
 
-    public HotelService(String hotelName, int starRating, String location, Boolean hasBreakfast, String serviceId, String serviceName, String description, float price, Boolean isAvailable) {
+    public Hotel(String hotelName, int starRating, String location, Boolean hasBreakfast, String serviceId, String serviceName, String description, float price, Boolean isAvailable) {
         super(serviceId, serviceName, description, price, isAvailable);
         this.hotelName = hotelName;
         this.starRating = starRating;

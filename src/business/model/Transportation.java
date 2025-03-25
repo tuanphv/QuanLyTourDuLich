@@ -4,19 +4,21 @@
  */
 package business.model;
 
+import business.model.Service;
+
 /**
  *
  * @author pc
  */
-public class TransportationService extends Service{
+public class Transportation extends Service{
     private String transportType;
     private String company;
     private int capacity;
 
-    public TransportationService() {
+    public Transportation() {
     }
 
-    public TransportationService(String transportType, String company, int capacity, String serviceId, String serviceName, String description, float price, Boolean isAvailable) {
+    public Transportation(String transportType, String company, int capacity, String serviceId, String serviceName, String description, float price, Boolean isAvailable) {
         super(serviceId, serviceName, description, price, isAvailable);
         this.transportType = transportType;
         this.company = company;

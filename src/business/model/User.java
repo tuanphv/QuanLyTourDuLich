@@ -10,17 +10,17 @@ package business.model;
  */
 public class User {
 
-    private String username;
-    private String password;
-    private String role;
-    private String id;
-    private String firstName;
-    private String lastName;
-    private String dateOfBirth;
-    private String gender;
-    private String phoneNumber;
-    private String email;
-    private String address;
+    protected String username;
+    protected String password;
+    protected String role;
+    protected String id;
+    protected String firstName;
+    protected String lastName;
+    protected String dateOfBirth;
+    protected String gender;
+    protected String phoneNumber;
+    protected String email;
+    protected String address;
 
     public User() {
     }

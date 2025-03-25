@@ -47,5 +47,9 @@ public class Customer extends User {
     public void setCustomerType(String customerType) {
         this.customerType = customerType;
     }
-
+    
+    public Object[] toArray() {
+        Object[] arr = {this.id, this.username, this.role, this.firstName + " " + this.lastName, this.phoneNumber, this.email, this.customerType, this.registrationDate};
+        return arr;
+    }
 }

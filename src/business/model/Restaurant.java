@@ -4,20 +4,22 @@
  */
 package business.model;
 
+import business.model.Service;
+
 
 /**
  *
  * @author pc
  */
-public class RestaurantService extends Service{
+public class Restaurant extends Service{
     private String restaurantName;
     private String location;
     private String serviceType;
 
-    public RestaurantService() {
+    public Restaurant() {
     }
 
-    public RestaurantService(String restaurantName, String location, String serviceType, String serviceId, String serviceName, String description, float price, Boolean isAvailable) {
+    public Restaurant(String restaurantName, String location, String serviceType, String serviceId, String serviceName, String description, float price, Boolean isAvailable) {
         super(serviceId, serviceName, description, price, isAvailable);
         this.restaurantName = restaurantName;
         this.location = location;
