@@ -1,13 +1,17 @@
 package presentation.gui;
 
+import business.model.Customer;
+import business.service.CustomerService;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.JLabel;
+import java.util.ArrayList;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Form_Home extends javax.swing.JPanel {
+    private DefaultTableModel model;
+    private CustomerService service = new CustomerService();
 
     public Form_Home() {
         initComponents();
@@ -16,7 +20,10 @@ public class Form_Home extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        table.setColumnNames(new String[]{"ID", "Username", "Role", "Full Name", "Phone", "Email", "Customer Type", "Registration Date"});
+        String[] cols = {"ID", "Username", "Role", "Full name", "Phone number", "Email", "Type", "Registration Date"};
+        model = new DefaultTableModel(cols, 0);
+        table.setModel(model);
+        loadAllCustomerData();
     }
 
     @SuppressWarnings("unchecked")
@@ -110,6 +117,11 @@ public class Form_Home extends javax.swing.JPanel {
 
         btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
         btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(51, 255, 102));
         btnAdd.setText("ADD");
@@ -145,9 +157,24 @@ public class Form_Home extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        int i = table.getSelectedRow();
+        if (i >= 0) {
+            model.removeRow(i);
+            service.deleteCustomer(i);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void loadAllCustomerData(){
+        ArrayList<Customer> list = service.getCustomers();
+        model.setRowCount(0);
+        for (Customer x: list) {
+            model.addRow(x.toArray());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentation.gui.MyButton btnAdd;

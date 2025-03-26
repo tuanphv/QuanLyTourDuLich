@@ -1,19 +1,12 @@
 package presentation.gui;
 
-import business.model.Customer;
-import business.service.CustomerService;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 public class Table extends JTable {
-
-    private DefaultTableModel model;
-    private String[] columnNames;
 
     public Table() {
         setShowHorizontalLines(true);
@@ -42,20 +35,5 @@ public class Table extends JTable {
                 return com;
             }
         });
-    }
-
-    public void setColumnNames(String[] cols) {
-        this.columnNames = cols;
-        model = new DefaultTableModel(this.columnNames, 0);
-        setModel(model);
-        loadData();
-    }
-    
-    public void loadData() {
-        CustomerService service = new CustomerService();
-        ArrayList<Customer> list = service.getCustomers();
-        for (Customer x : list) {
-            model.addRow(x.toArray());
-        }
     }
 }

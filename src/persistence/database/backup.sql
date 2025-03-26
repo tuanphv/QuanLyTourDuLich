@@ -1,5 +1,5 @@
 -- Tạo database 
-create database quanlytourdulich;
+-- create database quanlytourdulich;
 
 -- Tạo các bảng
 use quanlytourdulich;
