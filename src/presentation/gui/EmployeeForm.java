@@ -9,11 +9,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Form_Home extends javax.swing.JPanel {
+public class EmployeeForm extends javax.swing.JPanel {
     private DefaultTableModel model;
     private CustomerService service = new CustomerService();
 
-    public Form_Home() {
+    public EmployeeForm() {
         initComponents();
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
@@ -23,7 +23,7 @@ public class Form_Home extends javax.swing.JPanel {
         String[] cols = {"ID", "Username", "Role", "Full name", "Phone number", "Email", "Type", "Registration Date"};
         model = new DefaultTableModel(cols, 0);
         table.setModel(model);
-        loadAllCustomerData();
+//        loadAllCustomerData();
     }
 
     @SuppressWarnings("unchecked")
@@ -37,8 +37,6 @@ public class Form_Home extends javax.swing.JPanel {
         btnDelete = new presentation.gui.MyButton();
         btnUpdate = new presentation.gui.MyButton();
         btnAdd = new presentation.gui.MyButton();
-
-        setBackground(new java.awt.Color(242, 242, 242));
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -84,7 +82,7 @@ public class Form_Home extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Customer Table");
+        jLabel1.setText("Employee Table");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -125,6 +123,11 @@ public class Form_Home extends javax.swing.JPanel {
 
         btnAdd.setBackground(new java.awt.Color(51, 255, 102));
         btnAdd.setText("ADD");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -145,12 +148,12 @@ public class Form_Home extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -167,6 +170,11 @@ public class Form_Home extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        Form_Input form = new Form_Input();
+        form.setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void loadAllCustomerData(){
         ArrayList<Customer> list = service.getCustomers();
