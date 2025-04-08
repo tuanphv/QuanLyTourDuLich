@@ -16,15 +16,15 @@ public class Main extends javax.swing.JFrame {
         panelBorder1 = new presentation.gui.PanelBorder();
         menu1 = new presentation.gui.Menu();
         cardPanel = new javax.swing.JPanel();
-        customerForm = new presentation.gui.CustomerForm();
-        employeeForm = new presentation.gui.EmployeeForm();
+        tourForm = new presentation.gui.TourForm();
+        diaDanhForm = new presentation.gui.DiaDanhForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         cardPanel.setLayout(new java.awt.CardLayout());
-        cardPanel.add(customerForm, "card2");
-        cardPanel.add(employeeForm, "card3");
+        cardPanel.add(tourForm, "card2");
+        cardPanel.add(diaDanhForm, "card3");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -86,9 +86,9 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
-    private presentation.gui.CustomerForm customerForm;
-    private presentation.gui.EmployeeForm employeeForm;
+    private presentation.gui.DiaDanhForm diaDanhForm;
     private presentation.gui.Menu menu1;
     private presentation.gui.PanelBorder panelBorder1;
+    private presentation.gui.TourForm tourForm;
     // End of variables declaration//GEN-END:variables
 }

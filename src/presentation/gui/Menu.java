@@ -8,11 +8,13 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 public class Menu extends javax.swing.JPanel {
 
     private Main mainFrame;
+    private ArrayList<MenuItem> items;
 
     public Menu() {
         initComponents();
@@ -21,13 +23,24 @@ public class Menu extends javax.swing.JPanel {
     }
 
     private void init() {
-        customer.setModel(new Model_Menu("home", "Home", Model_Menu.MenuType.MENU));
-        employee.setModel(new Model_Menu("user", "Employee", Model_Menu.MenuType.MENU));
+        tour.setModel(new Model_Menu("tour", "Tour", Model_Menu.MenuType.MENU));
+        diadanh.setModel(new Model_Menu("place", "Dia danh", Model_Menu.MenuType.MENU));
+        items = new ArrayList<>();
+        items.add(tour);
+        items.add(diadanh);
+        changeBackground(tour);
         repaint();
     }
     
     public void addFrame(Main mainFrame) {
         this.mainFrame = mainFrame;
+    }
+    
+    private void changeBackground(MenuItem btn) {
+        for (MenuItem item: items) {
+            item.setBackground(new Color(255, 255, 255, 0));
+        }
+        btn.setBackground(new Color(255, 255, 255, 80));
     }
 
     @SuppressWarnings("unchecked")
@@ -37,8 +50,8 @@ public class Menu extends javax.swing.JPanel {
         panelMoving = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        customer = new presentation.gui.MenuItem();
-        employee = new presentation.gui.MenuItem();
+        tour = new presentation.gui.MenuItem();
+        diadanh = new presentation.gui.MenuItem();
 
         panelMoving.setOpaque(false);
 
@@ -52,7 +65,7 @@ public class Menu extends javax.swing.JPanel {
         panelMoving.setLayout(panelMovingLayout);
         panelMovingLayout.setHorizontalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
         );
         panelMovingLayout.setVerticalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -61,15 +74,15 @@ public class Menu extends javax.swing.JPanel {
 
         jPanel1.setOpaque(false);
 
-        customer.addActionListener(new java.awt.event.ActionListener() {
+        tour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customerActionPerformed(evt);
+                tourActionPerformed(evt);
             }
         });
 
-        employee.addActionListener(new java.awt.event.ActionListener() {
+        diadanh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                employeeActionPerformed(evt);
+                diadanhActionPerformed(evt);
             }
         });
 
@@ -78,19 +91,19 @@ public class Menu extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(customer, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                    .addComponent(employee, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(diadanh, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(tour, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(customer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(employee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(diadanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(473, Short.MAX_VALUE))
         );
 
@@ -110,15 +123,20 @@ public class Menu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerActionPerformed
+    private void tourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourActionPerformed
         // TODO add your handling code here:
+        MenuItem src = (MenuItem) evt.getSource();
+        changeBackground(src);
         mainFrame.showCard("card2");
-    }//GEN-LAST:event_customerActionPerformed
+        
+    }//GEN-LAST:event_tourActionPerformed
 
-    private void employeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeActionPerformed
+    private void diadanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diadanhActionPerformed
         // TODO add your handling code here:
+        MenuItem src = (MenuItem) evt.getSource();
+        changeBackground(src);
         mainFrame.showCard("card3");
-    }//GEN-LAST:event_employeeActionPerformed
+    }//GEN-LAST:event_diadanhActionPerformed
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -154,10 +172,10 @@ public class Menu extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.MenuItem customer;
-    private presentation.gui.MenuItem employee;
+    private presentation.gui.MenuItem diadanh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panelMoving;
+    private presentation.gui.MenuItem tour;
     // End of variables declaration//GEN-END:variables
 }

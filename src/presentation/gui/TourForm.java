@@ -1,7 +1,7 @@
 package presentation.gui;
 
-import business.model.Customer;
-import business.service.CustomerService;
+import business.model.TourDTO;
+import business.service.TourBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -9,19 +9,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-public class CustomerForm extends javax.swing.JPanel {
-    private DefaultTableModel model;
-    private CustomerService service = new CustomerService();
+public class TourForm extends javax.swing.JPanel {
 
-    public CustomerForm() {
+    public TourForm() {
         initComponents();
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        spTable.getViewport().setBackground(Color.white);
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        String[] cols = {"ID", "Username", "Role", "Full name", "Phone number", "Email", "Type", "Registration Date"};
-        model = new DefaultTableModel(cols, 0);
+        DefaultTableModel model = new DefaultTableModel(TourDTO.TOUR_COLUMN_NAMES, 0);
         table.setModel(model);
         loadAllCustomerData();
     }
@@ -44,26 +42,7 @@ public class CustomerForm extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Họ", "Tên", "Ngày sinh", "Giới tính"
@@ -82,7 +61,7 @@ public class CustomerForm extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Customer Table");
+        jLabel1.setText("Bang Tour du lich");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -160,15 +139,18 @@ public class CustomerForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        TourBUS bus = new TourBUS();
         int i = table.getSelectedRow();
         if (i >= 0) {
-            model.removeRow(i);
-            service.deleteCustomer(i);
+            if (bus.deleteTour((int) model.getValueAt(i, 0))) {
+                model.removeRow(i);
+            }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -176,12 +158,12 @@ public class CustomerForm extends javax.swing.JPanel {
         form.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void loadAllCustomerData(){
-        ArrayList<Customer> list = service.getCustomers();
+    private void loadAllCustomerData() {
+        TourBUS bus = new TourBUS();
+        ArrayList<TourDTO> tours = bus.getDsTour();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        for (Customer x: list) {
-            model.addRow(x.toArray());
-        }
+        tours.forEach((var e) -> model.addRow(e.toObjectArray()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
