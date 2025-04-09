@@ -13,6 +13,12 @@ public class DiaDanhDTO {
         this.tinhThanh = tinhThanh;
         this.diemNoiBat = diemNoiBat;
     }
+    
+    public DiaDanhDTO(String tenDD, String tinhThanh, String diemNoiBat) {
+        this.tenDD = tenDD;
+        this.tinhThanh = tinhThanh;
+        this.diemNoiBat = diemNoiBat;
+    }
 
     public DiaDanhDTO() {
     }

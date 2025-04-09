@@ -151,14 +151,47 @@ public class DiaDanhForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int index = table.getSelectedRow();
+        if (index > -1) {
+            DiaDanhDTO dd = new DiaDanhDTO();
+            dd.setMaDD((int) model.getValueAt(index, 0));
+            dd.setTenDD((String) model.getValueAt(index, 1));
+            dd.setTinhThanh((String) model.getValueAt(index, 2));
+            dd.setDiemNoiBat((String) model.getValueAt(index, 3));
+            InputDiaDanh form = new InputDiaDanh(this, InputDiaDanh.Mode.UPDATE);
+            form.loadData(dd);
+            form.setVisible(true);
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        Form_Input form = new Form_Input();
+        InputDiaDanh form = new InputDiaDanh(this, InputDiaDanh.Mode.ADD);
         form.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
+    public void addDiaDanh(DiaDanhDTO dd) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        DiaDanhBUS bus = new DiaDanhBUS();
+        int index = bus.addDiaDanh(dd);
+        if (index != -1) {
+            dd.setMaDD(index);
+            model.addRow(dd.toObjectArray());
+        }
+    }
+    
+    public void updateDiaDanh(DiaDanhDTO dd) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        DiaDanhBUS bus = new DiaDanhBUS();
+        boolean success = bus.updateDiaDanh(dd);
+        int index = bus.findIndexByMa(dd.getMaDD());
+        if (success) {
+            model.setValueAt(dd.getTenDD(), index, 1);
+            model.setValueAt(dd.getTinhThanh(), index, 2);
+            model.setValueAt(dd.getDiemNoiBat(), index, 3);
+        }
+    }
+    
     private void loadAllCustomerData() {
         DiaDanhBUS bus = new DiaDanhBUS();
         ArrayList<DiaDanhDTO> DiaDanhs = bus.getDsDiaDanh();

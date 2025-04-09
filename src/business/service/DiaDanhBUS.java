@@ -15,19 +15,21 @@ public class DiaDanhBUS {
     }
 
     // Hàm loadData: lấy danh sách từ DAO
-    public void loadData() {
+    private void loadData() {
         DiaDanhDAO dao = new DiaDanhDAO();
         dsDiaDanh = dao.getAllDiaDanh();
     }
 
     // Thêm địa danh
-    public boolean addDiaDanh(DiaDanhDTO diaDanh) {
+    public int addDiaDanh(DiaDanhDTO diaDanh) {
+        if ("".equals(diaDanh.getTenDD()) || "".equals(diaDanh.getTinhThanh()) || "".equals(diaDanh.getDiemNoiBat()))
+            return -1;
         DiaDanhDAO dao = new DiaDanhDAO();
-        boolean success = dao.addDiaDanh(diaDanh);
-        if (success) {
+        int index = dao.addDiaDanh(diaDanh);
+        if (index != -1) {
             dsDiaDanh.add(diaDanh);
         }
-        return success;
+        return index;
     }
 
     // Sửa địa danh
@@ -62,6 +64,14 @@ public class DiaDanhBUS {
         return success;
     }
 
+    public int findIndexByMa(int maDD) {
+        for (int i = 0; i < dsDiaDanh.size(); i++) {
+            if (dsDiaDanh.get(i).getMaDD() == maDD) {
+                return i;
+            }
+        }
+        return -1;
+    }
     // Getter danh sách địa danh
     public ArrayList<DiaDanhDTO> getDsDiaDanh() {
         return dsDiaDanh;
