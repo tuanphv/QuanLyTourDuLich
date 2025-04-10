@@ -42,11 +42,13 @@ public class PhuongTienForm extends javax.swing.JPanel {
                 phuongTien.getLoaiPhuongTien(),
                 phuongTien.getSoChoNgoi(),
                 phuongTien.getGia(),
-                phuongTien.getSdt(),
+                phuongTien.getSoDienThoai(),
                 phuongTien.getTrangThai()
             });
         }
     }
+
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

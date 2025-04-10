@@ -203,7 +203,7 @@ public class InputTour extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         switch (mode) {
-            case Mode.ADD -> {
+            case ADD -> {
                 tour = new TourDTO(
                         txtTenTour.getText(),
                         Float.parseFloat(txtGiaTour.getText().equals("") ? "0.0" : txtGiaTour.getText()),
@@ -217,7 +217,7 @@ public class InputTour extends javax.swing.JFrame {
                 );
                 form.addTour(tour);
             }
-            case Mode.UPDATE -> {
+            case UPDATE -> {
                 tour = new TourDTO(
                         tour.getMaTour(),
                         txtTenTour.getText(),

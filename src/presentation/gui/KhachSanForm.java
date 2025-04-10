@@ -2,14 +2,17 @@ package presentation.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Window;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import business.model.KhachSanDTO;
-import business.model.PhuongTienDTO;
 import business.service.KhachSanBUS;
 
 public class KhachSanForm extends javax.swing.JPanel {
@@ -42,7 +45,7 @@ public class KhachSanForm extends javax.swing.JPanel {
                 khachSan.getTenKhachSan(), 
                 khachSan.getDiaChi(), 
                 khachSan.getGia(), 
-                khachSan.getSdt(),
+                khachSan.getSoDienThoai(),
                 khachSan.getTrangThai()
             });
         }
@@ -103,12 +106,27 @@ public class KhachSanForm extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
         btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(51, 255, 102));
         btnAdd.setText("ADD");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -139,6 +157,64 @@ public class KhachSanForm extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
+        int rowSelected = tableKhachSan.getSelectedRow();
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn đối tượng cần xoá!");
+            return;
+        } else {
+            int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modalTableKhachSan.getValueAt(rowSelected, 1), "Xoá khách sạn", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
+            if (answer == JOptionPane.YES_OPTION) {
+                khachSanBUS.delete((int) modalTableKhachSan.getValueAt(rowSelected, 0));
+                modalTableKhachSan.removeRow(rowSelected);
+                JOptionPane.showMessageDialog(this, "Xoá thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Đã huỷ!");
+            }
+        }
+    }
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        Window parent = SwingUtilities.getWindowAncestor(this);
+        InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, null);
+        inputKhachSan.setLocationRelativeTo(null);
+        inputKhachSan.setVisible(true);
+
+        int id =  khachSanBUS.insert(inputKhachSan.getKhachSan());
+        inputKhachSan.getKhachSan().setMaKhachSan(id);
+        modalTableKhachSan.addRow(inputKhachSan.getKhachSan().toObject());
+    }
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        int rowSelected = tableKhachSan.getSelectedRow();
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách sạn cần chỉnh sửa!");
+            return;
+        }
+
+        KhachSanDTO khachSan = new KhachSanDTO(
+            (int) tableKhachSan.getModel().getValueAt(rowSelected, 0),
+            (String) tableKhachSan.getModel().getValueAt(rowSelected, 1),
+            (String) tableKhachSan.getModel().getValueAt(rowSelected, 2),
+            (int) tableKhachSan.getModel().getValueAt(rowSelected, 3),
+            (String) tableKhachSan.getModel().getValueAt(rowSelected, 4),
+            (int) tableKhachSan.getModel().getValueAt(rowSelected, 5)
+        );
+        Window parent = SwingUtilities.getWindowAncestor(this);
+        InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, khachSan);
+        inputKhachSan.setLocationRelativeTo(null);
+        inputKhachSan.setVisible(true);
+
+        // cập nhật
+        KhachSanDTO khachSanNew = inputKhachSan.getKhachSan();
+        khachSanBUS.update(khachSanNew);
+        modalTableKhachSan.setValueAt(khachSanNew.getTenKhachSan(), rowSelected, 1);
+        modalTableKhachSan.setValueAt(khachSanNew.getDiaChi(), rowSelected, 2);
+        modalTableKhachSan.setValueAt(khachSanNew.getGia(), rowSelected, 3);
+        modalTableKhachSan.setValueAt(khachSanNew.getSoDienThoai(), rowSelected, 4);
+        modalTableKhachSan.setValueAt(khachSanNew.getTrangThai(), rowSelected, 5);
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentation.gui.MyButton btnAdd;

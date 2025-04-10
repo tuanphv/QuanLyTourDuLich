@@ -4,26 +4,27 @@ public class NhaHangDTO {
     private int maNhaHang;
     private String tenNhaHang;
     private String diaChi;
-    private String sdt;
     private int gia;
+    private String soDienThoai;
     private int trangThai;
 
     public NhaHangDTO() {
     }
 
-    public NhaHangDTO(String tenNhaHang, String diaChi, String sdt, int gia) {
+    public NhaHangDTO(String tenNhaHang, String diaChi, int gia, String soDienThoai, int trangThai) {
         this.tenNhaHang = tenNhaHang;
         this.diaChi = diaChi;
-        this.sdt = sdt;
         this.gia = gia;
+        this.soDienThoai = soDienThoai;
+        this.trangThai = trangThai;
     }
-    
-    public NhaHangDTO(int maNhaHang, String tenNhaHang, String diaChi, String sdt, int gia, int trangThai) {
+
+    public NhaHangDTO(int maNhaHang, String tenNhaHang, String diaChi, int gia, String soDienThoai, int trangThai) {
         this.maNhaHang = maNhaHang;
         this.tenNhaHang = tenNhaHang;
         this.diaChi = diaChi;
-        this.sdt = sdt;
         this.gia = gia;
+        this.soDienThoai = soDienThoai;
         this.trangThai = trangThai;
     }
 
@@ -51,12 +52,12 @@ public class NhaHangDTO {
         this.diaChi = diaChi;
     }
 
-    public String getSdt() {
-        return sdt;
+    public String getSoDienThoai() {
+        return soDienThoai;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
     }
 
     public int getGia() {
@@ -77,7 +78,7 @@ public class NhaHangDTO {
 
     @Override
     public String toString() {
-        return "NhaHangDTO{" + "maNhaHang=" + maNhaHang + ", tenNhaHang=" + tenNhaHang + ", diaChi=" + diaChi + ", sdt=" + sdt + ", gia=" + gia + ", trangThai=" + trangThai + '}';
+        return "NhaHangDTO{" + "maNhaHang=" + maNhaHang + ", tenNhaHang=" + tenNhaHang + ", diaChi=" + diaChi + ", gia=" + gia + ", soDienThoai=" + soDienThoai + ", trangThai=" + trangThai + '}';
     }
 
     public static final String[] NHA_HANG_COLUMN_NAMES = {

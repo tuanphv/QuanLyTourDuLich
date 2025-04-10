@@ -14,10 +14,10 @@ public class KhachSanBUS {
         listHotel = khachSanDAO.getAllHotel();
     }
 
-    public boolean insert(KhachSanDTO khachSan) {
-        boolean check = khachSanDAO.insert(khachSan);
-        if (check) listHotel.add(khachSan);
-        return check;
+    public int insert(KhachSanDTO khachSan) {
+        int index = khachSanDAO.insert(khachSan);
+        if (index != -1) listHotel.add(khachSan);
+        return index;
     }
 
     public boolean update(KhachSanDTO khachSan) {

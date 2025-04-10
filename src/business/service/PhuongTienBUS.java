@@ -14,10 +14,10 @@ public class PhuongTienBUS {
         listVehicle = phuongTienDAO.getAllVehicle();
     }
 
-    public boolean insert(PhuongTienDTO phuongTien) {
-        boolean check = phuongTienDAO.insert(phuongTien);
-        if (check) listVehicle.add(phuongTien);
-        return check;
+    public int insert(PhuongTienDTO phuongTien) {
+        int index = phuongTienDAO.insert(phuongTien);
+        if (index != -1) listVehicle.add(phuongTien);
+        return index;
     }
 
     public boolean update(PhuongTienDTO phuongTien) {

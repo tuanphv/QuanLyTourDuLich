@@ -4,26 +4,27 @@ public class KhachSanDTO {
     private int maKhachSan;
     private String tenKhachSan;
     private String diaChi;
-    private String sdt;
     private int gia;
+    private String soDienThoai;
     private int trangThai;
 
     public KhachSanDTO() {
     }
 
-    public KhachSanDTO(String tenKhachSan, String diaChi, String sdt, int gia) {
+    public KhachSanDTO(String tenKhachSan, String diaChi, int gia, String soDienThoai, int trangThai) {
         this.tenKhachSan = tenKhachSan;
         this.diaChi = diaChi;
-        this.sdt = sdt;
         this.gia = gia;
+        this.soDienThoai = soDienThoai;
+        this.trangThai = trangThai;
     }
 
-    public KhachSanDTO(int maKhachSan, String tenKhachSan, String diaChi, String sdt, int gia, int trangThai) {
+    public KhachSanDTO(int maKhachSan, String tenKhachSan, String diaChi, int gia, String soDienThoai, int trangThai) {
         this.maKhachSan = maKhachSan;
         this.tenKhachSan = tenKhachSan;
         this.diaChi = diaChi;
-        this.sdt = sdt;
         this.gia = gia;
+        this.soDienThoai = soDienThoai;
         this.trangThai = trangThai;
     }
 
@@ -51,12 +52,12 @@ public class KhachSanDTO {
         this.diaChi = diaChi;
     }
 
-    public String getSdt() {
-        return sdt;
+    public String getSoDienThoai() {
+        return soDienThoai;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
     }
 
     public int getGia() {
@@ -77,7 +78,18 @@ public class KhachSanDTO {
 
     @Override
     public String toString() {
-        return "KhachSanDTO{" + "maKhachSan=" + maKhachSan + ", tenKhachSan=" + tenKhachSan + ", diaChi=" + diaChi + ", sdt=" + sdt + ", gia=" + gia + ", trangThai=" + trangThai + '}';
+        return "KhachSanDTO{" + "maKhachSan=" + maKhachSan + ", tenKhachSan=" + tenKhachSan + ", diaChi=" + diaChi + ", gia=" + gia + ", soDienThoai=" + soDienThoai + ", trangThai=" + trangThai + '}';
+    }
+
+    public Object[] toObject() {
+        return new Object[] {
+            maKhachSan,
+            tenKhachSan, 
+            diaChi,
+            gia,
+            soDienThoai,
+            trangThai
+        };
     }
 
     public static final String[] KHACH_SAN_COLUMN_NAMES = {

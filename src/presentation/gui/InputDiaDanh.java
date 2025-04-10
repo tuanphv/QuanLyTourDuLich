@@ -130,12 +130,12 @@ public class InputDiaDanh extends javax.swing.JFrame {
         else
             dd = new DiaDanhDTO(dd.getMaDD(), txtTenDD.getText(), txtTinhThanh.getText(), txtDiemNoiBat.getText());
         switch (mode) {
-            case Mode.ADD -> form.addDiaDanh(dd);
-            case Mode.UPDATE -> form.updateDiaDanh(dd);
+            case ADD -> form.addDiaDanh(dd);
+            case UPDATE -> form.updateDiaDanh(dd);
         }
         dispose();
     }//GEN-LAST:event_submitBtnActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

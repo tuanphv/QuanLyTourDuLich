@@ -41,7 +41,7 @@ public class NhaHangForm extends javax.swing.JPanel {
                 nhaHang.getTenNhaHang(),
                 nhaHang.getDiaChi(),
                 nhaHang.getGia(),
-                nhaHang.getSdt(),
+                nhaHang.getSoDienThoai(),
                 nhaHang.getTrangThai()
             });
         }

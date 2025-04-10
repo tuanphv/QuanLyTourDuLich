@@ -14,10 +14,10 @@ public class NhaHangBUS {
         listRestaurant = nhaHangDAO.getAllRestaurant();
     }
 
-    public boolean insert(NhaHangDTO nhaHang) {
-        boolean check = nhaHangDAO.insert(nhaHang);
-        if (check) listRestaurant.add(nhaHang);
-        return check;
+    public int insert(NhaHangDTO nhaHang) {
+        int index = nhaHangDAO.insert(nhaHang);
+        if (index != -1) listRestaurant.add(nhaHang);
+        return index;
     }
 
     public boolean update(NhaHangDTO nhaHang) {
