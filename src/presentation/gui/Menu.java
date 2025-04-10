@@ -24,10 +24,16 @@ public class Menu extends javax.swing.JPanel {
 
     private void init() {
         tour.setModel(new Model_Menu("tour", "Tour", Model_Menu.MenuType.MENU));
-        diadanh.setModel(new Model_Menu("place", "Dia danh", Model_Menu.MenuType.MENU));
+        diadanh.setModel(new Model_Menu("place", "Địa danh", Model_Menu.MenuType.MENU));
+        phuongTien.setModel(new Model_Menu("vehicle", "Phương tiện", Model_Menu.MenuType.MENU));
+        khachSan.setModel(new Model_Menu("hotel", "Khách sạn", Model_Menu.MenuType.MENU));
+        nhaHang.setModel(new Model_Menu("restaurant", "Nhà hàng", Model_Menu.MenuType.MENU));
         items = new ArrayList<>();
         items.add(tour);
         items.add(diadanh);
+        items.add(phuongTien);
+        items.add(khachSan);
+        items.add(nhaHang);
         changeBackground(tour);
         repaint();
     }
@@ -52,6 +58,9 @@ public class Menu extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         tour = new presentation.gui.MenuItem();
         diadanh = new presentation.gui.MenuItem();
+        phuongTien = new presentation.gui.MenuItem();
+        khachSan = new presentation.gui.MenuItem();
+        nhaHang = new presentation.gui.MenuItem();
 
         panelMoving.setOpaque(false);
 
@@ -86,15 +95,39 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
+        phuongTien.setText("");
+        phuongTien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phuongTienActionPerformed(evt);
+            }
+        });
+
+        khachSan.setText("");
+        khachSan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                khachSanActionPerformed(evt);
+            }
+        });
+
+        nhaHang.setText("");
+        nhaHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nhaHangActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(diadanh, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(tour, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nhaHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(khachSan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(phuongTien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diadanh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                    .addComponent(tour, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
@@ -104,7 +137,13 @@ public class Menu extends javax.swing.JPanel {
                 .addComponent(tour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(diadanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(479, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(phuongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(khachSan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(nhaHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(305, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -127,7 +166,7 @@ public class Menu extends javax.swing.JPanel {
         // TODO add your handling code here:
         MenuItem src = (MenuItem) evt.getSource();
         changeBackground(src);
-        mainFrame.showCard("card2");
+        mainFrame.showCard("cardTour");
         
     }//GEN-LAST:event_tourActionPerformed
 
@@ -135,8 +174,29 @@ public class Menu extends javax.swing.JPanel {
         // TODO add your handling code here:
         MenuItem src = (MenuItem) evt.getSource();
         changeBackground(src);
-        mainFrame.showCard("card3");
+        mainFrame.showCard("cardDiaDanh");
     }//GEN-LAST:event_diadanhActionPerformed
+
+    private void phuongTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phuongTienActionPerformed
+        // TODO add your handling code here:
+        MenuItem src = (MenuItem) evt.getSource();
+        changeBackground(src);
+        mainFrame.showCard("cardPhuongTien");
+    }//GEN-LAST:event_phuongTienActionPerformed
+
+    private void khachSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_khachSanActionPerformed
+        // TODO add your handling code here:
+        MenuItem src = (MenuItem) evt.getSource();
+        changeBackground(src);
+        mainFrame.showCard("cardKhachSan");
+    }//GEN-LAST:event_khachSanActionPerformed
+
+    private void nhaHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaHangActionPerformed
+        // TODO add your handling code here:
+        MenuItem src = (MenuItem) evt.getSource();
+        changeBackground(src);
+        mainFrame.showCard("cardNhaHang");
+    }//GEN-LAST:event_nhaHangActionPerformed
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -175,7 +235,10 @@ public class Menu extends javax.swing.JPanel {
     private presentation.gui.MenuItem diadanh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private presentation.gui.MenuItem khachSan;
+    private presentation.gui.MenuItem nhaHang;
     private javax.swing.JPanel panelMoving;
+    private presentation.gui.MenuItem phuongTien;
     private presentation.gui.MenuItem tour;
     // End of variables declaration//GEN-END:variables
 }

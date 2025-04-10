@@ -152,7 +152,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Bang Tour du lich"/>
+            <Property name="text" type="java.lang.String" value="B&#x1ea3;ng Tour du l&#x1ecb;ch"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -60,5 +60,5 @@ public class DiaDanhDTO {
         };
     }
     
-    public static final String[] DIA_DANH_COLUMN_NAMES = {"Ma dia danh", "Ten dia danh", "Tinh thanh", "Diem noi bat"};
+    public static final String[] DIA_DANH_COLUMN_NAMES = {"Mã địa danh", "Tên địa danh", "Tỉnh thành", "Điểm nổi bật"};
 }

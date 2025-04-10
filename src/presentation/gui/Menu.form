@@ -72,11 +72,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="diadanh" pref="0" max="32767" attributes="0"/>
-                      <Component id="tour" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="nhaHang" max="32767" attributes="0"/>
+                      <Component id="khachSan" alignment="1" max="32767" attributes="0"/>
+                      <Component id="phuongTien" alignment="1" max="32767" attributes="0"/>
+                      <Component id="diadanh" alignment="1" pref="196" max="32767" attributes="0"/>
+                      <Component id="tour" alignment="1" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
@@ -89,7 +92,13 @@
                   <Component id="tour" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="diadanh" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="479" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="phuongTien" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="khachSan" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="nhaHang" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="305" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -103,6 +112,30 @@
         <Component class="presentation.gui.MenuItem" name="diadanh">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diadanhActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="presentation.gui.MenuItem" name="phuongTien">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=""/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phuongTienActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="presentation.gui.MenuItem" name="khachSan">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=""/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="khachSanActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="presentation.gui.MenuItem" name="nhaHang">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=""/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nhaHangActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

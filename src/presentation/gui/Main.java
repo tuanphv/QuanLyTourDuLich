@@ -18,13 +18,19 @@ public class Main extends javax.swing.JFrame {
         cardPanel = new javax.swing.JPanel();
         tourForm = new presentation.gui.TourForm();
         diaDanhForm = new presentation.gui.DiaDanhForm();
+        phuongTienForm = new presentation.gui.PhuongTienForm();
+        nhaHangForm = new presentation.gui.NhaHangForm();
+        khachSanForm = new presentation.gui.KhachSanForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         cardPanel.setLayout(new java.awt.CardLayout());
-        cardPanel.add(tourForm, "card2");
-        cardPanel.add(diaDanhForm, "card3");
+        cardPanel.add(tourForm, "cardTour");
+        cardPanel.add(diaDanhForm, "cardDiaDanh");
+        cardPanel.add(phuongTienForm, "cardPhuongTien");
+        cardPanel.add(nhaHangForm, "cardNhaHang");
+        cardPanel.add(khachSanForm, "cardKhachSan");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -87,8 +93,11 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
     private presentation.gui.DiaDanhForm diaDanhForm;
+    private presentation.gui.KhachSanForm khachSanForm;
     private presentation.gui.Menu menu1;
+    private presentation.gui.NhaHangForm nhaHangForm;
     private presentation.gui.PanelBorder panelBorder1;
+    private presentation.gui.PhuongTienForm phuongTienForm;
     private presentation.gui.TourForm tourForm;
     // End of variables declaration//GEN-END:variables
 }

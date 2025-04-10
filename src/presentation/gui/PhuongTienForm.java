@@ -1,27 +1,51 @@
 package presentation.gui;
 
-import business.model.DiaDanhDTO;
-import business.service.DiaDanhBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-public class DiaDanhForm extends javax.swing.JPanel {
+import business.model.PhuongTienDTO;
+import business.service.PhuongTienBUS;
 
-    public DiaDanhForm() {
+public class PhuongTienForm extends javax.swing.JPanel {
+    DefaultTableModel modelTablePhuongTien;
+    PhuongTienBUS phuongTienBUS;
+    ArrayList<PhuongTienDTO> listPhuongTien;
+
+    public PhuongTienForm() {
         initComponents();
-        spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
-        spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
-        spTable.getViewport().setBackground(Color.white);
+        modelTablePhuongTien = new DefaultTableModel(PhuongTienDTO.PHUONG_TIEN_COLUMN_NAMES, 0);
+        phuongTienBUS = new PhuongTienBUS();
+        listPhuongTien = phuongTienBUS.getListVehicle();
+
+        scrollTablePuongTien.getVerticalScrollBar().setUI(new MyScrollBarUI());
+        scrollTablePuongTien.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        scrollTablePuongTien.getViewport().setBackground(Color.white);
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
-        spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        DefaultTableModel model = new DefaultTableModel(DiaDanhDTO.DIA_DANH_COLUMN_NAMES, 0);
-        table.setModel(model);
-        loadAllCustomerData();
+        scrollTablePuongTien.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+
+        tablePhuongTien.setModel(modelTablePhuongTien);
+        uploadDataPhuongTien();
+    }
+
+    private void uploadDataPhuongTien() {
+        modelTablePhuongTien.setRowCount(0);
+        for (PhuongTienDTO phuongTien : listPhuongTien) {
+            modelTablePhuongTien.addRow(new Object[] {
+                phuongTien.getMaPhuongTien(),
+                phuongTien.getTenPhuongTien(),
+                phuongTien.getLoaiPhuongTien(),
+                phuongTien.getSoChoNgoi(),
+                phuongTien.getGia(),
+                phuongTien.getSdt(),
+                phuongTien.getTrangThai()
+            });
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -29,8 +53,8 @@ public class DiaDanhForm extends javax.swing.JPanel {
     private void initComponents() {
 
         panelBorder1 = new presentation.gui.PanelBorder();
-        spTable = new javax.swing.JScrollPane();
-        table = new presentation.gui.Table();
+        scrollTablePuongTien = new javax.swing.JScrollPane();
+        tablePhuongTien = new presentation.gui.Table();
         jLabel1 = new javax.swing.JLabel();
         btnDelete = new presentation.gui.MyButton();
         btnUpdate = new presentation.gui.MyButton();
@@ -38,31 +62,23 @@ public class DiaDanhForm extends javax.swing.JPanel {
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
-        spTable.setBorder(null);
+        scrollTablePuongTien.setBorder(null);
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tablePhuongTien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {}
             },
             new String [] {
-                "ID", "Họ", "Tên", "Ngày sinh", "Giới tính"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
-        spTable.setViewportView(table);
+        ));
+        scrollTablePuongTien.setViewportView(tablePhuongTien);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Bảng địa danh");
+        jLabel1.setText("Bảng phương tiện");
+        jLabel1.setToolTipText("");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -72,7 +88,7 @@ public class DiaDanhForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollTablePuongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
@@ -81,33 +97,18 @@ public class DiaDanhForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20)
-                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollTablePuongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setText("DELETE");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
 
         btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
         btnUpdate.setText("UPDATE");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
 
         btnAdd.setBackground(new java.awt.Color(51, 255, 102));
         btnAdd.setText("ADD");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,74 +139,14 @@ public class DiaDanhForm extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        DiaDanhBUS bus = new DiaDanhBUS();
-        int i = table.getSelectedRow();
-        if (i >= 0) {
-            if (bus.deleteDiaDanh((int) model.getValueAt(i, 0))) {
-                model.removeRow(i);
-            }
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        int index = table.getSelectedRow();
-        if (index > -1) {
-            DiaDanhDTO dd = new DiaDanhDTO();
-            dd.setMaDD((int) model.getValueAt(index, 0));
-            dd.setTenDD((String) model.getValueAt(index, 1));
-            dd.setTinhThanh((String) model.getValueAt(index, 2));
-            dd.setDiemNoiBat((String) model.getValueAt(index, 3));
-            InputDiaDanh form = new InputDiaDanh(this, InputDiaDanh.Mode.UPDATE);
-            form.loadData(dd);
-            form.setVisible(true);
-        }
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        InputDiaDanh form = new InputDiaDanh(this, InputDiaDanh.Mode.ADD);
-        form.setVisible(true);
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    public void addDiaDanh(DiaDanhDTO dd) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        DiaDanhBUS bus = new DiaDanhBUS();
-        int index = bus.addDiaDanh(dd);
-        if (index != -1) {
-            dd.setMaDD(index);
-            model.addRow(dd.toObjectArray());
-        }
-    }
     
-    public void updateDiaDanh(DiaDanhDTO dd) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        DiaDanhBUS bus = new DiaDanhBUS();
-        int index = bus.updateDiaDanh(dd);
-        if (index != -1) {
-            model.setValueAt(dd.getTenDD(), index, 1);
-            model.setValueAt(dd.getTinhThanh(), index, 2);
-            model.setValueAt(dd.getDiemNoiBat(), index, 3);
-        }
-    }
-    
-    private void loadAllCustomerData() {
-        DiaDanhBUS bus = new DiaDanhBUS();
-        ArrayList<DiaDanhDTO> DiaDanhs = bus.getDsDiaDanh();
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0);
-        DiaDanhs.forEach((var e) -> model.addRow(e.toObjectArray()));
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentation.gui.MyButton btnAdd;
     private presentation.gui.MyButton btnDelete;
     private presentation.gui.MyButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private presentation.gui.PanelBorder panelBorder1;
-    private javax.swing.JScrollPane spTable;
-    private presentation.gui.Table table;
+    private javax.swing.JScrollPane scrollTablePuongTien;
+    private presentation.gui.Table tablePhuongTien;
     // End of variables declaration//GEN-END:variables
 }

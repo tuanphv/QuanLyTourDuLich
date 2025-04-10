@@ -66,14 +66,35 @@
             <Component class="presentation.gui.TourForm" name="tourForm">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="card2"/>
+                  <CardConstraints cardName="cardTour"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="presentation.gui.DiaDanhForm" name="diaDanhForm">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="card3"/>
+                  <CardConstraints cardName="cardDiaDanh"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="presentation.gui.PhuongTienForm" name="phuongTienForm">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="cardPhuongTien"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="presentation.gui.NhaHangForm" name="nhaHangForm">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="cardNhaHang"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="presentation.gui.KhachSanForm" name="khachSanForm">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="cardKhachSan"/>
                 </Constraint>
               </Constraints>
             </Component>
