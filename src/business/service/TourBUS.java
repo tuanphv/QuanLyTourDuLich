@@ -15,24 +15,28 @@ public class TourBUS {
     }
 
     // Hàm loadData: lấy danh sách tour từ cơ sở dữ liệu thông qua DAO
-    public void loadData() {
+    private void loadData() {
         TourDAO dao = new TourDAO();
         dsTour = dao.getAllTours();
     }
 
     // Hàm thêm Tour
-    public boolean addTour(TourDTO tour) {
+    public int addTour(TourDTO tour) {
         TourDAO dao = new TourDAO();
-        boolean success = dao.addTour(tour);
-        if (success) {
+        int index = dao.addTour(tour);
+        if (index != -1) {
             // Thêm vào dsTour nếu thao tác INSERT thành công.
             dsTour.add(tour);
         }
-        return success;
+        return index;
     }
 
-    // Hàm sửa Tour
-    public boolean updateTour(TourDTO tour) {
+    /**
+     * 
+     * @param tour Tour to be updated
+     * @return index of element to be updated
+     */
+    public int updateTour(TourDTO tour) {
         TourDAO dao = new TourDAO();
         boolean success = dao.updateTour(tour);
         if (success) {
@@ -40,11 +44,11 @@ public class TourBUS {
             for (int i = 0; i < dsTour.size(); i++) {
                 if (dsTour.get(i).getMaTour() == tour.getMaTour()) {
                     dsTour.set(i, tour);
-                    break;
+                    return i;
                 }
             }
         }
-        return success;
+        return -1;
     }
 
     // Hàm xóa Tour theo mã tour

@@ -150,14 +150,60 @@ public class TourForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int index = table.getSelectedRow();
+        if (index > -1) {
+            TourDTO tour = new TourDTO();
+            tour.setMaTour((int) model.getValueAt(index, 0));
+            tour.setTenTour((String) model.getValueAt(index, 1));
+            tour.setGia((float) model.getValueAt(index, 2));
+            tour.setTinhTrang((String) model.getValueAt(index, 3));
+            tour.setMoTa((String) model.getValueAt(index, 4));
+            tour.setDiemKhoiHanh((String) model.getValueAt(index, 5));
+            tour.setDiemDen((String) model.getValueAt(index, 6));
+            tour.setLoaiTour((String) model.getValueAt(index, 7));
+            tour.setSoNgay((int) model.getValueAt(index, 8));
+            tour.setSoDem((int) model.getValueAt(index, 9));
+            InputTour formInput = new InputTour(this, InputTour.Mode.UPDATE);
+            formInput.loadData(tour);
+            formInput.setVisible(true);
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        Form_Input form = new Form_Input();
-        form.setVisible(true);
+        InputTour formInput = new InputTour(this, InputTour.Mode.ADD);
+        formInput.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
+    
+    public void addTour(TourDTO tour) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        TourBUS bus = new TourBUS();
+        int index = bus.addTour(tour);
+        if (index != -1) {
+            tour.setMaTour(index);
+            model.addRow(tour.toObjectArray());
+        }
+    }
+    
+    public void updateTour(TourDTO tour) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        TourBUS bus = new TourBUS();
+        int index = bus.updateTour(tour);
+        System.out.println("Update Tour: " + index);
+        if (index != -1) {
+            model.setValueAt(tour.getTenTour(), index, 1);
+            model.setValueAt(tour.getGia(), index, 2);
+            model.setValueAt(tour.getTinhTrang(), index, 3);
+            model.setValueAt(tour.getMoTa(), index, 4);
+            model.setValueAt(tour.getDiemKhoiHanh(), index, 5);
+            model.setValueAt(tour.getDiemDen(), index, 6);
+            model.setValueAt(tour.getLoaiTour(), index, 7);
+            model.setValueAt(tour.getSoNgay(), index, 8);
+            model.setValueAt(tour.getSoDem(), index, 9);
+        }
+    }
+    
     private void loadAllCustomerData() {
         TourBUS bus = new TourBUS();
         ArrayList<TourDTO> tours = bus.getDsTour();

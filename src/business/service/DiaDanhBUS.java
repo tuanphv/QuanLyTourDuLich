@@ -33,18 +33,18 @@ public class DiaDanhBUS {
     }
 
     // Sửa địa danh
-    public boolean updateDiaDanh(DiaDanhDTO diaDanh) {
+    public int updateDiaDanh(DiaDanhDTO diaDanh) {
         DiaDanhDAO dao = new DiaDanhDAO();
         boolean success = dao.updateDiaDanh(diaDanh);
         if (success) {
             for (int i = 0; i < dsDiaDanh.size(); i++) {
                 if (dsDiaDanh.get(i).getMaDD() == diaDanh.getMaDD()) {
                     dsDiaDanh.set(i, diaDanh);
-                    break;
+                    return i;
                 }
             }
         }
-        return success;
+        return -1;
     }
 
     // Xóa địa danh theo mã

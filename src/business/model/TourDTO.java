@@ -32,6 +32,18 @@ public class TourDTO {
         this.soNgay = soNgay;
         this.soDem = soDem;
     }
+    
+    public TourDTO(String tenTour, float gia, String tinhTrang, String moTa, String diemKhoiHanh, String diemDen, String loaiTour, int soNgay, int soDem) {
+        this.tenTour = tenTour;
+        this.gia = gia;
+        this.tinhTrang = tinhTrang;
+        this.moTa = moTa;
+        this.diemKhoiHanh = diemKhoiHanh;
+        this.diemDen = diemDen;
+        this.loaiTour = loaiTour;
+        this.soNgay = soNgay;
+        this.soDem = soDem;
+    }
 
     public TourDTO() {
     }

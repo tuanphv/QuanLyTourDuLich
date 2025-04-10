@@ -183,9 +183,8 @@ public class DiaDanhForm extends javax.swing.JPanel {
     public void updateDiaDanh(DiaDanhDTO dd) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         DiaDanhBUS bus = new DiaDanhBUS();
-        boolean success = bus.updateDiaDanh(dd);
-        int index = bus.findIndexByMa(dd.getMaDD());
-        if (success) {
+        int index = bus.updateDiaDanh(dd);
+        if (index != -1) {
             model.setValueAt(dd.getTenDD(), index, 1);
             model.setValueAt(dd.getTinhThanh(), index, 2);
             model.setValueAt(dd.getDiemNoiBat(), index, 3);

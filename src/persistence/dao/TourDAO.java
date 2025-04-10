@@ -1,6 +1,7 @@
 package persistence.dao;
 
 import business.model.TourDTO;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,9 +36,9 @@ public class TourDAO {
         return tours;
     }
 
-    public boolean addTour(TourDTO tour) {
+    public int addTour(TourDTO tour) {
         String query = "INSERT INTO tour (tenTour, gia, tinhTrang, moTa, diemKhoiHanh, diemDen, loaiTour, soNgay, soDem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, tour.getTenTour());
             pstmt.setFloat(2, tour.getGia());
@@ -49,11 +50,19 @@ public class TourDAO {
             pstmt.setInt(8, tour.getSoNgay());
             pstmt.setInt(9, tour.getSoDem());
 
-            return pstmt.executeUpdate() > 0;
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1); // Trả về ID vừa được sinh ra
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return -1;
     }
 
     public boolean deleteTour(int maTour) {
@@ -70,7 +79,6 @@ public class TourDAO {
     public boolean updateTour(TourDTO tour) {
         String query = "UPDATE tour SET tenTour = ?, gia = ?, tinhTrang = ?, moTa = ?, diemKhoiHanh = ?, diemDen = ?, loaiTour = ?, soNgay = ?, soDem = ? WHERE maTour = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-
             pstmt.setString(1, tour.getTenTour());
             pstmt.setFloat(2, tour.getGia());
             pstmt.setString(3, tour.getTinhTrang());
