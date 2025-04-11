@@ -16,8 +16,8 @@ public class Main extends javax.swing.JFrame {
         panelBorder1 = new presentation.gui.PanelBorder();
         menu1 = new presentation.gui.Menu();
         cardPanel = new javax.swing.JPanel();
-        customerForm = new presentation.gui.CustomerForm();
-        employeeForm = new presentation.gui.EmployeeForm();
+        customerForm = new presentation.gui.KhachHangForm();
+        employeeForm = new presentation.gui.NhanVienForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -86,8 +86,8 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
-    private presentation.gui.CustomerForm customerForm;
-    private presentation.gui.EmployeeForm employeeForm;
+    private presentation.gui.KhachHangForm customerForm;
+    private presentation.gui.NhanVienForm employeeForm;
     private presentation.gui.Menu menu1;
     private presentation.gui.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables
