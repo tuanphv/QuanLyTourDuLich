@@ -1,7 +1,7 @@
 package presentation.gui;
 
-import business.model.Customer;
-import business.service.CustomerService;
+import business.model.NhanVienDTO;
+import business.service.NhanVienBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -9,21 +9,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-public class EmployeeForm extends javax.swing.JPanel {
-    private DefaultTableModel model;
-    private CustomerService service = new CustomerService();
+public class NhanVienForm extends javax.swing.JPanel {
+    private final DefaultTableModel model;
+    private final NhanVienBUS service = new NhanVienBUS();
 
-    public EmployeeForm() {
+    public NhanVienForm() {
         initComponents();
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        String[] cols = {"ID", "Username", "Role", "Full name", "Phone number", "Email", "Type", "Registration Date"};
+        String[] cols = {"ID", "Họ tên", "Ngày sinh", "Giới tính", "Điện thoại", "Email", "Ngày vào làm"};
         model = new DefaultTableModel(cols, 0);
         table.setModel(model);
-//        loadAllCustomerData();
+        loadAllNhanVienData();
     }
 
     @SuppressWarnings("unchecked")
@@ -44,33 +44,33 @@ public class EmployeeForm extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Họ", "Tên", "Ngày sinh", "Giới tính"
+                "ID", "Họ tên", "Ngày sinh", "Giới tính", "Điện thoại", "Email", "Ngày vào làm"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, false
+                false, true, true, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -82,7 +82,7 @@ public class EmployeeForm extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Employee Table");
+        jLabel1.setText("Quản lý nhân viên");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -163,7 +163,7 @@ public class EmployeeForm extends javax.swing.JPanel {
         int i = table.getSelectedRow();
         if (i >= 0) {
             model.removeRow(i);
-            service.deleteCustomer(i);
+            service.deleteNhanVien(i);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -176,10 +176,10 @@ public class EmployeeForm extends javax.swing.JPanel {
         form.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void loadAllCustomerData(){
-        ArrayList<Customer> list = service.getCustomers();
+    private void loadAllNhanVienData(){
+        ArrayList<NhanVienDTO> list = service.getNhanVien();
         model.setRowCount(0);
-        for (Customer x: list) {
+        for (NhanVienDTO x: list) {
             model.addRow(x.toArray());
         }
     }

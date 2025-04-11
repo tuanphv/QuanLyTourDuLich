@@ -1,3 +1,5 @@
+use quanlytourdulich;
+
 CREATE TABLE phuongtien (
     maPhuongTien INT AUTO_INCREMENT PRIMARY KEY,
     tenPhuongTien VARCHAR(100),
@@ -5,7 +7,7 @@ CREATE TABLE phuongtien (
     soChoNgoi INT,
     sdt VARCHAR(20),
     gia FLOAT,
-    trangThai
+    trangThai varchar(20)
 );
 
 INSERT INTO phuongtien (maPhuongTien, tenPhuongTien, loaiPhuongTien, soChoNgoi, sdt, gia, trangThai) VALUES
@@ -26,7 +28,7 @@ CREATE TABLE khachsan (
     diaChi VARCHAR(255),
     sdt VARCHAR(20),
     gia FLOAT,
-    trangThai
+    trangThai varchar(20)
 );
 
 INSERT INTO khachsan (maKhachSan, tenKhachSan, diaChi, sdt, gia, trangThai) VALUES
@@ -47,7 +49,7 @@ CREATE TABLE nhahang (
     diaChi VARCHAR(255),
     sdt VARCHAR(20),
     gia FLOAT,
-    trangThai
+    trangThai varchar(20)
 );
 
 INSERT INTO nhahang (maNhaHang, tenNhaHang, diaChi, sdt, gia, trangThai) VALUES
