@@ -16,6 +16,7 @@ import business.model.KhachSanDTO;
 import business.service.KhachSanBUS;
 
 public class KhachSanForm extends javax.swing.JPanel {
+    int rowSelected;
     DefaultTableModel modalTableKhachSan;
     KhachSanBUS khachSanBUS;
     ArrayList<KhachSanDTO> listKhachSan;
@@ -159,35 +160,41 @@ public class KhachSanForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
-        int rowSelected = tableKhachSan.getSelectedRow();
+        rowSelected = tableKhachSan.getSelectedRow();
         if (rowSelected == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn đối tượng cần xoá!");
             return;
+        } 
+
+        int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modalTableKhachSan.getValueAt(rowSelected, 1), 
+        "Xoá khách sạn", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
+        if (answer == JOptionPane.YES_OPTION) {
+            khachSanBUS.delete((int) modalTableKhachSan.getValueAt(rowSelected, 0));
+            modalTableKhachSan.removeRow(rowSelected);
+            JOptionPane.showMessageDialog(this, "Xoá thành công!");
         } else {
-            int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modalTableKhachSan.getValueAt(rowSelected, 1), "Xoá khách sạn", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
-            if (answer == JOptionPane.YES_OPTION) {
-                khachSanBUS.delete((int) modalTableKhachSan.getValueAt(rowSelected, 0));
-                modalTableKhachSan.removeRow(rowSelected);
-                JOptionPane.showMessageDialog(this, "Xoá thành công!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Đã huỷ!");
-            }
+            JOptionPane.showMessageDialog(this, "Đã huỷ!");
         }
     }
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {                                       
         Window parent = SwingUtilities.getWindowAncestor(this);
-        InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, null);
+        InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, InputKhachSan.Mode.ADD, this);
         inputKhachSan.setLocationRelativeTo(null);
         inputKhachSan.setVisible(true);
+    }
 
-        int id =  khachSanBUS.insert(inputKhachSan.getKhachSan());
-        inputKhachSan.getKhachSan().setMaKhachSan(id);
-        modalTableKhachSan.addRow(inputKhachSan.getKhachSan().toObject());
+    public void addHotel(KhachSanDTO khachSan) {
+        int id = khachSanBUS.insert(khachSan);
+        if (id != -1) {
+            khachSan.setMaKhachSan(id);
+            modalTableKhachSan.addRow(khachSan.toObject());
+            JOptionPane.showMessageDialog(this, "Thêm thành công!");
+        }
     }
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        int rowSelected = tableKhachSan.getSelectedRow();
+        rowSelected = tableKhachSan.getSelectedRow();
         if (rowSelected == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn khách sạn cần chỉnh sửa!");
             return;
@@ -202,20 +209,24 @@ public class KhachSanForm extends javax.swing.JPanel {
             (int) tableKhachSan.getModel().getValueAt(rowSelected, 5)
         );
         Window parent = SwingUtilities.getWindowAncestor(this);
-        InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, khachSan);
+        InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, InputKhachSan.Mode.UPDATE, this);
+        inputKhachSan.uploadDataToModal(khachSan);
         inputKhachSan.setLocationRelativeTo(null);
         inputKhachSan.setVisible(true);
-
-        // cập nhật
-        KhachSanDTO khachSanNew = inputKhachSan.getKhachSan();
-        khachSanBUS.update(khachSanNew);
-        modalTableKhachSan.setValueAt(khachSanNew.getTenKhachSan(), rowSelected, 1);
-        modalTableKhachSan.setValueAt(khachSanNew.getDiaChi(), rowSelected, 2);
-        modalTableKhachSan.setValueAt(khachSanNew.getGia(), rowSelected, 3);
-        modalTableKhachSan.setValueAt(khachSanNew.getSoDienThoai(), rowSelected, 4);
-        modalTableKhachSan.setValueAt(khachSanNew.getTrangThai(), rowSelected, 5);
     }
     
+    public void updateHotel(KhachSanDTO khachSan) {
+        boolean success = khachSanBUS.update(khachSan);
+        if (success) {
+            modalTableKhachSan.setValueAt(khachSan.getTenKhachSan(), rowSelected, 1);
+            modalTableKhachSan.setValueAt(khachSan.getDiaChi(), rowSelected, 2);
+            modalTableKhachSan.setValueAt(khachSan.getGia(), rowSelected, 3);
+            modalTableKhachSan.setValueAt(khachSan.getSoDienThoai(), rowSelected, 4);
+            modalTableKhachSan.setValueAt(khachSan.getTrangThai(), rowSelected, 5);
+            JOptionPane.showMessageDialog(this, "Update thành công!");
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentation.gui.MyButton btnAdd;
     private presentation.gui.MyButton btnDelete;

@@ -46,7 +46,7 @@ public class NhaHangDAO {
             pstm.setString(3, nhaHang.getSoDienThoai());
             pstm.setInt(4, nhaHang.getGia());
             pstm.setInt(5, nhaHang.getTrangThai());
-            pstm.setInt(5, nhaHang.getMaNhaHang());
+            pstm.setInt(6, nhaHang.getMaNhaHang());
             return pstm.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();

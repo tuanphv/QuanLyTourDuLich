@@ -2,16 +2,21 @@ package presentation.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Window;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import business.model.PhuongTienDTO;
 import business.service.PhuongTienBUS;
 
 public class PhuongTienForm extends javax.swing.JPanel {
+    int rowSelected;
     DefaultTableModel modelTablePhuongTien;
     PhuongTienBUS phuongTienBUS;
     ArrayList<PhuongTienDTO> listPhuongTien;
@@ -47,8 +52,6 @@ public class PhuongTienForm extends javax.swing.JPanel {
             });
         }
     }
-
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -105,12 +108,27 @@ public class PhuongTienForm extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
         btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(51, 255, 102));
         btnAdd.setText("ADD");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -141,6 +159,79 @@ public class PhuongTienForm extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
+        Window parent = SwingUtilities.getWindowAncestor(this);
+        InputPhuongTien inputPhuongTien = new InputPhuongTien((Frame) parent, InputPhuongTien.Mode.ADD, this);
+        inputPhuongTien.setLocationRelativeTo(null);
+        inputPhuongTien.setVisible(true);
+    }
+
+    public void addPhuongTien(PhuongTienDTO phuongTien) {
+        int id = phuongTienBUS.insert(phuongTien);
+        if (id != -1) {
+            phuongTien.setMaPhuongTien(id);
+            modelTablePhuongTien.addRow(phuongTien.toOject());
+            JOptionPane.showMessageDialog(this, "Thêm thành công!");
+        }
+    }
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
+        rowSelected = tablePhuongTien.getSelectedRow();
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn phương tiện cần chỉnh sửa!");
+            return;
+        }
+
+        PhuongTienDTO phuongTien = new PhuongTienDTO(
+            (int) tablePhuongTien.getModel().getValueAt(rowSelected, 0),
+            tablePhuongTien.getModel().getValueAt(rowSelected, 1).toString(),
+            tablePhuongTien.getModel().getValueAt(rowSelected, 2).toString(),
+            (int) tablePhuongTien.getModel().getValueAt(rowSelected, 3),
+            (int) tablePhuongTien.getModel().getValueAt(rowSelected, 4),
+            tablePhuongTien.getModel().getValueAt(rowSelected, 5).toString(),
+            (int) tablePhuongTien.getModel().getValueAt(rowSelected, 6)
+        );
+        Window parent = SwingUtilities.getWindowAncestor(this);
+        InputPhuongTien inputPhuongTien = new InputPhuongTien((Frame) parent, InputPhuongTien.Mode.UPDATE, this);
+        inputPhuongTien.uploadDataToModal(phuongTien);
+        inputPhuongTien.setLocationRelativeTo(null);
+        inputPhuongTien.setVisible(true);
+    }
+
+    public void updatePhuongTien(PhuongTienDTO phuongTien) {
+        boolean success = phuongTienBUS.update(phuongTien);
+        if (success) {
+            modelTablePhuongTien.setValueAt(phuongTien.getTenPhuongTien(), rowSelected, 1);
+            modelTablePhuongTien.setValueAt(phuongTien.getLoaiPhuongTien(), rowSelected, 2);
+            modelTablePhuongTien.setValueAt(phuongTien.getSoChoNgoi(), rowSelected, 3);
+            modelTablePhuongTien.setValueAt(phuongTien.getGia(), rowSelected, 4);
+            modelTablePhuongTien.setValueAt(phuongTien.getSoDienThoai(), rowSelected, 5);
+            modelTablePhuongTien.setValueAt(phuongTien.getTrangThai(), rowSelected, 6);
+            JOptionPane.showMessageDialog(this, "Update thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR!");
+        }
+    }
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
+        rowSelected = tablePhuongTien.getSelectedRow();
+        System.out.println("rowSelected: " + rowSelected);
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn đối tượng cần xoá!");
+            return;
+        } 
+
+        int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modelTablePhuongTien.getValueAt(rowSelected, 1), 
+        "Xoá nhà hàng", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
+        if (answer == JOptionPane.YES_OPTION) {
+            phuongTienBUS.delete((int) modelTablePhuongTien.getValueAt(rowSelected, 0));
+            modelTablePhuongTien.removeRow(rowSelected);
+            JOptionPane.showMessageDialog(this, "Xoá thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã huỷ!");
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentation.gui.MyButton btnAdd;

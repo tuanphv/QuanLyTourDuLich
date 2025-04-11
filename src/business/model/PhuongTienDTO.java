@@ -102,4 +102,16 @@ public class PhuongTienDTO {
         "Trạng thái"
     };
 
+    public Object[] toOject() {
+        return new Object[] {
+            maPhuongTien,
+            tenPhuongTien,
+            loaiPhuongTien,
+            soChoNgoi,
+            gia,
+            soDienThoai,
+            trangThai
+        };
+    }
+
 }

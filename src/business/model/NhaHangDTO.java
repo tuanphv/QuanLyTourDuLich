@@ -89,5 +89,16 @@ public class NhaHangDTO {
         "Số điện thoại",
         "Trạng thái"
     };
+
+    public Object[] toObject() {
+        return new Object[] {
+            maNhaHang, 
+            tenNhaHang,
+            diaChi,
+            gia,
+            soDienThoai,
+            trangThai
+        };
+    }
     
 }

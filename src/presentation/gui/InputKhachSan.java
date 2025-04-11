@@ -8,26 +8,30 @@ import business.model.KhachSanDTO;
 
 public class InputKhachSan extends javax.swing.JDialog {
     KhachSanDTO khachSan;
+    KhachSanForm khachSanForm;
+    private Mode mode = Mode.ADD;
 
-
-    public InputKhachSan(Frame parent, KhachSanDTO khachSan) {
-        super(parent, "Thông tin khách sạn", true);
-        this.khachSan = khachSan;
-        initComponents();
-        
-        if (khachSan != null) {
-            System.out.println(khachSan.toString());
-            tfMaKhachSan.setText(khachSan.getMaKhachSan() + "");
-            tfTenKhachSan.setText(khachSan.getTenKhachSan());
-            tfDiaChi.setText(khachSan.getDiaChi());
-            tfGia.setText(khachSan.getGia() + "");
-            tfSoDienThoai.setText(khachSan.getSoDienThoai());
-            cbTrangThai.setSelectedItem(khachSan.getTrangThai() == 1 ? "Hoạt động" : "Đã khoá");
-        }
+    public static enum Mode {
+        ADD,
+        UPDATE
     }
 
-    public KhachSanDTO getKhachSan() {
-        return khachSan;
+    public InputKhachSan(Frame parent, Mode mode, KhachSanForm khachSanForm) {
+        super(parent, "Thông tin khách sạn", true);
+        this.mode = mode;
+        this.khachSanForm = khachSanForm;
+        initComponents();
+    }
+
+    public void uploadDataToModal(KhachSanDTO khachSan) {
+        this.khachSan = khachSan;
+        // System.out.println(khachSan.toString());
+        tfMaKhachSan.setText(khachSan.getMaKhachSan() + "");
+        tfTenKhachSan.setText(khachSan.getTenKhachSan());
+        tfDiaChi.setText(khachSan.getDiaChi());
+        tfGia.setText(khachSan.getGia() + "");
+        tfSoDienThoai.setText(khachSan.getSoDienThoai());
+        cbTrangThai.setSelectedItem(khachSan.getTrangThai() == 1 ? "Hoạt động" : "Đã khoá");
     }
 
     @SuppressWarnings("unchecked")
@@ -174,15 +178,20 @@ public class InputKhachSan extends javax.swing.JDialog {
                 tfDiaChi.getText(),
                 Integer.parseInt(tfGia.getText()),
                 tfSoDienThoai.getText(),
-                cbTrangThai.getSelectedItem() == "Hoạt động" ? 1 : 0
+                cbTrangThai.getSelectedItem().equals("Hoạt động") ? 1 : 0
             );
         } else {
             khachSan.setTenKhachSan(tfTenKhachSan.getText());
             khachSan.setDiaChi(tfDiaChi.getText());
             khachSan.setGia(Integer.parseInt(tfGia.getText()));
             khachSan.setSoDienThoai(tfSoDienThoai.getText());
-            khachSan.setTrangThai(cbTrangThai.getSelectedItem() == "Hoạt động" ? 1 : 0);
+            khachSan.setTrangThai(cbTrangThai.getSelectedItem().equals("Hoạt động") ? 1 : 0);
         } 
+
+        switch (mode) {
+            case ADD -> khachSanForm.addHotel(khachSan);
+            case UPDATE -> khachSanForm.updateHotel(khachSan);
+        }
 
         dispose(); // đóng dialog
     }

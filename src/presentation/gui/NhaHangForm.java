@@ -2,16 +2,21 @@ package presentation.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Window;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import business.model.NhaHangDTO;
 import business.service.NhaHangBUS;
 
 public class NhaHangForm extends javax.swing.JPanel {
+    int rowSelected;
     DefaultTableModel modalTableNhaHang;
     NhaHangBUS nhaHangBUS;
     ArrayList<NhaHangDTO> listNhaHang;
@@ -102,12 +107,27 @@ public class NhaHangForm extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
         btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(51, 255, 102));
         btnAdd.setText("ADD");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,6 +158,74 @@ public class NhaHangForm extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
+        Window parent = SwingUtilities.getWindowAncestor(this);
+        InputNhaHang inputNhaHang = new InputNhaHang((Frame)parent, InputNhaHang.Mode.ADD, this);
+        inputNhaHang.setLocationRelativeTo(null);
+        inputNhaHang.setVisible(true);
+    }
+
+    public void addRestaurant(NhaHangDTO nhaHang) {
+        int id = nhaHangBUS.insert(nhaHang);
+        if (id != -1) {
+            nhaHang.setMaNhaHang(id);
+            modalTableNhaHang.addRow(nhaHang.toObject());
+            JOptionPane.showMessageDialog(this, "Thêm thành công!");
+        }
+    }
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
+        rowSelected = tableNhaHang.getSelectedRow();
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn nhà hàng cần chỉnh sửa!");
+            return;
+        }
+
+        NhaHangDTO nhaHang = new NhaHangDTO(
+            (int) tableNhaHang.getModel().getValueAt(rowSelected, 0),
+            (String) tableNhaHang.getModel().getValueAt(rowSelected, 1),
+            (String) tableNhaHang.getModel().getValueAt(rowSelected, 2),
+            (int) tableNhaHang.getModel().getValueAt(rowSelected, 3),
+            (String) tableNhaHang.getModel().getValueAt(rowSelected, 4),
+            (int) tableNhaHang.getModel().getValueAt(rowSelected, 5)
+        );
+        Window parent = SwingUtilities.getWindowAncestor(this);
+        InputNhaHang inputNhaHang = new InputNhaHang((Frame) parent, InputNhaHang.Mode.UPDATE, this);
+        inputNhaHang.uploadDataToModal(nhaHang);
+        inputNhaHang.setLocationRelativeTo(null);
+        inputNhaHang.setVisible(true);
+    }
+
+    public void updateRestaurant(NhaHangDTO nhaHang) {
+        boolean success = nhaHangBUS.update(nhaHang);
+        if (success) {
+            modalTableNhaHang.setValueAt(nhaHang.getTenNhaHang(), rowSelected, 1);
+            modalTableNhaHang.setValueAt(nhaHang.getDiaChi(), rowSelected, 2);
+            modalTableNhaHang.setValueAt(nhaHang.getGia(), rowSelected, 3);
+            modalTableNhaHang.setValueAt(nhaHang.getSoDienThoai(), rowSelected, 4);
+            modalTableNhaHang.setValueAt(nhaHang.getTrangThai(), rowSelected, 5);
+            JOptionPane.showMessageDialog(this, "Update thành công!");
+        }
+    }
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
+        rowSelected = tableNhaHang.getSelectedRow();
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn đối tượng cần xoá!");
+            return;
+        } 
+
+        int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modalTableNhaHang.getValueAt(rowSelected, 1), 
+        "Xoá nhà hàng", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
+        if (answer == JOptionPane.YES_OPTION) {
+            nhaHangBUS.delete((int) modalTableNhaHang.getValueAt(rowSelected, 0));
+            modalTableNhaHang.removeRow(rowSelected);
+            JOptionPane.showMessageDialog(this, "Xoá thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã huỷ!");
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentation.gui.MyButton btnAdd;
