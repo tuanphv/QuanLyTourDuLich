@@ -19,7 +19,12 @@ public class TourForm extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        DefaultTableModel model = new DefaultTableModel(TourDTO.TOUR_COLUMN_NAMES, 0);
+        DefaultTableModel model = new DefaultTableModel(TourDTO.TOUR_COLUMN_NAMES, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0;
+            }
+        };
         table.setModel(model);
         loadAllCustomerData();
     }
@@ -45,17 +50,9 @@ public class TourForm extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Họ", "Tên", "Ngày sinh", "Giới tính"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         spTable.setViewportView(table);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -175,7 +172,6 @@ public class TourForm extends javax.swing.JPanel {
         formInput.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
-    
     public void addTour(TourDTO tour) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         TourBUS bus = new TourBUS();
@@ -185,7 +181,7 @@ public class TourForm extends javax.swing.JPanel {
             model.addRow(tour.toObjectArray());
         }
     }
-    
+
     public void updateTour(TourDTO tour) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         TourBUS bus = new TourBUS();
@@ -203,7 +199,7 @@ public class TourForm extends javax.swing.JPanel {
             model.setValueAt(tour.getSoDem(), index, 9);
         }
     }
-    
+
     private void loadAllCustomerData() {
         TourBUS bus = new TourBUS();
         ArrayList<TourDTO> tours = bus.getDsTour();

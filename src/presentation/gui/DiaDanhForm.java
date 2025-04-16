@@ -5,8 +5,11 @@ import business.service.DiaDanhBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class DiaDanhForm extends javax.swing.JPanel {
@@ -19,7 +22,12 @@ public class DiaDanhForm extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        DefaultTableModel model = new DefaultTableModel(DiaDanhDTO.DIA_DANH_COLUMN_NAMES, 0);
+        DefaultTableModel model = new DefaultTableModel(DiaDanhDTO.DIA_DANH_COLUMN_NAMES, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0;
+            }
+        };
         table.setModel(model);
         loadAllCustomerData();
     }
@@ -42,21 +50,12 @@ public class DiaDanhForm extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Họ", "Tên", "Ngày sinh", "Giới tính"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         spTable.setViewportView(table);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -146,8 +145,10 @@ public class DiaDanhForm extends javax.swing.JPanel {
         if (i >= 0) {
             if (bus.deleteDiaDanh((int) model.getValueAt(i, 0))) {
                 model.removeRow(i);
+                JOptionPane.showMessageDialog(this, "Đã xóa địa danh thành công!");
             }
-        }
+        } else
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn địa danh cần xóa!");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -159,28 +160,52 @@ public class DiaDanhForm extends javax.swing.JPanel {
             dd.setTenDD((String) model.getValueAt(index, 1));
             dd.setTinhThanh((String) model.getValueAt(index, 2));
             dd.setDiemNoiBat((String) model.getValueAt(index, 3));
-            InputDiaDanh form = new InputDiaDanh(this, InputDiaDanh.Mode.UPDATE);
-            form.loadData(dd);
-            form.setVisible(true);
-        }
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            DiaDanhDialog dialog = new DiaDanhDialog(parentFrame);
+            dialog.loadData(dd);
+            dialog.setLocationRelativeTo(parentFrame);
+            dialog.setVisible(true);
+            if (dialog.isSave()) {
+                DiaDanhDTO ddInput = dialog.getDiaDanhInput();
+                ddInput.setMaDD(dd.getMaDD());
+                if (updateDiaDanh(ddInput)) {
+                    JOptionPane.showMessageDialog(this, "Đã cập nhật địa danh!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
+                }
+            }
+        } else
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn địa danh cần cập nhật!");
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        InputDiaDanh form = new InputDiaDanh(this, InputDiaDanh.Mode.ADD);
-        form.setVisible(true);
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        DiaDanhDialog dialog = new DiaDanhDialog(parentFrame);
+        dialog.setLocationRelativeTo(parentFrame);
+        dialog.setVisible(true);
+        if (dialog.isSave()) {
+            DiaDanhDTO ddInput = dialog.getDiaDanhInput();
+            if (addDiaDanh(ddInput)) {
+                JOptionPane.showMessageDialog(this, "Đã thêm địa danh!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
+            }
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    public void addDiaDanh(DiaDanhDTO dd) {
+    public boolean addDiaDanh(DiaDanhDTO dd) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         DiaDanhBUS bus = new DiaDanhBUS();
         int index = bus.addDiaDanh(dd);
         if (index != -1) {
             dd.setMaDD(index);
             model.addRow(dd.toObjectArray());
+            return true;
         }
+        return false;
     }
-    
-    public void updateDiaDanh(DiaDanhDTO dd) {
+
+    public boolean updateDiaDanh(DiaDanhDTO dd) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         DiaDanhBUS bus = new DiaDanhBUS();
         int index = bus.updateDiaDanh(dd);
@@ -188,9 +213,11 @@ public class DiaDanhForm extends javax.swing.JPanel {
             model.setValueAt(dd.getTenDD(), index, 1);
             model.setValueAt(dd.getTinhThanh(), index, 2);
             model.setValueAt(dd.getDiemNoiBat(), index, 3);
+            return true;
         }
+        return false;
     }
-    
+
     private void loadAllCustomerData() {
         DiaDanhBUS bus = new DiaDanhBUS();
         ArrayList<DiaDanhDTO> DiaDanhs = bus.getDsDiaDanh();
