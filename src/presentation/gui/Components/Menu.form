@@ -104,17 +104,17 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="presentation.gui.MenuItem" name="tour">
+        <Component class="presentation.gui.Components.MenuItem" name="tour">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tourActionPerformed"/>
           </Events>
         </Component>
-        <Component class="presentation.gui.MenuItem" name="diadanh">
+        <Component class="presentation.gui.Components.MenuItem" name="diadanh">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diadanhActionPerformed"/>
           </Events>
         </Component>
-        <Component class="presentation.gui.MenuItem" name="phuongTien">
+        <Component class="presentation.gui.Components.MenuItem" name="phuongTien">
           <Properties>
             <Property name="text" type="java.lang.String" value=""/>
           </Properties>
@@ -122,7 +122,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phuongTienActionPerformed"/>
           </Events>
         </Component>
-        <Component class="presentation.gui.MenuItem" name="khachSan">
+        <Component class="presentation.gui.Components.MenuItem" name="khachSan">
           <Properties>
             <Property name="text" type="java.lang.String" value=""/>
           </Properties>
@@ -130,7 +130,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="khachSanActionPerformed"/>
           </Events>
         </Component>
-        <Component class="presentation.gui.MenuItem" name="nhaHang">
+        <Component class="presentation.gui.Components.MenuItem" name="nhaHang">
           <Properties>
             <Property name="text" type="java.lang.String" value=""/>
           </Properties>

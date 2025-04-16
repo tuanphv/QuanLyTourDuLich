@@ -1,13 +1,18 @@
-package presentation.gui;
+package presentation.gui.Form;
 
 import business.model.TourDTO;
 import business.service.TourBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import presentation.gui.Components.MyScrollBarUI;
+import presentation.gui.InputDialog.TourDialog;
 
 public class TourForm extends javax.swing.JPanel {
 
@@ -33,13 +38,13 @@ public class TourForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new presentation.gui.PanelBorder();
+        panelBorder1 = new presentation.gui.Components.PanelBorder();
         spTable = new javax.swing.JScrollPane();
-        table = new presentation.gui.Table();
+        table = new presentation.gui.Components.Table();
         jLabel1 = new javax.swing.JLabel();
-        btnDelete = new presentation.gui.MyButton();
-        btnUpdate = new presentation.gui.MyButton();
-        btnAdd = new presentation.gui.MyButton();
+        btnDelete = new presentation.gui.Components.MyButton();
+        btnUpdate = new presentation.gui.Components.MyButton();
+        btnAdd = new presentation.gui.Components.MyButton();
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -140,10 +145,22 @@ public class TourForm extends javax.swing.JPanel {
         TourBUS bus = new TourBUS();
         int i = table.getSelectedRow();
         if (i >= 0) {
-            if (bus.deleteTour((int) model.getValueAt(i, 0))) {
-                model.removeRow(i);
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    "Bạn có chắc chắn muốn thoát?",
+                    "Xác nhận",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (result == JOptionPane.OK_OPTION) {
+                if (bus.deleteTour((int) model.getValueAt(i, 0))) {
+                    model.removeRow(i);
+                    JOptionPane.showMessageDialog(this, "Xóa tour thành công!");
+                }
             }
-        }
+        } else
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn tour cần xóa!");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -161,28 +178,52 @@ public class TourForm extends javax.swing.JPanel {
             tour.setLoaiTour((String) model.getValueAt(index, 7));
             tour.setSoNgay((int) model.getValueAt(index, 8));
             tour.setSoDem((int) model.getValueAt(index, 9));
-            InputTour formInput = new InputTour(this, InputTour.Mode.UPDATE);
-            formInput.loadData(tour);
-            formInput.setVisible(true);
-        }
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            TourDialog dialog = new TourDialog(parentFrame);
+            dialog.loadData(tour);
+            dialog.setLocationRelativeTo(parentFrame);
+            dialog.setVisible(true);
+            if (dialog.isSave()) {
+                TourDTO tourInput = dialog.getInputData();
+                tourInput.setMaTour(tour.getMaTour());
+                if (updateTour(tourInput)) {
+                    JOptionPane.showMessageDialog(this, "Đã cập nhật tour!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
+                }
+            }
+        } else
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn tour cần cập nhật!");
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        InputTour formInput = new InputTour(this, InputTour.Mode.ADD);
-        formInput.setVisible(true);
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        TourDialog dialog = new TourDialog(parentFrame);
+        dialog.setLocationRelativeTo(parentFrame);
+        dialog.setVisible(true);
+        if (dialog.isSave()) {
+            TourDTO tourInput = dialog.getInputData();
+            if (addTour(tourInput)) {
+                JOptionPane.showMessageDialog(this, "Đã thêm tour!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
+            }
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    public void addTour(TourDTO tour) {
+    public boolean addTour(TourDTO tour) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         TourBUS bus = new TourBUS();
         int index = bus.addTour(tour);
         if (index != -1) {
             tour.setMaTour(index);
             model.addRow(tour.toObjectArray());
+            return true;
         }
+        return false;
     }
 
-    public void updateTour(TourDTO tour) {
+    public boolean updateTour(TourDTO tour) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         TourBUS bus = new TourBUS();
         int index = bus.updateTour(tour);
@@ -197,7 +238,9 @@ public class TourForm extends javax.swing.JPanel {
             model.setValueAt(tour.getLoaiTour(), index, 7);
             model.setValueAt(tour.getSoNgay(), index, 8);
             model.setValueAt(tour.getSoDem(), index, 9);
+            return true;
         }
+        return false;
     }
 
     private void loadAllCustomerData() {
@@ -209,12 +252,12 @@ public class TourForm extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.MyButton btnAdd;
-    private presentation.gui.MyButton btnDelete;
-    private presentation.gui.MyButton btnUpdate;
+    private presentation.gui.Components.MyButton btnAdd;
+    private presentation.gui.Components.MyButton btnDelete;
+    private presentation.gui.Components.MyButton btnUpdate;
     private javax.swing.JLabel jLabel1;
-    private presentation.gui.PanelBorder panelBorder1;
+    private presentation.gui.Components.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
-    private presentation.gui.Table table;
+    private presentation.gui.Components.Table table;
     // End of variables declaration//GEN-END:variables
 }

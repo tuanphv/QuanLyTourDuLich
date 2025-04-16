@@ -1,4 +1,4 @@
-package presentation.gui;
+package presentation.gui.Form;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
 
 import business.model.PhuongTienDTO;
 import business.service.PhuongTienBUS;
+import presentation.gui.InputDialog.InputPhuongTien;
+import presentation.gui.Components.MyScrollBarUI;
 
 public class PhuongTienForm extends javax.swing.JPanel {
     int rowSelected;
@@ -57,13 +59,13 @@ public class PhuongTienForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new presentation.gui.PanelBorder();
+        panelBorder1 = new presentation.gui.Components.PanelBorder();
         scrollTablePuongTien = new javax.swing.JScrollPane();
-        tablePhuongTien = new presentation.gui.Table();
+        tablePhuongTien = new presentation.gui.Components.Table();
         jLabel1 = new javax.swing.JLabel();
-        btnDelete = new presentation.gui.MyButton();
-        btnUpdate = new presentation.gui.MyButton();
-        btnAdd = new presentation.gui.MyButton();
+        btnDelete = new presentation.gui.Components.MyButton();
+        btnUpdate = new presentation.gui.Components.MyButton();
+        btnAdd = new presentation.gui.Components.MyButton();
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -234,12 +236,12 @@ public class PhuongTienForm extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.MyButton btnAdd;
-    private presentation.gui.MyButton btnDelete;
-    private presentation.gui.MyButton btnUpdate;
+    private presentation.gui.Components.MyButton btnAdd;
+    private presentation.gui.Components.MyButton btnDelete;
+    private presentation.gui.Components.MyButton btnUpdate;
     private javax.swing.JLabel jLabel1;
-    private presentation.gui.PanelBorder panelBorder1;
+    private presentation.gui.Components.PanelBorder panelBorder1;
     private javax.swing.JScrollPane scrollTablePuongTien;
-    private presentation.gui.Table tablePhuongTien;
+    private presentation.gui.Components.Table tablePhuongTien;
     // End of variables declaration//GEN-END:variables
 }

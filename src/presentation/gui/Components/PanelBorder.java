@@ -1,5 +1,5 @@
 
-package presentation.gui;
+package presentation.gui.Components;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

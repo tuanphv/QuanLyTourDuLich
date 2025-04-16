@@ -1,5 +1,6 @@
-package presentation.gui;
+package presentation.gui.Components;
 
+import presentation.gui.Components.MenuItem;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import presentation.gui.Main;
 
 public class Menu extends javax.swing.JPanel {
 
@@ -56,11 +58,11 @@ public class Menu extends javax.swing.JPanel {
         panelMoving = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        tour = new presentation.gui.MenuItem();
-        diadanh = new presentation.gui.MenuItem();
-        phuongTien = new presentation.gui.MenuItem();
-        khachSan = new presentation.gui.MenuItem();
-        nhaHang = new presentation.gui.MenuItem();
+        tour = new presentation.gui.Components.MenuItem();
+        diadanh = new presentation.gui.Components.MenuItem();
+        phuongTien = new presentation.gui.Components.MenuItem();
+        khachSan = new presentation.gui.Components.MenuItem();
+        nhaHang = new presentation.gui.Components.MenuItem();
 
         panelMoving.setOpaque(false);
 
@@ -232,13 +234,13 @@ public class Menu extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.MenuItem diadanh;
+    private presentation.gui.Components.MenuItem diadanh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private presentation.gui.MenuItem khachSan;
-    private presentation.gui.MenuItem nhaHang;
+    private presentation.gui.Components.MenuItem khachSan;
+    private presentation.gui.Components.MenuItem nhaHang;
     private javax.swing.JPanel panelMoving;
-    private presentation.gui.MenuItem phuongTien;
-    private presentation.gui.MenuItem tour;
+    private presentation.gui.Components.MenuItem phuongTien;
+    private presentation.gui.Components.MenuItem tour;
     // End of variables declaration//GEN-END:variables
 }

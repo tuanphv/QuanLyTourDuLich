@@ -1,42 +1,50 @@
-package presentation.gui;
+package presentation.gui.Form;
 
-import business.model.Customer;
-import business.service.CustomerService;
+import business.model.DiaDanhDTO;
+import business.service.DiaDanhBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import presentation.gui.InputDialog.DiaDanhDialog;
+import presentation.gui.Components.MyScrollBarUI;
 
-public class EmployeeForm extends javax.swing.JPanel {
-    private DefaultTableModel model;
-    private CustomerService service = new CustomerService();
+public class DiaDanhForm extends javax.swing.JPanel {
 
-    public EmployeeForm() {
+    public DiaDanhForm() {
         initComponents();
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        spTable.getViewport().setBackground(Color.white);
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        String[] cols = {"ID", "Username", "Role", "Full name", "Phone number", "Email", "Type", "Registration Date"};
-        model = new DefaultTableModel(cols, 0);
+        DefaultTableModel model = new DefaultTableModel(DiaDanhDTO.DIA_DANH_COLUMN_NAMES, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0;
+            }
+        };
         table.setModel(model);
-//        loadAllCustomerData();
+        loadAllCustomerData();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new presentation.gui.PanelBorder();
+        panelBorder1 = new presentation.gui.Components.PanelBorder();
         spTable = new javax.swing.JScrollPane();
-        table = new presentation.gui.Table();
+        table = new presentation.gui.Components.Table();
         jLabel1 = new javax.swing.JLabel();
-        btnDelete = new presentation.gui.MyButton();
-        btnUpdate = new presentation.gui.MyButton();
-        btnAdd = new presentation.gui.MyButton();
+        btnDelete = new presentation.gui.Components.MyButton();
+        btnUpdate = new presentation.gui.Components.MyButton();
+        btnAdd = new presentation.gui.Components.MyButton();
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -44,45 +52,18 @@ public class EmployeeForm extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Họ", "Tên", "Ngày sinh", "Giới tính"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         spTable.setViewportView(table);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Employee Table");
+        jLabel1.setText("Bảng địa danh");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -160,37 +141,110 @@ public class EmployeeForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        DiaDanhBUS bus = new DiaDanhBUS();
         int i = table.getSelectedRow();
         if (i >= 0) {
-            model.removeRow(i);
-            service.deleteCustomer(i);
-        }
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    "Bạn có chắc chắn muốn thoát?",
+                    "Xác nhận",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (result == JOptionPane.OK_OPTION) {
+                if (bus.deleteDiaDanh((int) model.getValueAt(i, 0))) {
+                    model.removeRow(i);
+                    JOptionPane.showMessageDialog(this, "Đã xóa địa danh thành công!");
+                }
+            }
+        } else
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn địa danh cần xóa!");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int index = table.getSelectedRow();
+        if (index > -1) {
+            DiaDanhDTO dd = new DiaDanhDTO();
+            dd.setMaDD((int) model.getValueAt(index, 0));
+            dd.setTenDD((String) model.getValueAt(index, 1));
+            dd.setTinhThanh((String) model.getValueAt(index, 2));
+            dd.setDiemNoiBat((String) model.getValueAt(index, 3));
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            DiaDanhDialog dialog = new DiaDanhDialog(parentFrame);
+            dialog.loadData(dd);
+            dialog.setLocationRelativeTo(parentFrame);
+            dialog.setVisible(true);
+            if (dialog.isSave()) {
+                DiaDanhDTO ddInput = dialog.getInputData();
+                ddInput.setMaDD(dd.getMaDD());
+                if (updateDiaDanh(ddInput)) {
+                    JOptionPane.showMessageDialog(this, "Đã cập nhật địa danh!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
+                }
+            }
+        } else
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn địa danh cần cập nhật!");
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        Form_Input form = new Form_Input();
-        form.setVisible(true);
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        DiaDanhDialog dialog = new DiaDanhDialog(parentFrame);
+        dialog.setLocationRelativeTo(parentFrame);
+        dialog.setVisible(true);
+        if (dialog.isSave()) {
+            DiaDanhDTO ddInput = dialog.getInputData();
+            if (addDiaDanh(ddInput)) {
+                JOptionPane.showMessageDialog(this, "Đã thêm địa danh!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
+            }
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void loadAllCustomerData(){
-        ArrayList<Customer> list = service.getCustomers();
-        model.setRowCount(0);
-        for (Customer x: list) {
-            model.addRow(x.toArray());
+    public boolean addDiaDanh(DiaDanhDTO dd) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        DiaDanhBUS bus = new DiaDanhBUS();
+        int index = bus.addDiaDanh(dd);
+        if (index != -1) {
+            dd.setMaDD(index);
+            model.addRow(dd.toObjectArray());
+            return true;
         }
+        return false;
+    }
+
+    public boolean updateDiaDanh(DiaDanhDTO dd) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        DiaDanhBUS bus = new DiaDanhBUS();
+        int index = bus.updateDiaDanh(dd);
+        if (index != -1) {
+            model.setValueAt(dd.getTenDD(), index, 1);
+            model.setValueAt(dd.getTinhThanh(), index, 2);
+            model.setValueAt(dd.getDiemNoiBat(), index, 3);
+            return true;
+        }
+        return false;
+    }
+
+    private void loadAllCustomerData() {
+        DiaDanhBUS bus = new DiaDanhBUS();
+        ArrayList<DiaDanhDTO> DiaDanhs = bus.getDsDiaDanh();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        DiaDanhs.forEach((var e) -> model.addRow(e.toObjectArray()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.MyButton btnAdd;
-    private presentation.gui.MyButton btnDelete;
-    private presentation.gui.MyButton btnUpdate;
+    private presentation.gui.Components.MyButton btnAdd;
+    private presentation.gui.Components.MyButton btnDelete;
+    private presentation.gui.Components.MyButton btnUpdate;
     private javax.swing.JLabel jLabel1;
-    private presentation.gui.PanelBorder panelBorder1;
+    private presentation.gui.Components.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
-    private presentation.gui.Table table;
+    private presentation.gui.Components.Table table;
     // End of variables declaration//GEN-END:variables
 }

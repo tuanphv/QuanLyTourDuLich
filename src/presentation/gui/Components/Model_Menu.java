@@ -1,5 +1,5 @@
 
-package presentation.gui;
+package presentation.gui.Components;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;

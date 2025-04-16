@@ -13,14 +13,14 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new presentation.gui.PanelBorder();
-        menu1 = new presentation.gui.Menu();
+        panelBorder1 = new presentation.gui.Components.PanelBorder();
+        menu1 = new presentation.gui.Components.Menu();
         cardPanel = new javax.swing.JPanel();
-        tourForm = new presentation.gui.TourForm();
-        diaDanhForm = new presentation.gui.DiaDanhForm();
-        phuongTienForm = new presentation.gui.PhuongTienForm();
-        nhaHangForm = new presentation.gui.NhaHangForm();
-        khachSanForm = new presentation.gui.KhachSanForm();
+        tourForm = new presentation.gui.Form.TourForm();
+        diaDanhForm = new presentation.gui.Form.DiaDanhForm();
+        phuongTienForm = new presentation.gui.Form.PhuongTienForm();
+        nhaHangForm = new presentation.gui.Form.NhaHangForm();
+        khachSanForm = new presentation.gui.Form.KhachSanForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -92,12 +92,12 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
-    private presentation.gui.DiaDanhForm diaDanhForm;
-    private presentation.gui.KhachSanForm khachSanForm;
-    private presentation.gui.Menu menu1;
-    private presentation.gui.NhaHangForm nhaHangForm;
-    private presentation.gui.PanelBorder panelBorder1;
-    private presentation.gui.PhuongTienForm phuongTienForm;
-    private presentation.gui.TourForm tourForm;
+    private presentation.gui.Form.DiaDanhForm diaDanhForm;
+    private presentation.gui.Form.KhachSanForm khachSanForm;
+    private presentation.gui.Components.Menu menu1;
+    private presentation.gui.Form.NhaHangForm nhaHangForm;
+    private presentation.gui.Components.PanelBorder panelBorder1;
+    private presentation.gui.Form.PhuongTienForm phuongTienForm;
+    private presentation.gui.Form.TourForm tourForm;
     // End of variables declaration//GEN-END:variables
 }

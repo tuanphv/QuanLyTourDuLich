@@ -1,5 +1,6 @@
-package presentation.gui;
+package presentation.gui.Form;
 
+import presentation.gui.Components.MyScrollBarUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -12,42 +13,43 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import business.model.NhaHangDTO;
-import business.service.NhaHangBUS;
+import business.model.KhachSanDTO;
+import business.service.KhachSanBUS;
+import presentation.gui.InputDialog.InputKhachSan;
 
-public class NhaHangForm extends javax.swing.JPanel {
+public class KhachSanForm extends javax.swing.JPanel {
     int rowSelected;
-    DefaultTableModel modalTableNhaHang;
-    NhaHangBUS nhaHangBUS;
-    ArrayList<NhaHangDTO> listNhaHang;
+    DefaultTableModel modalTableKhachSan;
+    KhachSanBUS khachSanBUS;
+    ArrayList<KhachSanDTO> listKhachSan;
 
-    public NhaHangForm() {
+    public KhachSanForm() {
         initComponents();
-        modalTableNhaHang = new DefaultTableModel(NhaHangDTO.NHA_HANG_COLUMN_NAMES, 0);
-        nhaHangBUS = new NhaHangBUS();
-        listNhaHang = nhaHangBUS.getListRestaurant();
+        modalTableKhachSan = new DefaultTableModel(KhachSanDTO.KHACH_SAN_COLUMN_NAMES, 0);
+        khachSanBUS = new KhachSanBUS();
+        listKhachSan = khachSanBUS.getListHotel();
 
-        scrollTableNhaHang.getVerticalScrollBar().setUI(new MyScrollBarUI());
-        scrollTableNhaHang.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
-        scrollTableNhaHang.getViewport().setBackground(Color.white);
+        scrollTableKhachSan.getVerticalScrollBar().setUI(new MyScrollBarUI());
+        scrollTableKhachSan.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        scrollTableKhachSan.getViewport().setBackground(Color.white);
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
-        scrollTableNhaHang.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+        scrollTableKhachSan.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
-        tableNhaHang.setModel(modalTableNhaHang);
+        tableKhachSan.setModel(modalTableKhachSan);
         uploadDataPhuongTien();
     }
 
     private void uploadDataPhuongTien() {
-        modalTableNhaHang.setRowCount(0);
-        for (NhaHangDTO nhaHang : listNhaHang) {
-            modalTableNhaHang.addRow(new Object[] {
-                nhaHang.getMaNhaHang(),
-                nhaHang.getTenNhaHang(),
-                nhaHang.getDiaChi(),
-                nhaHang.getGia(),
-                nhaHang.getSoDienThoai(),
-                nhaHang.getTrangThai()
+        modalTableKhachSan.setRowCount(0);
+        for (KhachSanDTO khachSan : listKhachSan) {
+            modalTableKhachSan.addRow(new Object[] {
+                khachSan.getMaKhachSan(), 
+                khachSan.getTenKhachSan(), 
+                khachSan.getDiaChi(), 
+                khachSan.getGia(), 
+                khachSan.getSoDienThoai(),
+                khachSan.getTrangThai()
             });
         }
     }
@@ -56,19 +58,19 @@ public class NhaHangForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new presentation.gui.PanelBorder();
-        scrollTableNhaHang = new javax.swing.JScrollPane();
-        tableNhaHang = new presentation.gui.Table();
+        panelBorder1 = new presentation.gui.Components.PanelBorder();
+        scrollTableKhachSan = new javax.swing.JScrollPane();
+        tableKhachSan = new presentation.gui.Components.Table();
         jLabel1 = new javax.swing.JLabel();
-        btnDelete = new presentation.gui.MyButton();
-        btnUpdate = new presentation.gui.MyButton();
-        btnAdd = new presentation.gui.MyButton();
+        btnDelete = new presentation.gui.Components.MyButton();
+        btnUpdate = new presentation.gui.Components.MyButton();
+        btnAdd = new presentation.gui.Components.MyButton();
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
-        scrollTableNhaHang.setBorder(null);
+        scrollTableKhachSan.setBorder(null);
 
-        tableNhaHang.setModel(new javax.swing.table.DefaultTableModel(
+        tableKhachSan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {}
             },
@@ -76,12 +78,12 @@ public class NhaHangForm extends javax.swing.JPanel {
 
             }
         ));
-        scrollTableNhaHang.setViewportView(tableNhaHang);
+        scrollTableKhachSan.setViewportView(tableKhachSan);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Bảng nhà hàng");
+        jLabel1.setText("Bảng khách sạn");
         jLabel1.setToolTipText("");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
@@ -92,7 +94,7 @@ public class NhaHangForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(scrollTableNhaHang, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollTableKhachSan, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
@@ -101,7 +103,7 @@ public class NhaHangForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20)
-                .addComponent(scrollTableNhaHang, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollTableKhachSan, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -159,81 +161,81 @@ public class NhaHangForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
-        Window parent = SwingUtilities.getWindowAncestor(this);
-        InputNhaHang inputNhaHang = new InputNhaHang((Frame)parent, InputNhaHang.Mode.ADD, this);
-        inputNhaHang.setLocationRelativeTo(null);
-        inputNhaHang.setVisible(true);
-    }
-
-    public void addRestaurant(NhaHangDTO nhaHang) {
-        int id = nhaHangBUS.insert(nhaHang);
-        if (id != -1) {
-            nhaHang.setMaNhaHang(id);
-            modalTableNhaHang.addRow(nhaHang.toObject());
-            JOptionPane.showMessageDialog(this, "Thêm thành công!");
-        }
-    }
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
-        rowSelected = tableNhaHang.getSelectedRow();
-        if (rowSelected == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn nhà hàng cần chỉnh sửa!");
-            return;
-        }
-
-        NhaHangDTO nhaHang = new NhaHangDTO(
-            (int) tableNhaHang.getModel().getValueAt(rowSelected, 0),
-            (String) tableNhaHang.getModel().getValueAt(rowSelected, 1),
-            (String) tableNhaHang.getModel().getValueAt(rowSelected, 2),
-            (int) tableNhaHang.getModel().getValueAt(rowSelected, 3),
-            (String) tableNhaHang.getModel().getValueAt(rowSelected, 4),
-            (int) tableNhaHang.getModel().getValueAt(rowSelected, 5)
-        );
-        Window parent = SwingUtilities.getWindowAncestor(this);
-        InputNhaHang inputNhaHang = new InputNhaHang((Frame) parent, InputNhaHang.Mode.UPDATE, this);
-        inputNhaHang.uploadDataToModal(nhaHang);
-        inputNhaHang.setLocationRelativeTo(null);
-        inputNhaHang.setVisible(true);
-    }
-
-    public void updateRestaurant(NhaHangDTO nhaHang) {
-        boolean success = nhaHangBUS.update(nhaHang);
-        if (success) {
-            modalTableNhaHang.setValueAt(nhaHang.getTenNhaHang(), rowSelected, 1);
-            modalTableNhaHang.setValueAt(nhaHang.getDiaChi(), rowSelected, 2);
-            modalTableNhaHang.setValueAt(nhaHang.getGia(), rowSelected, 3);
-            modalTableNhaHang.setValueAt(nhaHang.getSoDienThoai(), rowSelected, 4);
-            modalTableNhaHang.setValueAt(nhaHang.getTrangThai(), rowSelected, 5);
-            JOptionPane.showMessageDialog(this, "Update thành công!");
-        }
-    }
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
-        rowSelected = tableNhaHang.getSelectedRow();
+        rowSelected = tableKhachSan.getSelectedRow();
         if (rowSelected == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn đối tượng cần xoá!");
             return;
         } 
 
-        int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modalTableNhaHang.getValueAt(rowSelected, 1), 
-        "Xoá nhà hàng", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
+        int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modalTableKhachSan.getValueAt(rowSelected, 1), 
+        "Xoá khách sạn", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
         if (answer == JOptionPane.YES_OPTION) {
-            nhaHangBUS.delete((int) modalTableNhaHang.getValueAt(rowSelected, 0));
-            modalTableNhaHang.removeRow(rowSelected);
+            khachSanBUS.delete((int) modalTableKhachSan.getValueAt(rowSelected, 0));
+            modalTableKhachSan.removeRow(rowSelected);
             JOptionPane.showMessageDialog(this, "Xoá thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Đã huỷ!");
         }
     }
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        Window parent = SwingUtilities.getWindowAncestor(this);
+        InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, InputKhachSan.Mode.ADD, this);
+        inputKhachSan.setLocationRelativeTo(null);
+        inputKhachSan.setVisible(true);
+    }
+
+    public void addHotel(KhachSanDTO khachSan) {
+        int id = khachSanBUS.insert(khachSan);
+        if (id != -1) {
+            khachSan.setMaKhachSan(id);
+            modalTableKhachSan.addRow(khachSan.toObject());
+            JOptionPane.showMessageDialog(this, "Thêm thành công!");
+        }
+    }
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        rowSelected = tableKhachSan.getSelectedRow();
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách sạn cần chỉnh sửa!");
+            return;
+        }
+
+        KhachSanDTO khachSan = new KhachSanDTO(
+            (int) tableKhachSan.getModel().getValueAt(rowSelected, 0),
+            (String) tableKhachSan.getModel().getValueAt(rowSelected, 1),
+            (String) tableKhachSan.getModel().getValueAt(rowSelected, 2),
+            (int) tableKhachSan.getModel().getValueAt(rowSelected, 3),
+            (String) tableKhachSan.getModel().getValueAt(rowSelected, 4),
+            (int) tableKhachSan.getModel().getValueAt(rowSelected, 5)
+        );
+        Window parent = SwingUtilities.getWindowAncestor(this);
+        InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, InputKhachSan.Mode.UPDATE, this);
+        inputKhachSan.uploadDataToModal(khachSan);
+        inputKhachSan.setLocationRelativeTo(null);
+        inputKhachSan.setVisible(true);
+    }
     
+    public void updateHotel(KhachSanDTO khachSan) {
+        boolean success = khachSanBUS.update(khachSan);
+        if (success) {
+            modalTableKhachSan.setValueAt(khachSan.getTenKhachSan(), rowSelected, 1);
+            modalTableKhachSan.setValueAt(khachSan.getDiaChi(), rowSelected, 2);
+            modalTableKhachSan.setValueAt(khachSan.getGia(), rowSelected, 3);
+            modalTableKhachSan.setValueAt(khachSan.getSoDienThoai(), rowSelected, 4);
+            modalTableKhachSan.setValueAt(khachSan.getTrangThai(), rowSelected, 5);
+            JOptionPane.showMessageDialog(this, "Update thành công!");
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.MyButton btnAdd;
-    private presentation.gui.MyButton btnDelete;
-    private presentation.gui.MyButton btnUpdate;
+    private presentation.gui.Components.MyButton btnAdd;
+    private presentation.gui.Components.MyButton btnDelete;
+    private presentation.gui.Components.MyButton btnUpdate;
     private javax.swing.JLabel jLabel1;
-    private presentation.gui.PanelBorder panelBorder1;
-    private javax.swing.JScrollPane scrollTableNhaHang;
-    private presentation.gui.Table tableNhaHang;
+    private presentation.gui.Components.PanelBorder panelBorder1;
+    private javax.swing.JScrollPane scrollTableKhachSan;
+    private presentation.gui.Components.Table tableKhachSan;
     // End of variables declaration//GEN-END:variables
 }

@@ -36,7 +36,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="presentation.gui.PanelBorder" name="panelBorder1">
+    <Container class="presentation.gui.Components.PanelBorder" name="panelBorder1">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -57,41 +57,41 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="presentation.gui.Menu" name="menu1">
+        <Component class="presentation.gui.Components.Menu" name="menu1">
         </Component>
         <Container class="javax.swing.JPanel" name="cardPanel">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
-            <Component class="presentation.gui.TourForm" name="tourForm">
+            <Component class="presentation.gui.Form.TourForm" name="tourForm">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="cardTour"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="presentation.gui.DiaDanhForm" name="diaDanhForm">
+            <Component class="presentation.gui.Form.DiaDanhForm" name="diaDanhForm">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="cardDiaDanh"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="presentation.gui.PhuongTienForm" name="phuongTienForm">
+            <Component class="presentation.gui.Form.PhuongTienForm" name="phuongTienForm">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="cardPhuongTien"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="presentation.gui.NhaHangForm" name="nhaHangForm">
+            <Component class="presentation.gui.Form.NhaHangForm" name="nhaHangForm">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="cardNhaHang"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="presentation.gui.KhachSanForm" name="khachSanForm">
+            <Component class="presentation.gui.Form.KhachSanForm" name="khachSanForm">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="cardKhachSan"/>

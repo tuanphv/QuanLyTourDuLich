@@ -1,5 +1,4 @@
-
-package presentation.gui;
+package presentation.gui.InputDialog;
 
 import business.model.DiaDanhDTO;
 import javax.swing.JOptionPane;
@@ -7,8 +6,10 @@ import javax.swing.JOptionPane;
 public class DiaDanhDialog extends javax.swing.JDialog {
 
     private boolean save = false;
+
     /**
      * Creates new form DiaDanhDialog
+     *
      * @param parent
      */
     public DiaDanhDialog(java.awt.Frame parent) {
@@ -25,8 +26,8 @@ public class DiaDanhDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnCancel = new presentation.gui.MyButton();
-        btnSubmit = new presentation.gui.MyButton();
+        btnCancel = new presentation.gui.Components.MyButton();
+        btnSubmit = new presentation.gui.Components.MyButton();
         jLabel1 = new javax.swing.JLabel();
         txtTenDD = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -37,7 +38,7 @@ public class DiaDanhDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnCancel.setBackground(new java.awt.Color(255, 102, 102));
+        btnCancel.setBackground(new java.awt.Color(255, 51, 51));
         btnCancel.setText("CANCEL");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,7 +46,7 @@ public class DiaDanhDialog extends javax.swing.JDialog {
             }
         });
 
-        btnSubmit.setBackground(new java.awt.Color(102, 255, 255));
+        btnSubmit.setBackground(new java.awt.Color(102, 204, 255));
         btnSubmit.setText("SUBMIT");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,38 +127,49 @@ public class DiaDanhDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        JOptionPane.showMessageDialog(this, "Thoát form input!");
-        setVisible(false);
+        int result = JOptionPane.showConfirmDialog(
+                getOwner(),
+                "Bạn có chắc chắn muốn thoát?",
+                "Xác nhận",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (result == JOptionPane.OK_OPTION)
+            dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         if (txtTenDD.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên địa danh!", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
+            txtTenDD.requestFocus();
             return;
         }
         if (txtTinhThanh.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên tỉnh thành!", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
+            txtTinhThanh.requestFocus();
             return;
         }
         if (txtDiemNoiBat.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập điểm nổi bật!", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
+            txtDiemNoiBat.requestFocus();
             return;
         }
         save = true;
         dispose();
     }//GEN-LAST:event_btnSubmitActionPerformed
-    
+
     public void loadData(DiaDanhDTO dd) {
         txtTenDD.setText(dd.getTenDD());
         txtTinhThanh.setText(dd.getTinhThanh());
         txtDiemNoiBat.setText(dd.getDiemNoiBat());
     }
-    
+
     public boolean isSave() {
         return this.save;
     }
-    
-    public DiaDanhDTO getDiaDanhInput() {
+
+    public DiaDanhDTO getInputData() {
         DiaDanhDTO dd = new DiaDanhDTO();
         dd.setTenDD(txtTenDD.getText());
         dd.setTinhThanh(txtTinhThanh.getText());
@@ -166,8 +178,8 @@ public class DiaDanhDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.MyButton btnCancel;
-    private presentation.gui.MyButton btnSubmit;
+    private presentation.gui.Components.MyButton btnCancel;
+    private presentation.gui.Components.MyButton btnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

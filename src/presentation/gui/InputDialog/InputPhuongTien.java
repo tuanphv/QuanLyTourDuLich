@@ -1,5 +1,6 @@
-package presentation.gui;
+package presentation.gui.InputDialog;
 
+import presentation.gui.Form.PhuongTienForm;
 import java.awt.Frame;
 
 import javax.swing.JOptionPane;
