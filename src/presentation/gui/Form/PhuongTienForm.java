@@ -14,8 +14,8 @@ import javax.swing.table.DefaultTableModel;
 
 import business.model.PhuongTienDTO;
 import business.service.PhuongTienBUS;
-import presentation.gui.InputDialog.InputPhuongTien;
 import presentation.gui.Components.MyScrollBarUI;
+import presentation.gui.InputDialog.InputPhuongTien;
 
 public class PhuongTienForm extends javax.swing.JPanel {
     int rowSelected;
@@ -38,6 +38,7 @@ public class PhuongTienForm extends javax.swing.JPanel {
 
         tablePhuongTien.setModel(modelTablePhuongTien);
         uploadDataPhuongTien();
+        addToolBarAction();
     }
 
     private void uploadDataPhuongTien() {
@@ -63,9 +64,7 @@ public class PhuongTienForm extends javax.swing.JPanel {
         scrollTablePuongTien = new javax.swing.JScrollPane();
         tablePhuongTien = new presentation.gui.Components.Table();
         jLabel1 = new javax.swing.JLabel();
-        btnDelete = new presentation.gui.Components.MyButton();
-        btnUpdate = new presentation.gui.Components.MyButton();
-        btnAdd = new presentation.gui.Components.MyButton();
+        myToolBar1 = new presentation.gui.Components.MyToolBar();
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -95,7 +94,7 @@ public class PhuongTienForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(scrollTablePuongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollTablePuongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
@@ -108,61 +107,29 @@ public class PhuongTienForm extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        btnDelete.setBackground(new java.awt.Color(255, 51, 51));
-        btnDelete.setText("DELETE");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
-        btnUpdate.setText("UPDATE");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnAdd.setBackground(new java.awt.Color(51, 255, 102));
-        btnAdd.setText("ADD");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(myToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(15, 15, 15)
+                .addComponent(myToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {
         Window parent = SwingUtilities.getWindowAncestor(this);
         InputPhuongTien inputPhuongTien = new InputPhuongTien((Frame) parent, InputPhuongTien.Mode.ADD, this);
         inputPhuongTien.setLocationRelativeTo(null);
@@ -178,7 +145,7 @@ public class PhuongTienForm extends javax.swing.JPanel {
         }
     }
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {
         rowSelected = tablePhuongTien.getSelectedRow();
         if (rowSelected == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn phương tiện cần chỉnh sửa!");
@@ -216,7 +183,7 @@ public class PhuongTienForm extends javax.swing.JPanel {
         }
     }
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {
         rowSelected = tablePhuongTien.getSelectedRow();
         System.out.println("rowSelected: " + rowSelected);
         if (rowSelected == -1) {
@@ -235,11 +202,16 @@ public class PhuongTienForm extends javax.swing.JPanel {
         }
     }
     
+    private void addToolBarAction() {
+        myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
+        myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
+        myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.Components.MyButton btnAdd;
-    private presentation.gui.Components.MyButton btnDelete;
-    private presentation.gui.Components.MyButton btnUpdate;
     private javax.swing.JLabel jLabel1;
+    private presentation.gui.Components.MyToolBar myToolBar1;
     private presentation.gui.Components.PanelBorder panelBorder1;
     private javax.swing.JScrollPane scrollTablePuongTien;
     private presentation.gui.Components.Table tablePhuongTien;

@@ -56,7 +56,7 @@
                   <Component id="txtSearch" min="-2" pref="251" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="92" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="125" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,9 +102,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="TH&#xca;M"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
-          </Events>
         </Component>
         <Component class="presentation.gui.Components.ButtonToolBar" name="btnXoa">
           <Properties>
@@ -113,9 +110,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="X&#xd3;A"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
-          </Events>
         </Component>
         <Component class="presentation.gui.Components.ButtonToolBar" name="btnSua">
           <Properties>
@@ -124,9 +118,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="S&#x1eec;A"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
-          </Events>
         </Component>
         <Component class="presentation.gui.Components.ButtonToolBar" name="buttonToolBar1">
           <Properties>
@@ -170,9 +161,6 @@
               <Image iconType="3" name="/resources/icons/search.png"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

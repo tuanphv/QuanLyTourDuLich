@@ -1,18 +1,20 @@
 package presentation.gui.Form;
 
-import business.model.DiaDanhDTO;
-import business.service.DiaDanhBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import presentation.gui.InputDialog.DiaDanhDialog;
+
+import business.model.DiaDanhDTO;
+import business.service.DiaDanhBUS;
 import presentation.gui.Components.MyScrollBarUI;
+import presentation.gui.InputDialog.DiaDanhDialog;
 
 public class DiaDanhForm extends javax.swing.JPanel {
 
@@ -187,7 +189,6 @@ public class DiaDanhForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
-
     }
     
     public boolean updateDiaDanh(DiaDanhDTO dd) {
