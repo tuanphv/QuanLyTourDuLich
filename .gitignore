@@ -1,3 +1,5 @@
 /nbproject/private/
 /build/
 /src/persistence/database/DatabaseConnection.java
+/dist/
+/nbproject/project.properties

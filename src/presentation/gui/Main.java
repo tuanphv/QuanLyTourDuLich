@@ -21,6 +21,7 @@ public class Main extends javax.swing.JFrame {
         phuongTienForm = new presentation.gui.Form.PhuongTienForm();
         nhaHangForm = new presentation.gui.Form.NhaHangForm();
         khachSanForm = new presentation.gui.Form.KhachSanForm();
+        khachHangForm = new presentation.gui.Form.KhachHangForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -31,6 +32,7 @@ public class Main extends javax.swing.JFrame {
         cardPanel.add(phuongTienForm, "cardPhuongTien");
         cardPanel.add(nhaHangForm, "cardNhaHang");
         cardPanel.add(khachSanForm, "cardKhachSan");
+        cardPanel.add(khachHangForm, "cardKhachHang");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -93,6 +95,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
     private presentation.gui.Form.DiaDanhForm diaDanhForm;
+    private presentation.gui.Form.KhachHangForm khachHangForm;
     private presentation.gui.Form.KhachSanForm khachSanForm;
     private presentation.gui.Components.Menu menu1;
     private presentation.gui.Form.NhaHangForm nhaHangForm;
