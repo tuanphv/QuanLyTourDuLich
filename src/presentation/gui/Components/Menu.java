@@ -30,12 +30,15 @@ public class Menu extends javax.swing.JPanel {
         phuongTien.setModel(new Model_Menu("vehicle", "Phương tiện", Model_Menu.MenuType.MENU));
         khachSan.setModel(new Model_Menu("hotel", "Khách sạn", Model_Menu.MenuType.MENU));
         nhaHang.setModel(new Model_Menu("restaurant", "Nhà hàng", Model_Menu.MenuType.MENU));
+        KhachHang.setModel(new Model_Menu("customer", "Khách Hàng", Model_Menu.MenuType.MENU));
+
         items = new ArrayList<>();
         items.add(tour);
         items.add(diadanh);
         items.add(phuongTien);
         items.add(khachSan);
         items.add(nhaHang);
+        items.add(KhachHang);
         changeBackground(tour);
         repaint();
     }
@@ -63,6 +66,7 @@ public class Menu extends javax.swing.JPanel {
         phuongTien = new presentation.gui.Components.MenuItem();
         khachSan = new presentation.gui.Components.MenuItem();
         nhaHang = new presentation.gui.Components.MenuItem();
+        KhachHang = new presentation.gui.Components.MenuItem();
 
         panelMoving.setOpaque(false);
 
@@ -118,6 +122,13 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
+        KhachHang.setText("");
+        KhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KhachHangActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -125,12 +136,17 @@ public class Menu extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nhaHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(khachSan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(phuongTien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(diadanh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                    .addComponent(tour, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(KhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nhaHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(khachSan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(phuongTien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(diadanh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(tour, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(15, 15, 15))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +161,9 @@ public class Menu extends javax.swing.JPanel {
                 .addComponent(khachSan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(nhaHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(KhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -200,6 +218,13 @@ public class Menu extends javax.swing.JPanel {
         mainFrame.showCard("cardNhaHang");
     }//GEN-LAST:event_nhaHangActionPerformed
 
+    private void KhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KhachHangActionPerformed
+        // TODO add your handling code here:
+        MenuItem src = (MenuItem) evt.getSource();
+        changeBackground(src);
+        mainFrame.showCard("cardKhachHang");
+    }//GEN-LAST:event_KhachHangActionPerformed
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -234,6 +259,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private presentation.gui.Components.MenuItem KhachHang;
     private presentation.gui.Components.MenuItem diadanh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
