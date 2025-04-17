@@ -132,11 +132,11 @@
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSubmit" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnCancel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSubmit" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -159,6 +159,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSoNgay">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -169,10 +174,25 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSoDem">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTinhTrang">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDiemKH">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -191,10 +211,25 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTenTour">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDiemDen">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtGiaTour">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -229,6 +264,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cbLoaiTour">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
+      </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

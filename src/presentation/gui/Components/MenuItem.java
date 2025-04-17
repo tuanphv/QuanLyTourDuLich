@@ -8,9 +8,8 @@ public class MenuItem extends JButton {
 
     private Icon icon;
     private String text;
-    private final int ICON_X = 10;      // Vị trí icon từ lề trái
-    private final int TEXT_X = 50;      // Vị trí cố định để bắt đầu vẽ text
-    private final int GAP = 10;         // Khoảng cách giữa icon và text
+    private final int ICON_X = 10;
+    private final int TEXT_X = 50;
 
     public MenuItem() {
         setOpaque(false);
@@ -34,8 +33,6 @@ public class MenuItem extends JButton {
         super.setBackground(bg);
         repaint();
     }
-    
-    
 
     @Override
     protected void paintComponent(Graphics g) {
