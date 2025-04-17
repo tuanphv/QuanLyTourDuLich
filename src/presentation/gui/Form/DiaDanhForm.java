@@ -32,6 +32,7 @@ public class DiaDanhForm extends javax.swing.JPanel {
         };
         table.setModel(model);
         loadAllCustomerData();
+        addToolBarAction();
     }
 
     @SuppressWarnings("unchecked")
@@ -42,9 +43,7 @@ public class DiaDanhForm extends javax.swing.JPanel {
         spTable = new javax.swing.JScrollPane();
         table = new presentation.gui.Components.Table();
         jLabel1 = new javax.swing.JLabel();
-        btnDelete = new presentation.gui.Components.MyButton();
-        btnUpdate = new presentation.gui.Components.MyButton();
-        btnAdd = new presentation.gui.Components.MyButton();
+        myToolBar1 = new presentation.gui.Components.MyToolBar();
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -73,8 +72,8 @@ public class DiaDanhForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,68 +85,47 @@ public class DiaDanhForm extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        btnDelete.setBackground(new java.awt.Color(255, 51, 51));
-        btnDelete.setText("DELETE");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
-        btnUpdate.setText("UPDATE");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnAdd.setBackground(new java.awt.Color(51, 255, 102));
-        btnAdd.setText("ADD");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(myToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(15, 15, 15)
+                .addComponent(myToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+    public boolean addDiaDanh(DiaDanhDTO dd) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        DiaDanhBUS bus = new DiaDanhBUS();
+        int index = bus.addDiaDanh(dd);
+        if (index != -1) {
+            dd.setMaDD(index);
+            model.addRow(dd.toObjectArray());
+            return true;
+        }
+        return false;
+    }
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {                                          
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         DiaDanhBUS bus = new DiaDanhBUS();
         int i = table.getSelectedRow();
         if (i >= 0) {
             int result = JOptionPane.showConfirmDialog(
                     this,
-                    "Bạn có chắc chắn muốn thoát?",
+                    "Bạn có chắc chắn muốn xóa?",
                     "Xác nhận",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE
@@ -161,9 +139,9 @@ public class DiaDanhForm extends javax.swing.JPanel {
             }
         } else
             JOptionPane.showMessageDialog(this, "Vui lòng chọn địa danh cần xóa!");
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    }                                         
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {                                          
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         int index = table.getSelectedRow();
         if (index > -1) {
@@ -188,9 +166,9 @@ public class DiaDanhForm extends javax.swing.JPanel {
             }
         } else
             JOptionPane.showMessageDialog(this, "Vui lòng chọn địa danh cần cập nhật!");
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    }                                         
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {                                       
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         DiaDanhDialog dialog = new DiaDanhDialog(parentFrame);
         dialog.setLocationRelativeTo(parentFrame);
@@ -203,20 +181,15 @@ public class DiaDanhForm extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
             }
         }
-    }//GEN-LAST:event_btnAddActionPerformed
+    }         
+    
+    private void addToolBarAction() {
+        myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
+        myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
+        myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
 
-    public boolean addDiaDanh(DiaDanhDTO dd) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        DiaDanhBUS bus = new DiaDanhBUS();
-        int index = bus.addDiaDanh(dd);
-        if (index != -1) {
-            dd.setMaDD(index);
-            model.addRow(dd.toObjectArray());
-            return true;
-        }
-        return false;
     }
-
+    
     public boolean updateDiaDanh(DiaDanhDTO dd) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         DiaDanhBUS bus = new DiaDanhBUS();
@@ -239,10 +212,8 @@ public class DiaDanhForm extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.Components.MyButton btnAdd;
-    private presentation.gui.Components.MyButton btnDelete;
-    private presentation.gui.Components.MyButton btnUpdate;
     private javax.swing.JLabel jLabel1;
+    private presentation.gui.Components.MyToolBar myToolBar1;
     private presentation.gui.Components.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
     private presentation.gui.Components.Table table;

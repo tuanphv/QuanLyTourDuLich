@@ -1,6 +1,5 @@
 package presentation.gui.Components;
 
-import presentation.gui.Components.TableHeader;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTable;
