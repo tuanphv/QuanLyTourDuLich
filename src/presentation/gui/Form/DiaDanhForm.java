@@ -15,6 +15,9 @@ import business.model.DiaDanhDTO;
 import business.service.DiaDanhBUS;
 import presentation.gui.Components.MyScrollBarUI;
 import presentation.gui.InputDialog.DiaDanhDialog;
+import utils.ChooseFile;
+import utils.ExcelReader;
+import utils.TypeUtils;
 
 public class DiaDanhForm extends javax.swing.JPanel {
 
@@ -185,10 +188,20 @@ public class DiaDanhForm extends javax.swing.JPanel {
         }
     }         
     
+    private void btnNhapExcelActionPerformed(java.awt.event.ActionEvent evt) {
+        String path = ChooseFile.choose();
+        ExcelReader read = new ExcelReader();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        ArrayList<Object[]> list = read.read(path, TypeUtils.getTypes(new DiaDanhDTO()));
+        list.forEach(e -> model.addRow(e));
+    }
+    
     private void addToolBarAction() {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnNhapExcel().addActionListener(e -> btnNhapExcelActionPerformed(e));
     }
     
     public boolean updateDiaDanh(DiaDanhDTO dd) {

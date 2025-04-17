@@ -1,5 +1,13 @@
+# NetBeans specific
 /nbproject/private/
 /build/
-/src/persistence/database/DatabaseConnection.java
 /dist/
-/nbproject/project.properties
+
+# Ignore database credentials if extracted
+*.env
+
+# Optional: ignore class files
+*.class
+
+# Ignore .vscode
+/.vscode

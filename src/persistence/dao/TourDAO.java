@@ -96,5 +96,9 @@ public class TourDAO {
             return false;
         }
     }
+    
+    public static void main(String[] args) {
+        new TourDAO().getAllTours();
+    }
 
 }
