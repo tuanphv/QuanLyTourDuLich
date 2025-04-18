@@ -2,8 +2,6 @@ package utils;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,8 +23,6 @@ public class ExcelReader {
 
             if (filePath.toLowerCase().endsWith(".xlsx")) {
                 workbook = new XSSFWorkbook(fis);
-            } else if (filePath.toLowerCase().endsWith(".xls")) {
-                workbook = new HSSFWorkbook(fis);
             } else {
                 System.out.println("File không hợp lệ!");
                 return result;
