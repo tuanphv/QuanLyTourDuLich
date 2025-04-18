@@ -47,16 +47,16 @@
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="buttonToolBar1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNhapExcel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="buttonToolBar2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnXuatExcel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                   <Component id="cbSearchType" min="-2" pref="107" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtSearch" min="-2" pref="251" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="92" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="142" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -76,8 +76,8 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonToolBar2" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonToolBar1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnXuatExcel" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnNhapExcel" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -102,9 +102,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="TH&#xca;M"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
-          </Events>
         </Component>
         <Component class="presentation.gui.Components.ButtonToolBar" name="btnXoa">
           <Properties>
@@ -113,9 +110,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="X&#xd3;A"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
-          </Events>
         </Component>
         <Component class="presentation.gui.Components.ButtonToolBar" name="btnSua">
           <Properties>
@@ -124,11 +118,8 @@
             </Property>
             <Property name="text" type="java.lang.String" value="S&#x1eec;A"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="presentation.gui.Components.ButtonToolBar" name="buttonToolBar1">
+        <Component class="presentation.gui.Components.ButtonToolBar" name="btnNhapExcel">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/icons/import.png"/>
@@ -136,7 +127,7 @@
             <Property name="text" type="java.lang.String" value="NH&#x1eac;P EXCEL"/>
           </Properties>
         </Component>
-        <Component class="presentation.gui.Components.ButtonToolBar" name="buttonToolBar2">
+        <Component class="presentation.gui.Components.ButtonToolBar" name="btnXuatExcel">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/icons/export.png"/>
@@ -170,9 +161,6 @@
               <Image iconType="3" name="/resources/icons/search.png"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

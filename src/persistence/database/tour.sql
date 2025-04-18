@@ -26,5 +26,4 @@ CREATE TABLE KeHoachTour (
     thoiGianKT DATE,
     trangThai VARCHAR(50),
     tongChiPhi FLOAT,
-    FOREIGN KEY (maTour) REFERENCES Tour(maTour)
 );

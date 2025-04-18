@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package presentation.gui.Components;
 
-/**
- *
- * @author Admin
- */
 public class MyToolBar extends javax.swing.JPanel {
 
     /**
@@ -30,8 +22,8 @@ public class MyToolBar extends javax.swing.JPanel {
         btnThem = new presentation.gui.Components.ButtonToolBar();
         btnXoa = new presentation.gui.Components.ButtonToolBar();
         btnSua = new presentation.gui.Components.ButtonToolBar();
-        buttonToolBar1 = new presentation.gui.Components.ButtonToolBar();
-        buttonToolBar2 = new presentation.gui.Components.ButtonToolBar();
+        btnNhapExcel = new presentation.gui.Components.ButtonToolBar();
+        btnXuatExcel = new presentation.gui.Components.ButtonToolBar();
         cbSearchType = new javax.swing.JComboBox<>();
         txtSearch = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -41,43 +33,23 @@ public class MyToolBar extends javax.swing.JPanel {
 
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/add.png"))); // NOI18N
         btnThem.setText("THÊM");
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
 
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/delete.png"))); // NOI18N
         btnXoa.setText("XÓA");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
 
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/edit.png"))); // NOI18N
         btnSua.setText("SỬA");
-        btnSua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaActionPerformed(evt);
-            }
-        });
 
-        buttonToolBar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/import.png"))); // NOI18N
-        buttonToolBar1.setText("NHẬP EXCEL");
+        btnNhapExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/import.png"))); // NOI18N
+        btnNhapExcel.setText("NHẬP EXCEL");
 
-        buttonToolBar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/export.png"))); // NOI18N
-        buttonToolBar2.setText("XUẤT EXCEL");
+        btnXuatExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/export.png"))); // NOI18N
+        btnXuatExcel.setText("XUẤT EXCEL");
 
         cbSearchType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Lựa chọn 1", "Lựa chọn 2", "Lựa chọn 3" }));
 
         jButton1.setBackground(new java.awt.Color(51, 204, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
         panelBorder2.setLayout(panelBorder2Layout);
@@ -91,16 +63,16 @@ public class MyToolBar extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(buttonToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(buttonToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73)
                 .addComponent(cbSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 92, Short.MAX_VALUE))
+                .addGap(0, 142, Short.MAX_VALUE))
         );
         panelBorder2Layout.setVerticalGroup(
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,8 +88,8 @@ public class MyToolBar extends javax.swing.JPanel {
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -139,42 +111,32 @@ public class MyToolBar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSuaActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     public ButtonToolBar getBtnThem() {
         return btnThem;
     }
-    
+
     public ButtonToolBar getBtnSua() {
         return btnSua;
     }
-    
+
     public ButtonToolBar getBtnXoa() {
         return btnXoa;
     }
-    
-    
+
+    public ButtonToolBar getBtnNhapExcel() {
+        return btnNhapExcel;
+    }
+
+    public ButtonToolBar getBtnXuatExcel() {
+        return btnXuatExcel;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private presentation.gui.Components.ButtonToolBar btnNhapExcel;
     private presentation.gui.Components.ButtonToolBar btnSua;
     private presentation.gui.Components.ButtonToolBar btnThem;
     private presentation.gui.Components.ButtonToolBar btnXoa;
-    private presentation.gui.Components.ButtonToolBar buttonToolBar1;
-    private presentation.gui.Components.ButtonToolBar buttonToolBar2;
+    private presentation.gui.Components.ButtonToolBar btnXuatExcel;
     private javax.swing.JComboBox<String> cbSearchType;
     private javax.swing.JButton jButton1;
     private presentation.gui.Components.PanelBorder panelBorder2;

@@ -1,18 +1,23 @@
 package presentation.gui.Form;
 
-import business.model.DiaDanhDTO;
-import business.service.DiaDanhBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import presentation.gui.InputDialog.DiaDanhDialog;
+
+import business.model.DiaDanhDTO;
+import business.service.DiaDanhBUS;
 import presentation.gui.Components.MyScrollBarUI;
+import presentation.gui.InputDialog.DiaDanhDialog;
+import utils.ChooseFile;
+import utils.ExcelReader;
+import utils.TypeUtils;
 
 public class DiaDanhForm extends javax.swing.JPanel {
 
@@ -183,11 +188,20 @@ public class DiaDanhForm extends javax.swing.JPanel {
         }
     }         
     
+    private void btnNhapExcelActionPerformed(java.awt.event.ActionEvent evt) {
+        String path = ChooseFile.choose();
+        ExcelReader read = new ExcelReader();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        ArrayList<Object[]> list = read.read(path, TypeUtils.getTypes(new DiaDanhDTO()));
+        list.forEach(e -> model.addRow(e));
+    }
+    
     private void addToolBarAction() {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
-
+        myToolBar1.getBtnNhapExcel().addActionListener(e -> btnNhapExcelActionPerformed(e));
     }
     
     public boolean updateDiaDanh(DiaDanhDTO dd) {
