@@ -1,0 +1,13 @@
+# NetBeans specific
+/nbproject/private/
+/build/
+/dist/
+
+# Ignore database credentials if extracted
+*.env
+
+# Optional: ignore class files
+*.class
+
+# Ignore .vscode
+/.vscode
