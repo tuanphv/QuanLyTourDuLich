@@ -56,28 +56,14 @@ public class TourDialog extends javax.swing.JDialog {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel10.setText("Số đêm");
 
-        txtSoNgay.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setText("Tình trạng");
-
-        txtSoDem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        txtTinhTrang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        txtDiemKH.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setText("Tên Tour");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setText("Điểm khởi hành");
-
-        txtTenTour.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        txtDiemDen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        txtGiaTour.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setText("Điểm đến");
@@ -90,8 +76,6 @@ public class TourDialog extends javax.swing.JDialog {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel3.setText("Mô tả");
-
-        cbLoaiTour.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         txtMoTa.setColumns(20);
         txtMoTa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -207,10 +191,10 @@ public class TourDialog extends javax.swing.JDialog {
                     .addComponent(txtSoDem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
