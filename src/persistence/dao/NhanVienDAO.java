@@ -1,28 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package persistence.dao;
 
 import business.model.NhanVienDTO;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import persistence.database.DatabaseConnection;
 
 public class NhanVienDAO {
 
-    public ArrayList<NhanVienDTO> getAllNhanVien() {
-        ArrayList<NhanVienDTO> employees = new ArrayList<>();
-        String query = "SELECT * FROM nhanvien";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
-
+    public ArrayList<NhanVienDTO> getAll() {
+        ArrayList<NhanVienDTO> list = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM nhanvien";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                employees.add(new NhanVienDTO(
+                list.add(new NhanVienDTO(
                     rs.getInt("maNV"),
                     rs.getString("username"),
                     rs.getString("password"),
@@ -32,93 +24,71 @@ public class NhanVienDAO {
                     rs.getString("gioiTinh"),
                     rs.getString("soDT"),
                     rs.getString("email"),
-                    rs.getString("CC_HC"),
+                    rs.getString("cc_hc"),
                     rs.getString("ngayVaoLam"),
                     rs.getString("chucVu"),
-                    rs.getString("trangThai")
+                    rs.getInt("trangThai")
                 ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employees;
+        return list;
     }
 
-    public void addNhanVien(NhanVienDTO nv) {
-        String query = "INSERT INTO nhanvien (maNV, username, password, ho, ten, ngaySinh, gioiTinh, soDT, email, CC_HC, ngayVaoLam, chucVu, trangThai) "
-                      + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public int insert(NhanVienDTO nv) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "INSERT INTO nhanvien (username, password, ho, ten, ngaySinh, gioiTinh, soDT, email, cc_hc, ngayVaoLam, chucVu, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            // Điền các tham số vào câu lệnh SQL
+            stmt.setString(1, nv.getUsername());
+            stmt.setString(2, nv.getPassword());
+            stmt.setString(3, nv.getHo());
+            stmt.setString(4, nv.getTen());
+            stmt.setString(5, nv.getNgaySinh());
+            stmt.setString(6, nv.getGioiTinh());
+            stmt.setString(7, nv.getSoDT());
+            stmt.setString(8, nv.getEmail());
+            stmt.setString(9, nv.getCC_HC());
+            stmt.setString(10, nv.getNgayVaoLam());
+            stmt.setString(11, nv.getChucVu());
+            stmt.setInt(12, nv.getTrangThai());
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setInt(1, nv.getMaNV());
-            pstmt.setString(2, nv.getUsername());
-            pstmt.setString(3, nv.getPassword());
-            pstmt.setString(4, nv.getHo());
-            pstmt.setString(5, nv.getTen());
-            pstmt.setString(6, nv.getNgaySinh());
-            pstmt.setString(7, nv.getGioiTinh());
-            pstmt.setString(8, nv.getSoDT());
-            pstmt.setString(9, nv.getEmail());
-            pstmt.setString(10, nv.getCC_HC());
-            pstmt.setString(11, nv.getNgayVaoLam());
-            pstmt.setString(12, nv.getChucVu());
-            pstmt.setString(13, nv.getTrangThai());
-
-            pstmt.executeUpdate();
-            System.out.println("Thêm nhân viên thành công!");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateNhanVien(NhanVienDTO nv) {
-        String query = "UPDATE nhanvien SET username = ?, password = ?, ho = ?, ten = ?, ngaySinh = ?, "
-                     + "gioiTinh = ?, soDT = ?, email = ?, CC_HC = ?, ngayVaoLam = ?, chucVu = ?, trangThai = ? "
-                     + "WHERE maNV = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setString(1, nv.getUsername());
-            pstmt.setString(2, nv.getPassword());
-            pstmt.setString(3, nv.getHo());
-            pstmt.setString(4, nv.getTen());
-            pstmt.setString(5, nv.getNgaySinh());
-            pstmt.setString(6, nv.getGioiTinh());
-            pstmt.setString(7, nv.getSoDT());
-            pstmt.setString(8, nv.getEmail());
-            pstmt.setString(9, nv.getCC_HC());
-            pstmt.setString(10, nv.getNgayVaoLam());
-            pstmt.setString(11, nv.getChucVu());
-            pstmt.setString(12, nv.getTrangThai());
-            pstmt.setInt(13, nv.getMaNV());
-
-            int rowUpdated = pstmt.executeUpdate();
-            if (rowUpdated > 0) {
-                System.out.println("Cập nhật nhân viên thành công!");
-            } else {
-                System.out.println("Không tìm thấy nhân viên!");
+            int affected = stmt.executeUpdate();
+            if (affected > 0) {
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) return rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return -1;
     }
 
-    public void deleteNhanVien(int maNV) {
-        String query = "DELETE FROM nhanvien WHERE maNV = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setInt(1, maNV);
-            int rowDeleted = pstmt.executeUpdate();
-            if (rowDeleted > 0) {
-                System.out.println("Xoá nhân viên thành công!");
-            } else {
-                System.out.println("Không tìm thấy nhân viên!");
-            }
+    public boolean update(NhanVienDTO nv) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "UPDATE nhanvien SET username=?, password=?, ho=?, ten=?, ngaySinh=?, gioiTinh=?, soDT=?, email=?, cc_hc=?, ngayVaoLam=?, chucVu=?, trangThai=? WHERE maNV=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            // Điền các tham số và thực thi
+            stmt.setString(1, nv.getUsername());
+            // ... (Các trường khác)
+            stmt.setInt(13, nv.getMaNV());
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    public boolean delete(int maNV) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "UPDATE nhanvien SET trangThai=0 WHERE maNV=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, maNV);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

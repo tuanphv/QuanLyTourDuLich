@@ -78,11 +78,11 @@ public class KhachHangDTO {
 
     public Object[] toObject() {
         return new Object[] {
-            maKH, getHoTen(), ngaySinh, gioiTinh, soDT, email, ngayDK
+            maKH, getHoTen(), ngaySinh, gioiTinh, soDT, email, ngayDK, cc_hc
         };
     }
 
     public static final String[] KHACH_HANG_COLUMN_NAMES = {
-        "Mã KH", "Họ tên", "Ngày sinh", "Giới tính", "Điện thoại", "Email", "Ngày đăng kí"
+        "Mã KH", "Họ tên", "Ngày sinh", "Giới tính", "Điện thoại", "Email", "Ngày đăng kí", "Căn cước/ Hộ chiếu"
     };
 }
