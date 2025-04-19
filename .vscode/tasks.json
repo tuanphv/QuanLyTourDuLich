@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "mkdir -p ${workspaceFolder}/build/classes && javac -d ${workspaceFolder}/build/classes -cp \"${workspaceFolder}/src;${workspaceFolder}/libs/poi-5.2.3.jar;${workspaceFolder}/libs/mysql-connector-j-9.1.0.jar;${workspaceFolder}/libs/ooxml-lib/*;${workspaceFolder}/libs/lib/*;${workspaceFolder}/libs/auxiliary/*;${workspaceFolder}/libs/log4j-api-2.24.3.jar;${workspaceFolder}/libs/log4j-core-2.24.3.jar\" ${workspaceFolder}/src/**/*.java",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "java -cp \"${workspaceFolder}/build/classes;${workspaceFolder}/libs/poi-5.2.3.jar;${workspaceFolder}/libs/poi-examples-5.2.3.jar;${workspaceFolder}/libs/poi-excelant-5.2.3.jar;${workspaceFolder}/libs/poi-javadoc-5.2.3.jar;${workspaceFolder}/libs/poi-ooxml-5.2.3.jar;${workspaceFolder}/libs/poi-ooxml-full-5.2.3.jar;${workspaceFolder}/libs/poi-ooxml-lite-5.2.3.jar;${workspaceFolder}/libs/poi-scratchpad-5.2.3.jar;${workspaceFolder}/libs/mysql-connector-j-9.1.0.jar;${workspaceFolder}/libs/ooxml-lib/*;${workspaceFolder}/libs/lib/*;${workspaceFolder}/libs/auxiliary/*;${workspaceFolder}/libs/log4j-api-2.24.3.jar;${workspaceFolder}/libs/log4j-core-2.24.3.jar\" presentation.gui.Main",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": ["build"]
+        }
+    ]
+}
