@@ -43,7 +43,9 @@ public class NhanVienBUS {
     public ArrayList<NhanVienDTO> getList() {
         return dsNhanVien;
     }
-
+    public NhanVienDTO getById(int id) {
+        return dsNhanVien.stream().filter(kh -> kh.getMaNV() == id).findFirst().orElse(null);
+    }
     private int getIndexById(int maNV) {
         for (int i = 0; i < dsNhanVien.size(); i++) {
             if (dsNhanVien.get(i).getMaNV() == maNV) return i;

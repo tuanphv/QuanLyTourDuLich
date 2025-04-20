@@ -69,9 +69,18 @@ public class NhanVienDAO {
         try (Connection conn = DatabaseConnection.getConnection()) {
             String sql = "UPDATE nhanvien SET username=?, password=?, ho=?, ten=?, ngaySinh=?, gioiTinh=?, soDT=?, email=?, cc_hc=?, ngayVaoLam=?, chucVu=?, trangThai=? WHERE maNV=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            // Điền các tham số và thực thi
             stmt.setString(1, nv.getUsername());
-            // ... (Các trường khác)
+            stmt.setString(2, nv.getPassword());
+            stmt.setString(3, nv.getHo());
+            stmt.setString(4, nv.getTen());
+            stmt.setString(5, nv.getNgaySinh());
+            stmt.setString(6, nv.getGioiTinh());
+            stmt.setString(7, nv.getSoDT());
+            stmt.setString(8, nv.getEmail());
+            stmt.setString(9, nv.getCC_HC());
+            stmt.setString(10, nv.getNgayVaoLam());
+            stmt.setString(11, nv.getChucVu());
+            stmt.setInt(12, nv.getTrangThai());
             stmt.setInt(13, nv.getMaNV());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {

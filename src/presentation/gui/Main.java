@@ -10,7 +10,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         panelBorder1 = new presentation.gui.Components.PanelBorder();
@@ -22,6 +22,7 @@ public class Main extends javax.swing.JFrame {
         nhaHangForm = new presentation.gui.Form.NhaHangForm();
         khachSanForm = new presentation.gui.Form.KhachSanForm();
         khachHangForm = new presentation.gui.Form.KhachHangForm();
+        nhanVienForm = new presentation.gui.Form.NhanVienForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -33,6 +34,7 @@ public class Main extends javax.swing.JFrame {
         cardPanel.add(nhaHangForm, "cardNhaHang");
         cardPanel.add(khachSanForm, "cardKhachSan");
         cardPanel.add(khachHangForm, "cardKhachHang");
+        cardPanel.add(nhanVienForm, "cardNhanVien");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -63,7 +65,7 @@ public class Main extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
     /**
      * @param args the command line arguments
@@ -92,7 +94,7 @@ public class Main extends javax.swing.JFrame {
   
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JPanel cardPanel;
     private presentation.gui.Form.DiaDanhForm diaDanhForm;
     private presentation.gui.Form.KhachHangForm khachHangForm;
@@ -102,5 +104,6 @@ public class Main extends javax.swing.JFrame {
     private presentation.gui.Components.PanelBorder panelBorder1;
     private presentation.gui.Form.PhuongTienForm phuongTienForm;
     private presentation.gui.Form.TourForm tourForm;
-    // End of variables declaration//GEN-END:variables
+    private presentation.gui.Form.NhanVienForm nhanVienForm;
+    // End of variables declaration                   
 }

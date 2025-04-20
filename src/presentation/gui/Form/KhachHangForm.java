@@ -2,13 +2,11 @@ package presentation.gui.Form;
 
 import business.model.KhachHangDTO;
 import business.service.KhachHangBUS;
-import presentation.gui.Components.MyScrollBarUI;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
-
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import presentation.gui.Components.MyScrollBarUI;
 import presentation.gui.InputDialog.InputKhachHang;
 
 public class KhachHangForm extends javax.swing.JPanel {
@@ -25,30 +23,88 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        spTable.getViewport().setBackground(Color.white);
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
         table.setModel(tableModel);
         loadDataToTable();
-    }    
+        addToolBarAction();
+    }
+
     private void loadDataToTable() {
         tableModel.setRowCount(0);
         for (KhachHangDTO kh : danhSachKhachHang) {
             tableModel.addRow(kh.toObject());
         }
     }
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
+        rowSelected = table.getSelectedRow();
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để xoá.");
+            return;
+        }
+        int maKH = danhSachKhachHang.get(rowSelected).getMaKH();
+        if (khachHangBUS.delete(maKH)) {
+            tableModel.removeRow(rowSelected);
+            JOptionPane.showMessageDialog(this, "Xóa thành công!");
+        }
+    }
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
+        rowSelected = table.getSelectedRow();
+        if (rowSelected == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để sửa.");
+            return;
+        }
+        KhachHangDTO kh = danhSachKhachHang.get(rowSelected);
+        InputKhachHang dialog = new InputKhachHang((Frame) SwingUtilities.getWindowAncestor(this), InputKhachHang.Mode.UPDATE, this, kh);
+        dialog.setVisible(true);
+    }
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
+        InputKhachHang dialog = new InputKhachHang((Frame) SwingUtilities.getWindowAncestor(this), InputKhachHang.Mode.ADD, this);
+        dialog.setVisible(true);
+    }
+
+    public void addKhachHang(KhachHangDTO kh) {
+        int id = khachHangBUS.insert(kh);
+        if (id != -1) {
+            kh.setMaKH(id);
+            tableModel.addRow(kh.toObject());
+            JOptionPane.showMessageDialog(this, "Thêm thành công!");
+        }
+    }
+
+    public void updateKhachHang(KhachHangDTO kh) {
+        if (khachHangBUS.update(kh)) {
+            tableModel.setValueAt(kh.getHoTen(), rowSelected, 1);
+            tableModel.setValueAt(kh.getNgaySinh(), rowSelected, 2);
+            tableModel.setValueAt(kh.getGioiTinh(), rowSelected, 3);
+            tableModel.setValueAt(kh.getSoDT(), rowSelected, 4);
+            tableModel.setValueAt(kh.getEmail(), rowSelected, 5);
+            tableModel.setValueAt(kh.getNgayDK(), rowSelected, 6);
+            tableModel.setValueAt(kh.getCC_HC(), rowSelected, 7);
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+        }
+    }
+
+    private void addToolBarAction() {
+        myToolBar1.getBtnThem().addActionListener(e -> btnAddActionPerformed(e));
+        myToolBar1.getBtnSua().addActionListener(e -> btnUpdateActionPerformed(e));
+        myToolBar1.getBtnXoa().addActionListener(e -> btnDeleteActionPerformed(e));
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         panelBorder1 = new presentation.gui.Components.PanelBorder();
         spTable = new javax.swing.JScrollPane();
         table = new presentation.gui.Components.Table();
         jLabel1 = new javax.swing.JLabel();
-        btnDelete = new presentation.gui.Components.MyButton();
-        btnUpdate = new presentation.gui.Components.MyButton();
-        btnAdd = new presentation.gui.Components.MyButton();
+        myToolBar1 = new presentation.gui.Components.MyToolBar();
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -111,8 +167,8 @@ public class KhachHangForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 972, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,33 +176,9 @@ public class KhachHangForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20)
-                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        btnDelete.setBackground(new java.awt.Color(255, 51, 51));
-        btnDelete.setText("DELETE");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
-        btnUpdate.setText("UPDATE");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnAdd.setBackground(new java.awt.Color(51, 255, 102));
-        btnAdd.setText("ADD");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -154,81 +186,29 @@ public class KhachHangForm extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(myToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(myToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        rowSelected = table.getSelectedRow();
-        if (rowSelected == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để xoá.");
-            return;
-        }
-        int maKH = danhSachKhachHang.get(rowSelected).getMaKH();
-        if (khachHangBUS.delete(maKH)) {
-            tableModel.removeRow(rowSelected);
-            JOptionPane.showMessageDialog(this, "Xóa thành công!");
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-    rowSelected = table.getSelectedRow();
-    if (rowSelected == -1) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để sửa.");
-        return;
-    }
-    KhachHangDTO kh = danhSachKhachHang.get(rowSelected);
-    InputKhachHang dialog = new InputKhachHang((Frame) SwingUtilities.getWindowAncestor(this), InputKhachHang.Mode.UPDATE, this, kh);
-    dialog.setVisible(true);
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-    InputKhachHang dialog = new InputKhachHang((Frame) SwingUtilities.getWindowAncestor(this), InputKhachHang.Mode.ADD, this);
-    dialog.setVisible(true);
-    }//GEN-LAST:event_btnAddActionPerformed
-
-public void addKhachHang(KhachHangDTO kh) {
-    int id = khachHangBUS.insert(kh);
-    if (id != -1) {
-        kh.setMaKH(id);
-        danhSachKhachHang = khachHangBUS.getList(); // Cập nhật lại danh sách
-        loadDataToTable(); // Tải lại bảng
-    }
-}
-
-public void updateKhachHang(KhachHangDTO kh) {
-    if (khachHangBUS.update(kh)) {
-        danhSachKhachHang = khachHangBUS.getList(); // Cập nhật lại danh sách
-        loadDataToTable(); // Tải lại bảng
-    }
-}
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private presentation.gui.Components.MyButton btnAdd;
-    private presentation.gui.Components.MyButton btnDelete;
-    private presentation.gui.Components.MyButton btnUpdate;
+    // Variables declaration - do not modify                     
     private javax.swing.JLabel jLabel1;
+    private presentation.gui.Components.MyToolBar myToolBar1;
     private presentation.gui.Components.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
     private presentation.gui.Components.Table table;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
