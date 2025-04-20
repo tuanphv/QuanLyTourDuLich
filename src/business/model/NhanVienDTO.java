@@ -54,6 +54,12 @@ public class NhanVienDTO {
     public String getTen() { return ten; }
     public void setTen(String ten) { this.ten = ten; }
 
+    public String getHoTen() { return ho + " " + ten; }
+    public void setHoTen(String ho, String ten) {
+        this.ho = ho;
+        this.ten = ten;
+    }
+    
     public String getNgaySinh() { return ngaySinh; }
     public void setNgaySinh(String ngaySinh) { this.ngaySinh = ngaySinh; }
     public void setNgaySinh(LocalDate date) {
@@ -83,11 +89,11 @@ public class NhanVienDTO {
 
     public Object[] toObject() {
         return new Object[] {
-            maNV, ho + " " + ten, ngaySinh, gioiTinh, soDT, email, ngayVaoLam, chucVu
+            maNV, getHoTen(), ngaySinh, gioiTinh, soDT, email, cc_hc, ngayVaoLam, chucVu
         };
     }
 
     public static final String[] NHAN_VIEN_COLUMN_NAMES = {
-        "Mã NV", "Họ tên", "Ngày sinh", "Giới tính", "Điện thoại", "Email", "Ngày vào làm", "Chức vụ"
+        "Mã NV", "Họ tên", "Ngày sinh", "Giới tính", "Điện thoại", "Email", "Căn cước/ Hộ chiếu", "Ngày vào làm", "Chức vụ"
     };
 }
