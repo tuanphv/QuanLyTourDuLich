@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CustomComboBoxDemo",
+            "request": "launch",
+            "mainClass": "presentation.gui.Components.CustomComboBoxDemo",
+            "projectName": "QuanLyTourDuLich_3079393f"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "presentation.gui.Main",

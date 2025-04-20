@@ -15,7 +15,6 @@ import business.model.DiaDanhDTO;
 import business.service.DiaDanhBUS;
 import presentation.gui.Components.MyScrollBarUI;
 import presentation.gui.InputDialog.DiaDanhDialog;
-import utils.ChooseFile;
 import utils.ExcelReader;
 import utils.ExcelWriter;
 import utils.TypeUtils;
@@ -146,19 +145,17 @@ public class DiaDanhForm extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Đã xóa địa danh thành công!");
                 }
             }
-        } else
+        } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn địa danh cần xóa!");
+        }
     }
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         int index = table.getSelectedRow();
         if (index > -1) {
-            DiaDanhDTO dd = new DiaDanhDTO();
-            dd.setMaDD((int) model.getValueAt(index, 0));
-            dd.setTenDD((String) model.getValueAt(index, 1));
-            dd.setTinhThanh((String) model.getValueAt(index, 2));
-            dd.setDiemNoiBat((String) model.getValueAt(index, 3));
+            DiaDanhBUS bus = new DiaDanhBUS();
+            DiaDanhDTO dd = bus.getDiaDanhByMa((int) model.getValueAt(index, 0));
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             DiaDanhDialog dialog = new DiaDanhDialog(parentFrame);
             dialog.loadData(dd);
@@ -173,8 +170,9 @@ public class DiaDanhForm extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
                 }
             }
-        } else
+        } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn địa danh cần cập nhật!");
+        }
     }
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,9 +193,11 @@ public class DiaDanhForm extends javax.swing.JPanel {
     private void btnNhapExcelActionPerformed(java.awt.event.ActionEvent evt) {
         ExcelReader read = new ExcelReader();
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0);
         ArrayList<Object[]> list = read.readWithDialog(TypeUtils.getTypes(new DiaDanhDTO()));
-        list.forEach(e -> model.addRow(e));
+        if (!list.isEmpty()) {
+            model.setRowCount(0);
+            list.forEach(e -> model.addRow(e));
+        }
     }
 
     private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {
