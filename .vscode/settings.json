@@ -17,6 +17,6 @@
     // "java.project.targetLevel": "23",
     // "java.project.sourceLevel": "23",
     "files.exclude": {
-        "**/*.form": true
+        // "**/*.form": true
     }
 }

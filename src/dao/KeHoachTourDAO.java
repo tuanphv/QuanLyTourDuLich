@@ -1,0 +1,92 @@
+package dao;
+
+import dto.KeHoachTourDTO;
+import database.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+public class KeHoachTourDAO {
+    public ArrayList<KeHoachTourDTO> getAllKeHoachTour() {
+        ArrayList<KeHoachTourDTO> dsKeHoachTour = new ArrayList<>();
+        String query = "SELECT * FROM KeHoachTour";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                dsKeHoachTour.add(new KeHoachTourDTO(
+                        rs.getInt("maKHTour"),
+                        rs.getInt("maTour"),
+                        rs.getDate("thoigianBD"),
+                        rs.getDate("thoigianKT"),
+                        rs.getString("trangThai"),
+                        rs.getFloat("tongChiPhi")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dsKeHoachTour;
+    }
+
+    public int addKeHoachTour(KeHoachTourDTO khTour) {
+        String query = "INSERT INTO KeHoachTour (maTour, thoiGianBD, thoiGianKT, trangThai, tongChiPhi) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setInt(1, khTour.getMaTour());
+            pstmt.setDate(2, new java.sql.Date(khTour.getThoiGianBD().getTime()));
+            pstmt.setDate(3, new java.sql.Date(khTour.getThoiGianKT().getTime()));
+            pstmt.setString(4, khTour.getTrangThai());
+            pstmt.setFloat(5, khTour.getTongChiPhi());
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1); // Trả về ID vừa được sinh ra
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1; // Trả về -1 nếu thất bại
+    }
+
+    public boolean deleteKeHoachTour(int maKHTour) {
+        String query = "DELETE FROM KeHoachTour WHERE maKHTour = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, maKHTour);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateKeHoachTour(KeHoachTourDTO khTour) {
+        String query = "UPDATE KeHoachTour SET maTour = ?, thoiGianBD = ?, thoiGianKT = ?, trangThai = ?, tongChiPhi = ? WHERE maKHTour = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, khTour.getMaTour());
+            pstmt.setDate(2, new java.sql.Date(khTour.getThoiGianBD().getTime()));
+            pstmt.setDate(3, new java.sql.Date(khTour.getThoiGianKT().getTime()));
+            pstmt.setString(4, khTour.getTrangThai());
+            pstmt.setFloat(5, khTour.getTongChiPhi());
+            pstmt.setInt(6, khTour.getMaKHTour());
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public static void main(String[] args) {
+        new KeHoachTourDAO().getAllKeHoachTour();
+    }
+}
