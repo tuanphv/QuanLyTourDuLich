@@ -125,6 +125,7 @@
       </SubComponents>
     </Container>
     <Component class="presentation.gui.Components.MyToolBar" name="myToolBar1">
+    <Component class="presentation.gui.Components.MyToolBar" name="myToolBar1">
     </Component>
   </SubComponents>
 </Form>
