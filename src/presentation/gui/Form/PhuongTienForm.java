@@ -37,11 +37,16 @@ public class PhuongTienForm extends javax.swing.JPanel {
         scrollTablePuongTien.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
         tablePhuongTien.setModel(modelTablePhuongTien);
-        uploadDataPhuongTien();
-        addToolBarAction();
+        if (!java.beans.Beans.isDesignTime()) {
+            // Chỉ loadData khi KHÔNG ở design time
+            loadDataToTable();
+            addToolBarAction();
+        } else {
+            System.out.println("DiaDanhForm đang chạy ở design time mode");
+        }
     }
 
-    private void uploadDataPhuongTien() {
+    private void loadDataToTable() {
         modelTablePhuongTien.setRowCount(0);
         for (PhuongTienDTO phuongTien : listPhuongTien) {
             modelTablePhuongTien.addRow(new Object[] {

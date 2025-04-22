@@ -37,11 +37,16 @@ public class NhaHangForm extends javax.swing.JPanel {
         scrollTableNhaHang.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
         tableNhaHang.setModel(modalTableNhaHang);
-        uploadDataPhuongTien();
-        addToolBarAction();
+        if (!java.beans.Beans.isDesignTime()) {
+            // Chỉ loadData khi KHÔNG ở design time
+            loadDataToTable();
+            addToolBarAction();
+        } else {
+            System.out.println("DiaDanhForm đang chạy ở design time mode");
+        }
     }
 
-    private void uploadDataPhuongTien() {
+    private void loadDataToTable() {
         modalTableNhaHang.setRowCount(0);
         for (NhaHangDTO nhaHang : listNhaHang) {
             modalTableNhaHang.addRow(new Object[] {

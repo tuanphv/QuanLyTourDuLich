@@ -10,7 +10,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         panelBorder1 = new presentation.gui.Components.PanelBorder();
@@ -65,7 +65,7 @@ public class Main extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>                        
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * @param args the command line arguments
@@ -94,7 +94,7 @@ public class Main extends javax.swing.JFrame {
   
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
     private presentation.gui.Form.DiaDanhForm diaDanhForm;
     private presentation.gui.Form.KhachHangForm khachHangForm;
@@ -105,5 +105,5 @@ public class Main extends javax.swing.JFrame {
     private presentation.gui.Form.PhuongTienForm phuongTienForm;
     private presentation.gui.Form.TourForm tourForm;
     private presentation.gui.Form.NhanVienForm nhanVienForm;
-    // End of variables declaration                   
+    // End of variables declaration//GEN-END:variables
 }

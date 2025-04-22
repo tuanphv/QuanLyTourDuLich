@@ -37,11 +37,16 @@ public class KhachSanForm extends javax.swing.JPanel {
         scrollTableKhachSan.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
         tableKhachSan.setModel(modalTableKhachSan);
-        uploadDataPhuongTien();
-        addToolBarAction();
+        if (!java.beans.Beans.isDesignTime()) {
+            // Chỉ loadData khi KHÔNG ở design time
+            loadDataToTable();
+            addToolBarAction();
+        } else {
+            System.out.println("DiaDanhForm đang chạy ở design time mode");
+        }
     }
 
-    private void uploadDataPhuongTien() {
+    private void loadDataToTable() {
         modalTableKhachSan.setRowCount(0);
         for (KhachSanDTO khachSan : listKhachSan) {
             modalTableKhachSan.addRow(new Object[] {

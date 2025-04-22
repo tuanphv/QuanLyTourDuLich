@@ -72,6 +72,15 @@ public class DiaDanhBUS {
         }
         return -1;
     }
+    
+    public DiaDanhDTO getDiaDanhByMa(int maDD) {
+        for (DiaDanhDTO dd : dsDiaDanh) {
+            if (dd.getMaDD() == maDD) {
+                return dd;
+            }
+        }
+        return null;
+    }
     // Getter danh sách địa danh
     public ArrayList<DiaDanhDTO> getDsDiaDanh() {
         return dsDiaDanh;

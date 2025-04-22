@@ -10,4 +10,4 @@
 *.class
 
 # Ignore .vscode
-/.vscode
+# /.vscode NOTE: File cấu hình cho VSCode

@@ -1,0 +1,22 @@
+{
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.referencedLibraries": [
+        // Core Apache POI libraries
+        "libs/**/*.jar",
+        // "libs/*.jar",
+    ],
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-23",
+            "path": "D:\\Programs\\JDK",  // Adjust this to your JDK path
+            "default": true
+        }
+    ],
+    // "java.project.targetLevel": "23",
+    // "java.project.sourceLevel": "23",
+    "files.exclude": {
+        "**/*.form": true
+    }
+}

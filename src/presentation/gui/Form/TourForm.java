@@ -5,7 +5,6 @@ import business.service.TourBUS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,8 +32,13 @@ public class TourForm extends javax.swing.JPanel {
             }
         };
         table.setModel(model);
-        loadAllCustomerData();
-        addToolBarAction();
+        if (!java.beans.Beans.isDesignTime()) {
+            // Chỉ loadData khi KHÔNG ở design time
+            loadDataToTable();
+            addToolBarAction();
+        } else {
+            System.out.println("DiaDanhForm đang chạy ở design time mode");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -220,7 +224,7 @@ public class TourForm extends javax.swing.JPanel {
         return false;
     }
 
-    private void loadAllCustomerData() {
+    private void loadDataToTable() {
         TourBUS bus = new TourBUS();
         ArrayList<TourDTO> tours = bus.getDsTour();
         DefaultTableModel model = (DefaultTableModel) table.getModel();

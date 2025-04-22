@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CustomComboBoxDemo",
+            "request": "launch",
+            "mainClass": "presentation.gui.Components.CustomComboBoxDemo",
+            "projectName": "QuanLyTourDuLich_3079393f"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "presentation.gui.Main",
+            "projectName": "QuanLyTourDuLich_3079393f"
+        },
+        {
+            "type": "java",
+            "name": "Launch QuanLyTourDuLich",
+            "request": "launch",
+            "mainClass": "presentation.gui.Main",
+            "projectName": "QuanLyTourDuLich",
+            "vmArgs": "",
+            "env": {
+                "CLASSPATH": "${workspaceFolder}/src;${workspaceFolder}/build/classes;${workspaceFolder}/libs/*"
+            }
+        }
+    ]
+}

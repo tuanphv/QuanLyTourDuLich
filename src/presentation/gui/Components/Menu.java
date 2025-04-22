@@ -57,7 +57,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         panelMoving = new javax.swing.JPanel();
@@ -195,7 +195,7 @@ public class Menu extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold>                        
+    }// </editor-fold>//GEN-END:initComponents
 
     private void tourActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
@@ -280,7 +280,7 @@ public class Menu extends javax.swing.JPanel {
         });
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentation.gui.Components.MenuItem KhachHang;
     private presentation.gui.Components.MenuItem NhanVien;
     private presentation.gui.Components.MenuItem diadanh;
@@ -291,5 +291,5 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JPanel panelMoving;
     private presentation.gui.Components.MenuItem phuongTien;
     private presentation.gui.Components.MenuItem tour;
-    // End of variables declaration                   
+    // End of variables declaration//GEN-END:variables
 }
