@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import gui.components.MyScrollBarUI;
 import gui.dialog.KeHoachTourDialog;
+import utils.FormatDate;
 
 public class KeHoachTourForm extends javax.swing.JPanel {
 
@@ -114,7 +115,17 @@ public class KeHoachTourForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(ActionEvent evt) {
-        
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        KeHoachTourDialog dialog = new KeHoachTourDialog(parentFrame);
+        dialog.setVisible(true);
+        if (dialog.isSave()) {
+            KeHoachTourDTO input = dialog.getInputData();
+            if (addTour(input)) {
+                JOptionPane.showMessageDialog(this, "Đã thêm kế hoạch tour!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm kế hoạch tour không thành công!");
+            }
+        }
     }
 
     private void btnSuaActionPerformed(ActionEvent evt) {
@@ -129,7 +140,7 @@ public class KeHoachTourForm extends javax.swing.JPanel {
             dialog.setVisible(true);
             if (dialog.isSave()) {
                 KeHoachTourDTO input = dialog.getInputData();
-                input.setMaTour(khTour.getMaKHTour());
+                input.setMaKHTour(khTour.getMaKHTour());
                 if (updateTour(input)) {
                     JOptionPane.showMessageDialog(this, "Đã cập nhật kế hoạch tour!");
                 } else {
@@ -176,7 +187,7 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         KeHoachTourBUS bus = new KeHoachTourBUS();
         int index = bus.addKeHoachTour(khTour);
         if (index != -1) {
-            khTour.setMaTour(index);
+            khTour.setMaKHTour(index);
             model.addRow(khTour.toObjectArray());
             return true;
         }
@@ -188,12 +199,10 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         KeHoachTourBUS bus = new KeHoachTourBUS();
         int index = bus.updateKeHoachTour(khTour);
         if (index != -1) {
-            model.setValueAt(khTour.getMaKHTour(), index, 0);
-            model.setValueAt(khTour.getMaTour(), index, 1);
-            model.setValueAt(khTour.getThoiGianBD(), index, 2);
-            model.setValueAt(khTour.getThoiGianKT(), index, 3);
-            model.setValueAt(khTour.getTrangThai(), index, 4);
-            model.setValueAt(khTour.getTongChiPhi(), index, 5);
+            Object[] a = khTour.toObjectArray();
+            for (int i = 0; i < a.length; i++) {
+                model.setValueAt(a[i], index, i);
+            }
             return true;
         }
         return false;

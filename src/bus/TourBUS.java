@@ -68,7 +68,16 @@ public class TourBUS {
         }
         return success;
     }
-
+    
+    public TourDTO getTourById(int maTour) {
+        for (TourDTO tour : dsTour) {
+            if (tour.getMaTour() == maTour) {
+                return tour;
+            }
+        }
+        return null; // Nếu không tìm thấy
+    }
+    
     // Getter cho danh sách tours (nếu cần truy cập từ bên ngoài)
     public ArrayList<TourDTO> getDsTour() {
         return dsTour;

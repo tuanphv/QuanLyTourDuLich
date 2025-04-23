@@ -1,10 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dto;
-
-import java.util.Vector;
 
 public class TourDTO {
 
@@ -18,7 +12,6 @@ public class TourDTO {
     private String loaiTour;
     private int soNgay;
     private int soDem;
-    public Vector<?> toObjectArray;
 
     public TourDTO(int maTour, String tenTour, float gia, String tinhTrang, String moTa, String diemKhoiHanh, String diemDen, String loaiTour, int soNgay, int soDem) {
         this.maTour = maTour;
@@ -32,7 +25,7 @@ public class TourDTO {
         this.soNgay = soNgay;
         this.soDem = soDem;
     }
-    
+
     public TourDTO(String tenTour, float gia, String tinhTrang, String moTa, String diemKhoiHanh, String diemDen, String loaiTour, int soNgay, int soDem) {
         this.tenTour = tenTour;
         this.gia = gia;

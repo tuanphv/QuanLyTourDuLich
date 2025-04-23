@@ -20,6 +20,8 @@ public class KeHoachTourDAO {
                         rs.getInt("maTour"),
                         rs.getDate("thoigianBD"),
                         rs.getDate("thoigianKT"),
+                        rs.getInt("slDaDat"),
+                        rs.getInt("slToiDa"),
                         rs.getString("trangThai"),
                         rs.getFloat("tongChiPhi")
                 ));
@@ -32,14 +34,16 @@ public class KeHoachTourDAO {
     }
 
     public int addKeHoachTour(KeHoachTourDTO khTour) {
-        String query = "INSERT INTO KeHoachTour (maTour, thoiGianBD, thoiGianKT, trangThai, tongChiPhi) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO KeHoachTour (maTour, thoiGianBD, thoiGianKT, slDaDat, slToiDa, trangThai, tongChiPhi) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setInt(1, khTour.getMaTour());
             pstmt.setDate(2, new java.sql.Date(khTour.getThoiGianBD().getTime()));
             pstmt.setDate(3, new java.sql.Date(khTour.getThoiGianKT().getTime()));
-            pstmt.setString(4, khTour.getTrangThai());
-            pstmt.setFloat(5, khTour.getTongChiPhi());
+            pstmt.setInt(4, khTour.getSlDaDat());
+            pstmt.setInt(5, khTour.getSlToiDa());
+            pstmt.setString(6, khTour.getTrangThai());
+            pstmt.setFloat(7, khTour.getTongChiPhi());
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -70,15 +74,17 @@ public class KeHoachTourDAO {
     }
 
     public boolean updateKeHoachTour(KeHoachTourDTO khTour) {
-        String query = "UPDATE KeHoachTour SET maTour = ?, thoiGianBD = ?, thoiGianKT = ?, trangThai = ?, tongChiPhi = ? WHERE maKHTour = ?";
+        String query = "UPDATE KeHoachTour SET maTour = ?, thoiGianBD = ?, thoiGianKT = ?, slDaDat = ?, slToiDa = ?, trangThai = ?, tongChiPhi = ? WHERE maKHTour = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, khTour.getMaTour());
             pstmt.setDate(2, new java.sql.Date(khTour.getThoiGianBD().getTime()));
             pstmt.setDate(3, new java.sql.Date(khTour.getThoiGianKT().getTime()));
-            pstmt.setString(4, khTour.getTrangThai());
-            pstmt.setFloat(5, khTour.getTongChiPhi());
-            pstmt.setInt(6, khTour.getMaKHTour());
+            pstmt.setInt(4, khTour.getSlDaDat());
+            pstmt.setInt(5, khTour.getSlToiDa());
+            pstmt.setString(6, khTour.getTrangThai());
+            pstmt.setFloat(7, khTour.getTongChiPhi());
+            pstmt.setInt(8, khTour.getMaKHTour());
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {

@@ -1,7 +1,12 @@
 package gui.dialog;
 
 import dto.KeHoachTourDTO;
+import dto.TourDTO;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import bus.TourBUS;
+import utils.FormatDate;
 
 public class KeHoachTourDialog extends javax.swing.JDialog {
 
@@ -18,6 +23,8 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
         initComponents();
         jdcThoiGianBD.setDateFormatString("yyyy-MM-dd");
         jdcThoiGianKT.setDateFormatString("yyyy-MM-dd");
+        loadTourList();
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -30,11 +37,8 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtMaTour = new javax.swing.JTextField();
         btnSubmit = new gui.components.MyButton();
         btnCancel = new gui.components.MyButton();
-        txtMaKHTour = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -43,6 +47,11 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
         txtTrangThai = new javax.swing.JTextField();
         jdcThoiGianBD = new com.toedter.calendar.JDateChooser();
         jdcThoiGianKT = new com.toedter.calendar.JDateChooser();
+        cbMaTour = new gui.components.CustomComboBox();
+        jLabel13 = new javax.swing.JLabel();
+        txtDaDat = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtToiDa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,9 +74,6 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel8.setText("Mã Kế hoạch Tour");
-
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel9.setText("Thời gian kết thúc");
 
@@ -79,6 +85,14 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel12.setText("Trạng thái");
+
+        cbMaTour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mã Tour - Tên Tour" }));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel13.setText("Số vé đã đặt");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel14.setText("Số vé tối đa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,16 +107,8 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(59, 59, 59)
-                        .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(59, 59, 59)
-                        .addComponent(txtMaKHTour, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                         .addGap(59, 59, 59)
                         .addComponent(txtTongChiPhi, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -112,26 +118,32 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jdcThoiGianBD, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                            .addComponent(jdcThoiGianKT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(123, 123, 123)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jdcThoiGianBD, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(jdcThoiGianKT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(123, 123, 123))
+                            .addComponent(txtDaDat)
+                            .addComponent(txtToiDa)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(59, 59, 59)
+                        .addComponent(cbMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtMaKHTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                    .addComponent(cbMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jdcThoiGianBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -141,111 +153,171 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
                     .addComponent(jdcThoiGianKT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtDaDat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(txtToiDa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(txtTongChiPhi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelActionPerformed
         int result = JOptionPane.showConfirmDialog(
                 getOwner(),
                 "Bạn có chắc chắn muốn thoát?",
                 "Xác nhận",
                 JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
+                JOptionPane.QUESTION_MESSAGE);
 
-        if (result == JOptionPane.OK_OPTION)
+        if (result == JOptionPane.OK_OPTION) {
             dispose();
-    }//GEN-LAST:event_btnCancelActionPerformed
+        }
+    }// GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        if (txtMaTour.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Mã tour không được để trống!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
-            txtMaTour.requestFocus();
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSubmitActionPerformed
+        if (cbMaTour.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Mã tour không được để trống!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            cbMaTour.requestFocus();
             return;
         }
         try {
-            Integer.valueOf(txtMaTour.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Mã tour phải là số nguyên!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
-            txtMaTour.requestFocus();
-            return;
-        }
-        if (txtMaKHTour.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Mã kế hoạch tour không được để trống!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
-            txtMaKHTour.requestFocus();
-            return;
-        }
-        try {
-            Integer.valueOf(txtMaKHTour.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Mã kế hoạch tour là số nguyên!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
-            txtMaKHTour.requestFocus();
+            String maTourText = cbMaTour.getSelectedItem().toString().split(" - ")[0].trim();
+            Integer.valueOf(maTourText);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Mã tour phải là số nguyên!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            cbMaTour.requestFocus();
             return;
         }
         if (jdcThoiGianBD.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Thời gian bắt đầu không được để trống!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Thời gian bắt đầu không được để trống!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
             jdcThoiGianBD.requestFocus();
+            return;
         }
         if (jdcThoiGianKT.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Thời gian kết thúc không được để trống!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Thời gian kết thúc không được để trống!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
             jdcThoiGianKT.requestFocus();
+            return;
+        }
+        if (txtDaDat.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Số lượng vé đã đặt không được để trống", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            txtDaDat.requestFocus();
+            return;
+        }
+        try {
+            Integer.valueOf(txtDaDat.getText().trim());
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Số lượng vé đã đặt phải là số nguyên", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            txtDaDat.requestFocus();
+            return;
+        }
+        if (txtToiDa.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Số lượng vé tối đa không được để trống", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            txtToiDa.requestFocus();
+            return;
+        }
+        try {
+            Integer.valueOf(txtToiDa.getText().trim());
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Số lượng vé tối đa phải là số nguyên", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            txtToiDa.requestFocus();
+            return;
         }
         if (txtTrangThai.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Trạng thái không được để trống!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Trạng thái không được để trống!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
             txtTrangThai.requestFocus();
             return;
         }
         if (txtTongChiPhi.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Tổng chi phí không được để trống!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tổng chi phí không được để trống!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
             txtTongChiPhi.requestFocus();
             return;
         }
         try {
             Float.valueOf(txtTongChiPhi.getText().trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Tổng chi phí phải là số!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tổng chi phí phải là số!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
             txtTongChiPhi.requestFocus();
             return;
         }
-        
-        
+
         save = true;
         dispose();
-    }//GEN-LAST:event_btnSubmitActionPerformed
+    }// GEN-LAST:event_btnSubmitActionPerformed
 
     public void loadData(KeHoachTourDTO khTour) {
-        txtMaTour.setText(String.valueOf(khTour.getMaTour()));
-        txtMaKHTour.setText(String.valueOf(khTour.getMaKHTour()));
-        jdcThoiGianBD.setDate(khTour.getThoiGianBD());
-        jdcThoiGianKT.setDate(khTour.getThoiGianKT());
-        txtTrangThai.setText(khTour.getTrangThai());
+        TourDTO tour = new TourBUS().getTourById(khTour.getMaTour());
+        cbMaTour.setSelectedItem(tour.getMaTour() + " - " + tour.getTenTour());
+        jdcThoiGianBD.setDate(FormatDate.format(khTour.getThoiGianBD()));
+        jdcThoiGianKT.setDate(FormatDate.format(khTour.getThoiGianKT()));
+        txtDaDat.setText(String.valueOf(khTour.getSlDaDat()));
+        txtToiDa.setText(String.valueOf(khTour.getSlToiDa()));
+        txtTrangThai.setText(khTour.getTrangThai());    
         txtTongChiPhi.setText(String.valueOf(khTour.getTongChiPhi()));
     }
 
     public boolean isSave() {
         return this.save;
     }
-    
+
+    /**
+     * Phương thức này nạp danh sách tour vào ComboBox Format hiển thị: "maTour
+     * - tenTour"
+     */
+    private void loadTourList() {
+        ArrayList<TourDTO> dsTour = new TourBUS().getDsTour();
+        if (dsTour == null || dsTour.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không có tour nào trong danh sách!", "Thông báo",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        // Tạo mảng String để lưu các item của ComboBox
+        String[] items = new String[dsTour.size()];
+
+        // Định dạng "maTour - tenTour" cho mỗi item
+        for (int i = 0; i < dsTour.size(); i++) {
+            TourDTO tour = dsTour.get(i);
+            items[i] = tour.getMaTour() + " - " + tour.getTenTour();
+        }
+
+        // Tạo model mới với các item đã định dạng
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(items);
+
+        // Áp dụng model mới cho ComboBox
+        cbMaTour.setModel(model);
+    }
+
     public KeHoachTourDTO getInputData() {
         KeHoachTourDTO khTour = new KeHoachTourDTO();
-        khTour.setMaTour(Integer.parseInt(txtMaTour.getText()));
-        khTour.setMaKHTour(Integer.parseInt(txtMaKHTour.getText()));
+        String maTourText = cbMaTour.getSelectedItem().toString().split(" - ")[0].trim();
+        khTour.setMaTour(Integer.parseInt(maTourText));
         khTour.setThoiGianBD(jdcThoiGianBD.getDate());
         khTour.setThoiGianKT(jdcThoiGianKT.getDate());
         khTour.setTrangThai(txtTrangThai.getText());
+        khTour.setSlDaDat(Integer.parseInt(txtDaDat.getText()));
+        khTour.setSlToiDa(Integer.parseInt(txtToiDa.getText()));
         khTour.setTongChiPhi(Float.parseFloat(txtTongChiPhi.getText()));
         return khTour;
     }
@@ -253,16 +325,18 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gui.components.MyButton btnCancel;
     private gui.components.MyButton btnSubmit;
+    private gui.components.CustomComboBox cbMaTour;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel9;
     private com.toedter.calendar.JDateChooser jdcThoiGianBD;
     private com.toedter.calendar.JDateChooser jdcThoiGianKT;
-    private javax.swing.JTextField txtMaKHTour;
-    private javax.swing.JTextField txtMaTour;
+    private javax.swing.JTextField txtDaDat;
+    private javax.swing.JTextField txtToiDa;
     private javax.swing.JTextField txtTongChiPhi;
     private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables

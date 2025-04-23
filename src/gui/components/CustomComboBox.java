@@ -5,8 +5,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicComboBoxEditor;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 
 public class CustomComboBox<T> extends JComboBox<T> {
@@ -40,40 +38,12 @@ public class CustomComboBox<T> extends JComboBox<T> {
             setRenderer(new CustomComboBoxRenderer());
             setPreferredSize(new Dimension(120, 36));
             setBackground(Color.WHITE);
-            setFocusable(false);
-            setEditable(true); // Set to editable
             setEditor(new RoundedEditor()); // Use our custom rounded editor
             setBorder(new EmptyBorder(0, 0, 0, 0)); // Remove default border, we'll draw our own
-            
-            // Add the click-to-show behavior
-            setupClickToShowDropdown();
             
         } catch (Exception e) {
             // Silent catch for design-time exceptions
             System.err.println("Error initializing CustomComboBox: " + e.getMessage());
-        }
-    }
-    
-    // Setup the click-to-show dropdown functionality
-    private void setupClickToShowDropdown() {
-        // Get the editor component
-        Component editorComponent = getEditor().getEditorComponent();
-        
-        // Add a mouse listener to the editor component
-        editorComponent.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // When the editor is clicked, show the dropdown
-                showPopup();
-            }
-        });
-        
-        // Make the text field not directly editable if we want dropdown-only behavior
-        if (editorComponent instanceof JTextField) {
-            JTextField textField = (JTextField) editorComponent;
-            textField.setEditable(false);  // Make the text field read-only
-            textField.setFocusable(false); // Prevent the text field from getting focus
-            textField.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change cursor to indicate clickable
         }
     }
 
