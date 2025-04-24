@@ -46,16 +46,26 @@ public class NhanVienForm extends javax.swing.JPanel {
         }
     }
 
+
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
         rowSelected = table.getSelectedRow();
         if (rowSelected == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên để xoá.");
             return;
         }
-        int maKH = danhSachNhanVien.get(rowSelected).getMaNV();
-        if (nhanVienBUS.delete(maKH)) {
+        if (rowSelected >= 0) {
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    "Bạn có chắc chắn muốn xóa?",
+                    "Xác nhận",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+        int maNV = danhSachNhanVien.get(rowSelected).getMaNV();
+        if (nhanVienBUS.delete(maNV)) {
             tableModel.removeRow(rowSelected);
             JOptionPane.showMessageDialog(this, "Xóa thành công!");
+        }
         }
     }
 
