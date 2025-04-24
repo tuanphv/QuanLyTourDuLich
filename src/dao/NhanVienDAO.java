@@ -10,7 +10,7 @@ public class NhanVienDAO {
     public ArrayList<NhanVienDTO> getAll() {
         ArrayList<NhanVienDTO> list = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM nhanvien";
+            String sql = "SELECT * FROM nhanvien WHERE trangThai = 1";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
