@@ -1,6 +1,8 @@
 package gui.dialog;
 
 import dto.TourDTO;
+import enums.TinhTrangTour;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 public class TourDialog extends javax.swing.JDialog {
@@ -15,6 +17,7 @@ public class TourDialog extends javax.swing.JDialog {
     public TourDialog(java.awt.Frame parent) {
         super(parent, "Nhập thông tin tour", true);
         initComponents();
+        prepareDialog();
     }
 
     /**
@@ -31,7 +34,6 @@ public class TourDialog extends javax.swing.JDialog {
         txtSoNgay = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtSoDem = new javax.swing.JTextField();
-        txtTinhTrang = new javax.swing.JTextField();
         txtDiemKH = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -47,6 +49,7 @@ public class TourDialog extends javax.swing.JDialog {
         txtMoTa = new javax.swing.JTextArea();
         btnSubmit = new gui.components.MyButton();
         btnCancel = new gui.components.MyButton();
+        cbTinhTrang = new gui.components.CustomComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -138,11 +141,11 @@ public class TourDialog extends javax.swing.JDialog {
                     .addComponent(txtSoNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTenTour)
                     .addComponent(txtGiaTour)
-                    .addComponent(txtTinhTrang)
                     .addComponent(jScrollPane1)
                     .addComponent(txtDiemKH)
                     .addComponent(txtDiemDen)
-                    .addComponent(cbLoaiTour, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbLoaiTour, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(cbTinhTrang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -163,10 +166,10 @@ public class TourDialog extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(txtGiaTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -194,7 +197,7 @@ public class TourDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,11 +232,6 @@ public class TourDialog extends javax.swing.JDialog {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Giá tour phải là số!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
             txtGiaTour.requestFocus();
-            return;
-        }
-        if (txtTinhTrang.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Số ngày không được để trống!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
-            txtTinhTrang.requestFocus();
             return;
         }
         if (txtMoTa.getText().trim().isEmpty()) {
@@ -284,10 +282,14 @@ public class TourDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void prepareDialog() {
+        cbTinhTrang.setModel(new DefaultComboBoxModel<>(TinhTrangTour.values()));
+    }
+    
     public void loadData(TourDTO tour) {
         txtTenTour.setText(tour.getTenTour());
         txtGiaTour.setText(String.valueOf(tour.getGia()));
-        txtTinhTrang.setText(tour.getTinhTrang());
+        cbTinhTrang.setSelectedItem(tour.getTinhTrang());
         txtMoTa.setText(tour.getMoTa());
         txtDiemKH.setText(tour.getDiemKhoiHanh());
         txtDiemDen.setText(tour.getDiemDen());
@@ -304,7 +306,7 @@ public class TourDialog extends javax.swing.JDialog {
         TourDTO tour = new TourDTO();
         tour.setTenTour(txtTenTour.getText());
         tour.setGia(Float.parseFloat(txtGiaTour.getText()));
-        tour.setTinhTrang(txtTinhTrang.getText());
+        tour.setTinhTrang((TinhTrangTour)cbTinhTrang.getSelectedItem());
         tour.setMoTa(txtMoTa.getText());
         tour.setDiemKhoiHanh(txtDiemKH.getText());
         tour.setDiemDen(txtDiemDen.getText());
@@ -318,6 +320,7 @@ public class TourDialog extends javax.swing.JDialog {
     private gui.components.MyButton btnCancel;
     private gui.components.MyButton btnSubmit;
     private javax.swing.JTextField cbLoaiTour;
+    private gui.components.CustomComboBox cbTinhTrang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -335,6 +338,5 @@ public class TourDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtSoDem;
     private javax.swing.JTextField txtSoNgay;
     private javax.swing.JTextField txtTenTour;
-    private javax.swing.JTextField txtTinhTrang;
     // End of variables declaration//GEN-END:variables
 }

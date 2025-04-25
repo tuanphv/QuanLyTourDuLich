@@ -140,11 +140,26 @@ CREATE TABLE Tour (
 
 INSERT INTO tour (tenTour, gia, tinhTrang, moTa, diemKhoiHanh, diemDen, loaiTour, soNgay, soDem)
 VALUES
-('Tour Hà Nội - Hạ Long', 1500000, 'Đang mở', 'Tham quan Vịnh Hạ Long 2 ngày 1 đêm', 'Hà Nội', 'Hạ Long', 'Nội địa', 2, 1),
-('Tour Đà Nẵng - Hội An', 2000000, 'Đã đóng', 'Khám phá phố cổ Hội An', 'Đà Nẵng', 'Hội An', 'Nội địa', 3, 2),
-('Tour Sài Gòn - Phú Quốc', 3500000, 'Đang mở', 'Tham quan đảo Phú Quốc', 'TP.HCM', 'Phú Quốc', 'Nội địa', 4, 3),
-('Tour Hà Nội - Bangkok', 5500000, 'Đang mở', 'Du lịch Thái Lan trọn gói', 'Hà Nội', 'Bangkok', 'Quốc tế', 5, 4),
-('Tour Huế - Đà Lạt', 2800000, 'Đã đóng', 'Hành trình mộng mơ tại thành phố hoa', 'Huế', 'Đà Lạt', 'Nội địa', 3, 2);
+('Tour Hà Nội - Hạ Long', 1500000, 'DANG_MO', 'Tham quan Vịnh Hạ Long 2 ngày 1 đêm', 'Hà Nội', 'Hạ Long', 'Nội địa', 2, 1),
+('Tour Đà Nẵng - Hội An', 2000000, 'DA_DONG', 'Khám phá phố cổ Hội An', 'Đà Nẵng', 'Hội An', 'Nội địa', 3, 2),
+('Tour Sài Gòn - Phú Quốc', 3500000, 'DANG_MO', 'Tham quan đảo Phú Quốc', 'TP.HCM', 'Phú Quốc', 'Nội địa', 4, 3),
+('Tour Huế - Đà Lạt', 2800000, 'DA_DONG', 'Hành trình mộng mơ tại thành phố hoa', 'Huế', 'Đà Lạt', 'Nội địa', 3, 2),
+('Tour Hà Nội - Sapa', 1800000, 'DANG_MO', 'Khám phá núi rừng Tây Bắc', 'Hà Nội', 'Sapa', 'Nội địa', 3, 2),
+('Tour TP.HCM - Nha Trang', 2200000, 'DANG_MO', 'Tắm biển và tham quan Vinpearl Land', 'TP.HCM', 'Nha Trang', 'Nội địa', 3, 2),
+('Tour Đà Nẵng - Bà Nà Hills', 1700000, 'DA_DONG', 'Tham quan Cầu Vàng nổi tiếng', 'Đà Nẵng', 'Bà Nà Hills', 'Nội địa', 2, 1),
+('Tour Cần Thơ - Châu Đốc', 1600000, 'DANG_MO', 'Khám phá miền Tây sông nước', 'Cần Thơ', 'Châu Đốc', 'Nội địa', 2, 1),
+('Tour Đà Nẵng - Huế', 1900000, 'DANG_MO', 'Di sản văn hóa cố đô Huế', 'Đà Nẵng', 'Huế', 'Nội địa', 2, 1),
+('Tour Hải Phòng - Cát Bà', 1400000, 'DANG_MO', 'Tận hưởng biển xanh Cát Bà', 'Hải Phòng', 'Cát Bà', 'Nội địa', 2, 1),
+('Tour TP.HCM - Đà Lạt', 2100000, 'DANG_MO', 'Thành phố sương mù và hoa', 'TP.HCM', 'Đà Lạt', 'Nội địa', 3, 2),
+('Tour Hà Nội - Mộc Châu', 1700000, 'DANG_MO', 'Ngắm hoa cải trắng và đồi chè', 'Hà Nội', 'Mộc Châu', 'Nội địa', 3, 2),
+('Tour Vinh - Quảng Bình', 1600000, 'DANG_MO', 'Tham quan Phong Nha - Kẻ Bàng', 'Vinh', 'Quảng Bình', 'Nội địa', 3, 2),
+('Tour TP.HCM - Côn Đảo', 3200000, 'DANG_MO', 'Biển xanh và di tích lịch sử', 'TP.HCM', 'Côn Đảo', 'Nội địa', 4, 3),
+('Tour Nha Trang - Đà Lạt', 2000000, 'DANG_MO', 'Biển và rừng thông mộng mơ', 'Nha Trang', 'Đà Lạt', 'Nội địa', 3, 2),
+('Tour Hà Nội - Tam Đảo', 1300000, 'DANG_MO', 'Trải nghiệm không khí mát lành', 'Hà Nội', 'Tam Đảo', 'Nội địa', 2, 1),
+('Tour Buôn Ma Thuột - Gia Lai', 2100000, 'DANG_MO', 'Khám phá Tây Nguyên đại ngàn', 'Buôn Ma Thuột', 'Gia Lai', 'Nội địa', 3, 2),
+('Tour TP.HCM - Bến Tre', 1100000, 'DANG_MO', 'Miền Tây miệt vườn xanh mát', 'TP.HCM', 'Bến Tre', 'Nội địa', 2, 1),
+('Tour Hà Nội - Tràng An', 1500000, 'DANG_MO', 'Du ngoạn Tràng An - Bái Đính', 'Hà Nội', 'Ninh Bình', 'Nội địa', 2, 1),
+('Tour Quy Nhơn - Phú Yên', 2500000, 'DANG_MO', 'Tham quan Eo Gió và Ghềnh Đá Đĩa', 'Quy Nhơn', 'Phú Yên', 'Nội địa', 3, 2);
 
 -- Bảng Kế hoạch tour
 CREATE TABLE KeHoachTour (
@@ -152,22 +167,35 @@ CREATE TABLE KeHoachTour (
     maTour INT,
     thoiGianBD DATE,
     thoiGianKT DATE,
+    slDaDat INT DEFAULT 0,
+    slToiDa INT NOT NULL,
     trangThai VARCHAR(50),
     tongChiPhi FLOAT
 );
+	
+INSERT INTO KeHoachTour (maTour, thoiGianBD, thoiGianKT, slDaDat, slToiDa, trangThai, tongChiPhi)
+VALUES
+(1, '2025-05-10', '2025-05-11', 15, 30, 'DANG_MO', 20000000),
+(2, '2025-06-01', '2025-06-03', 20, 25, 'DA_HUY', 30000000),
+(3, '2025-05-20', '2025-05-23', 12, 20, 'DANG_MO', 40000000),
+(4, '2025-07-15', '2025-07-19', 10, 15, 'DANG_MO', 50000000),
+(5, '2025-06-10', '2025-06-12', 25, 30, 'DA_HUY', 25000000),
+(6, '2025-05-18', '2025-05-20', 18, 25, 'DANG_MO', 27000000),
+(7, '2025-08-05', '2025-08-06', 9, 20, 'DANG_MO', 18000000),
+(8, '2025-05-25', '2025-05-26', 14, 20, 'DANG_MO', 16000000),
+(9, '2025-06-15', '2025-06-17', 16, 30, 'DANG_MO', 29000000),
+(10, '2025-07-01', '2025-07-04', 11, 20, 'DA_HUY', 30000000),
+(11, '2025-06-10', '2025-06-12', 8, 15, 'DANG_MO', 17000000),
+(12, '2025-07-12', '2025-07-15', 6, 12, 'DANG_MO', 15000000),
+(13, '2025-05-28', '2025-05-30', 20, 25, 'DA_HUY', 28000000),
+(14, '2025-06-05', '2025-06-06', 10, 20, 'DANG_MO', 14000000),
+(15, '2025-07-20', '2025-07-22', 15, 20, 'DANG_MO', 26000000),
+(16, '2025-08-01', '2025-08-03', 7, 15, 'DANG_MO', 12000000),
+(17, '2025-06-25', '2025-06-27', 19, 25, 'DA_HUY', 23000000),
+(18, '2025-07-10', '2025-07-11', 13, 20, 'DANG_MO', 19000000),
+(19, '2025-05-15', '2025-05-17', 9, 15, 'DANG_MO', 20000000),
+(20, '2025-06-20', '2025-06-25', 17, 20, 'DANG_MO', 32000000);
 
-INSERT INTO KeHoachTour (maTour, thoiGianBD, thoiGianKT, trangThai, tongChiPhi)
-VALUES 
-(1, '2025-05-01', '2025-05-05', 'CHO_DUYET', 15000000),
-(2, '2025-06-10', '2025-06-15', 'DA_DUYET', 20000000),
-(3, '2025-04-20', '2025-04-25', 'DANG_DIEN_RA', 17500000),
-(4, '2025-07-01', '2025-07-05', 'HOAN_THANH', 16000000),
-(5, '2025-08-15', '2025-08-20', 'DA_HUY', 0),
-(2, '2025-09-01', '2025-09-05', 'CHO_DUYET', 18000000),
-(1, '2025-10-10', '2025-10-14', 'DA_DUYET', 15500000),
-(3, '2025-11-01', '2025-11-06', 'HOAN_THANH', 21000000),
-(4, '2025-12-20', '2025-12-25', 'DANG_DIEN_RA', 19500000),
-(5, '2026-01-05', '2026-01-10', 'DA_HUY', 0);
  
 -- Bảng Địa danh
 CREATE TABLE diadanh (

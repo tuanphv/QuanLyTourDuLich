@@ -1,11 +1,13 @@
 package dto;
 
+import enums.TinhTrangTour;
+
 public class TourDTO {
 
     private int maTour;
     private String tenTour;
     private float gia;
-    private String tinhTrang;
+    private TinhTrangTour tinhTrang;
     private String moTa;
     private String diemKhoiHanh;
     private String diemDen;
@@ -13,7 +15,7 @@ public class TourDTO {
     private int soNgay;
     private int soDem;
 
-    public TourDTO(int maTour, String tenTour, float gia, String tinhTrang, String moTa, String diemKhoiHanh, String diemDen, String loaiTour, int soNgay, int soDem) {
+    public TourDTO(int maTour, String tenTour, float gia, TinhTrangTour tinhTrang, String moTa, String diemKhoiHanh, String diemDen, String loaiTour, int soNgay, int soDem) {
         this.maTour = maTour;
         this.tenTour = tenTour;
         this.gia = gia;
@@ -26,7 +28,7 @@ public class TourDTO {
         this.soDem = soDem;
     }
 
-    public TourDTO(String tenTour, float gia, String tinhTrang, String moTa, String diemKhoiHanh, String diemDen, String loaiTour, int soNgay, int soDem) {
+    public TourDTO(String tenTour, float gia, TinhTrangTour tinhTrang, String moTa, String diemKhoiHanh, String diemDen, String loaiTour, int soNgay, int soDem) {
         this.tenTour = tenTour;
         this.gia = gia;
         this.tinhTrang = tinhTrang;
@@ -65,11 +67,11 @@ public class TourDTO {
         this.gia = gia;
     }
 
-    public String getTinhTrang() {
+    public TinhTrangTour getTinhTrang() {
         return tinhTrang;
     }
 
-    public void setTinhTrang(String tinhTrang) {
+    public void setTinhTrang(TinhTrangTour tinhTrang) {
         this.tinhTrang = tinhTrang;
     }
 
@@ -126,7 +128,7 @@ public class TourDTO {
             maTour,
             tenTour,
             gia,
-            tinhTrang,
+            tinhTrang.getMoTa(),
             moTa,
             diemKhoiHanh,
             diemDen,

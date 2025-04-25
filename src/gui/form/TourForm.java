@@ -132,17 +132,8 @@ public class TourForm extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         int index = table.getSelectedRow();
         if (index > -1) {
-            TourDTO tour = new TourDTO();
-            tour.setMaTour((int) model.getValueAt(index, 0));
-            tour.setTenTour((String) model.getValueAt(index, 1));
-            tour.setGia((float) model.getValueAt(index, 2));
-            tour.setTinhTrang((String) model.getValueAt(index, 3));
-            tour.setMoTa((String) model.getValueAt(index, 4));
-            tour.setDiemKhoiHanh((String) model.getValueAt(index, 5));
-            tour.setDiemDen((String) model.getValueAt(index, 6));
-            tour.setLoaiTour((String) model.getValueAt(index, 7));
-            tour.setSoNgay((int) model.getValueAt(index, 8));
-            tour.setSoDem((int) model.getValueAt(index, 9));
+            TourBUS bus = new TourBUS();
+            TourDTO tour = bus.getTourById((int) model.getValueAt(index, 0));
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             TourDialog dialog = new TourDialog(parentFrame);
             dialog.loadData(tour);

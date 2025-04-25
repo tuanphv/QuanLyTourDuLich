@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import database.DatabaseConnection;
+import enums.TinhTrangTour;
 
 public class TourDAO {
 
@@ -20,7 +21,7 @@ public class TourDAO {
                         rs.getInt("maTour"),
                         rs.getString("tenTour"),
                         rs.getFloat("gia"),
-                        rs.getString("tinhTrang"),
+                        TinhTrangTour.valueOf(rs.getString("tinhTrang")),
                         rs.getString("moTa"),
                         rs.getString("diemKhoiHanh"),
                         rs.getString("diemDen"),
@@ -42,7 +43,7 @@ public class TourDAO {
 
             pstmt.setString(1, tour.getTenTour());
             pstmt.setFloat(2, tour.getGia());
-            pstmt.setString(3, tour.getTinhTrang());
+            pstmt.setString(3, tour.getTinhTrang().name());
             pstmt.setString(4, tour.getMoTa());
             pstmt.setString(5, tour.getDiemKhoiHanh());
             pstmt.setString(6, tour.getDiemDen());
@@ -81,7 +82,7 @@ public class TourDAO {
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, tour.getTenTour());
             pstmt.setFloat(2, tour.getGia());
-            pstmt.setString(3, tour.getTinhTrang());
+            pstmt.setString(3, tour.getTinhTrang().name());
             pstmt.setString(4, tour.getMoTa());
             pstmt.setString(5, tour.getDiemKhoiHanh());
             pstmt.setString(6, tour.getDiemDen());

@@ -1,23 +1,25 @@
 package dto;
 
-import java.util.Date;
+import java.time.LocalDate;
+import enums.TrangThaiKeHoachTour;
 import utils.FormatDate;
 
 public class KeHoachTourDTO {
 
     private int maKHTour;
     private int maTour;
-    private Date thoiGianBD;
-    private Date thoiGianKT;
+    private LocalDate thoiGianBD;
+    private LocalDate thoiGianKT;
     private int slDaDat;
     private int slToiDa;
-    private String trangThai;
+    private TrangThaiKeHoachTour trangThai;
     private float tongChiPhi;
-
+    
     public KeHoachTourDTO() {
+        this.trangThai = TrangThaiKeHoachTour.DANG_MO;
     }
 
-    public KeHoachTourDTO(int maKHTour, int maTour, Date thoiGianBD, Date thoiGianKT, int slDaDat, int slToiDa, String trangThai, float tongChiPhi) {
+    public KeHoachTourDTO(int maKHTour, int maTour, LocalDate thoiGianBD, LocalDate thoiGianKT, int slDaDat, int slToiDa, TrangThaiKeHoachTour trangThai, float tongChiPhi) {
         this.maKHTour = maKHTour;
         this.maTour = maTour;
         this.thoiGianBD = thoiGianBD;
@@ -36,19 +38,19 @@ public class KeHoachTourDTO {
         this.maTour = maTour;
     }
 
-    public Date getThoiGianBD() {
+    public LocalDate getThoiGianBD() {
         return thoiGianBD;
     }
 
-    public void setThoiGianBD(Date thoiGianBD) {
+    public void setThoiGianBD(LocalDate thoiGianBD) {
         this.thoiGianBD = thoiGianBD;
     }
 
-    public Date getThoiGianKT() {
+    public LocalDate getThoiGianKT() {
         return thoiGianKT;
     }
 
-    public void setThoiGianKT(Date thoiGianKT) {
+    public void setThoiGianKT(LocalDate thoiGianKT) {
         this.thoiGianKT = thoiGianKT;
     }
 
@@ -68,11 +70,11 @@ public class KeHoachTourDTO {
         this.slToiDa = slToiDa;
     }
 
-    public String getTrangThai() {
+    public TrangThaiKeHoachTour getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(String trangThai) {
+    public void setTrangThai(TrangThaiKeHoachTour trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -95,6 +97,6 @@ public class KeHoachTourDTO {
     public static String[] KH_TOUR_COLUMN_NAMES = {"Mã KH tour", "Mã tour", "TG bắt đầu", "TG kết thúc", "Đã đặt", "Tối đa", "Trạng thái", "Tổng chi phí"};
 
     public Object[] toObjectArray() {
-        return new Object[]{maKHTour, maTour, FormatDate.toString(thoiGianBD), FormatDate.toString(thoiGianKT), slDaDat, slToiDa, trangThai, String.valueOf(tongChiPhi)};
+        return new Object[]{maKHTour, maTour, FormatDate.toString(thoiGianBD), FormatDate.toString(thoiGianKT), slDaDat, slToiDa, trangThai.getMoTa(), String.valueOf(tongChiPhi)};
     }
 }

@@ -2,12 +2,15 @@ package dao;
 
 import dto.KeHoachTourDTO;
 import database.DatabaseConnection;
+import enums.TrangThaiKeHoachTour;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import utils.FormatDate;
 
 public class KeHoachTourDAO {
     public ArrayList<KeHoachTourDTO> getAllKeHoachTour() {
@@ -18,11 +21,11 @@ public class KeHoachTourDAO {
                 dsKeHoachTour.add(new KeHoachTourDTO(
                         rs.getInt("maKHTour"),
                         rs.getInt("maTour"),
-                        rs.getDate("thoigianBD"),
-                        rs.getDate("thoigianKT"),
+                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
+                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
                         rs.getInt("slDaDat"),
                         rs.getInt("slToiDa"),
-                        rs.getString("trangThai"),
+                        TrangThaiKeHoachTour.valueOf(rs.getString("trangThai")),
                         rs.getFloat("tongChiPhi")
                 ));
             }
@@ -38,11 +41,11 @@ public class KeHoachTourDAO {
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setInt(1, khTour.getMaTour());
-            pstmt.setDate(2, new java.sql.Date(khTour.getThoiGianBD().getTime()));
-            pstmt.setDate(3, new java.sql.Date(khTour.getThoiGianKT().getTime()));
+            pstmt.setDate(2, Date.valueOf(khTour.getThoiGianBD()));
+            pstmt.setDate(3, Date.valueOf(khTour.getThoiGianKT()));
             pstmt.setInt(4, khTour.getSlDaDat());
             pstmt.setInt(5, khTour.getSlToiDa());
-            pstmt.setString(6, khTour.getTrangThai());
+            pstmt.setString(6, khTour.getTrangThai().name());
             pstmt.setFloat(7, khTour.getTongChiPhi());
 
             int affectedRows = pstmt.executeUpdate();
@@ -78,11 +81,11 @@ public class KeHoachTourDAO {
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, khTour.getMaTour());
-            pstmt.setDate(2, new java.sql.Date(khTour.getThoiGianBD().getTime()));
-            pstmt.setDate(3, new java.sql.Date(khTour.getThoiGianKT().getTime()));
+            pstmt.setDate(2, Date.valueOf(khTour.getThoiGianBD()));
+            pstmt.setDate(3, Date.valueOf(khTour.getThoiGianKT()));
             pstmt.setInt(4, khTour.getSlDaDat());
             pstmt.setInt(5, khTour.getSlToiDa());
-            pstmt.setString(6, khTour.getTrangThai());
+            pstmt.setString(6, khTour.getTrangThai().name());
             pstmt.setFloat(7, khTour.getTongChiPhi());
             pstmt.setInt(8, khTour.getMaKHTour());
 
