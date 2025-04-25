@@ -52,10 +52,19 @@ public class KhachHangForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng để xoá.");
             return;
         }
+        if (rowSelected >= 0) {
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    "Bạn có chắc chắn muốn xóa?",
+                    "Xác nhận",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
         int maKH = danhSachKhachHang.get(rowSelected).getMaKH();
         if (khachHangBUS.delete(maKH)) {
             tableModel.removeRow(rowSelected);
-            JOptionPane.showMessageDialog(this, "Xóa thành công!");
+            JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công!");
+        }
         }
     }
 

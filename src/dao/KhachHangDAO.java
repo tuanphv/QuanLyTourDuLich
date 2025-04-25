@@ -74,7 +74,7 @@ public class KhachHangDAO {
     public ArrayList<KhachHangDTO> getAll() {
         ArrayList<KhachHangDTO> list = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM khachhang";
+            String sql = "SELECT * FROM khachhang WHERE trangThai = 1";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
