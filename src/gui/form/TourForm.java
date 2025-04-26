@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import gui.components.MyScrollBarUI;
 import gui.dialog.TourDialog;
+import interfaces.SearchHandler;
 
 public class TourForm extends javax.swing.JPanel {
 
@@ -34,15 +35,31 @@ public class TourForm extends javax.swing.JPanel {
         table.setModel(model);
         if (!java.beans.Beans.isDesignTime()) {
             // Chỉ loadData khi KHÔNG ở design time
-            loadDataToTable();
+            loadDataToTable(new TourBUS().getDsTour());
             addToolBarAction();
         } else {
             System.out.println("DiaDanhForm đang chạy ở design time mode");
         }
+        myToolBar1.setSearchType(new String[] { "Tên tour", "Điểm khởi hành", "Điểm đến" });
+        myToolBar1.setSearchHandler(new SearchHandler() {
+            @Override
+            public void onSearch(String type, String text) {
+                ArrayList<TourDTO> tours;
+                TourBUS bus = new TourBUS();
+                switch (type) {
+                    case "Tên tour" -> tours = bus.timTheoTen(text);
+                    case "Điểm khởi hành" -> tours = bus.timTheoDiemKhoiHanh(text);
+                    case "Điểm đến" -> tours = bus.timTheoDiemDen(text);
+                    default -> throw new AssertionError();
+                }
+                loadDataToTable(tours);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         panelBorder1 = new gui.components.PanelBorder();
@@ -56,13 +73,12 @@ public class TourForm extends javax.swing.JPanel {
         spTable.setBorder(null);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][] {
 
-            },
-            new String [] {
+                },
+                new String[] {
 
-            }
-        ));
+                }));
         spTable.setViewportView(table);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -73,44 +89,47 @@ public class TourForm extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelBorder1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(panelBorder1Layout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 960,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         panelBorder1Layout.setVerticalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20)
-                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
+                panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelBorder1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel1)
+                                .addGap(20, 20, 20)
+                                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 564,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(20, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(myToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(myToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(20, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(myToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(myToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+                                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(20, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(ActionEvent evt) {
@@ -163,8 +182,7 @@ public class TourForm extends javax.swing.JPanel {
                     "Bạn có chắc chắn muốn xóa?",
                     "Xác nhận",
                     JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE
-            );
+                    JOptionPane.QUESTION_MESSAGE);
 
             if (result == JOptionPane.OK_OPTION) {
                 if (bus.deleteTour((int) model.getValueAt(i, 0))) {
@@ -215,9 +233,7 @@ public class TourForm extends javax.swing.JPanel {
         return false;
     }
 
-    private void loadDataToTable() {
-        TourBUS bus = new TourBUS();
-        ArrayList<TourDTO> tours = bus.getDsTour();
+    private void loadDataToTable(ArrayList<TourDTO> tours) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
         tours.forEach((var e) -> model.addRow(e.toObjectArray()));

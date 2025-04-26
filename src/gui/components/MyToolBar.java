@@ -1,6 +1,12 @@
 package gui.components;
 
+import interfaces.SearchHandler;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
+
 public class MyToolBar extends javax.swing.JPanel {
+
+    private SearchHandler searchHandler;
 
     /**
      * Creates new form MyToolBar
@@ -25,8 +31,8 @@ public class MyToolBar extends javax.swing.JPanel {
         btnNhapExcel = new gui.components.ButtonToolBar();
         btnXuatExcel = new gui.components.ButtonToolBar();
         txtSearch = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        customComboBox1 = new gui.components.CustomComboBox();
+        searchButton = new javax.swing.JButton();
+        cbSearchType = new gui.components.CustomComboBox();
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder2.setPreferredSize(new java.awt.Dimension(1000, 50));
@@ -47,11 +53,21 @@ public class MyToolBar extends javax.swing.JPanel {
         btnXuatExcel.setText("XUẤT EXCEL");
 
         txtSearch.setPreferredSize(new java.awt.Dimension(64, 36));
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(51, 204, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
+        searchButton.setBackground(new java.awt.Color(204, 204, 204));
+        searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
-        customComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chọn tất cả", "Lựa chọn 1", "Lựa chọn 2" }));
+        cbSearchType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chọn tất cả", "Lựa chọn 1", "Lựa chọn 2" }));
 
         javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
         panelBorder2.setLayout(panelBorder2Layout);
@@ -69,11 +85,11 @@ public class MyToolBar extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(customComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton1)
+                .addComponent(searchButton)
                 .addGap(0, 150, Short.MAX_VALUE))
         );
         panelBorder2Layout.setVerticalGroup(
@@ -95,9 +111,9 @@ public class MyToolBar extends javax.swing.JPanel {
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(customComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -113,6 +129,31 @@ public class MyToolBar extends javax.swing.JPanel {
             .addComponent(panelBorder2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        doSearch();
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            doSearch();
+        }
+    }//GEN-LAST:event_txtSearchKeyPressed
+
+    private void doSearch() {
+        String text = txtSearch.getText().trim();
+        String type = (String) cbSearchType.getSelectedItem();
+        if (searchHandler != null) {
+            searchHandler.onSearch(type, text);
+        }
+    }
+    public void setSearchHandler(SearchHandler searchHandler) {
+        this.searchHandler = searchHandler;
+    }
+
+    public void setSearchType(String[] types) {
+        cbSearchType.setModel(new DefaultComboBoxModel<>(types));
+    }
 
     public ButtonToolBar getBtnThem() {
         return btnThem;
@@ -140,9 +181,9 @@ public class MyToolBar extends javax.swing.JPanel {
     private gui.components.ButtonToolBar btnThem;
     private gui.components.ButtonToolBar btnXoa;
     private gui.components.ButtonToolBar btnXuatExcel;
-    private gui.components.CustomComboBox customComboBox1;
-    private javax.swing.JButton jButton1;
+    private gui.components.CustomComboBox cbSearchType;
     private gui.components.PanelBorder panelBorder2;
+    private javax.swing.JButton searchButton;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

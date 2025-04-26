@@ -78,6 +78,33 @@ public class TourBUS {
         return null; // Nếu không tìm thấy
     }
     
+    public ArrayList<TourDTO> timTheoTen(String text) {
+        ArrayList<TourDTO> result = new ArrayList<>();
+        for (TourDTO tour : dsTour) {
+            if (tour.getTenTour().toLowerCase().contains(text.toLowerCase()))
+                result.add(tour);
+        }
+        return result;
+    }
+    
+    public ArrayList<TourDTO> timTheoDiemDen(String text) {
+        ArrayList<TourDTO> result = new ArrayList<>();
+        for (TourDTO tour : dsTour) {
+            if (tour.getDiemDen().toLowerCase().contains(text.toLowerCase()))
+                result.add(tour);
+        }
+        return result;
+    }
+    
+    public ArrayList<TourDTO> timTheoDiemKhoiHanh(String text) {
+        ArrayList<TourDTO> result = new ArrayList<>();
+        for (TourDTO tour : dsTour) {
+            if (tour.getDiemKhoiHanh().toLowerCase().contains(text.toLowerCase()))
+                result.add(tour);
+        }
+        return result;
+    }
+    
     // Getter cho danh sách tours (nếu cần truy cập từ bên ngoài)
     public ArrayList<TourDTO> getDsTour() {
         return dsTour;
