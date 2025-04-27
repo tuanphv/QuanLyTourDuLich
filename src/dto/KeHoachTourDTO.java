@@ -97,6 +97,6 @@ public class KeHoachTourDTO {
     public static String[] KH_TOUR_COLUMN_NAMES = {"Mã KH tour", "Mã tour", "TG bắt đầu", "TG kết thúc", "Đã đặt", "Tối đa", "Trạng thái", "Tổng chi phí"};
 
     public Object[] toObjectArray() {
-        return new Object[]{maKHTour, maTour, FormatDate.toString(thoiGianBD), FormatDate.toString(thoiGianKT), slDaDat, slToiDa, trangThai.getMoTa(), String.valueOf(tongChiPhi)};
+        return new Object[]{maKHTour, maTour, FormatDate.toString(thoiGianBD), FormatDate.toString(thoiGianKT), slDaDat, slToiDa, trangThai.getMoTa(), String.format("%.0f", tongChiPhi)};
     }
 }

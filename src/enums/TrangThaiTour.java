@@ -1,14 +1,17 @@
 package enums;
 
-public enum TinhTrangTour {
+import java.util.Arrays;
+
+public enum TrangThaiTour {
     DANG_MO("Đang mở"),
     TAM_DUNG("Tạm dừng"),
     DA_DONG("Đã đóng"),
-    HUY("Đã huỷ");
+    HUY("Đã huỷ"),
+    DA_XOA("Đã xóa");
 
     private final String moTa;
 
-    TinhTrangTour(String moTa) {
+    TrangThaiTour(String moTa) {
         this.moTa = moTa;
     }
 
@@ -16,8 +19,8 @@ public enum TinhTrangTour {
         return moTa;
     }
 
-    public static TinhTrangTour fromMoTa(String moTa) {
-        for (TinhTrangTour t : values()) {
+    public static TrangThaiTour fromMoTa(String moTa) {
+        for (TrangThaiTour t : values()) {
             if (t.moTa.equalsIgnoreCase(moTa.trim())) {
                 return t;
             }
@@ -28,5 +31,11 @@ public enum TinhTrangTour {
     @Override
     public String toString() {
         return moTa;
+    }
+
+    public static TrangThaiTour[] getTrangThaiTours() {
+        return Arrays.stream(values())
+                .filter(tt -> tt != DA_XOA)
+                .toArray(TrangThaiTour[]::new);
     }
 }

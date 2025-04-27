@@ -24,6 +24,7 @@ public class Main extends javax.swing.JFrame {
         khachHangForm = new gui.form.KhachHangForm();
         nhanVienForm = new gui.form.NhanVienForm();
         keHoachTourForm = new gui.form.KeHoachTourForm();
+        hoaDonForm = new gui.form.HoaDonForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -37,6 +38,7 @@ public class Main extends javax.swing.JFrame {
         cardPanel.add(khachHangForm, "cardKhachHang");
         cardPanel.add(nhanVienForm, "cardNhanVien");
         cardPanel.add(keHoachTourForm, "cardKeHoachTour");
+        cardPanel.add(hoaDonForm, "card10");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -46,7 +48,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(cardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1026, Short.MAX_VALUE))
+                .addComponent(cardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,6 +101,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
     private gui.form.DiaDanhForm diaDanhForm;
+    private gui.form.HoaDonForm hoaDonForm;
     private gui.form.KeHoachTourForm keHoachTourForm;
     private gui.form.KhachHangForm khachHangForm;
     private gui.form.KhachSanForm khachSanForm;

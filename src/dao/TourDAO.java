@@ -8,20 +8,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import database.DatabaseConnection;
-import enums.TinhTrangTour;
+import enums.TrangThaiTour;
 
 public class TourDAO {
 
     public ArrayList<TourDTO> getAllTours() {
         ArrayList<TourDTO> tours = new ArrayList<>();
-        String query = "SELECT * FROM tour";
+        String query = "SELECT * FROM tour WHERE tinhTrang != 'DA_XOA'";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 tours.add(new TourDTO(
                         rs.getInt("maTour"),
                         rs.getString("tenTour"),
                         rs.getFloat("gia"),
-                        TinhTrangTour.valueOf(rs.getString("tinhTrang")),
+                        TrangThaiTour.valueOf(rs.getString("tinhTrang")),
                         rs.getString("moTa"),
                         rs.getString("diemKhoiHanh"),
                         rs.getString("diemDen"),
@@ -67,7 +67,7 @@ public class TourDAO {
     }
 
     public boolean deleteTour(int maTour) {
-        String query = "DELETE FROM tour WHERE maTour = ?";
+        String query = "UPDATE tour SET tinhTrang = 'DA_XOA' WHERE maTour = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, maTour);
             return pstmt.executeUpdate() > 0;

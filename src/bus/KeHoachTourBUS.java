@@ -60,15 +60,6 @@ public class KeHoachTourBUS {
         return success;
     }
 
-    public int findIndexByMaKHTour(int maKHTour) {
-        for (int i = 0; i < dsKHTour.size(); i++) {
-            if (dsKHTour.get(i).getMaKHTour() == maKHTour) {
-                return i;
-            }
-        }
-        return -1; // Không tìm thấy
-    }
-
     public KeHoachTourDTO getKeHoachTourById(int maKHTour) {
         for (KeHoachTourDTO khTour : dsKHTour) {
             if (khTour.getMaKHTour() == maKHTour) {
@@ -87,6 +78,35 @@ public class KeHoachTourBUS {
         }
         return result;
     }
+    
+    public ArrayList<KeHoachTourDTO> getKeHoachTourBySLToiDa(int sl) {
+        ArrayList<KeHoachTourDTO> result = new ArrayList<>();
+        for (KeHoachTourDTO khTour : dsKHTour) {
+            if (khTour.getSlToiDa() == sl) {
+                result.add(khTour);
+            }
+        }
+        return result;
+    }
+    
+    public ArrayList<KeHoachTourDTO> getKeHoachTourByMaTour(String maTour) {
+        try {
+            int ma = Integer.parseInt(maTour.trim());
+            return getKeHoachTourByMaTour(ma);
+        } catch (NumberFormatException e) {
+            return null;
+        }  
+    }
+    
+    public ArrayList<KeHoachTourDTO> getKeHoachTourBySLToiDa(String soLuong) {
+        try {
+            int sl = Integer.parseInt(soLuong.trim());
+            return getKeHoachTourBySLToiDa(sl);
+        } catch (NumberFormatException e) {
+            return null;
+        }  
+    }
+    
     public static void main(String[] args) {
         new KeHoachTourBUS().loadData();
     }

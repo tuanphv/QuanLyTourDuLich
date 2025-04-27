@@ -278,13 +278,14 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
         txtDaDat.setText(String.valueOf(khTour.getSlDaDat()));
         txtToiDa.setText(String.valueOf(khTour.getSlToiDa()));
         cbTrangThai.setSelectedItem(khTour.getTrangThai());
-        txtTongChiPhi.setText(String.valueOf(khTour.getTongChiPhi()));
+        txtTongChiPhi.setText(String.format("%.0f", khTour.getTongChiPhi()));
     }
 
     public boolean isSave() {
         return this.save;
     }
 
+    @SuppressWarnings("unchecked")
     /**
      * Phương thức này nạp danh sách tour vào ComboBox Format hiển thị: "maTour
      * - tenTour"

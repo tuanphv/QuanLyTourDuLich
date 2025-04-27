@@ -1,7 +1,7 @@
 package gui.dialog;
 
 import dto.TourDTO;
-import enums.TinhTrangTour;
+import enums.TrangThaiTour;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -283,7 +283,7 @@ public class TourDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void prepareDialog() {
-        cbTinhTrang.setModel(new DefaultComboBoxModel<>(TinhTrangTour.values()));
+        cbTinhTrang.setModel(new DefaultComboBoxModel<>(TrangThaiTour.getTrangThaiTours()));
     }
     
     public void loadData(TourDTO tour) {
@@ -306,7 +306,7 @@ public class TourDialog extends javax.swing.JDialog {
         TourDTO tour = new TourDTO();
         tour.setTenTour(txtTenTour.getText());
         tour.setGia(Float.parseFloat(txtGiaTour.getText()));
-        tour.setTinhTrang((TinhTrangTour)cbTinhTrang.getSelectedItem());
+        tour.setTinhTrang((TrangThaiTour)cbTinhTrang.getSelectedItem());
         tour.setMoTa(txtMoTa.getText());
         tour.setDiemKhoiHanh(txtDiemKH.getText());
         tour.setDiemDen(txtDiemDen.getText());

@@ -32,6 +32,7 @@ public class Menu extends javax.swing.JPanel {
         nhaHang.setModel(new Model_Menu("restaurant", "Nhà hàng", Model_Menu.MenuType.MENU));
         khachHang.setModel(new Model_Menu("customer", "Khách Hàng", Model_Menu.MenuType.MENU));
         nhanVien.setModel(new Model_Menu("employee", "Nhân Viên", Model_Menu.MenuType.MENU));
+        hoaDon.setModel(new Model_Menu("bill", "Hóa đơn", Model_Menu.MenuType.MENU));
 
         items = new ArrayList<>();
         items.add(tour);
@@ -42,6 +43,7 @@ public class Menu extends javax.swing.JPanel {
         items.add(nhaHang);
         items.add(khachHang);
         items.add(nhanVien);
+        items.add(hoaDon);
         changeBackground(tour);
         repaint();
     }
@@ -72,6 +74,7 @@ public class Menu extends javax.swing.JPanel {
         keHoachTour = new gui.components.MenuItem();
         khachHang = new gui.components.MenuItem();
         nhanVien = new gui.components.MenuItem();
+        hoaDon = new gui.components.MenuItem();
 
         panelMoving.setOpaque(false);
 
@@ -147,6 +150,13 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
+        hoaDon.setText("");
+        hoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hoaDonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -161,7 +171,8 @@ public class Menu extends javax.swing.JPanel {
                     .addComponent(tour, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(keHoachTour, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(khachHang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nhanVien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(nhanVien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(hoaDon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,7 +194,9 @@ public class Menu extends javax.swing.JPanel {
                 .addComponent(khachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(nhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(hoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -219,6 +232,12 @@ public class Menu extends javax.swing.JPanel {
         changeBackground(src);
         mainFrame.showCard("cardNhanVien");
     }//GEN-LAST:event_nhanVienActionPerformed
+
+    private void hoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hoaDonActionPerformed
+        MenuItem src = (MenuItem) evt.getSource();
+        changeBackground(src);
+        mainFrame.showCard("card10");
+    }//GEN-LAST:event_hoaDonActionPerformed
 
     private void tourActionPerformed(java.awt.event.ActionEvent evt) {                                     
         MenuItem src = (MenuItem) evt.getSource();
@@ -285,6 +304,7 @@ public class Menu extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gui.components.MenuItem diadanh;
+    private gui.components.MenuItem hoaDon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private gui.components.MenuItem keHoachTour;

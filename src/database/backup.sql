@@ -9,7 +9,7 @@ use quanlytourdulich;
 
 -- Bảng khách hàng
 CREATE TABLE khachhang (
-    maKH int(255) AUTO_INCREMENT PRIMARY KEY,
+    maKH INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     ten VARCHAR(255) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE khachhang (
     email VARCHAR(255),
     ngayDK DATE NOT NULL,
     cc_hc VARCHAR(50),
-    trangThai int(1)
+    trangThai INT
 );
 
 INSERT INTO khachhang (username, password, ten, ho, ngaySinh, gioiTinh, soDT, email, ngayDK, cc_hc, trangThai)
@@ -34,7 +34,7 @@ VALUES
 -- Bảng nhân viên
 
 CREATE TABLE nhanvien (
-    maNV int(255) AUTO_INCREMENT PRIMARY KEY,
+    maNV INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     ten VARCHAR(255),
@@ -46,7 +46,7 @@ CREATE TABLE nhanvien (
     ngayVaoLam DATE,
     chucVu VARCHAR(255),
     cc_hc VARCHAR(50),
-    trangThai int(1)
+    trangThai INT
 );
 
 INSERT INTO nhanvien (username, password, ten, ho, ngaySinh, gioiTinh, soDT, email, ngayVaoLam, chucVu, cc_hc, trangThai)
@@ -170,7 +170,8 @@ CREATE TABLE KeHoachTour (
     slDaDat INT DEFAULT 0,
     slToiDa INT NOT NULL,
     trangThai VARCHAR(50),
-    tongChiPhi FLOAT
+    tongChiPhi FLOAT,
+	CONSTRAINT FK_KeHoachTour_Tour FOREIGN KEY (maTour) REFERENCES Tour(maTour)
 );
 	
 INSERT INTO KeHoachTour (maTour, thoiGianBD, thoiGianKT, slDaDat, slToiDa, trangThai, tongChiPhi)
@@ -217,3 +218,62 @@ VALUES
 ('Chợ Bến Thành', 'TP.HCM', 'Khu chợ nổi tiếng nằm ở trung tâm Sài Gòn'),
 ('Thác Datanla', 'Lâm Đồng', 'Thác nước đẹp nằm giữa rừng thông, có trò chơi mạo hiểm'),
 ('Bãi biển Mỹ Khê', 'Đà Nẵng', 'Một trong những bãi biển đẹp nhất hành tinh theo Forbes');
+
+CREATE TABLE HoaDon (
+    maHoaDon INT AUTO_INCREMENT PRIMARY KEY,
+    maKH INT,
+    maKHTour INT,
+    soVe INT,
+    maNV INT,
+    tongTien FLOAT,
+    ghiChu TEXT,
+    maKhuyenMai INT,
+    ngayLapPhieu DATETIME,
+    trangThai BOOLEAN,
+    
+    FOREIGN KEY (maKH) REFERENCES KhachHang(maKH),
+    FOREIGN KEY (maNV) REFERENCES NhanVien(maNV),
+    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKHTour)
+);
+
+INSERT INTO HoaDon (maKH, maKHTour, soVe, maNV, tongTien, ghiChu, maKhuyenMai, ngayLapPhieu, trangThai) VALUES
+(1, 1, 2, 3, 2000.0, 'Ghi chú 1', NULL, '2025-04-28 10:00:00', TRUE),
+(2, 1, 4, 5, 4000.0, 'Ghi chú 2', NULL, '2025-04-28 10:05:00', TRUE),
+(3, 2, 1, 2, 1000.0, 'Ghi chú 3', NULL, '2025-04-28 10:10:00', TRUE),
+(4, 2, 3, 1, 3000.0, 'Ghi chú 4', NULL, '2025-04-28 10:15:00', TRUE),
+(5, 3, 2, 4, 2000.0, 'Ghi chú 5', NULL, '2025-04-28 10:20:00', TRUE),
+(1, 3, 5, 5, 5000.0, 'Ghi chú 6', NULL, '2025-04-28 10:25:00', TRUE),
+(2, 4, 2, 2, 2000.0, 'Ghi chú 7', NULL, '2025-04-28 10:30:00', TRUE),
+(3, 4, 3, 1, 3000.0, 'Ghi chú 8', NULL, '2025-04-28 10:35:00', TRUE),
+(4, 5, 1, 3, 1000.0, 'Ghi chú 9', NULL, '2025-04-28 10:40:00', TRUE),
+(5, 5, 2, 4, 2000.0, 'Ghi chú 10', NULL, '2025-04-28 10:45:00', TRUE),
+(1, 6, 3, 5, 3000.0, 'Ghi chú 11', NULL, '2025-04-28 10:50:00', TRUE),
+(2, 6, 1, 2, 1000.0, 'Ghi chú 12', NULL, '2025-04-28 10:55:00', TRUE),
+(3, 7, 2, 1, 2000.0, 'Ghi chú 13', NULL, '2025-04-28 11:00:00', TRUE),
+(4, 7, 4, 3, 4000.0, 'Ghi chú 14', NULL, '2025-04-28 11:05:00', TRUE),
+(5, 8, 2, 4, 2000.0, 'Ghi chú 15', NULL, '2025-04-28 11:10:00', TRUE),
+(1, 8, 3, 5, 3000.0, 'Ghi chú 16', NULL, '2025-04-28 11:15:00', TRUE),
+(2, 9, 1, 2, 1000.0, 'Ghi chú 17', NULL, '2025-04-28 11:20:00', TRUE),
+(3, 9, 5, 1, 5000.0, 'Ghi chú 18', NULL, '2025-04-28 11:25:00', TRUE),
+(4, 10, 2, 3, 2000.0, 'Ghi chú 19', NULL, '2025-04-28 11:30:00', TRUE),
+(5, 10, 4, 4, 4000.0, 'Ghi chú 20', NULL, '2025-04-28 11:35:00', TRUE),
+(1, 11, 2, 5, 2000.0, 'Ghi chú 21', NULL, '2025-04-28 11:40:00', TRUE),
+(2, 11, 3, 2, 3000.0, 'Ghi chú 22', NULL, '2025-04-28 11:45:00', TRUE),
+(3, 12, 1, 1, 1000.0, 'Ghi chú 23', NULL, '2025-04-28 11:50:00', TRUE),
+(4, 12, 2, 3, 2000.0, 'Ghi chú 24', NULL, '2025-04-28 11:55:00', TRUE),
+(5, 13, 3, 4, 3000.0, 'Ghi chú 25', NULL, '2025-04-28 12:00:00', TRUE),
+(1, 13, 4, 5, 4000.0, 'Ghi chú 26', NULL, '2025-04-28 12:05:00', TRUE),
+(2, 14, 1, 2, 1000.0, 'Ghi chú 27', NULL, '2025-04-28 12:10:00', TRUE),
+(3, 14, 5, 1, 5000.0, 'Ghi chú 28', NULL, '2025-04-28 12:15:00', TRUE),
+(4, 15, 2, 3, 2000.0, 'Ghi chú 29', NULL, '2025-04-28 12:20:00', TRUE),
+(5, 15, 3, 4, 3000.0, 'Ghi chú 30', NULL, '2025-04-28 12:25:00', TRUE),
+(1, 16, 1, 5, 1000.0, 'Ghi chú 31', NULL, '2025-04-28 12:30:00', TRUE),
+(2, 16, 2, 2, 2000.0, 'Ghi chú 32', NULL, '2025-04-28 12:35:00', TRUE),
+(3, 17, 4, 1, 4000.0, 'Ghi chú 33', NULL, '2025-04-28 12:40:00', TRUE),
+(4, 17, 3, 3, 3000.0, 'Ghi chú 34', NULL, '2025-04-28 12:45:00', TRUE),
+(5, 18, 2, 4, 2000.0, 'Ghi chú 35', NULL, '2025-04-28 12:50:00', TRUE),
+(1, 18, 5, 5, 5000.0, 'Ghi chú 36', NULL, '2025-04-28 12:55:00', TRUE),
+(2, 19, 1, 2, 1000.0, 'Ghi chú 37', NULL, '2025-04-28 13:00:00', TRUE),
+(3, 19, 4, 1, 4000.0, 'Ghi chú 38', NULL, '2025-04-28 13:05:00', TRUE),
+(4, 20, 3, 3, 3000.0, 'Ghi chú 39', NULL, '2025-04-28 13:10:00', TRUE),
+(5, 20, 2, 4, 2000.0, 'Ghi chú 40', NULL, '2025-04-28 13:15:00', TRUE);
