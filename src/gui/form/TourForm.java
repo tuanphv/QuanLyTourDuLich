@@ -68,6 +68,8 @@ public class TourForm extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         myToolBar1 = new gui.components.MyToolBar();
 
+        setPreferredSize(new java.awt.Dimension(1660, 1000));
+
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
         spTable.setBorder(null);
@@ -104,7 +106,7 @@ public class TourForm extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20)
-                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -117,7 +119,7 @@ public class TourForm extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(myToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(640, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
