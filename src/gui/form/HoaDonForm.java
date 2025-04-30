@@ -59,7 +59,6 @@ public class HoaDonForm extends javax.swing.JPanel {
         spChiTietVe.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spChiTietVe.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
         spChiTietVe.getViewport().setBackground(Color.white);
-        spChiTietVe.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
     }
 
     @SuppressWarnings("unchecked")

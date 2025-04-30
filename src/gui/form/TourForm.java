@@ -68,8 +68,6 @@ public class TourForm extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         myToolBar1 = new gui.components.MyToolBar();
 
-        setPreferredSize(new java.awt.Dimension(1660, 1000));
-
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
         spTable.setBorder(null);
