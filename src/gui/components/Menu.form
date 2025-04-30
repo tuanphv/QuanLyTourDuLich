@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[240, 654]"/>
+    </Property>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -39,7 +44,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel1" alignment="1" pref="226" max="32767" attributes="0"/>
+              <Component id="jLabel1" alignment="1" pref="240" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -78,7 +83,7 @@
                       <Component id="nhaHang" alignment="0" max="32767" attributes="0"/>
                       <Component id="khachSan" alignment="1" max="32767" attributes="0"/>
                       <Component id="phuongTien" alignment="1" max="32767" attributes="0"/>
-                      <Component id="diadanh" alignment="1" pref="196" max="32767" attributes="0"/>
+                      <Component id="diadanh" alignment="1" pref="210" max="32767" attributes="0"/>
                       <Component id="tour" alignment="1" pref="0" max="32767" attributes="0"/>
                       <Component id="keHoachTour" alignment="1" pref="0" max="32767" attributes="0"/>
                       <Component id="khachHang" alignment="0" max="32767" attributes="0"/>
