@@ -52,6 +52,7 @@ public class TourDialog extends javax.swing.JDialog {
         cbTinhTrang = new gui.components.CustomComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel9.setText("Số ngày");

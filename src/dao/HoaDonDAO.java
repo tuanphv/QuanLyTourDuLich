@@ -23,7 +23,7 @@ public class HoaDonDAO {
                         rs.getInt("maNV"),
                         rs.getFloat("tongTien"),
                         rs.getString("ghiChu"),
-                        rs.getInt("maKhuyenMai"),
+                        rs.getString("maKhuyenMai"),
                         rs.getTimestamp("ngayLapPhieu").toLocalDateTime(),
                         rs.getInt("trangThai")
                 ));
@@ -43,7 +43,7 @@ public class HoaDonDAO {
             pstmt.setInt(4, hoaDon.getMaNV());
             pstmt.setFloat(5, hoaDon.getTongTien());
             pstmt.setString(6, hoaDon.getGhiChu());
-            pstmt.setInt(7, hoaDon.getMaKhuyenMai());
+            pstmt.setString(7, hoaDon.getMaKhuyenMai());
             pstmt.setTimestamp(8, java.sql.Timestamp.valueOf(hoaDon.getNgayLapPhieu()));
             pstmt.setInt(9, hoaDon.getTrangThai());
 
@@ -69,7 +69,7 @@ public class HoaDonDAO {
             pstmt.setInt(4, hoaDon.getMaNV());
             pstmt.setFloat(5, hoaDon.getTongTien());
             pstmt.setString(6, hoaDon.getGhiChu());
-            pstmt.setInt(7, hoaDon.getMaKhuyenMai());
+            pstmt.setString(7, hoaDon.getMaKhuyenMai());
             pstmt.setTimestamp(8, java.sql.Timestamp.valueOf(hoaDon.getNgayLapPhieu()));
             pstmt.setInt(9, hoaDon.getTrangThai());
             pstmt.setInt(10, hoaDon.getMaHoaDon());

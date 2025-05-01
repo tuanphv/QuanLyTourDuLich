@@ -227,7 +227,7 @@ CREATE TABLE HoaDon (
     maNV INT,
     tongTien FLOAT,
     ghiChu TEXT,
-    maKhuyenMai INT,
+    maKhuyenMai varchar(50),
     ngayLapPhieu DATETIME,
     trangThai BOOLEAN,
     

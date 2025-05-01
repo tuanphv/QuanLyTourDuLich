@@ -13,7 +13,7 @@ public class HoaDonDTO {
     private int maNV;
     private float tongTien;
     private String ghiChu;
-    private int maKhuyenMai;
+    private String maKhuyenMai;
     private LocalDateTime ngayLapPhieu;
     private int trangThai;
 
@@ -37,7 +37,7 @@ public class HoaDonDTO {
      * @param ngayLapPhieu Ngày lập phiếu
      * @param trangThai Trạng thái
      */
-    public HoaDonDTO(int maHoaDon, int maKH, int maKHTour, int soVe, int maNV, float tongTien, String ghiChu, int maKhuyenMai, LocalDateTime ngayLapPhieu, int trangThai) {
+    public HoaDonDTO(int maHoaDon, int maKH, int maKHTour, int soVe, int maNV, float tongTien, String ghiChu, String maKhuyenMai, LocalDateTime ngayLapPhieu, int trangThai) {
         this.maHoaDon = maHoaDon;
         this.maKH = maKH;
         this.maKHTour = maKHTour;
@@ -151,14 +151,14 @@ public class HoaDonDTO {
     /**
      * @return Mã khuyến mãi
      */
-    public int getMaKhuyenMai() {
+    public String getMaKhuyenMai() {
         return maKhuyenMai;
     }
 
     /**
      * @param maKhuyenMai Mã khuyến mãi mới
      */
-    public void setMaKhuyenMai(int maKhuyenMai) {
+    public void setMaKhuyenMai(String maKhuyenMai) {
         this.maKhuyenMai = maKhuyenMai;
     }
 
@@ -207,7 +207,7 @@ public class HoaDonDTO {
     }
 
     public Object[] toArray() {
-        return new Object[]{maHoaDon, maKH, maKHTour, soVe, maNV, tongTien, ghiChu, maKhuyenMai, ngayLapPhieu, trangThai};
+        return new Object[]{maHoaDon, maKH, maKHTour, soVe, maNV, tongTien, ghiChu, maKhuyenMai == null ? "Không":maKhuyenMai, ngayLapPhieu, trangThai};
     }
 
     public static final String[] COLUMN_NAMES = {

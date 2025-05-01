@@ -1,5 +1,6 @@
 package gui.components;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -8,6 +9,7 @@ public class PanelBorder extends javax.swing.JPanel {
 
     public PanelBorder() {
         setOpaque(false);
+        setBackground(Color.WHITE);
         initComponents();
     }
 
