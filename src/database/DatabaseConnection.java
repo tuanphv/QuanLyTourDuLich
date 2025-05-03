@@ -8,7 +8,7 @@ import utils.EnvLoader;
 
 public class DatabaseConnection {
     private static final EnvLoader env = EnvLoader.load();
-    private static final String URL = "jdbc:mysql://"+env.get("DB_HOST")+":"+env.get("DB_PORT")+"/quanlytourdulich";
+    private static final String URL = "jdbc:mysql://"+env.get("DB_HOST")+":"+env.get("DB_PORT")+"/quanlytourdulich_test";
     private static final String USER = env.get("DB_USER");
     private static final String PASSWORD = env.get("DB_PASSWORD");
 

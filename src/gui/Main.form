@@ -125,7 +125,14 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="card10"/>
+                  <CardConstraints cardName="cardHoaDon"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="gui.form.DatTourForm" name="datTourForm">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="cardDatTour"/>
                 </Constraint>
               </Constraints>
             </Component>

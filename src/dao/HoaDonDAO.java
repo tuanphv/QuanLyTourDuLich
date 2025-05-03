@@ -8,24 +8,23 @@ import java.util.ArrayList;
 
 import database.DatabaseConnection;
 import dto.HoaDonDTO;
+import enums.TrangThaiHoaDon;
 
 public class HoaDonDAO {
+
     public ArrayList<HoaDonDTO> getAllHoaDon() {
         ArrayList<HoaDonDTO> dsHoaDon = new ArrayList<>();
-        String query = "SELECT * FROM hoadon";
+        String query = "SELECT * FROM hoadon WHERE trangThai != 'Huy'";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 dsHoaDon.add(new HoaDonDTO(
-                        rs.getInt("maHoaDon"),
-                        rs.getInt("maKH"),
-                        rs.getInt("maKHTour"),
-                        rs.getInt("soVe"),
+                        rs.getInt("maHD"),
+                        rs.getInt("maDat"),
                         rs.getInt("maNV"),
+                        rs.getTimestamp("ngayLap").toLocalDateTime(),
                         rs.getFloat("tongTien"),
-                        rs.getString("ghiChu"),
-                        rs.getString("maKhuyenMai"),
-                        rs.getTimestamp("ngayLapPhieu").toLocalDateTime(),
-                        rs.getInt("trangThai")
+                        rs.getString("hinhThucThanhToan"),
+                        TrangThaiHoaDon.fromValue(rs.getString("trangThai"))
                 ));
             }
         } catch (SQLException e) {
@@ -35,17 +34,14 @@ public class HoaDonDAO {
     }
 
     public int addHoaDon(HoaDonDTO hoaDon) {
-        String query = "INSERT INTO hoadon (maKH, maKHTour, soVe, maNV, tongTien, ghiChu, maKhuyenMai, ngayLapPhieu, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO hoadon (maDat, maNV, ngayLap, tongTien, hinhThucThanhToan, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, hoaDon.getMaKH());
-            pstmt.setInt(2, hoaDon.getMaKHTour());
-            pstmt.setInt(3, hoaDon.getSoVe());
-            pstmt.setInt(4, hoaDon.getMaNV());
-            pstmt.setFloat(5, hoaDon.getTongTien());
-            pstmt.setString(6, hoaDon.getGhiChu());
-            pstmt.setString(7, hoaDon.getMaKhuyenMai());
-            pstmt.setTimestamp(8, java.sql.Timestamp.valueOf(hoaDon.getNgayLapPhieu()));
-            pstmt.setInt(9, hoaDon.getTrangThai());
+            pstmt.setInt(1, hoaDon.getMaDat());
+            pstmt.setInt(2, hoaDon.getMaNV());
+            pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(hoaDon.getNgayLap()));
+            pstmt.setFloat(4, hoaDon.getTongTien());
+            pstmt.setString(5, hoaDon.getHinhThucThanhToan());
+            pstmt.setString(6, hoaDon.getTrangThai().getValue());
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -60,27 +56,26 @@ public class HoaDonDAO {
         }
         return -1;
     }
+
     public boolean updateHoaDon(HoaDonDTO hoaDon) {
-        String query = "UPDATE hoadon SET maKH = ?, maKHTour = ?, soVe = ?, maNV = ?, tongTien = ?, ghiChu = ?, maKhuyenMai = ?, ngayLapPhieu = ?, trangThai = ? WHERE maHoaDon = ?";
+        String query = "UPDATE hoadon SET maDat = ?, maNV = ?, ngayLap = ?, tongTien = ?, hinhThucThanhToan = ?, trangThai = ? WHERE maHD = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, hoaDon.getMaKH());
-            pstmt.setInt(2, hoaDon.getMaKHTour());
-            pstmt.setInt(3, hoaDon.getSoVe());
-            pstmt.setInt(4, hoaDon.getMaNV());
-            pstmt.setFloat(5, hoaDon.getTongTien());
-            pstmt.setString(6, hoaDon.getGhiChu());
-            pstmt.setString(7, hoaDon.getMaKhuyenMai());
-            pstmt.setTimestamp(8, java.sql.Timestamp.valueOf(hoaDon.getNgayLapPhieu()));
-            pstmt.setInt(9, hoaDon.getTrangThai());
-            pstmt.setInt(10, hoaDon.getMaHoaDon());
+            pstmt.setInt(1, hoaDon.getMaDat());
+            pstmt.setInt(2, hoaDon.getMaNV());
+            pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(hoaDon.getNgayLap()));
+            pstmt.setFloat(4, hoaDon.getTongTien());
+            pstmt.setString(5, hoaDon.getHinhThucThanhToan());
+            pstmt.setString(6, hoaDon.getTrangThai().getValue());
+            pstmt.setInt(7, hoaDon.getMaHoaDon());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
     public boolean deleteHoaDon(int maHoaDon) {
-        String query = "UPDATE hoadon SET trangThai = 0 WHERE maHoaDon = ?";
+        String query = "UPDATE hoadon SET trangThai = 'Huy' WHERE maHoaDon = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, maHoaDon);
             return pstmt.executeUpdate() > 0;

@@ -2,6 +2,7 @@ package gui.form;
 
 import bus.HoaDonBUS;
 import dto.HoaDonDTO;
+import enums.TrangThaiHoaDon;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 import gui.components.MyScrollBarUI;
 import gui.dialog.HoaDonDialog;
 import interfaces.SearchHandler;
-import utils.FormatDate;
 
 public class HoaDonForm extends javax.swing.JPanel {
 
@@ -34,6 +34,7 @@ public class HoaDonForm extends javax.swing.JPanel {
             }
         };
         tableHoaDon.setModel(model);
+        myToolBar1.setBtnSua(btnXacNhan);
         if (!java.beans.Beans.isDesignTime()) {
             // Chỉ loadData khi KHÔNG ở design time
             loadDataToTable(new HoaDonBUS().getDSHoaDon());
@@ -41,31 +42,27 @@ public class HoaDonForm extends javax.swing.JPanel {
         } else {
             System.out.println("HoaDonForm đang chạy ở design time mode");
         }
-        myToolBar1.setSearchType(new String[]{"Mã khách hàng", "Mã nhân viên", "Mã kế hoạch tour"});
+        myToolBar1.setSearchType(new String[]{"Mã đặt tour", "Mã nhân viên"});
         myToolBar1.setSearchHandler(new SearchHandler() {
             @Override
             public void onSearch(String type, String text) {
                 ArrayList<HoaDonDTO> khTours;
                 HoaDonBUS bus = new HoaDonBUS();
                 switch (type) {
-                    case "Mã khách hàng" -> khTours = bus.getHoaDonByMaKH(Integer.parseInt(text));
-                    case "Mã nhân viên" -> khTours = bus.getHoaDonByMaNV(Integer.parseInt(text));
-                    case "Mã kế hoạch tour" -> khTours = bus.getHoaDonByMaKHTour(Integer.parseInt(text));
+                    case "Mã nhân viên" -> khTours = bus.getHoaDonByMaNV(Integer.parseInt(text));                
                     default -> throw new AssertionError();
                 }
                 loadDataToTable(khTours);
             }
             
         });
-        spChiTietVe.getVerticalScrollBar().setUI(new MyScrollBarUI());
-        spChiTietVe.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
-        spChiTietVe.getViewport().setBackground(Color.white);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnXacNhan = new gui.components.ButtonToolBar();
         panelBorder1 = new gui.components.PanelBorder();
         spTable = new javax.swing.JScrollPane();
         tableHoaDon = new gui.components.Table();
@@ -93,6 +90,9 @@ public class HoaDonForm extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtGhiChu = new javax.swing.JTextArea();
+
+        btnXacNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/checkmark.png"))); // NOI18N
+        btnXacNhan.setText("Xác nhận");
 
         setPreferredSize(new java.awt.Dimension(1660, 1000));
 
@@ -229,41 +229,40 @@ public class HoaDonForm extends javax.swing.JPanel {
                 .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(spChiTietVe)
-                        .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelBorder2Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBorder2Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBorder2Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBorder2Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMaKHTour, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBorder2Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNgayLapPhieu, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder2Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMaKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBorder2Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBorder2Layout.createSequentialGroup()
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtSoVe, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(spChiTietVe)
+                    .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelBorder2Layout.createSequentialGroup()
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelBorder2Layout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelBorder2Layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelBorder2Layout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtMaKHTour, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelBorder2Layout.createSequentialGroup()
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtNgayLapPhieu, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder2Layout.createSequentialGroup()
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtMaKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelBorder2Layout.createSequentialGroup()
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelBorder2Layout.createSequentialGroup()
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtSoVe, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         panelBorder2Layout.setVerticalGroup(
@@ -346,14 +345,14 @@ public class HoaDonForm extends javax.swing.JPanel {
     }//GEN-LAST:event_tableHoaDonMouseClicked
 
     private void showHoaDon(HoaDonDTO hoaDon) {
-        txtMaHoaDon.setText(String.valueOf(hoaDon.getMaHoaDon()));
-        txtMaKH.setText(String.valueOf(hoaDon.getMaKH()));
-        txtMaNV.setText(String.valueOf(hoaDon.getMaNV()));
-        txtMaKHTour.setText(String.valueOf(hoaDon.getMaKHTour()));
-        txtNgayLapPhieu.setText(FormatDate.toString(hoaDon.getNgayLapPhieu(), "dd/MM/yyyy"));
-        txtSoVe.setText(String.valueOf(hoaDon.getSoVe()));
-        txtGhiChu.setText(hoaDon.getGhiChu());
-        txtMaKhuyenMai.setText(hoaDon.getMaKhuyenMai());
+//        txtMaHoaDon.setText(String.valueOf(hoaDon.getMaHoaDon()));
+//        txtMaKH.setText(String.valueOf(hoaDon.getMaKH()));
+//        txtMaNV.setText(String.valueOf(hoaDon.getMaNV()));
+//        txtMaKHTour.setText(String.valueOf(hoaDon.getMaKHTour()));
+//        txtNgayLapPhieu.setText(FormatDate.toString(hoaDon.getNgayLapPhieu(), "dd/MM/yyyy"));
+//        txtSoVe.setText(String.valueOf(hoaDon.getSoVe()));
+//        txtGhiChu.setText(hoaDon.getGhiChu());
+//        txtMaKhuyenMai.setText(hoaDon.getMaKhuyenMai());
         txtTongTien.setText(String.valueOf(hoaDon.getTongTien()));
     }
     private void btnThemActionPerformed(ActionEvent evt) {
@@ -363,9 +362,9 @@ public class HoaDonForm extends javax.swing.JPanel {
         if (dialog.isSave()) {
             HoaDonDTO input = dialog.getInputData();
             if (addTour(input)) {
-                JOptionPane.showMessageDialog(this, "Đã thêm kế hoạch tour!");
+                JOptionPane.showMessageDialog(this, "Đã thêm hóa đơn!");
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm kế hoạch tour không thành công!");
+                JOptionPane.showMessageDialog(this, "Thêm hóa đơn không thành công!");
             }
         }
     }
@@ -374,22 +373,12 @@ public class HoaDonForm extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tableHoaDon.getModel();
         int index = tableHoaDon.getSelectedRow();
         if (index > -1) {
-            HoaDonDTO hoaDon = new HoaDonBUS().getHoaDonById((int) model.getValueAt(index, 0));
-            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            HoaDonDialog dialog = new HoaDonDialog(parentFrame);
-            dialog.loadData(hoaDon);
-            dialog.setLocationRelativeTo(parentFrame);
-            dialog.setVisible(true);
-            if (dialog.isSave()) {
-                HoaDonDTO input = dialog.getInputData();
-                if (update(input)) {
-                    JOptionPane.showMessageDialog(this, "Đã cập nhật kế hoạch tour!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
-                }
-            }
+            int maHoaDon = (int) model.getValueAt(index, 0);
+            HoaDonDTO hoaDon = new HoaDonBUS().getHoaDonById(maHoaDon);
+            hoaDon.setTrangThai(TrangThaiHoaDon.DA_THANH_TOAN);
+            update(hoaDon);
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn kế hoạch tour cần cập nhật!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần cập nhật!");
         }
     }
 
@@ -409,11 +398,11 @@ public class HoaDonForm extends javax.swing.JPanel {
             if (result == JOptionPane.OK_OPTION) {
                 if (bus.deleteHoaDon((int) model.getValueAt(i, 0))) {
                     model.removeRow(i);
-                    JOptionPane.showMessageDialog(this, "Xóa tour thành công!");
+                    JOptionPane.showMessageDialog(this, "Xóa hóa đơn thành công!");
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn tour cần xóa!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần xóa!");
         }
     }
 
@@ -456,6 +445,7 @@ public class HoaDonForm extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private gui.components.ButtonToolBar btnXacNhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

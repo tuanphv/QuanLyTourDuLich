@@ -23,7 +23,6 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
         // Thêm vào phương thức constructor hoặc initComponents
         initComponents();
         jdcThoiGianBD.setDateFormatString("yyyy-MM-dd");
-        jdcThoiGianKT.setDateFormatString("yyyy-MM-dd");
         prepareDialog();
         setLocationRelativeTo(parent);
     }
@@ -40,13 +39,11 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         btnSubmit = new gui.components.MyButton();
         btnCancel = new gui.components.MyButton();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtTongChiPhi = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jdcThoiGianBD = new com.toedter.calendar.JDateChooser();
-        jdcThoiGianKT = new com.toedter.calendar.JDateChooser();
         cbMaTour = new gui.components.CustomComboBox();
         jLabel13 = new javax.swing.JLabel();
         txtDaDat = new javax.swing.JTextField();
@@ -74,9 +71,6 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
                 btnCancelActionPerformed(evt);
             }
         });
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel9.setText("Thời gian kết thúc");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel10.setText("Thời gian bắt đầu");
@@ -122,7 +116,6 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
                         .addComponent(cbMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -130,9 +123,7 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jdcThoiGianBD, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                                    .addComponent(jdcThoiGianKT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jdcThoiGianBD, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(123, 123, 123))
                             .addComponent(txtDaDat)
                             .addComponent(txtToiDa)
@@ -150,10 +141,6 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jdcThoiGianBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9)
-                    .addComponent(jdcThoiGianKT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -215,12 +202,6 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
             jdcThoiGianBD.requestFocus();
             return;
         }
-        if (jdcThoiGianKT.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Thời gian kết thúc không được để trống!", "Lỗi nhập liệu",
-                    JOptionPane.WARNING_MESSAGE);
-            jdcThoiGianKT.requestFocus();
-            return;
-        }
         if (txtDaDat.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Số lượng vé đã đặt không được để trống", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
             txtDaDat.requestFocus();
@@ -274,7 +255,6 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
         TourDTO tour = new TourBUS().getTourById(khTour.getMaTour());
         cbMaTour.setSelectedItem(tour.getMaTour() + " - " + tour.getTenTour());
         jdcThoiGianBD.setDate(FormatDate.localDateToDate(khTour.getThoiGianBD()));
-        jdcThoiGianKT.setDate(FormatDate.localDateToDate(khTour.getThoiGianKT()));
         txtDaDat.setText(String.valueOf(khTour.getSlDaDat()));
         txtToiDa.setText(String.valueOf(khTour.getSlToiDa()));
         cbTrangThai.setSelectedItem(khTour.getTrangThai());
@@ -319,7 +299,6 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
         String maTourText = cbMaTour.getSelectedItem().toString().split(" - ")[0].trim();
         khTour.setMaTour(Integer.parseInt(maTourText));
         khTour.setThoiGianBD(FormatDate.dateToLocalDate(jdcThoiGianBD.getDate()));
-        khTour.setThoiGianKT(FormatDate.dateToLocalDate(jdcThoiGianKT.getDate()));
         khTour.setTrangThai((TrangThaiKeHoachTour)cbTrangThai.getSelectedItem());
         khTour.setSlDaDat(Integer.parseInt(txtDaDat.getText()));
         khTour.setSlToiDa(Integer.parseInt(txtToiDa.getText()));
@@ -338,9 +317,7 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel9;
     private com.toedter.calendar.JDateChooser jdcThoiGianBD;
-    private com.toedter.calendar.JDateChooser jdcThoiGianKT;
     private javax.swing.JTextField txtDaDat;
     private javax.swing.JTextField txtToiDa;
     private javax.swing.JTextField txtTongChiPhi;

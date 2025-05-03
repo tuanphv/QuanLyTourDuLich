@@ -15,19 +15,19 @@ public class NhanVienDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(new NhanVienDTO(
-                    rs.getInt("maNV"),
-                    rs.getString("username"),
-                    rs.getString("password"),
-                    rs.getString("ho"),
-                    rs.getString("ten"),
-                    rs.getString("ngaySinh"),
-                    rs.getString("gioiTinh"),
-                    rs.getString("soDT"),
-                    rs.getString("email"),
-                    rs.getString("cc_hc"),
-                    rs.getString("ngayVaoLam"),
-                    rs.getString("chucVu"),
-                    rs.getInt("trangThai")
+                        rs.getInt("maNV"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("ho"),
+                        rs.getString("ten"),
+                        rs.getString("ngaySinh"),
+                        rs.getString("gioiTinh"),
+                        rs.getString("soDT"),
+                        rs.getString("email"),
+                        rs.getString("cc_hc"),
+                        rs.getString("ngayVaoLam"),
+                        rs.getString("chucVu"),
+                        rs.getInt("trangThai")
                 ));
             }
         } catch (SQLException e) {
@@ -57,7 +57,9 @@ public class NhanVienDAO {
             int affected = stmt.executeUpdate();
             if (affected > 0) {
                 ResultSet rs = stmt.getGeneratedKeys();
-                if (rs.next()) return rs.getInt(1);
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,5 +101,28 @@ public class NhanVienDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public NhanVienDTO getNhanVienByMa(int ma) {
+        String sql = "SELECT * FROM nhanvien WHERE ma = " + ma;
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            return new NhanVienDTO(
+                    rs.getInt("maNV"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getString("ho"),
+                    rs.getString("ten"),
+                    rs.getString("ngaySinh"),
+                    rs.getString("gioiTinh"),
+                    rs.getString("soDT"),
+                    rs.getString("email"),
+                    rs.getString("cc_hc"),
+                    rs.getString("ngayVaoLam"),
+                    rs.getString("chucVu"),
+                    rs.getInt("trangThai")
+            );
+        } catch (SQLException e) {
+            return null;
+        }
     }
 }

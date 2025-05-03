@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import utils.FormatDate;
 
 public class KeHoachTourDAO {
+
     public ArrayList<KeHoachTourDTO> getAllKeHoachTour() {
         ArrayList<KeHoachTourDTO> dsKeHoachTour = new ArrayList<>();
         String query = "SELECT * FROM KeHoachTour";
@@ -22,7 +23,6 @@ public class KeHoachTourDAO {
                         rs.getInt("maKHTour"),
                         rs.getInt("maTour"),
                         FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
-                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
                         rs.getInt("slDaDat"),
                         rs.getInt("slToiDa"),
                         TrangThaiKeHoachTour.valueOf(rs.getString("trangThai")),
@@ -42,11 +42,10 @@ public class KeHoachTourDAO {
 
             pstmt.setInt(1, khTour.getMaTour());
             pstmt.setDate(2, Date.valueOf(khTour.getThoiGianBD()));
-            pstmt.setDate(3, Date.valueOf(khTour.getThoiGianKT()));
-            pstmt.setInt(4, khTour.getSlDaDat());
-            pstmt.setInt(5, khTour.getSlToiDa());
-            pstmt.setString(6, khTour.getTrangThai().name());
-            pstmt.setFloat(7, khTour.getTongChiPhi());
+            pstmt.setInt(3, khTour.getSlDaDat());
+            pstmt.setInt(4, khTour.getSlToiDa());
+            pstmt.setString(5, khTour.getTrangThai().name());
+            pstmt.setFloat(6, khTour.getTongChiPhi());
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -77,24 +76,42 @@ public class KeHoachTourDAO {
     }
 
     public boolean updateKeHoachTour(KeHoachTourDTO khTour) {
-        String query = "UPDATE KeHoachTour SET maTour = ?, thoiGianBD = ?, thoiGianKT = ?, slDaDat = ?, slToiDa = ?, trangThai = ?, tongChiPhi = ? WHERE maKHTour = ?";
+        String query = "UPDATE KeHoachTour SET maTour = ?, thoiGianBD = ?, slDaDat = ?, slToiDa = ?, trangThai = ?, tongChiPhi = ? WHERE maKHTour = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-
             pstmt.setInt(1, khTour.getMaTour());
             pstmt.setDate(2, Date.valueOf(khTour.getThoiGianBD()));
-            pstmt.setDate(3, Date.valueOf(khTour.getThoiGianKT()));
-            pstmt.setInt(4, khTour.getSlDaDat());
-            pstmt.setInt(5, khTour.getSlToiDa());
-            pstmt.setString(6, khTour.getTrangThai().name());
-            pstmt.setFloat(7, khTour.getTongChiPhi());
-            pstmt.setInt(8, khTour.getMaKHTour());
-
+            pstmt.setInt(3, khTour.getSlDaDat());
+            pstmt.setInt(4, khTour.getSlToiDa());
+            pstmt.setString(5, khTour.getTrangThai().name());
+            pstmt.setFloat(6, khTour.getTongChiPhi());
+            pstmt.setInt(7, khTour.getMaKHTour());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
+    public KeHoachTourDTO getKeHoachTourByMa(int ma) {
+        String query = "SELECT * FROM KeHoachTour WHERE ma = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, ma);
+            ResultSet rs = pstmt.executeQuery();
+            return new KeHoachTourDTO(
+                    rs.getInt("maKHTour"),
+                    rs.getInt("maTour"),
+                    FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
+                    rs.getInt("slDaDat"),
+                    rs.getInt("slToiDa"),
+                    TrangThaiKeHoachTour.valueOf(rs.getString("trangThai")),
+                    rs.getFloat("tongChiPhi")
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         new KeHoachTourDAO().getAllKeHoachTour();
     }

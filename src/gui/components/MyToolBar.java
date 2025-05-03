@@ -155,6 +155,7 @@ public class MyToolBar extends javax.swing.JPanel {
             searchHandler.onSearch(type, text);
         }
     }
+
     public void setSearchHandler(SearchHandler searchHandler) {
         this.searchHandler = searchHandler;
     }
@@ -182,6 +183,19 @@ public class MyToolBar extends javax.swing.JPanel {
 
     public ButtonToolBar getBtnXuatExcel() {
         return btnXuatExcel;
+    }
+
+    public void setBtnThem(ButtonToolBar btn) {
+        btnThem = btn;
+    }
+
+    public void setBtnSua(ButtonToolBar btn) {
+        btnSua.setText(btn.getText());
+        btnSua.setIcon(btn.getIcon());
+    }
+
+    public void setBtnXoa(ButtonToolBar btn) {
+        btnXoa = btn;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

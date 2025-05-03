@@ -27,7 +27,9 @@ public class KhachHangDAO {
             int affected = stmt.executeUpdate();
             if (affected > 0) {
                 ResultSet rs = stmt.getGeneratedKeys();
-                if (rs.next()) return rs.getInt(1);
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,6 +81,30 @@ public class KhachHangDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(new KhachHangDTO(
+                        rs.getInt("maKH"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("ho"),
+                        rs.getString("ten"),
+                        rs.getString("ngaySinh"),
+                        rs.getString("gioiTinh"),
+                        rs.getString("soDT"),
+                        rs.getString("email"),
+                        rs.getString("cc_hc"),
+                        rs.getString("ngayDK"),
+                        rs.getInt("trangThai")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public KhachHangDTO getKhachHangByMa(int ma) {
+        String sql = "SELECT * FROM khachhang WHERE maKH = " + ma;
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            return new KhachHangDTO(
                     rs.getInt("maKH"),
                     rs.getString("username"),
                     rs.getString("password"),
@@ -91,11 +117,10 @@ public class KhachHangDAO {
                     rs.getString("cc_hc"),
                     rs.getString("ngayDK"),
                     rs.getInt("trangThai")
-                ));
-            }
+            );
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return list;
     }
 }

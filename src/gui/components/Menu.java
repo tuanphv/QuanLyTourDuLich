@@ -33,6 +33,7 @@ public class Menu extends javax.swing.JPanel {
         khachHang.setModel(new Model_Menu("customer", "Khách Hàng", Model_Menu.MenuType.MENU));
         nhanVien.setModel(new Model_Menu("employee", "Nhân Viên", Model_Menu.MenuType.MENU));
         hoaDon.setModel(new Model_Menu("bill", "Hóa đơn", Model_Menu.MenuType.MENU));
+        datTour.setModel(new Model_Menu("booking", "Đặt tour", Model_Menu.MenuType.MENU));
 
         items = new ArrayList<>();
         items.add(tour);
@@ -44,6 +45,7 @@ public class Menu extends javax.swing.JPanel {
         items.add(khachHang);
         items.add(nhanVien);
         items.add(hoaDon);
+        items.add(datTour);
         changeBackground(tour);
         repaint();
     }
@@ -75,6 +77,7 @@ public class Menu extends javax.swing.JPanel {
         khachHang = new gui.components.MenuItem();
         nhanVien = new gui.components.MenuItem();
         hoaDon = new gui.components.MenuItem();
+        datTour = new gui.components.MenuItem();
 
         setPreferredSize(new java.awt.Dimension(240, 654));
 
@@ -159,6 +162,13 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
+        datTour.setText("");
+        datTour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datTourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -174,7 +184,8 @@ public class Menu extends javax.swing.JPanel {
                     .addComponent(keHoachTour, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(khachHang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nhanVien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hoaDon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(hoaDon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(datTour, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
@@ -198,7 +209,9 @@ public class Menu extends javax.swing.JPanel {
                 .addComponent(nhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(hoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(datTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -238,8 +251,14 @@ public class Menu extends javax.swing.JPanel {
     private void hoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hoaDonActionPerformed
         MenuItem src = (MenuItem) evt.getSource();
         changeBackground(src);
-        mainFrame.showCard("card10");
+        mainFrame.showCard("cardHoaDon");
     }//GEN-LAST:event_hoaDonActionPerformed
+
+    private void datTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datTourActionPerformed
+        MenuItem src = (MenuItem) evt.getSource();
+        changeBackground(src);
+        mainFrame.showCard("cardDatTour");
+    }//GEN-LAST:event_datTourActionPerformed
 
     private void tourActionPerformed(java.awt.event.ActionEvent evt) {                                     
         MenuItem src = (MenuItem) evt.getSource();
@@ -304,6 +323,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private gui.components.MenuItem datTour;
     private gui.components.MenuItem diadanh;
     private gui.components.MenuItem hoaDon;
     private javax.swing.JLabel jLabel1;

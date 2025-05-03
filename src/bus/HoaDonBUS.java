@@ -65,25 +65,6 @@ public class HoaDonBUS {
         }
         return null;
     }
-    public ArrayList<HoaDonDTO> getHoaDonByMaKH(int maKH) {
-        ArrayList<HoaDonDTO> result = new ArrayList<>();
-        for (HoaDonDTO hoaDon : dsHoaDon) {
-            if (hoaDon.getMaKH() == maKH) {
-                result.add(hoaDon);
-            }
-        }
-        return result;
-    }
-
-    public ArrayList<HoaDonDTO> getHoaDonByMaKHTour(int maKHTour) {
-        ArrayList<HoaDonDTO> result = new ArrayList<>();
-        for (HoaDonDTO hoaDon : dsHoaDon) {
-            if (hoaDon.getMaKHTour() == maKHTour) {
-                result.add(hoaDon);
-            }
-        }
-        return result;
-    }
 
     public ArrayList<HoaDonDTO> getHoaDonByMaNV(int maNV) {
         ArrayList<HoaDonDTO> result = new ArrayList<>();

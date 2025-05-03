@@ -25,6 +25,7 @@ public class Main extends javax.swing.JFrame {
         nhanVienForm = new gui.form.NhanVienForm();
         keHoachTourForm = new gui.form.KeHoachTourForm();
         hoaDonForm = new gui.form.HoaDonForm();
+        datTourForm = new gui.form.DatTourForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -38,7 +39,8 @@ public class Main extends javax.swing.JFrame {
         cardPanel.add(khachHangForm, "cardKhachHang");
         cardPanel.add(nhanVienForm, "cardNhanVien");
         cardPanel.add(keHoachTourForm, "cardKeHoachTour");
-        cardPanel.add(hoaDonForm, "card10");
+        cardPanel.add(hoaDonForm, "cardHoaDon");
+        cardPanel.add(datTourForm, "cardDatTour");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -100,6 +102,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
+    private gui.form.DatTourForm datTourForm;
     private gui.form.DiaDanhForm diaDanhForm;
     private gui.form.HoaDonForm hoaDonForm;
     private gui.form.KeHoachTourForm keHoachTourForm;
