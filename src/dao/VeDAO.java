@@ -2,13 +2,14 @@ package dao;
 
 import database.DatabaseConnection;
 import dto.VeDTO;
+import enums.TrangThaiVe;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
 
 public class VeDAO {
 
@@ -22,9 +23,13 @@ public class VeDAO {
             while (rs.next()) {
                 dsVe.add(new VeDTO(
                         rs.getInt("maVe"),
-                        rs.getInt("loaiVe"),
+                        rs.getInt("maDat"),
+                        rs.getInt("soThuTu"),
                         rs.getInt("maKHTour"),
-                        rs.getFloat("giaVe")));
+                        rs.getString("hoTen"),
+                        rs.getDate("ngayKhoiHanh").toLocalDate(),
+                        rs.getDate("ngayCap").toLocalDate(),
+                        TrangThaiVe.fromValue(rs.getString("trangThai"))));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,13 +38,16 @@ public class VeDAO {
     }
 
     public int addVe(VeDTO ve) {
-        String query = "INSERT INTO Ve (loaiVe, maKHTour, giaVe) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Ve (maDat, soThuTu, maKHTour, hoTen, ngayKhoiHanh, ngayCap, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-
-            pstmt.setInt(1, ve.getLoaiVe());
-            pstmt.setInt(2, ve.getMaKHTour());
-            pstmt.setFloat(3, ve.getGiaVe());
+            pstmt.setInt(1, ve.getMaDat());
+            pstmt.setInt(2, ve.getSoThuTu());
+            pstmt.setInt(3, ve.getMaKHTour());
+            pstmt.setString(4, ve.getHoTen());
+            pstmt.setDate(5, Date.valueOf(ve.getNgayKhoiHanh()));
+            pstmt.setDate(6, Date.valueOf(ve.getNgayCap()));
+            pstmt.setString(7, ve.getTrangThai().getValue());
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -60,7 +68,6 @@ public class VeDAO {
         String query = "DELETE FROM Ve WHERE maVe = ?";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
-
             pstmt.setInt(1, maVe);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -70,14 +77,18 @@ public class VeDAO {
     }
 
     public boolean updateVe(VeDTO ve) {
-        String query = "UPDATE Ve SET maHoaDon = ?, maKHTour = ?, ghiChu = ?, giaTien = ? WHERE maVe = ?";
+        String query = "UPDATE Ve SET maDat = ?, soThuTu = ?, maKHTour = ?, hoTen = ?, ngayKhoiHanh = ?, ngayCap = ?, trangThai = ? WHERE maVe = ?";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setInt(1, ve.getLoaiVe());
-            pstmt.setInt(2, ve.getMaKHTour());
-            pstmt.setFloat(3, ve.getGiaVe());
-            pstmt.setInt(4, ve.getMaVe());
+            pstmt.setInt(1, ve.getMaDat());
+            pstmt.setInt(2, ve.getSoThuTu());
+            pstmt.setInt(3, ve.getMaKHTour());
+            pstmt.setString(4, ve.getHoTen());
+            pstmt.setDate(5, Date.valueOf(ve.getNgayKhoiHanh()));
+            pstmt.setDate(6, Date.valueOf(ve.getNgayCap()));
+            pstmt.setString(7, ve.getTrangThai().getValue());
+            pstmt.setInt(8, ve.getMaVe());
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -97,9 +108,13 @@ public class VeDAO {
             if (rs.next()) {
                 return new VeDTO(
                         rs.getInt("maVe"),
-                        rs.getInt("loaiVe"),
+                        rs.getInt("maDat"),
+                        rs.getInt("soThuTu"),
                         rs.getInt("maKHTour"),
-                        rs.getFloat("giaVe"));
+                        rs.getString("hoTen"),
+                        rs.getDate("ngayKhoiHanh").toLocalDate(),
+                        rs.getDate("ngayCap").toLocalDate(),
+                        TrangThaiVe.fromValue(rs.getString("trangThai")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,9 +134,13 @@ public class VeDAO {
             while (rs.next()) {
                 dsVe.add(new VeDTO(
                         rs.getInt("maVe"),
-                        rs.getInt("loaiVe"),
+                        rs.getInt("maDat"),
+                        rs.getInt("soThuTu"),
                         rs.getInt("maKHTour"),
-                        rs.getFloat("giaVe")));
+                        rs.getString("hoTen"),
+                        rs.getDate("ngayKhoiHanh").toLocalDate(),
+                        rs.getDate("ngayCap").toLocalDate(),
+                        TrangThaiVe.fromValue(rs.getString("trangThai"))));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -141,9 +160,13 @@ public class VeDAO {
             while (rs.next()) {
                 dsVe.add(new VeDTO(
                         rs.getInt("maVe"),
-                        rs.getInt("loaiVe"),
+                        rs.getInt("maDat"),
+                        rs.getInt("soThuTu"),
                         rs.getInt("maKHTour"),
-                        rs.getFloat("giaVe")));
+                        rs.getString("hoTen"),
+                        rs.getDate("ngayKhoiHanh").toLocalDate(),
+                        rs.getDate("ngayCap").toLocalDate(),
+                        TrangThaiVe.fromValue(rs.getString("trangThai"))));
             }
         } catch (SQLException e) {
             e.printStackTrace();

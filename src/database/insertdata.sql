@@ -1,4 +1,4 @@
-USE quanlytourdulich_test;
+USE quanlytourdulich;
 
 INSERT INTO khachhang (username, password, ten, ho, ngaySinh, gioiTinh, soDT, email, ngayDK, cc_hc, trangThai)
 VALUES

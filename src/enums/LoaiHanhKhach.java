@@ -1,16 +1,18 @@
 
 package enums;
 public enum LoaiHanhKhach {
-    NGUOI_LON("NguoiLon", "Người lớn"),
-    TRE_EM("TreEm", "Trẻ em"),
-    TRE_SO_SINH("TreSoSinh", "Trẻ sơ sinh");
+    NGUOI_LON("NguoiLon", "Người lớn", 1.0f),
+    TRE_EM("TreEm", "Trẻ em", 0.5f),
+    TRE_SO_SINH("TreSoSinh", "Trẻ sơ sinh", 0f);
 
     private final String value; // Lưu dưới dạng dữ liệu (số)
     private final String text; // Hiển thị trên giao diện (text)
+    private final float heSoGia;
 
-    LoaiHanhKhach(String value, String text) {
+    LoaiHanhKhach(String value, String text, float heSoGia) {
         this.value = value;
         this.text = text;
+        this.heSoGia = heSoGia;
     }
 
     // Getter cho value và text
@@ -20,6 +22,10 @@ public enum LoaiHanhKhach {
 
     public String getText() {
         return text;
+    }
+    
+    public float getHeSoGia() {
+        return heSoGia;
     }
 
     // Tìm kiếm giá trị từ String (dữ liệu)

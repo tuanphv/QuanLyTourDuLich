@@ -115,37 +115,6 @@ public class VeBUS {
     }
     
     /**
-     * Search for Ve by price range
-     * @param minPrice Minimum price
-     * @param maxPrice Maximum price
-     * @return ArrayList of Ve within the specified price range
-     */
-    public ArrayList<VeDTO> searchVeByPriceRange(float minPrice, float maxPrice) {
-        ArrayList<VeDTO> result = new ArrayList<>();
-        for (VeDTO ve : dsVe) {
-            if (ve.getGiaVe() >= minPrice && ve.getGiaVe() <= maxPrice) {
-                result.add(ve);
-            }
-        }
-        return result;
-    }
-    
-    /**
-     * Search for Ve by type
-     * @param loaiVe Type of Ve to search for
-     * @return ArrayList of Ve with the specified type
-     */
-    public ArrayList<VeDTO> searchVeByType(int loaiVe) {
-        ArrayList<VeDTO> result = new ArrayList<>();
-        for (VeDTO ve : dsVe) {
-            if (ve.getLoaiVe() == loaiVe) {
-                result.add(ve);
-            }
-        }
-        return result;
-    }
-    
-    /**
      * Reload data from database
      */
     public void refreshData() {

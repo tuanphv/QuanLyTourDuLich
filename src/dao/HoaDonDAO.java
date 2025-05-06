@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import database.DatabaseConnection;
 import dto.HoaDonDTO;
 import enums.TrangThaiHoaDon;
+import java.sql.Statement;
 
 public class HoaDonDAO {
 
@@ -35,7 +36,7 @@ public class HoaDonDAO {
 
     public int addHoaDon(HoaDonDTO hoaDon) {
         String query = "INSERT INTO hoadon (maDat, maNV, ngayLap, tongTien, hinhThucThanhToan, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, hoaDon.getMaDat());
             pstmt.setInt(2, hoaDon.getMaNV());
             pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(hoaDon.getNgayLap()));
@@ -67,6 +68,7 @@ public class HoaDonDAO {
             pstmt.setString(5, hoaDon.getHinhThucThanhToan());
             pstmt.setString(6, hoaDon.getTrangThai().getValue());
             pstmt.setInt(7, hoaDon.getMaHoaDon());
+            System.out.println(hoaDon);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,7 +77,7 @@ public class HoaDonDAO {
     }
 
     public boolean deleteHoaDon(int maHoaDon) {
-        String query = "UPDATE hoadon SET trangThai = 'Huy' WHERE maHoaDon = ?";
+        String query = "UPDATE hoadon SET trangThai = 'Huy' WHERE maHD = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, maHoaDon);
             return pstmt.executeUpdate() > 0;

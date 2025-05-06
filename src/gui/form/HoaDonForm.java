@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import gui.components.MyScrollBarUI;
 import gui.dialog.HoaDonDialog;
+import gui.dialog.TrangThaiDialog;
 import interfaces.SearchHandler;
 
 public class HoaDonForm extends javax.swing.JPanel {
@@ -34,7 +35,6 @@ public class HoaDonForm extends javax.swing.JPanel {
             }
         };
         tableHoaDon.setModel(model);
-        myToolBar1.setBtnSua(btnXacNhan);
         if (!java.beans.Beans.isDesignTime()) {
             // Chỉ loadData khi KHÔNG ở design time
             loadDataToTable(new HoaDonBUS().getDSHoaDon());
@@ -62,7 +62,6 @@ public class HoaDonForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnXacNhan = new gui.components.ButtonToolBar();
         panelBorder1 = new gui.components.PanelBorder();
         spTable = new javax.swing.JScrollPane();
         tableHoaDon = new gui.components.Table();
@@ -90,9 +89,6 @@ public class HoaDonForm extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtGhiChu = new javax.swing.JTextArea();
-
-        btnXacNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/checkmark.png"))); // NOI18N
-        btnXacNhan.setText("Xác nhận");
 
         setPreferredSize(new java.awt.Dimension(1660, 1000));
 
@@ -374,9 +370,19 @@ public class HoaDonForm extends javax.swing.JPanel {
         int index = tableHoaDon.getSelectedRow();
         if (index > -1) {
             int maHoaDon = (int) model.getValueAt(index, 0);
-            HoaDonDTO hoaDon = new HoaDonBUS().getHoaDonById(maHoaDon);
-            hoaDon.setTrangThai(TrangThaiHoaDon.DA_THANH_TOAN);
-            update(hoaDon);
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            HoaDonDialog dialog = new HoaDonDialog(parentFrame);
+            dialog.loadData(new HoaDonBUS().getHoaDonById(maHoaDon));
+            dialog.setVisible(true);
+            if (dialog.isSave()) {
+                HoaDonDTO input = dialog.getInputData();
+                input.setMaHoaDon(maHoaDon);
+                if (update(input)) {
+                    JOptionPane.showMessageDialog(this, "Đã cập nhật hóa đơn!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật hóa đơn không thành công!");
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần cập nhật!");
         }
@@ -445,7 +451,6 @@ public class HoaDonForm extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.components.ButtonToolBar btnXacNhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

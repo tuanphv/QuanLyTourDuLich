@@ -1,26 +1,31 @@
 
 package dto;
 
+import enums.TrangThaiVe;
+import java.time.LocalDate;
+
 public class VeDTO {
     private int maVe;
-    private int loaiVe;
+    private int maDat;
+    private int soThuTu;
     private int maKHTour;
-    private float giaVe;
+    private String hoTen;
+    private LocalDate ngayKhoiHanh;
+    private LocalDate ngayCap;
+    private TrangThaiVe trangThai;
 
     public VeDTO() {
     }
 
-    public VeDTO(int maVe, int loaiVe, int maKHTour, float giaVe) {
+    public VeDTO(int maVe, int maDat, int soThuTu, int maKHTour, String hoTen, LocalDate ngayKhoiHanh, LocalDate ngayCap, TrangThaiVe trangThai) {
         this.maVe = maVe;
-        this.loaiVe = loaiVe;
+        this.maDat = maDat;
+        this.soThuTu = soThuTu;
         this.maKHTour = maKHTour;
-        this.giaVe = giaVe;
-    }
-    
-    public VeDTO(int loaiVe, int maKHTour, float giaVe) {
-        this.loaiVe = loaiVe;
-        this.maKHTour = maKHTour;
-        this.giaVe = giaVe;
+        this.hoTen = hoTen;
+        this.ngayKhoiHanh = ngayKhoiHanh;
+        this.ngayCap = ngayCap;
+        this.trangThai = trangThai;
     }
 
     public int getMaVe() {
@@ -31,12 +36,20 @@ public class VeDTO {
         this.maVe = maVe;
     }
 
-    public int getLoaiVe() {
-        return loaiVe;
+    public int getMaDat() {
+        return maDat;
     }
 
-    public void setLoaiVe(int loaiVe) {
-        this.loaiVe = loaiVe;
+    public void setMaDat(int maDat) {
+        this.maDat = maDat;
+    }
+
+    public int getSoThuTu() {
+        return soThuTu;
+    }
+
+    public void setSoThuTu(int soThuTu) {
+        this.soThuTu = soThuTu;
     }
 
     public int getMaKHTour() {
@@ -47,13 +60,42 @@ public class VeDTO {
         this.maKHTour = maKHTour;
     }
 
-    public float getGiaVe() {
-        return giaVe;
+    public String getHoTen() {
+        return hoTen;
     }
 
-    public void setGiaVe(float giaVe) {
-        this.giaVe = giaVe;
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
+
+    public LocalDate getNgayKhoiHanh() {
+        return ngayKhoiHanh;
+    }
+
+    public void setNgayKhoiHanh(LocalDate ngayKhoiHanh) {
+        this.ngayKhoiHanh = ngayKhoiHanh;
+    }
+
+    public LocalDate getNgayCap() {
+        return ngayCap;
+    }
+
+    public void setNgayCap(LocalDate ngayCap) {
+        this.ngayCap = ngayCap;
+    }
+
+    public TrangThaiVe getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(TrangThaiVe trangThai) {
+        this.trangThai = trangThai;
     }
     
+    public static String[] COLUMN_NAMES = new String[]{"Mã vé", "Mã đặt tour", "Số thứ tự", "Mã kế hoạch tour", "Họ tên", "Ngày khởi hành", "Ngày cấp", "Trạng thái"};
+    
+    public Object[] toObjectArray() {
+        return new Object[]{maVe, maDat, soThuTu, maKHTour, hoTen, ngayKhoiHanh, ngayCap, trangThai.getMoTa()};
+    }
     
 }

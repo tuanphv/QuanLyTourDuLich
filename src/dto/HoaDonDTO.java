@@ -2,6 +2,7 @@ package dto;
 
 import enums.TrangThaiHoaDon;
 import java.time.LocalDateTime;
+import utils.TextUtils;
 
 /**
  * Lớp Data Transfer Object cho Hóa Đơn
@@ -86,7 +87,7 @@ public class HoaDonDTO {
     }
 
     public Object[] toArray() {
-        return new Object[]{maHD, maDat, maNV, ngayLap, tongTien, hinhThucThanhToan, trangThai};
+        return new Object[]{maHD, maDat, maNV, ngayLap, TextUtils.formatCurrency(tongTien), hinhThucThanhToan, trangThai};
     }
 
     public static final String[] COLUMN_NAMES = {
@@ -98,4 +99,9 @@ public class HoaDonDTO {
         "Hình thức thanh toán",
         "Trạng thái"
     };
+
+    @Override
+    public String toString() {
+        return "HoaDonDTO{" + "maHD=" + maHD + ", maDat=" + maDat + ", maNV=" + maNV + ", ngayLap=" + ngayLap + ", tongTien=" + tongTien + ", hinhThucThanhToan=" + hinhThucThanhToan + ", trangThai=" + trangThai + '}';
+    }
 }

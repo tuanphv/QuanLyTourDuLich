@@ -4,8 +4,12 @@
  */
 package gui.panel;
 
+import dto.ChiTietHanhKhachDTO;
 import enums.LoaiHanhKhach;
+import java.time.LocalDate;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import utils.FormatDate;
 
 /**
  *
@@ -13,18 +17,45 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class ChiTietHanhKhachPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ChiTietHanhKhachPanel
-     */
     public ChiTietHanhKhachPanel() {
         initComponents();
         cbLoaiHanhKhach.setModel(new DefaultComboBoxModel<>(LoaiHanhKhach.values()));
         chonNgaySinh.setDateFormatString("dd/MM/yyyy");
     }
     
-    public ChiTietHanhKhachPanel(String title) {
+    public ChiTietHanhKhachPanel(int soThuTu) {
         this();
-        labelTitle.setText(title);
+        labelTitle.setText("Hành khách: " + soThuTu);
+    }
+    
+    public ChiTietHanhKhachDTO getInput() {
+        ChiTietHanhKhachDTO dto = new ChiTietHanhKhachDTO();
+        dto.setHoTen(txtHoTen.getText());
+        dto.setNgaySinh(FormatDate.dateToLocalDate(chonNgaySinh.getDate()));
+        dto.setLoaiHanhKhach((LoaiHanhKhach) cbLoaiHanhKhach.getSelectedItem());
+        dto.setSoGiayTo(txtSoGiayTo.getText());
+        dto.setLaNguoiDat(cbNguoiDat.isSelected());
+        return dto;
+    }
+    
+    public boolean validateData() {
+        if (txtHoTen.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Họ tên không được để trống!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            txtHoTen.requestFocus();
+            return false;
+        }
+        if (chonNgaySinh.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh không được để trống!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            chonNgaySinh.requestFocus();
+            return false;
+        }
+        return true;
+    }
+    
+    public float tinhGiaVe(float giaVe) {
+        return giaVe * ((LoaiHanhKhach)cbLoaiHanhKhach.getSelectedItem()).getHeSoGia();
     }
 
     /**

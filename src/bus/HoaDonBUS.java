@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 import dao.HoaDonDAO;
 import dto.HoaDonDTO;
+import enums.TrangThaiHoaDon;
 
 public class HoaDonBUS {
     private static ArrayList<HoaDonDTO> dsHoaDon;
+    private HoaDonDAO dao;
 
     public HoaDonBUS() {
+        dsHoaDon = new ArrayList<>();
+        dao = new HoaDonDAO();
         loadData();
     }
 
     private void loadData() {
-        dsHoaDon = new HoaDonDAO().getAllHoaDon();
+        dsHoaDon = dao.getAllHoaDon();
     }
 
     public ArrayList<HoaDonDTO> getDSHoaDon() {
@@ -21,7 +25,6 @@ public class HoaDonBUS {
     }
 
     public int addHoaDon(HoaDonDTO hoaDon) {
-        HoaDonDAO dao = new HoaDonDAO();
         int index = dao.addHoaDon(hoaDon);
         if (index != -1) {
             dsHoaDon.add(hoaDon);
@@ -30,7 +33,6 @@ public class HoaDonBUS {
     }
 
     public int updateHoaDon(HoaDonDTO hoaDon) {
-        HoaDonDAO dao = new HoaDonDAO();
         boolean success = dao.updateHoaDon(hoaDon);
         if (success) {
             for (int i = 0; i < dsHoaDon.size(); i++) {
@@ -44,7 +46,6 @@ public class HoaDonBUS {
     }
 
     public boolean deleteHoaDon(int maHoaDon) {
-        HoaDonDAO dao = new HoaDonDAO();
         boolean success = dao.deleteHoaDon(maHoaDon);
         if (success) {
             for (int i = 0; i < dsHoaDon.size(); i++) {
@@ -74,5 +75,14 @@ public class HoaDonBUS {
             }
         }
         return result;
+    }
+    
+    public HoaDonDTO getHoaDonByMaDat(int maDat) {
+        for (HoaDonDTO hoaDon : dsHoaDon) {
+            if (hoaDon.getMaDat() == maDat) {
+                return hoaDon;
+            }
+        }
+        return null;
     }
 }

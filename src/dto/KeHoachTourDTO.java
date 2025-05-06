@@ -85,7 +85,7 @@ public class KeHoachTourDTO {
     }
     
     public float getGiaVe() {
-        return (float) (tongChiPhi * 1.5);
+        return tongChiPhi;
     }
 
     public static String[] KH_TOUR_COLUMN_NAMES = {"Mã KH tour", "Mã tour", "TG bắt đầu", "Đã đặt", "Tối đa", "Trạng thái", "Tổng chi phí"};

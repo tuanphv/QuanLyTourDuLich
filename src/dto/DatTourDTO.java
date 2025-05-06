@@ -2,6 +2,7 @@
 package dto;
 import enums.TrangThaiDatTour;
 import java.time.LocalDate;
+import utils.TextUtils;
 
 public class DatTourDTO {
     private int maDat;
@@ -14,6 +15,7 @@ public class DatTourDTO {
 
     public DatTourDTO() {
         ngayDat = LocalDate.now();
+        tongTien = 0;
         trangThai = TrangThaiDatTour.CHO_THANH_TOAN;
     }
 
@@ -86,7 +88,7 @@ public class DatTourDTO {
     public static String[] COLUMN_NAMES = {"Mã đặt tour", "Mã kế hoạch tour", "Mã khách hàng", "Ngày đặt", "Số lượng", "Tổng tiền", "Trạng thái"};
     
     public Object[] toArray() {
-        return new Object[] {maDat, maKHTour, maKH, ngayDat, soLuong, tongTien, trangThai};
+        return new Object[] {maDat, maKHTour, maKH, ngayDat, soLuong, TextUtils.formatCurrency(tongTien), trangThai};
     }
 
 }

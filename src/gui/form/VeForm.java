@@ -1,10 +1,9 @@
 package gui.form;
 
-import bus.ChiTietHanhKhachBUS;
 import dto.DatTourDTO;
 import bus.DatTourBUS;
-import dto.ChiTietHanhKhachDTO;
-import enums.TrangThaiDatTour;
+import bus.VeBUS;
+import dto.VeDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -17,12 +16,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import gui.components.MyScrollBarUI;
 import gui.dialog.AddDatTourDialog;
-import gui.dialog.TrangThaiDialog;
 import interfaces.SearchHandler;
 
-public class DatTourForm extends javax.swing.JPanel {
+public class VeForm extends javax.swing.JPanel {
 
-    public DatTourForm() {
+    public VeForm() {
         initComponents();
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
@@ -30,7 +28,7 @@ public class DatTourForm extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        DefaultTableModel model = new DefaultTableModel(DatTourDTO.COLUMN_NAMES, 0) {
+        DefaultTableModel model = new DefaultTableModel(VeDTO.COLUMN_NAMES, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -39,12 +37,12 @@ public class DatTourForm extends javax.swing.JPanel {
         table.setModel(model);
         if (!java.beans.Beans.isDesignTime()) {
             // Chỉ loadData khi KHÔNG ở design time
-            loadDataToTable(new DatTourBUS().getAllDatTour());
+            loadDataToTable(new VeBUS().getAllVe());
             addToolBarAction();
         } else {
             System.out.println("DatTourForm đang chạy ở design time mode");
         }
-        myToolBar1.setSearchType(new String[]{"Tên tour", "Điểm khởi hành", "Điểm đến"});
+        myToolBar1.setSearchType(new String[] { "Tên tour", "Điểm khởi hành", "Điểm đến" });
         myToolBar1.setSearchHandler(new SearchHandler() {
             @Override
             public void onSearch(String type, String text) {
@@ -89,7 +87,7 @@ public class DatTourForm extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Quản lý đặt tour");
+        jLabel1.setText("Quản lý vé");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -165,7 +163,7 @@ public class DatTourForm extends javax.swing.JPanel {
                                 .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                     .addComponent(jTextField2))))))
@@ -235,9 +233,8 @@ public class DatTourForm extends javax.swing.JPanel {
         dialog.setVisible(true);
         if (dialog.isSave()) {
             DatTourDTO inputData = dialog.getInputData();
-            ArrayList<ChiTietHanhKhachDTO> listChiTietHanhKhachDTOs = dialog.getChiTietHanhKhachList();
-            if (add(inputData, listChiTietHanhKhachDTOs)) {
-                JOptionPane.showMessageDialog(this, "Đã thêm đặt tour và chi tiết hành khách!");
+            if (addTour(inputData)) {
+                JOptionPane.showMessageDialog(this, "Đã thêm tour!");
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
             }
@@ -251,16 +248,18 @@ public class DatTourForm extends javax.swing.JPanel {
             DatTourBUS bus = new DatTourBUS();
             DatTourDTO dto = bus.getDatTourById((int) model.getValueAt(index, 0));
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            TrangThaiDialog dialog = new TrangThaiDialog(parentFrame);
-            dialog.loadData(new Object[] {TrangThaiDatTour.CHO_THANH_TOAN, TrangThaiDatTour.DA_THANH_TOAN}, dto.getTrangThai());
+            AddDatTourDialog dialog = new AddDatTourDialog(parentFrame);
+            dialog.setLocationRelativeTo(parentFrame);
             dialog.setVisible(true);
             if (dialog.isSave()) {
-                TrangThaiDatTour trangThaiMoi = (TrangThaiDatTour) dialog.getInputData();
-                if (bus.updateTrangThaiDatTour(dto, trangThaiMoi))
-                    model.setValueAt(trangThaiMoi, index, model.getColumnCount() -1);
+                if (true) {
+                    JOptionPane.showMessageDialog(this, "Đã cập nhật tour!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
+                }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn đặt tour cần cập nhật!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn tour cần cập nhật!");
         }
     }
 
@@ -279,11 +278,11 @@ public class DatTourForm extends javax.swing.JPanel {
             if (result == JOptionPane.OK_OPTION) {
                 if (bus.deleteDatTour((int) model.getValueAt(i, 0))) {
                     model.removeRow(i);
-                    JOptionPane.showMessageDialog(this, "Xóa đặt tour thành công!");
+                    JOptionPane.showMessageDialog(this, "Xóa tour thành công!");
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn đặt tour cần xóa!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn tour cần xóa!");
         }
     }
 
@@ -293,42 +292,34 @@ public class DatTourForm extends javax.swing.JPanel {
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
     }
 
-    public boolean add(DatTourDTO dto, ArrayList<ChiTietHanhKhachDTO> listCTietHKhach) {
+    public boolean addTour(DatTourDTO dto) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        int index = new DatTourBUS().addDatTour(dto);
+        DatTourBUS bus = new DatTourBUS();
+        int index = bus.addDatTour(dto);
         if (index != -1) {
-            // thêm dattour
             dto.setMaDat(index);
             model.addRow(dto.toArray());
-            // thêm chi tiết hành khách
-            ChiTietHanhKhachBUS bus = new ChiTietHanhKhachBUS();
-            for (int i = 0; i < listCTietHKhach.size(); i++) {
-                ChiTietHanhKhachDTO e = listCTietHKhach.get(i);
-                e.setMaDat(index);
-                e.setSoThuTu(i);
-                if (!bus.addCTietHKhach(e)) {
-                    new DatTourBUS().deleteDatTour(index);
-                    return false;
-                } else {
-                    System.out.println(e);
-                }
-            }
             return true;
         }
         return false;
     }
 
-    public boolean update(DatTourDTO datTour) {
+    public boolean updateTour(DatTourDTO datTour) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
         DatTourBUS bus = new DatTourBUS();
         int index = bus.updateDatTour(datTour);
         System.out.println("Update DatTour: " + index);
-        return index != -1;
+        if (index != -1) {
+            model.setValueAt(null, index, 1);
+            return true;
+        }
+        return false;
     }
 
-    private void loadDataToTable(ArrayList<DatTourDTO> datTours) {
+    private void loadDataToTable(ArrayList<VeDTO> ves) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        datTours.forEach((var e) -> model.addRow(e.toArray()));
+        ves.forEach((var e) -> model.addRow(e.toObjectArray()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

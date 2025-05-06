@@ -1,24 +1,28 @@
 package gui.dialog;
 
+import bus.KeHoachTourBUS;
 import dto.ChiTietHanhKhachDTO;
 import dto.DatTourDTO;
 import gui.panel.ChiTietHanhKhachPanel;
 import java.awt.CardLayout;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import utils.FormatDate;
 
-public class DatTourDialog extends javax.swing.JDialog {
+public class AddDatTourDialog extends javax.swing.JDialog {
 
-    private List<String> cardNames = new ArrayList<>();
-    private List<ChiTietHanhKhachDTO> dsChiTietHK = new ArrayList<>();
-    private List<ChiTietHanhKhachPanel> dsPanelChiTiet = new ArrayList<>();
+    private ArrayList<String> cardNames = new ArrayList<>();
+    private ArrayList<ChiTietHanhKhachDTO> dsChiTietHK = new ArrayList<>();
+    private ArrayList<ChiTietHanhKhachPanel> dsPanelChiTiet = new ArrayList<>();
     private int cardIndex = 0;
+    private float giaVe;
     private DatTourDTO datTourDTO;
     private boolean save = false;
 
-    public DatTourDialog(java.awt.Frame parent) {
+    public AddDatTourDialog(java.awt.Frame parent) {
         super(parent, true);
         initComponents();
         setLocationRelativeTo(parent);
@@ -26,6 +30,7 @@ public class DatTourDialog extends javax.swing.JDialog {
         cardNames.add("cardNhapThongTin");
         spSoLuong.setModel(new SpinnerNumberModel(1, 1, 50, 1));
         btnBack.setVisible(false);
+        txtNgayDat.setText(FormatDate.toString(LocalDate.now(), "dd/MM/yyyy"));
     }
 
     /**
@@ -43,16 +48,16 @@ public class DatTourDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txtMaKH = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtNgayDat = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         spSoLuong = new javax.swing.JSpinner();
         panelXacNhan = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTongTien = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtSLVe = new javax.swing.JTextField();
         cards = new javax.swing.JPanel();
         btnCancel = new gui.components.MyButton();
         btnNext = new gui.components.MyButton();
@@ -73,7 +78,7 @@ public class DatTourDialog extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setText("Ngày đặt");
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNgayDat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setText("Số lượng");
@@ -99,7 +104,7 @@ public class DatTourDialog extends javax.swing.JDialog {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(panelThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(txtNgayDat, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                             .addComponent(spSoLuong))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -116,7 +121,7 @@ public class DatTourDialog extends javax.swing.JDialog {
                     .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(panelThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNgayDat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(21, 21, 21)
                 .addGroup(panelThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -130,7 +135,7 @@ public class DatTourDialog extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel5.setText("Tổng tiền");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("VNĐ");
@@ -141,8 +146,8 @@ public class DatTourDialog extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel8.setText("Số lượng vé");
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtSLVe.setEditable(false);
+        txtSLVe.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout panelXacNhanLayout = new javax.swing.GroupLayout(panelXacNhan);
         panelXacNhan.setLayout(panelXacNhanLayout);
@@ -158,9 +163,9 @@ public class DatTourDialog extends javax.swing.JDialog {
                             .addComponent(jLabel8))
                         .addGap(32, 32, 32)
                         .addGroup(panelXacNhanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSLVe, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelXacNhanLayout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)))))
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -173,12 +178,12 @@ public class DatTourDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(panelXacNhanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(panelXacNhanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSLVe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(176, Short.MAX_VALUE))
         );
 
@@ -249,21 +254,22 @@ public class DatTourDialog extends javax.swing.JDialog {
             if (checkValidateCardThongTin() == false) {
                 return;
             }
-            
+
             // lấy thông tin đặt tour
             datTourDTO = new DatTourDTO();
             datTourDTO.setMaKHTour(Integer.parseInt(txtMaKHTour.getText()));
             datTourDTO.setMaKH(Integer.parseInt(txtMaKH.getText()));
+            giaVe = new KeHoachTourBUS().getKeHoachTourById(datTourDTO.getMaKHTour()).getGiaVe();
             datTourDTO.setSoLuong((int) spSoLuong.getValue());
             cards.removeAll();
             cards.add(panelThongTin, "cardNhapThongTin");
             cardNames.clear();
             cardNames.add("cardNhapThongTin");
-            
+
             // thêm chi tiết
             dsPanelChiTiet.clear();
             for (int i = 0; i < (int) spSoLuong.getValue(); i++) {
-                dsPanelChiTiet.add(new ChiTietHanhKhachPanel("Hành khách " + (i + 1)));
+                dsPanelChiTiet.add(new ChiTietHanhKhachPanel(i + 1));
                 String cardName = "cardChiTiet" + (i + 1);
                 cardNames.add(cardName);
                 cards.add(dsPanelChiTiet.getLast(), cardName);
@@ -274,13 +280,24 @@ public class DatTourDialog extends javax.swing.JDialog {
             btnBack.setVisible(true);
             changeCard(1);
         } else if (cardIndex <= datTourDTO.getSoLuong()) {
-            if (cardIndex == datTourDTO.getSoLuong())
-                btnNext.setText("SUBMIT");
-            changeCard(1);
+            ChiTietHanhKhachPanel panel = dsPanelChiTiet.get(cardIndex - 1);
+            if (panel.validateData()) {
+                if (cardIndex == datTourDTO.getSoLuong()) {
+                    btnNext.setText("SUBMIT");
+                    txtSLVe.setText(String.valueOf((int) spSoLuong.getValue()));
+                    float total = 0;
+                    for (ChiTietHanhKhachPanel e: dsPanelChiTiet) {
+                        total += e.tinhGiaVe(giaVe);
+                    };
+                    txtTongTien.setText(new DecimalFormat("#,###.##").format(total));
+                    datTourDTO.setTongTien(total);
+                }
+                changeCard(1);
+            }
         } else {
             doSubmit();
         }
-        
+
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -308,15 +325,22 @@ public class DatTourDialog extends javax.swing.JDialog {
         save = true;
         dispose();
     }
-    
+
     public DatTourDTO getInputData() {
-        return new DatTourDTO();
+        return datTourDTO;
     }
     
+    public ArrayList<ChiTietHanhKhachDTO> getChiTietHanhKhachList() {
+        for (int i=0; i<dsPanelChiTiet.size(); i++) {
+            dsChiTietHK.add(dsPanelChiTiet.get(i).getInput());
+        }
+        return dsChiTietHK;
+    }
+
     public boolean isSave() {
         return this.save;
     }
-    
+
     private void changeCard(int step) {
         cardIndex += step;
         CardLayout layout = (CardLayout) cards.getLayout();
@@ -379,20 +403,21 @@ public class DatTourDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DatTourDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddDatTourDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DatTourDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddDatTourDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DatTourDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddDatTourDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DatTourDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddDatTourDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DatTourDialog dialog = new DatTourDialog(new javax.swing.JFrame());
+                AddDatTourDialog dialog = new AddDatTourDialog(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -417,13 +442,13 @@ public class DatTourDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JPanel panelThongTin;
     private javax.swing.JPanel panelXacNhan;
     private javax.swing.JSpinner spSoLuong;
     private javax.swing.JTextField txtMaKH;
     private javax.swing.JTextField txtMaKHTour;
+    private javax.swing.JTextField txtNgayDat;
+    private javax.swing.JTextField txtSLVe;
+    private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
 }

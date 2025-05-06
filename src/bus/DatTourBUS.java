@@ -70,6 +70,10 @@ public class DatTourBUS {
         return -1;
     }
     
+    public boolean updateTrangThaiDatTour(DatTourDTO datTourDTO, TrangThaiDatTour trangThaiMoi) {
+        return dao.updateTrangThaiDatTour(datTourDTO, trangThaiMoi);
+    }
+    
     /**
      * Delete a tour booking
      * @param maDat ID of the booking to delete

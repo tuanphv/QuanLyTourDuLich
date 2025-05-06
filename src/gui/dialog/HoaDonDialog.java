@@ -1,20 +1,18 @@
 package gui.dialog;
 
+import bus.DatTourBUS;
 import bus.HoaDonBUS;
 import javax.swing.JOptionPane;
 import dto.HoaDonDTO;
-import java.awt.CardLayout;
-import javax.swing.SpinnerNumberModel;
-
-import bus.KeHoachTourBUS;
-import bus.KhachHangBUS;
 import bus.NhanVienBUS;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import dto.DatTourDTO;
+import enums.TrangThaiHoaDon;
+import java.time.LocalDateTime;
+import javax.swing.DefaultComboBoxModel;
 import utils.FormatDate;
 
 public class HoaDonDialog extends javax.swing.JDialog {
-    
+
     private boolean save;
 
     /**
@@ -27,6 +25,9 @@ public class HoaDonDialog extends javax.swing.JDialog {
         // Thêm vào phương thức constructor hoặc initComponents
         initComponents();
         setLocationRelativeTo(parent);
+        txtNgayLap.setText(FormatDate.toString(LocalDateTime.now(), "HH:mm dd/MM/yyyy"));
+        cbHinhThucThanhToan.setModel(new DefaultComboBoxModel<>(new String[]{"Tien Mat", "Chuyen Khoan", "The Tin Dung"}));
+        cbTranhThai.setModel(new DefaultComboBoxModel<>(new Object[]{TrangThaiHoaDon.CHO_XAC_NHAN, TrangThaiHoaDon.DA_THANH_TOAN}));
     }
 
     /**
@@ -39,7 +40,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnNext = new gui.components.MyButton();
+        btnSubmit = new gui.components.MyButton();
         btnCancel = new gui.components.MyButton();
         card1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -47,21 +48,21 @@ public class HoaDonDialog extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        txtTrangThai = new javax.swing.JTextField();
         txtNgayLap = new javax.swing.JTextField();
         txtMaNV = new javax.swing.JTextField();
         txtMaDatTour = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         cbHinhThucThanhToan = new gui.components.CustomComboBox();
         txtTongTien = new javax.swing.JTextField();
+        cbTranhThai = new gui.components.CustomComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnNext.setText("SUBMIT");
-        btnNext.setName("next"); // NOI18N
-        btnNext.addActionListener(new java.awt.event.ActionListener() {
+        btnSubmit.setText("SUBMIT");
+        btnSubmit.setName("next"); // NOI18N
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNextActionPerformed(evt);
+                btnSubmitActionPerformed(evt);
             }
         });
 
@@ -90,11 +91,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel14.setText("Hình thức thanh toán");
 
-        txtTrangThai.setEditable(false);
-        txtTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtTrangThai.setText("Chờ xác nhận");
-        txtTrangThai.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
+        txtNgayLap.setEditable(false);
         txtNgayLap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNgayLap.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
@@ -103,6 +100,11 @@ public class HoaDonDialog extends javax.swing.JDialog {
 
         txtMaDatTour.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtMaDatTour.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtMaDatTour.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMaDatTourFocusLost(evt);
+            }
+        });
         txtMaDatTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaDatTourActionPerformed(evt);
@@ -112,8 +114,11 @@ public class HoaDonDialog extends javax.swing.JDialog {
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel17.setText("Trạng thái");
 
+        txtTongTien.setEditable(false);
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTongTien.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        cbTranhThai.setEnabled(false);
 
         javax.swing.GroupLayout card1Layout = new javax.swing.GroupLayout(card1);
         card1.setLayout(card1Layout);
@@ -135,7 +140,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
                     .addComponent(txtNgayLap, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMaNV, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMaDatTour, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTrangThai))
+                    .addComponent(cbTranhThai, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         card1Layout.setVerticalGroup(
@@ -164,8 +169,8 @@ public class HoaDonDialog extends javax.swing.JDialog {
                 .addGap(22, 22, 22)
                 .addGroup(card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                    .addComponent(cbTranhThai, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,7 +182,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
@@ -190,7 +195,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
@@ -200,7 +205,25 @@ public class HoaDonDialog extends javax.swing.JDialog {
     private void txtMaDatTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaDatTourActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaDatTourActionPerformed
-    
+
+    private void txtMaDatTourFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaDatTourFocusLost
+        int maDat = Integer.parseInt(txtMaDatTour.getText().trim());
+        DatTourDTO dto = new DatTourBUS().getDatTourById(maDat);
+        if (dto == null) {
+            JOptionPane.showMessageDialog(this, "Mã đặt tour không tồn tại!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            txtMaDatTour.requestFocus();
+            return;
+        } else 
+            txtTongTien.setText(String.valueOf(dto.getTongTien()));
+        HoaDonDTO hoaDonDTO = new HoaDonBUS().getHoaDonByMaDat(maDat);
+        if (hoaDonDTO != null && !cbTranhThai.isEnabled()) {
+            JOptionPane.showMessageDialog(this, "Mã đặt tour đã tồn tại hóa đơn!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            txtMaDatTour.requestFocus();
+        }
+    }//GEN-LAST:event_txtMaDatTourFocusLost
+
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelActionPerformed
         int result = JOptionPane.showConfirmDialog(
                 getOwner(),
@@ -208,13 +231,35 @@ public class HoaDonDialog extends javax.swing.JDialog {
                 "Xác nhận",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
-        
+
         if (result == JOptionPane.OK_OPTION) {
             dispose();
         }
     }// GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSubmitActionPerformed
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSubmitActionPerformed
+        // Validate maDatTour
+        if (txtMaDatTour.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã đặt tour không được để trống!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            txtMaDatTour.requestFocus();
+            return;
+        }
+        try {
+            Integer.valueOf(txtMaDatTour.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Mã đặt tour phải là số nguyên!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            txtMaDatTour.requestFocus();
+            return;
+        }
+        if (new DatTourBUS().getDatTourById(Integer.parseInt(txtMaDatTour.getText().trim())) == null) {
+            JOptionPane.showMessageDialog(this, "Mã đặt tour không tồn tại!", "Lỗi nhập liệu",
+                    JOptionPane.WARNING_MESSAGE);
+            txtNgayLap.requestFocus();
+            return;
+        }
+
         // Validate maNV
         if (txtMaNV.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mã nhân viên không được để trống!", "Lỗi nhập liệu",
@@ -241,18 +286,20 @@ public class HoaDonDialog extends javax.swing.JDialog {
     }// GEN-LAST:event_btnSubmitActionPerformed
 
     public void loadData(HoaDonDTO hoaDon) {
-        txtMaDatTour.setText(String.valueOf(hoaDon.getMaHoaDon()));
+        txtMaDatTour.setText(String.valueOf(hoaDon.getMaDat()));
         txtMaNV.setText(String.valueOf(hoaDon.getMaNV()));
         txtNgayLap.setText(FormatDate.toString(hoaDon.getNgayLap(), "HH:mm dd/MM/yyyy"));
         txtTongTien.setText(String.valueOf(hoaDon.getTongTien()));
         cbHinhThucThanhToan.setSelectedItem(hoaDon.getHinhThucThanhToan());
-        txtTrangThai.setText(hoaDon.getTrangThai().getMoTa());
+        cbTranhThai.setSelectedItem(hoaDon.getTrangThai());
+        cbTranhThai.setEnabled(true);
+        txtMaDatTour.setEditable(false);
     }
-    
+
     public boolean isSave() {
         return this.save;
     }
-    
+
     public HoaDonDTO getInputData() {
         HoaDonDTO hoaDon = new HoaDonDTO();
         hoaDon.setMaDat(Integer.parseInt(txtMaDatTour.getText()));
@@ -260,14 +307,17 @@ public class HoaDonDialog extends javax.swing.JDialog {
         hoaDon.setTongTien(Float.parseFloat(txtTongTien.getText()));
         hoaDon.setHinhThucThanhToan((String) cbHinhThucThanhToan.getSelectedItem());
         hoaDon.setNgayLap(FormatDate.toDateTime(txtNgayLap.getText(), "HH:mm dd/MM/yyyy"));
+        hoaDon.setTrangThai((TrangThaiHoaDon) cbTranhThai.getSelectedItem());
+        System.out.println(hoaDon);
         return hoaDon;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gui.components.MyButton btnCancel;
-    private gui.components.MyButton btnNext;
+    private gui.components.MyButton btnSubmit;
     private javax.swing.JPanel card1;
     private gui.components.CustomComboBox cbHinhThucThanhToan;
+    private gui.components.CustomComboBox cbTranhThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -278,6 +328,5 @@ public class HoaDonDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtMaNV;
     private javax.swing.JTextField txtNgayLap;
     private javax.swing.JTextField txtTongTien;
-    private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables
 }
