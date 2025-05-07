@@ -1,4 +1,4 @@
-package database;
+package config;
 
 import java.beans.Beans;
 import java.sql.Connection;

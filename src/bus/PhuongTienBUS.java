@@ -1,9 +1,8 @@
 package bus;
 
-import java.util.ArrayList;
-
-import dto.PhuongTienDTO;
 import dao.PhuongTienDAO;
+import dto.PhuongTienDTO;
+import java.util.ArrayList;
 
 public class PhuongTienBUS {
     PhuongTienDAO phuongTienDAO;
@@ -53,4 +52,23 @@ public class PhuongTienBUS {
         }
         return null;
     }
+
+    public int getIdByName(String tenPhuongTien) {
+        for (PhuongTienDTO phuongTien : listVehicle) {
+            if (phuongTien.getTenPhuongTien().equals(tenPhuongTien)) {
+                return phuongTien.getMaPhuongTien();
+            }
+        }
+        return -1;
+    }
+
+    public String getNameById(int maPhuongTien) {
+        for (PhuongTienDTO phuongTien : listVehicle) {
+            if (phuongTien.getMaPhuongTien() == maPhuongTien) {
+                return phuongTien.getTenPhuongTien();
+            }
+        }
+        return null;
+    }
+    
 }

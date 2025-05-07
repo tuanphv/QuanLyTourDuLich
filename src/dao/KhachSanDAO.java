@@ -1,14 +1,13 @@
 package dao;
 
+import config.DatabaseConnection;
+import dto.KhachSanDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import dto.KhachSanDTO;
-import database.DatabaseConnection;
 
 public class KhachSanDAO {
     public int insert(KhachSanDTO hotel) {
@@ -60,6 +59,7 @@ public class KhachSanDAO {
             String sql = "UPDATE khachsan SET trangThai = 0 WHERE maKhachSan = ?";
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, maKhachSan);
+            
             return pstm.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();

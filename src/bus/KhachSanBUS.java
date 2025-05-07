@@ -1,9 +1,8 @@
 package bus;
 
-import java.util.ArrayList;
-
-import dto.KhachSanDTO;
 import dao.KhachSanDAO;
+import dto.KhachSanDTO;
+import java.util.ArrayList;
 
 public class KhachSanBUS {
     KhachSanDAO khachSanDAO;
@@ -49,6 +48,24 @@ public class KhachSanBUS {
         for (KhachSanDTO hotel : listHotel) {
             if (hotel.getMaKhachSan() == maKhachSan) {
                 return hotel;
+            }
+        }
+        return null;
+    }
+
+    public int getIdByName(String tenKhachSan) {
+        for (KhachSanDTO hotel : listHotel) {
+            if (hotel.getTenKhachSan().equals(tenKhachSan)) {
+                return hotel.getMaKhachSan();
+            }
+        }
+        return -1;
+    }
+
+    public String getNameById(int maKhachSan) {
+        for (KhachSanDTO hotel : listHotel) {
+            if (hotel.getMaKhachSan() == maKhachSan) {
+                return hotel.getTenKhachSan();
             }
         }
         return null;

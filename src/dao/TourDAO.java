@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import database.DatabaseConnection;
+import config.DatabaseConnection;
 import enums.TrangThaiTour;
 
 public class TourDAO {

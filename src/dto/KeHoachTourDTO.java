@@ -1,7 +1,7 @@
 package dto;
 
-import java.time.LocalDate;
 import enums.TrangThaiKeHoachTour;
+import java.time.LocalDate;
 import utils.FormatDate;
 
 public class KeHoachTourDTO {
@@ -12,22 +12,32 @@ public class KeHoachTourDTO {
     private LocalDate thoiGianKT;
     private int slDaDat;
     private int slToiDa;
-    private TrangThaiKeHoachTour trangThai;
     private float tongChiPhi;
+    private TrangThaiKeHoachTour trangThai;
     
     public KeHoachTourDTO() {
         this.trangThai = TrangThaiKeHoachTour.DANG_MO;
     }
 
-    public KeHoachTourDTO(int maKHTour, int maTour, LocalDate thoiGianBD, LocalDate thoiGianKT, int slDaDat, int slToiDa, TrangThaiKeHoachTour trangThai, float tongChiPhi) {
+    public KeHoachTourDTO(int maTour, LocalDate thoiGianBD, LocalDate thoiGianKT, int slDaDat, int slToiDa, float tongChiPhi, TrangThaiKeHoachTour trangThai) {
+        this.maTour = maTour;
+        this.thoiGianBD = thoiGianBD;
+        this.thoiGianKT = thoiGianKT;
+        this.slDaDat = slDaDat;
+        this.slToiDa = slToiDa;
+        this.tongChiPhi = tongChiPhi;
+        this.trangThai = trangThai;
+    }
+    
+    public KeHoachTourDTO(int maKHTour, int maTour, LocalDate thoiGianBD, LocalDate thoiGianKT, int slDaDat, int slToiDa, float tongChiPhi, TrangThaiKeHoachTour trangThai) {
         this.maKHTour = maKHTour;
         this.maTour = maTour;
         this.thoiGianBD = thoiGianBD;
         this.thoiGianKT = thoiGianKT;
         this.slDaDat = slDaDat;
         this.slToiDa = slToiDa;
-        this.trangThai = trangThai;
         this.tongChiPhi = tongChiPhi;
+        this.trangThai = trangThai;
     }
 
     public int getMaTour() {

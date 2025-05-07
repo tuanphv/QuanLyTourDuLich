@@ -3,7 +3,7 @@ package dao;
 import dto.NhanVienDTO;
 import java.sql.*;
 import java.util.ArrayList;
-import database.DatabaseConnection;
+import config.DatabaseConnection;
 
 public class NhanVienDAO {
 

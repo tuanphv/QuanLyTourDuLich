@@ -1,13 +1,12 @@
 package dao;
 
+import config.DatabaseConnection;
+import dto.HoaDonDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import database.DatabaseConnection;
-import dto.HoaDonDTO;
 
 public class HoaDonDAO {
     public ArrayList<HoaDonDTO> getAllHoaDon() {
@@ -18,7 +17,7 @@ public class HoaDonDAO {
                 dsHoaDon.add(new HoaDonDTO(
                         rs.getInt("maHoaDon"),
                         rs.getInt("maKH"),
-                        rs.getInt("maKHTour"),
+                        rs.getInt("maKeHoachTour"),
                         rs.getInt("soVe"),
                         rs.getInt("maNV"),
                         rs.getFloat("tongTien"),
@@ -35,7 +34,7 @@ public class HoaDonDAO {
     }
 
     public int addHoaDon(HoaDonDTO hoaDon) {
-        String query = "INSERT INTO hoadon (maKH, maKHTour, soVe, maNV, tongTien, ghiChu, maKhuyenMai, ngayLapPhieu, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO hoadon (maKH, maKeHoachTour, soVe, maNV, tongTien, ghiChu, maKhuyenMai, ngayLapPhieu, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, hoaDon.getMaKH());
             pstmt.setInt(2, hoaDon.getMaKHTour());
@@ -61,7 +60,7 @@ public class HoaDonDAO {
         return -1;
     }
     public boolean updateHoaDon(HoaDonDTO hoaDon) {
-        String query = "UPDATE hoadon SET maKH = ?, maKHTour = ?, soVe = ?, maNV = ?, tongTien = ?, ghiChu = ?, maKhuyenMai = ?, ngayLapPhieu = ?, trangThai = ? WHERE maHoaDon = ?";
+        String query = "UPDATE hoadon SET maKH = ?, maKeHoachTour = ?, soVe = ?, maNV = ?, tongTien = ?, ghiChu = ?, maKhuyenMai = ?, ngayLapPhieu = ?, trangThai = ? WHERE maHoaDon = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, hoaDon.getMaKH());
             pstmt.setInt(2, hoaDon.getMaKHTour());
