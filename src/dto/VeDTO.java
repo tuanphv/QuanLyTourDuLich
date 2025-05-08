@@ -3,6 +3,7 @@ package dto;
 
 import enums.TrangThaiVe;
 import java.time.LocalDate;
+import utils.TextUtils;
 
 public class VeDTO {
     private int maVe;
@@ -12,12 +13,14 @@ public class VeDTO {
     private String hoTen;
     private LocalDate ngayKhoiHanh;
     private LocalDate ngayCap;
+    private float giaVe;
     private TrangThaiVe trangThai;
 
     public VeDTO() {
+        trangThai = TrangThaiVe.DA_PHAT_HANH;
     }
 
-    public VeDTO(int maVe, int maDat, int soThuTu, int maKHTour, String hoTen, LocalDate ngayKhoiHanh, LocalDate ngayCap, TrangThaiVe trangThai) {
+    public VeDTO(int maVe, int maDat, int soThuTu, int maKHTour, String hoTen, LocalDate ngayKhoiHanh, LocalDate ngayCap, float giaVe, TrangThaiVe trangThai) {
         this.maVe = maVe;
         this.maDat = maDat;
         this.soThuTu = soThuTu;
@@ -25,6 +28,7 @@ public class VeDTO {
         this.hoTen = hoTen;
         this.ngayKhoiHanh = ngayKhoiHanh;
         this.ngayCap = ngayCap;
+        this.giaVe = giaVe;
         this.trangThai = trangThai;
     }
 
@@ -84,6 +88,14 @@ public class VeDTO {
         this.ngayCap = ngayCap;
     }
 
+    public float getGiaVe() {
+        return giaVe;
+    }
+
+    public void setGiaVe(float giaVe) {
+        this.giaVe = giaVe;
+    }
+
     public TrangThaiVe getTrangThai() {
         return trangThai;
     }
@@ -92,10 +104,10 @@ public class VeDTO {
         this.trangThai = trangThai;
     }
     
-    public static String[] COLUMN_NAMES = new String[]{"Mã vé", "Mã đặt tour", "Số thứ tự", "Mã kế hoạch tour", "Họ tên", "Ngày khởi hành", "Ngày cấp", "Trạng thái"};
+    public static String[] COLUMN_NAMES = new String[]{"Mã vé", "Mã đặt tour", "Số thứ tự", "Mã kế hoạch tour", "Họ tên", "Ngày khởi hành", "Ngày cấp", "Giá vé", "Trạng thái"};
     
     public Object[] toObjectArray() {
-        return new Object[]{maVe, maDat, soThuTu, maKHTour, hoTen, ngayKhoiHanh, ngayCap, trangThai.getMoTa()};
+        return new Object[]{maVe, maDat, soThuTu, maKHTour, hoTen, ngayKhoiHanh, ngayCap, TextUtils.formatCurrency(giaVe) , trangThai.getMoTa()};
     }
     
 }

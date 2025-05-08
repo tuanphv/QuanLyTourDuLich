@@ -1,14 +1,13 @@
 package dao;
 
+import config.DatabaseConnection;
+import dto.HoaDonDTO;
+import enums.TrangThaiHoaDon;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import database.DatabaseConnection;
-import dto.HoaDonDTO;
-import enums.TrangThaiHoaDon;
 import java.sql.Statement;
 
 public class HoaDonDAO {
@@ -59,7 +58,7 @@ public class HoaDonDAO {
     }
 
     public boolean updateHoaDon(HoaDonDTO hoaDon) {
-        String query = "UPDATE hoadon SET maDat = ?, maNV = ?, ngayLap = ?, tongTien = ?, hinhThucThanhToan = ?, trangThai = ? WHERE maHD = ?";
+        String query = "UPDATE hoadon SET maKH = ?, maKHTour = ?, soVe = ?, maNV = ?, tongTien = ?, ghiChu = ?, maKhuyenMai = ?, ngayLapPhieu = ?, trangThai = ? WHERE maHoaDon = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, hoaDon.getMaDat());
             pstmt.setInt(2, hoaDon.getMaNV());

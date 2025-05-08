@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "KeHoachTour",
+            "request": "launch",
+            "mainClass": "gui.dialog.KeHoachTour",
+            "projectName": "QuanLyTourDuLich_c9a1367"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "gui.Main",

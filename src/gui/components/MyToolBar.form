@@ -54,7 +54,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="searchButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="myButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReFresh" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -85,7 +85,7 @@
                               <Component id="cbSearchType" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtSearch" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="searchButton" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="myButton1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="btnReFresh" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -170,7 +170,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="gui.components.MyButton" name="myButton1">
+        <Component class="gui.components.MyButton" name="btnReFresh">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/icons/refresh.png"/>

@@ -1,6 +1,6 @@
 package dao;
 
-import database.DatabaseConnection;
+import config.DatabaseConnection;
 import dto.DatTourDTO;
 import enums.TrangThaiDatTour;
 import java.sql.Connection;

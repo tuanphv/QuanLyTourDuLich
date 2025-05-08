@@ -1,6 +1,6 @@
 package dao;
 
-import database.DatabaseConnection;
+import config.DatabaseConnection;
 import dto.ChiTietHanhKhachDTO;
 import enums.LoaiHanhKhach;
 import java.sql.Connection;
@@ -8,7 +8,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ChiTietHanhKhachDAO {

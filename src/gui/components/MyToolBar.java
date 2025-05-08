@@ -32,9 +32,8 @@ public class MyToolBar extends javax.swing.JPanel {
         txtSearch = new javax.swing.JTextField();
         cbSearchType = new gui.components.CustomComboBox();
         searchButton = new gui.components.MyButton();
-        myButton1 = new gui.components.MyButton();
+        btnReFresh = new gui.components.MyButton();
 
-        panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder2.setPreferredSize(new java.awt.Dimension(1000, 50));
 
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/add.png"))); // NOI18N
@@ -62,7 +61,6 @@ public class MyToolBar extends javax.swing.JPanel {
 
         cbSearchType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chọn tất cả", "Lựa chọn 1", "Lựa chọn 2" }));
 
-        searchButton.setBackground(new java.awt.Color(102, 204, 255));
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -71,9 +69,8 @@ public class MyToolBar extends javax.swing.JPanel {
             }
         });
 
-        myButton1.setBackground(new java.awt.Color(102, 204, 255));
-        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
-        myButton1.setText("Refresh");
+        btnReFresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
+        btnReFresh.setText("Refresh");
 
         javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
         panelBorder2.setLayout(panelBorder2Layout);
@@ -97,7 +94,7 @@ public class MyToolBar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReFresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
         panelBorder2Layout.setVerticalGroup(
@@ -122,7 +119,7 @@ public class MyToolBar extends javax.swing.JPanel {
                             .addComponent(cbSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnReFresh, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -184,6 +181,10 @@ public class MyToolBar extends javax.swing.JPanel {
     public ButtonToolBar getBtnXuatExcel() {
         return btnXuatExcel;
     }
+    
+    public MyButton getBtnRefresh() {
+        return btnReFresh;
+    }
 
     public void setBtnThem(ButtonToolBar btn) {
         btnThem = btn;
@@ -200,12 +201,12 @@ public class MyToolBar extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gui.components.ButtonToolBar btnNhapExcel;
+    private gui.components.MyButton btnReFresh;
     private gui.components.ButtonToolBar btnSua;
     private gui.components.ButtonToolBar btnThem;
     private gui.components.ButtonToolBar btnXoa;
     private gui.components.ButtonToolBar btnXuatExcel;
     private gui.components.CustomComboBox cbSearchType;
-    private gui.components.MyButton myButton1;
     private gui.components.PanelBorder panelBorder2;
     private gui.components.MyButton searchButton;
     private javax.swing.JTextField txtSearch;

@@ -87,9 +87,10 @@ CREATE TABLE Tour (
 
 -- 7. Bảng Kế hoạch tour
 CREATE TABLE KeHoachTour (
-    maKHTour INT AUTO_INCREMENT PRIMARY KEY,
+    maKeHoachTour INT AUTO_INCREMENT PRIMARY KEY,
     maTour INT,
     thoiGianBD DATE,
+    thoiGianKT DATE,
     slDaDat INT DEFAULT 0,
     slToiDa INT NOT NULL,
     trangThai VARCHAR(50),
@@ -99,7 +100,7 @@ CREATE TABLE KeHoachTour (
 
 -- 8. Bảng Địa danh
 CREATE TABLE diadanh (
-    maDD INT AUTO_INCREMENT PRIMARY KEY,
+    maDiaDanh INT AUTO_INCREMENT PRIMARY KEY,
     tenDD VARCHAR(100),
     tinhThanh VARCHAR(100),
     diemNoiBat TEXT
@@ -114,7 +115,7 @@ CREATE TABLE DatTour (
     soLuong INT,
     tongTien FLOAT,
     trangThai ENUM('ChoThanhToan', 'DaThanhToan', 'DaHuy') DEFAULT 'ChoThanhToan',
-    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKHTour),
+    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKeHoachTour),
     FOREIGN KEY (maKH) REFERENCES KhachHang(maKH)
 );
 
@@ -152,7 +153,49 @@ CREATE TABLE Ve (
     hoTen VARCHAR(100),
     ngayKhoiHanh DATE,
     ngayCap DATE,
+    giaVe FLOAT,
     trangThai ENUM('DaPhatHanh', 'DaHuy', 'SuDung') DEFAULT 'DaPhatHanh',
     FOREIGN KEY (maDat, soThuTu) REFERENCES ChiTietHanhKhach(maDat, soThuTu),
-    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKHTour)
+    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKeHoachTour)
 );
+
+CREATE TABLE ChiTietKeHoachTour (
+    maChiTietKeHoachTour INT AUTO_INCREMENT PRIMARY KEY,
+    maKeHoachTour INT,
+    ngay DATE,
+    chiPhiNgay BIGINT,
+    FOREIGN KEY (maKeHoachTour) REFERENCES KeHoachTour(maKeHoachTour)
+);
+
+CREATE TABLE DiaDiemThamQuan (
+    maDiaDiemThamQuan INT AUTO_INCREMENT PRIMARY KEY,
+    maChiTietKeHoachTour INT,
+    maDiaDanh INT,
+    moTa TEXT,
+    maPhuongTien INT,
+    chiPhiThamQuan FLOAT,
+    chiPhiDiChuyen FLOAT,
+    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour),     
+    FOREIGN KEY (maDiaDanh) REFERENCES DiaDanh(maDiaDanh),
+    FOREIGN KEY (maPhuongTien) REFERENCES PhuongTien(maPhuongTien)
+);
+
+CREATE TABLE KhachSanNghiNgoi (
+    maKhachSanNghiNgoi INT AUTO_INCREMENT PRIMARY KEY,
+    maKhachSan INT,
+    maChiTietKeHoachTour INT,
+    chiPhiKhachSan FLOAT,
+    FOREIGN KEY (maKhachSan) REFERENCES KhachSan(maKhachSan),
+    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour)
+);
+
+CREATE TABLE BuoiAn (
+    maBuoiAn INT AUTO_INCREMENT PRIMARY KEY,
+    maChiTietKeHoachTour INT,
+    loaiBuoiAn VARCHAR(50),
+    maNhaHang INT,
+    chiPhi FLOAT,
+    moTa TEXT,
+    FOREIGN KEY (maNhaHang) REFERENCES NhaHang(maNhaHang),
+    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour)
+)

@@ -1,7 +1,7 @@
 package dao;
 
+import config.DatabaseConnection;
 import dto.KeHoachTourDTO;
-import database.DatabaseConnection;
 import enums.TrangThaiKeHoachTour;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,13 +20,14 @@ public class KeHoachTourDAO {
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 dsKeHoachTour.add(new KeHoachTourDTO(
-                        rs.getInt("maKHTour"),
+                        rs.getInt("maKeHoachTour"),
                         rs.getInt("maTour"),
                         FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
+                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
                         rs.getInt("slDaDat"),
                         rs.getInt("slToiDa"),
-                        TrangThaiKeHoachTour.valueOf(rs.getString("trangThai")),
-                        rs.getFloat("tongChiPhi")
+                        rs.getFloat("tongChiPhi"),
+                        TrangThaiKeHoachTour.valueOf(rs.getString("trangThai"))
                 ));
             }
 
@@ -64,10 +65,10 @@ public class KeHoachTourDAO {
         return -1; // Trả về -1 nếu thất bại
     }
 
-    public boolean deleteKeHoachTour(int maKHTour) {
-        String query = "DELETE FROM KeHoachTour WHERE maKHTour = ?";
+    public boolean deleteKeHoachTour(int maKeHoachTour) {
+        String query = "DELETE FROM KeHoachTour WHERE maKeHoachTour = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, maKHTour);
+            pstmt.setInt(1, maKeHoachTour);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,15 +77,16 @@ public class KeHoachTourDAO {
     }
 
     public boolean updateKeHoachTour(KeHoachTourDTO khTour) {
-        String query = "UPDATE KeHoachTour SET maTour = ?, thoiGianBD = ?, slDaDat = ?, slToiDa = ?, trangThai = ?, tongChiPhi = ? WHERE maKHTour = ?";
+        String query = "UPDATE KeHoachTour SET maTour = ?, thoiGianBD = ?, thoiGianKT = ?, slDaDat = ?, slToiDa = ?, trangThai = ?, tongChiPhi = ? WHERE maKeHoachTour = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, khTour.getMaTour());
             pstmt.setDate(2, Date.valueOf(khTour.getThoiGianBD()));
-            pstmt.setInt(3, khTour.getSlDaDat());
-            pstmt.setInt(4, khTour.getSlToiDa());
-            pstmt.setString(5, khTour.getTrangThai().name());
-            pstmt.setFloat(6, khTour.getTongChiPhi());
-            pstmt.setInt(7, khTour.getMaKHTour());
+            pstmt.setDate(3, Date.valueOf(khTour.getThoiGianKT()));
+            pstmt.setInt(4, khTour.getSlDaDat());
+            pstmt.setInt(5, khTour.getSlToiDa());
+            pstmt.setString(6, khTour.getTrangThai().name());
+            pstmt.setFloat(7, khTour.getTongChiPhi());
+            pstmt.setInt(8, khTour.getMaKHTour());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,10 +103,11 @@ public class KeHoachTourDAO {
                     rs.getInt("maKHTour"),
                     rs.getInt("maTour"),
                     FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
+                    FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
                     rs.getInt("slDaDat"),
                     rs.getInt("slToiDa"),
-                    TrangThaiKeHoachTour.valueOf(rs.getString("trangThai")),
-                    rs.getFloat("tongChiPhi")
+                    rs.getFloat("tongChiPhi"),
+                    TrangThaiKeHoachTour.valueOf(rs.getString("trangThai"))
             );
         } catch (SQLException e) {
             e.printStackTrace();

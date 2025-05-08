@@ -1,9 +1,8 @@
 package bus;
 
-import java.util.ArrayList;
-
-import dto.NhaHangDTO;
 import dao.NhaHangDAO;
+import dto.NhaHangDTO;
+import java.util.ArrayList;
 
 public class NhaHangBUS {
     NhaHangDAO nhaHangDAO;
@@ -53,4 +52,23 @@ public class NhaHangBUS {
         }
         return null;
     }
+
+    public int getIdByName(String tenNhaHang) {
+        for (NhaHangDTO nhaHang : listRestaurant) {
+            if (nhaHang.getTenNhaHang().equals(tenNhaHang)) {
+                return nhaHang.getMaNhaHang();
+            }
+        }
+        return -1;
+    }
+
+    public String getNameById(int maNhaHang) {
+        for (NhaHangDTO nhaHang : listRestaurant) {
+            if (nhaHang.getMaNhaHang() == maNhaHang) {
+                return nhaHang.getTenNhaHang();
+            }
+        }
+        return null;
+    }
+    
 }

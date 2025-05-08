@@ -85,28 +85,28 @@ VALUES
 ('Tour Hà Nội - Tràng An', 1500000, 'DANG_MO', 'Du ngoạn Tràng An - Bái Đính', 'Hà Nội', 'Ninh Bình', 'Nội địa', 2, 1),
 ('Tour Quy Nhơn - Phú Yên', 2500000, 'DANG_MO', 'Tham quan Eo Gió và Ghềnh Đá Đĩa', 'Quy Nhơn', 'Phú Yên', 'Nội địa', 3, 2);
 
-INSERT INTO KeHoachTour (maTour, thoiGianBD, slDaDat, slToiDa, trangThai, tongChiPhi)
+INSERT INTO KeHoachTour (maTour, thoiGianBD, thoiGianKT, slDaDat, slToiDa, trangThai, tongChiPhi)
 VALUES
-(1, '2025-05-10', 0, 30, 'DANG_MO', 20000000),
-(2, '2025-06-01', 0, 25, 'DA_HUY', 30000000),
-(3, '2025-05-20', 0, 20, 'DANG_MO', 40000000),
-(4, '2025-07-15', 0, 15, 'DANG_MO', 50000000),
-(5, '2025-06-10', 0, 30, 'DA_HUY', 25000000),
-(6, '2025-05-18', 0, 25, 'DANG_MO', 27000000),
-(7, '2025-08-05', 0, 20, 'DANG_MO', 18000000),
-(8, '2025-05-25', 0, 20, 'DANG_MO', 16000000),
-(9, '2025-06-15', 0, 30, 'DANG_MO', 29000000),
-(10, '2025-07-01', 0, 20, 'DA_HUY', 30000000),
-(11, '2025-06-10', 0, 15, 'DANG_MO', 17000000),
-(12, '2025-07-12', 0, 12, 'DANG_MO', 15000000),
-(13, '2025-05-28', 0, 25, 'DA_HUY', 28000000),
-(14, '2025-06-05', 0, 20, 'DANG_MO', 14000000),
-(15, '2025-07-20', 0, 20, 'DANG_MO', 26000000),
-(16, '2025-08-01', 0, 15, 'DANG_MO', 12000000),
-(17, '2025-06-25', 0, 25, 'DA_HUY', 23000000),
-(18, '2025-07-10', 0, 20, 'DANG_MO', 19000000),
-(19, '2025-05-15', 0, 15, 'DANG_MO', 20000000),
-(20, '2025-06-20', 0, 20, 'DANG_MO', 32000000);
+(1, '2025-05-10', '2025-05-11', 15, 30, 'DANG_MO', 2000000),
+(2, '2025-06-01', '2025-06-03', 20, 25, 'DA_HUY', 3000000),
+(3, '2025-05-20', '2025-05-23', 12, 20, 'DANG_MO', 4000000),
+(4, '2025-07-15', '2025-07-19', 10, 15, 'DANG_MO', 5000000),
+(5, '2025-06-10', '2025-06-12', 25, 30, 'DA_HUY', 2500000),
+(6, '2025-05-18', '2025-05-20', 18, 25, 'DANG_MO', 2700000),
+(7, '2025-08-05', '2025-08-06', 9, 20, 'DANG_MO', 1800000),
+(8, '2025-05-25', '2025-05-26', 14, 20, 'DANG_MO', 1600000),
+(9, '2025-06-15', '2025-06-17', 16, 30, 'DANG_MO', 2900000),
+(10, '2025-07-01', '2025-07-04', 11, 20, 'DA_HUY', 3000000),
+(11, '2025-06-10', '2025-06-12', 8, 15, 'DANG_MO', 1700000),
+(12, '2025-07-12', '2025-07-15', 6, 12, 'DANG_MO', 1500000),
+(13, '2025-05-28', '2025-05-30', 20, 25, 'DA_HUY', 2800000),
+(14, '2025-06-05', '2025-06-06', 10, 20, 'DANG_MO', 1400000),
+(15, '2025-07-20', '2025-07-22', 15, 20, 'DANG_MO', 2600000),
+(16, '2025-08-01', '2025-08-03', 7, 15, 'DANG_MO', 1200000),
+(17, '2025-06-25', '2025-06-27', 19, 25, 'DA_HUY', 2300000),
+(18, '2025-07-10', '2025-07-11', 13, 20, 'DANG_MO', 1900000),
+(19, '2025-05-15', '2025-05-17', 9, 15, 'DANG_MO', 2000000),
+(20, '2025-06-20', '2025-06-25', 17, 20, 'DANG_MO', 3200000);
 
 INSERT INTO diadanh (tenDD, tinhThanh, diemNoiBat)
 VALUES
@@ -122,30 +122,30 @@ VALUES
 ('Bãi biển Mỹ Khê', 'Đà Nẵng', 'Một trong những bãi biển đẹp nhất hành tinh theo Forbes');
 
 INSERT INTO DatTour (maKHTour, maKH, ngayDat, soLuong, tongTien, trangThai) VALUES
-(1, 1, '2025-05-01', 3, 4500000, 'DaThanhToan'),
-(2, 2, '2025-05-02', 2, 3000000, 'ChoThanhToan'),
-(3, 3, '2025-05-03', 4, 6000000, 'DaThanhToan'),
-(4, 4, '2025-05-04', 1, 1500000, 'DaHuy'),
-(5, 5, '2025-05-05', 2, 3200000, 'DaThanhToan'),
-(6, 6, '2025-05-06', 3, 4500000, 'ChoThanhToan'),
-(7, 7, '2025-05-07', 5, 8000000, 'DaThanhToan'),
-(8, 8, '2025-05-08', 2, 2800000, 'DaThanhToan'),
-(9, 9, '2025-05-09', 4, 6400000, 'ChoThanhToan'),
-(10, 10, '2025-05-10', 4, 6400000, 'DaThanhToan');
+(1, 1, '2025-05-01', 3, 5000000, 'DaThanhToan'),
+(2, 2, '2025-05-02', 2, 4500000, 'ChoThanhToan'),
+(3, 3, '2025-05-03', 4, 10000000, 'DaThanhToan'),
+(4, 4, '2025-05-04', 1, 5000000, 'DaHuy'),
+(5, 5, '2025-05-05', 2, 3750000, 'DaThanhToan'),
+(6, 6, '2025-05-06', 3, 4050000, 'ChoThanhToan'),
+(7, 7, '2025-05-07', 5, 5400000, 'DaThanhToan'),
+(8, 8, '2025-05-08', 2, 2400000, 'DaThanhToan'),
+(9, 9, '2025-05-09', 4, 7250000, 'ChoThanhToan'),
+(10, 10, '2025-05-10', 4, 7500000, 'DaThanhToan');
 
 INSERT INTO HoaDon (maDat, maNV, ngayLap, tongTien, hinhThucThanhToan, trangThai) VALUES
-(1, 1, '2025-05-01', 4500000, 'Chuyen Khoan', 'DaThanhToan'),
-(2, 2, '2025-05-02', 3000000, 'Tien Mat', 'ChoXacNhan'),
-(3, 3, '2025-05-03', 6000000, 'Chuyen Khoan', 'DaThanhToan'),
-(4, 4, '2025-05-04', 1500000, 'Tien Mat', 'Huy'),
-(5, 5, '2025-05-05', 3200000, 'Chuyen Khoan', 'DaThanhToan'),
-(6, 1, '2025-05-06', 4500000, 'The Tin Dung', 'ChoXacNhan'),
-(7, 2, '2025-05-07', 8000000, 'Chuyen Khoan', 'DaThanhToan'),
-(8, 3, '2025-05-08', 2800000, 'Tien Mat', 'DaThanhToan'),
-(9, 4, '2025-05-09', 6400000, 'Chuyen Khoan', 'ChoXacNhan'),
-(10, 5, '2025-05-10', 6400000, 'The Tin Dung', 'DaThanhToan');
+(1, 1, '2025-05-01', 5000000, 'Chuyen Khoan', 'DaThanhToan'),
+(2, 2, '2025-05-02', 4500000, 'Tien Mat', 'ChoXacNhan'),
+(3, 3, '2025-05-03', 10000000, 'Chuyen Khoan', 'DaThanhToan'),
+(4, 4, '2025-05-04', 5000000, 'Tien Mat', 'Huy'),
+(5, 5, '2025-05-05', 3750000, 'Chuyen Khoan', 'DaThanhToan'),
+(6, 1, '2025-05-06', 4050000, 'The Tin Dung', 'ChoXacNhan'),
+(7, 2, '2025-05-07', 5400000, 'Chuyen Khoan', 'DaThanhToan'),
+(8, 3, '2025-05-08', 2400000, 'Tien Mat', 'DaThanhToan'),
+(9, 4, '2025-05-09', 7250000, 'Chuyen Khoan', 'ChoXacNhan'),
+(10, 5, '2025-05-10', 7500000, 'The Tin Dung', 'DaThanhToan');
 
-INSERT INTO ChiTietHanhKhach VALUES 
+INSERT INTO ChiTietHanhKhach (maDat, soThuTu, hoTen, ngaySinh, loaiHanhKhach, soGiayTo, laNguoiDat) VALUES 
 -- Đơn 1: 3 khách
 (1, 1, 'Nguyen Van A', '1990-01-01', 'NguoiLon', 'CM001', TRUE),
 (1, 2, 'Tran Thi B', '1992-02-02', 'NguoiLon', 'CM002', FALSE),
@@ -197,43 +197,53 @@ INSERT INTO ChiTietHanhKhach VALUES
 (10, 4, 'Be A4', '2023-06-30', 'TreSoSinh', 'SS005', FALSE);
 
 -- Vé tương ứng từng hành khách
-INSERT INTO Ve (maDat, soThuTu, maKHTour, hoTen, ngayKhoiHanh, ngayCap, trangThai) VALUES
-(1, 1, 1, 'Nguyen Van A', '2025-06-10', '2025-05-01', 'SuDung'),
-(1, 2, 1, 'Tran Thi B', '2025-06-10', '2025-05-01', 'DaPhatHanh'),
-(1, 3, 1, 'Nguyen C', '2025-06-10', '2025-05-01', 'DaPhatHanh'),
+INSERT INTO Ve (maDat, soThuTu, maKHTour, hoTen, ngayKhoiHanh, ngayCap, giaVe, trangThai) VALUES
+-- Đơn 1 (KHTour 1, tổng chi phí 2,000,000)
+(1, 1, 1, 'Nguyen Van A', '2025-06-10', '2025-05-01', 2000000, 'SuDung'),
+(1, 2, 1, 'Tran Thi B', '2025-06-10', '2025-05-01', 2000000, 'DaPhatHanh'),
+(1, 3, 1, 'Nguyen C', '2025-06-10', '2025-05-01', 1000000, 'DaPhatHanh'),
 
-(2, 1, 2, 'Le Van D', '2025-06-11', '2025-05-02', 'DaPhatHanh'),
-(2, 2, 2, 'Le Thi E', '2025-06-11', '2025-05-02', 'DaPhatHanh'),
+-- Đơn 2 (KHTour 2, tổng chi phí 3,000,000)
+(2, 1, 2, 'Le Van D', '2025-06-11', '2025-05-02', 3000000, 'DaPhatHanh'),
+(2, 2, 2, 'Le Thi E', '2025-06-11', '2025-05-02', 1500000, 'DaPhatHanh'),
 
-(3, 1, 3, 'Pham Van F', '2025-06-12', '2025-05-03', 'DaPhatHanh'),
-(3, 2, 3, 'Tran G', '2025-06-12', '2025-05-03', 'DaPhatHanh'),
-(3, 3, 3, 'Be H', '2025-06-12', '2025-05-03', 'DaPhatHanh'),
-(3, 4, 3, 'Nguyen I', '2025-06-12', '2025-05-03', 'DaPhatHanh'),
+-- Đơn 3 (KHTour 3, tổng chi phí 4,000,000)
+(3, 1, 3, 'Pham Van F', '2025-06-12', '2025-05-03', 4000000, 'DaPhatHanh'),
+(3, 2, 3, 'Tran G', '2025-06-12', '2025-05-03', 4000000, 'DaPhatHanh'),
+(3, 3, 3, 'Be H', '2025-06-12', '2025-05-03', 0, 'DaPhatHanh'),
+(3, 4, 3, 'Nguyen I', '2025-06-12', '2025-05-03', 2000000, 'DaPhatHanh'),
 
-(4, 1, 4, 'Doan J', '2025-06-13', '2025-05-04', 'DaHuy'),
+-- Đơn 4 (KHTour 4, tổng chi phí 5,000,000)
+(4, 1, 4, 'Doan J', '2025-06-13', '2025-05-04', 5000000, 'DaHuy'),
 
-(5, 1, 5, 'Ly K', '2025-06-14', '2025-05-05', 'DaPhatHanh'),
-(5, 2, 5, 'Hoang L', '2025-06-14', '2025-05-05', 'DaPhatHanh'),
+-- Đơn 5 (KHTour 5, tổng chi phí 2,500,000)
+(5, 1, 5, 'Ly K', '2025-06-14', '2025-05-05', 2500000, 'DaPhatHanh'),
+(5, 2, 5, 'Hoang L', '2025-06-14', '2025-05-05', 1250000, 'DaPhatHanh'),
 
-(6, 1, 6, 'Pham M', '2025-06-15', '2025-05-06', 'DaPhatHanh'),
-(6, 2, 6, 'Nguyen N', '2025-06-15', '2025-05-06', 'DaPhatHanh'),
-(6, 3, 6, 'Be O', '2025-06-15', '2025-05-06', 'DaPhatHanh'),
+-- Đơn 6 (KHTour 6, tổng chi phí 2,700,000)
+(6, 1, 6, 'Pham M', '2025-06-15', '2025-05-06', 2700000, 'DaPhatHanh'),
+(6, 2, 6, 'Nguyen N', '2025-06-15', '2025-05-06', 1350000, 'DaPhatHanh'),
+(6, 3, 6, 'Be O', '2025-06-15', '2025-05-06', 0, 'DaPhatHanh'),
 
-(7, 1, 7, 'Phan P', '2025-06-16', '2025-05-07', 'DaPhatHanh'),
-(7, 2, 7, 'Tran Q', '2025-06-16', '2025-05-07', 'DaPhatHanh'),
-(7, 3, 7, 'Nguyen R', '2025-06-16', '2025-05-07', 'SuDung'),
-(7, 4, 7, 'Le S', '2025-06-16', '2025-05-07', 'SuDung'),
-(7, 5, 7, 'Be T', '2025-06-16', '2025-05-07', 'DaPhatHanh'),
+-- Đơn 7 (KHTour 7, tổng chi phí 1,800,000)
+(7, 1, 7, 'Phan P', '2025-06-16', '2025-05-07', 1800000, 'DaPhatHanh'),
+(7, 2, 7, 'Tran Q', '2025-06-16', '2025-05-07', 1800000, 'DaPhatHanh'),
+(7, 3, 7, 'Nguyen R', '2025-06-16', '2025-05-07', 900000, 'SuDung'),
+(7, 4, 7, 'Le S', '2025-06-16', '2025-05-07', 900000, 'SuDung'),
+(7, 5, 7, 'Be T', '2025-06-16', '2025-05-07', 0, 'DaPhatHanh'),
 
-(8, 1, 8, 'Do U', '2025-06-17', '2025-05-08', 'DaPhatHanh'),
-(8, 2, 8, 'Vo V', '2025-06-17', '2025-05-08', 'DaPhatHanh'),
+-- Đơn 8 (KHTour 8, tổng chi phí 1,600,000)
+(8, 1, 8, 'Do U', '2025-06-17', '2025-05-08', 1600000, 'DaPhatHanh'),
+(8, 2, 8, 'Vo V', '2025-06-17', '2025-05-08', 800000, 'DaPhatHanh'),
 
-(9, 1, 9, 'Nguyen W', '2025-06-18', '2025-05-09', 'DaPhatHanh'),
-(9, 2, 9, 'Nguyen X', '2025-06-18', '2025-05-09', 'DaPhatHanh'),
-(9, 3, 9, 'Be Y', '2025-06-18', '2025-05-09', 'SuDung'),
-(9, 4, 9, 'Be Z', '2025-06-18', '2025-05-09', 'SuDung'),
+-- Đơn 9 (KHTour 9, tổng chi phí 2,900,000)
+(9, 1, 9, 'Nguyen W', '2025-06-18', '2025-05-09', 2900000, 'DaPhatHanh'),
+(9, 2, 9, 'Nguyen X', '2025-06-18', '2025-05-09', 2900000, 'DaPhatHanh'),
+(9, 3, 9, 'Be Y', '2025-06-18', '2025-05-09', 1450000, 'SuDung'),
+(9, 4, 9, 'Be Z', '2025-06-18', '2025-05-09', 0, 'SuDung'),
 
-(10, 1, 10, 'Ho A1', '2025-06-19', '2025-05-10', 'DaPhatHanh'),
-(10, 2, 10, 'Nguyen A2', '2025-06-19', '2025-05-10', 'SuDung'),
-(10, 3, 10, 'Nguyen A3', '2025-06-19', '2025-05-10', 'DaPhatHanh'),
-(10, 4, 10, 'Be A4', '2025-06-19', '2025-05-10', 'DaPhatHanh');
+-- Đơn 10 (KHTour 10, tổng chi phí 3,000,000)
+(10, 1, 10, 'Ho A1', '2025-06-19', '2025-05-10', 3000000, 'DaPhatHanh'),
+(10, 2, 10, 'Nguyen A2', '2025-06-19', '2025-05-10', 3000000, 'SuDung'),
+(10, 3, 10, 'Nguyen A3', '2025-06-19', '2025-05-10', 1500000, 'DaPhatHanh'),
+(10, 4, 10, 'Be A4', '2025-06-19', '2025-05-10', 0, 'DaPhatHanh');

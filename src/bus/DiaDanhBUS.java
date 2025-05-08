@@ -1,7 +1,7 @@
 package bus;
 
-import dto.DiaDanhDTO;
 import dao.DiaDanhDAO;
+import dto.DiaDanhDTO;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -85,4 +85,23 @@ public class DiaDanhBUS {
     public ArrayList<DiaDanhDTO> getDsDiaDanh() {
         return dsDiaDanh;
     }
+
+    public int getIdByName(String name) {
+        for (DiaDanhDTO diaDanh : dsDiaDanh) {
+            if (diaDanh.getTenDD().equals(name)) {
+                return diaDanh.getMaDD();
+            }
+        }
+        return -1;
+    }
+    
+    public String getNameById(int id) {
+        for (DiaDanhDTO diaDanh : dsDiaDanh) {
+            if (diaDanh.getMaDD() == id) {
+                return diaDanh.getTenDD();
+            }
+        }
+        return null;
+    }
+
 }

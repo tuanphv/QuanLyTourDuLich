@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import gui.components.MyScrollBarUI;
+import gui.dialog.KeHoachTour;
 import gui.dialog.KeHoachTourDialog;
 import interfaces.SearchHandler;
 
@@ -131,15 +132,19 @@ public class KeHoachTourForm extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(ActionEvent evt) {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        KeHoachTourDialog dialog = new KeHoachTourDialog(parentFrame);
+        // KeHoachTourDialog dialog = new KeHoachTourDialog(parentFrame);
+        KeHoachTour dialog = new KeHoachTour(parentFrame);
         dialog.setVisible(true);
         if (dialog.isSave()) {
-            KeHoachTourDTO input = dialog.getInputData();
-            if (addTour(input)) {
-                JOptionPane.showMessageDialog(this, "Đã thêm kế hoạch tour!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Thêm kế hoạch tour không thành công!");
-            }
+            dialog.saveKeHoachTour();
+            JOptionPane.showMessageDialog(this, "Đã thêm kế hoạch tour!");
+
+            // KeHoachTourDTO input = dialog.getInputData();
+            // if (addTour(input)) {
+            //     JOptionPane.showMessageDialog(this, "Đã thêm kế hoạch tour!");
+            // } else {
+            //     JOptionPane.showMessageDialog(this, "Thêm kế hoạch tour không thành công!");
+            // }
         }
     }
 

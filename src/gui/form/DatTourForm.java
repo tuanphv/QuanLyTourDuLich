@@ -3,7 +3,11 @@ package gui.form;
 import bus.ChiTietHanhKhachBUS;
 import dto.DatTourDTO;
 import bus.DatTourBUS;
+import bus.KeHoachTourBUS;
+import bus.VeBUS;
 import dto.ChiTietHanhKhachDTO;
+import dto.KeHoachTourDTO;
+import dto.VeDTO;
 import enums.TrangThaiDatTour;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,6 +23,7 @@ import gui.components.MyScrollBarUI;
 import gui.dialog.AddDatTourDialog;
 import gui.dialog.TrangThaiDialog;
 import interfaces.SearchHandler;
+import java.time.LocalDate;
 
 public class DatTourForm extends javax.swing.JPanel {
 
@@ -299,6 +304,7 @@ public class DatTourForm extends javax.swing.JPanel {
         if (index != -1) {
             // thêm dattour
             dto.setMaDat(index);
+            KeHoachTourDTO khTour = new KeHoachTourBUS().getKeHoachTourById(dto.getMaKHTour());
             model.addRow(dto.toArray());
             // thêm chi tiết hành khách
             ChiTietHanhKhachBUS bus = new ChiTietHanhKhachBUS();
@@ -310,7 +316,15 @@ public class DatTourForm extends javax.swing.JPanel {
                     new DatTourBUS().deleteDatTour(index);
                     return false;
                 } else {
-                    System.out.println(e);
+                    VeDTO ve = new VeDTO();
+                    ve.setMaDat(index);
+                    ve.setSoThuTu(i);
+                    ve.setMaKHTour(dto.getMaKHTour());
+                    ve.setHoTen(e.getHoTen());
+                    ve.setNgayKhoiHanh(khTour.getThoiGianBD());
+                    ve.setNgayCap(LocalDate.now());
+                    ve.setGiaVe(e.getLoaiHanhKhach().getHeSoGia() * khTour.getGiaVe());
+                    new VeBUS().addVe(ve);
                 }
             }
             return true;

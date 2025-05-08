@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import dto.NhaHangDTO;
-import database.DatabaseConnection;
+import config.DatabaseConnection;
 
 public class NhaHangDAO {
     public int insert(NhaHangDTO nhaHang) {

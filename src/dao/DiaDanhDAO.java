@@ -1,13 +1,13 @@
 package dao;
 
+import config.DatabaseConnection;
 import dto.DiaDanhDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import database.DatabaseConnection;
 
 public class DiaDanhDAO {
 
@@ -17,7 +17,7 @@ public class DiaDanhDAO {
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 dsdiadanh.add(new DiaDanhDTO(
-                        rs.getInt("maDD"),
+                        rs.getInt("maDiaDanh"),
                         rs.getString("tenDD"),
                         rs.getString("tinhThanh"),
                         rs.getString("diemNoiBat")
@@ -55,10 +55,10 @@ public class DiaDanhDAO {
         return -1; // Trả về -1 nếu thất bại
     }
 
-    public boolean deleteDiaDanh(int maDD) {
-        String query = "DELETE FROM diadanh WHERE maDD = ?";
+    public boolean deleteDiaDanh(int maDiaDanh) {
+        String query = "DELETE FROM diadanh WHERE maDiaDanh = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, maDD);
+            pstmt.setInt(1, maDiaDanh);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class DiaDanhDAO {
     }
 
     public boolean updateDiaDanh(DiaDanhDTO diadanh) {
-        String query = "UPDATE diadanh SET tenDD = ?, tinhThanh = ?, diemNoiBat = ? WHERE maDD = ?";
+        String query = "UPDATE diadanh SET tenDD = ?, tinhThanh = ?, diemNoiBat = ? WHERE maDiaDanh = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, diadanh.getTenDD());
