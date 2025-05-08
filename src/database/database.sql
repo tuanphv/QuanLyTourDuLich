@@ -199,3 +199,4 @@ CREATE TABLE BuoiAn (
     FOREIGN KEY (maNhaHang) REFERENCES NhaHang(maNhaHang),
     FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour)
 )
+

@@ -4,6 +4,8 @@ import bus.BuoiAnBUS;
 import bus.ChiTietKeHoachTourBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.sql.Date;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import bus.DiaDanhBUS;
@@ -41,7 +44,10 @@ import dto.NhaHangDTO;
 import dto.PhuongTienDTO;
 import dto.TourDTO;
 import enums.TrangThaiKeHoachTour;
+import javax.swing.JLabel;
+import org.w3c.dom.Text;
 import utils.FormatDate;
+import utils.TextUtils;
 
 public class KeHoachTour extends javax.swing.JDialog {
     private boolean  save;
@@ -251,6 +257,7 @@ public class KeHoachTour extends javax.swing.JDialog {
     public JPanel createAnUongPanel(int dayNumber) {
         JPanel anUongPanel = new JPanel();
         anUongPanel.setLayout(new BoxLayout(anUongPanel, BoxLayout.Y_AXIS));
+        // anUongPanel.setLayout(new BorderLayout());
         anUongPanel.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(Color.GRAY),
             "Ngày " + dayNumber,
@@ -276,13 +283,14 @@ public class KeHoachTour extends javax.swing.JDialog {
         ));
         JComboBox comboBoxBuaSang = new JComboBox(listTenNhaHang.toArray(new String[0]));
 
-        // comboBoxBuaSang.setModel(new DefaultComboBoxModel<>(new String[] { "Bánh mì", "Phở", "Cơm tấm" }));
-        JTextField chiPhiBuaSang = new JTextField();
-        chiPhiBuaSang.setBorder(BorderFactory.createTitledBorder("Chi phí"));
+        int chiPhiBuaSang = nhaHangBUS.getRestaurantByName(comboBoxBuaSang.getSelectedItem().toString()).getGia();
+        JLabel lbChiPhiBuaSang = new JLabel("Chi phí: " + chiPhiBuaSang + " VNĐ");
+        // JTextField chiPhiBuaSang = new JTextField();
+        // lbChiPhiBuaSang.setBorder(BorderFactory.createTitledBorder("Chi phí"));
         JTextField moTaBuaSang = new JTextField();
         moTaBuaSang.setBorder(BorderFactory.createTitledBorder("Mô tả"));
         buaSangPanel.add(comboBoxBuaSang);
-        buaSangPanel.add(chiPhiBuaSang);
+        buaSangPanel.add(lbChiPhiBuaSang);
         buaSangPanel.add(moTaBuaSang);
 
         JPanel buaTruaPanel = new JPanel();
@@ -295,13 +303,14 @@ public class KeHoachTour extends javax.swing.JDialog {
         ));
         JComboBox comboBoxBuaTrua = new JComboBox(listTenNhaHang.toArray(new String[0]));
         
-        // comboBoxBuaTrua.setModel(new DefaultComboBoxModel<>(new String[] { "Bánh mì", "Phở", "Cơm tấm" }));
-        JTextField chiPhiBuaTrua = new JTextField();
-        chiPhiBuaTrua.setBorder(BorderFactory.createTitledBorder("Chi phí"));
+        int chiPhiBuaTrua = nhaHangBUS.getRestaurantByName(comboBoxBuaTrua.getSelectedItem().toString()).getGia();
+        JLabel lbChiPhiBuaTrua = new JLabel("Chi phí: " + chiPhiBuaTrua + " VNĐ");
+        // JTextField chiPhiBuaTrua = new JTextField();
+        // lbChiPhiBuaTrua.setBorder(BorderFactory.createTitledBorder("Chi phí"));
         JTextField moTaBuaTrua = new JTextField();
         moTaBuaTrua.setBorder(BorderFactory.createTitledBorder("Mô tả"));
         buaTruaPanel.add(comboBoxBuaTrua);
-        buaTruaPanel.add(chiPhiBuaTrua);
+        buaTruaPanel.add(lbChiPhiBuaTrua);
         buaTruaPanel.add(moTaBuaTrua);
 
         JPanel buaToiPanel = new JPanel();
@@ -314,18 +323,35 @@ public class KeHoachTour extends javax.swing.JDialog {
         ));
         JComboBox comboBoxBuaToi = new JComboBox(listTenNhaHang.toArray(new String[0]));
         
-        // comboBoxBuaToi.setModel(new DefaultComboBoxModel<>(new String[] { "Bánh mì", "Phở", "Cơm tấm" }));
-        JTextField chiPhiBuaToi = new JTextField();
-        chiPhiBuaToi.setBorder(BorderFactory.createTitledBorder("Chi phí"));
+        int chiPhiBuaToi = nhaHangBUS.getRestaurantByName(comboBoxBuaToi.getSelectedItem().toString()).getGia();
+        JLabel lbChiPhiBuaToi = new JLabel("Chi phí: " + chiPhiBuaToi + " VNĐ");
+        // JTextField chiPhiBuaToi = new JTextField();
+        // lbChiPhiBuaToi.setBorder(BorderFactory.createTitledBorder("Chi phí"));
         JTextField moTaBuaToi = new JTextField();
         moTaBuaToi.setBorder(BorderFactory.createTitledBorder("Mô tả"));
         buaToiPanel.add(comboBoxBuaToi);
-        buaToiPanel.add(chiPhiBuaToi);
+        buaToiPanel.add(lbChiPhiBuaToi);
         buaToiPanel.add(moTaBuaToi);
 
         anUongPanel.add(buaSangPanel);
         anUongPanel.add(buaTruaPanel);
         anUongPanel.add(buaToiPanel);
+
+        // lắng nghe sự kiện chọn nhà hàng
+        comboBoxBuaSang.addActionListener(evt -> {
+            int chiPhi = nhaHangBUS.getRestaurantByName(comboBoxBuaSang.getSelectedItem().toString()).getGia();
+            lbChiPhiBuaSang.setText("Chi phí: " + chiPhi + " VNĐ");
+        });
+
+        comboBoxBuaTrua.addActionListener(evt -> {
+            int chiPhi = nhaHangBUS.getRestaurantByName(comboBoxBuaTrua.getSelectedItem().toString()).getGia();
+            lbChiPhiBuaTrua.setText("Chi phí: " + chiPhi + " VNĐ");
+        });
+
+        comboBoxBuaToi.addActionListener(evt -> {
+            int chiPhi = nhaHangBUS.getRestaurantByName(comboBoxBuaToi.getSelectedItem().toString()).getGia();
+            lbChiPhiBuaToi.setText("Chi phí: " + chiPhi + " VNĐ");
+        });
 
         return anUongPanel;
     }
@@ -348,6 +374,8 @@ public class KeHoachTour extends javax.swing.JDialog {
         JComboBox<String> diaDiemComboBox = new JComboBox<>(listTenDiaDiem.toArray(new String[0]));
         diaDiemPanel.add(diaDiemComboBox);
 
+        // int chiPhiThamQuan = diaDanhBUS.getDiaDanhByName(diaDiemComboBox.getSelectedItem().toString()).getChiPhiThamQuan();
+        // JLabel lbChiPhiThamQuan = new JLabel(chiPhiThamQuan + " VNĐ");
         JTextField tfChiPhiThamQuan = new JTextField();
         tfChiPhiThamQuan.setBorder(BorderFactory.createTitledBorder("Chi phí tham quan"));
         diaDiemPanel.add(tfChiPhiThamQuan);
@@ -364,13 +392,20 @@ public class KeHoachTour extends javax.swing.JDialog {
 
         // JComboBox<String> phuongTienComboBox = new JComboBox<>();
         JComboBox<String> phuongTienComboBox = new JComboBox<>(listTenPhuongTien.toArray(new String[0]));
-        // phuongTienComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Máy bay", "Xe khách", "Tàu hỏa" }));
         phuongTienComboBox.setBorder(BorderFactory.createTitledBorder("Phương tiện di chuyển"));
         diaDiemPanel.add(phuongTienComboBox);
         
-        JTextField tfChiPhiDiChuyen = new JTextField();
-        tfChiPhiDiChuyen.setBorder(BorderFactory.createTitledBorder("Chi phí di chuyển"));
-        diaDiemPanel.add(tfChiPhiDiChuyen);
+        int chiPhiDiChuyen = phuongTienBUS.getVehicleByName(phuongTienComboBox.getSelectedItem().toString()).getGia();
+        JLabel lbChiPhiDiChuyen = new JLabel("Chi phí: " + chiPhiDiChuyen + " VNĐ");
+        // JTextField tfChiPhiDiChuyen = new JTextField();
+        // lbChiPhiDiChuyen.setBorder(BorderFactory.createTitledBorder("Chi phí di chuyển"));
+        diaDiemPanel.add(lbChiPhiDiChuyen);
+
+        // lắng nghe sự kiện thay đổi phương tiện
+        phuongTienComboBox.addActionListener(evt -> {
+            int chiPhi = phuongTienBUS.getVehicleByName(phuongTienComboBox.getSelectedItem().toString()).getGia();
+            lbChiPhiDiChuyen.setText("Chi phí: " + chiPhi + " VNĐ");
+        });
 
         return diaDiemPanel;
     }
@@ -393,9 +428,23 @@ public class KeHoachTour extends javax.swing.JDialog {
         JComboBox<String> khachSanComboBox = new JComboBox<>(listTenKhachSan.toArray(new String[0]));
         khachSanPanel.add(khachSanComboBox);
 
-        JTextField tfChiPhi = new JTextField();
-        tfChiPhi.setBorder(BorderFactory.createTitledBorder("Chi phí"));
-        khachSanPanel.add(tfChiPhi);
+        int chiPhiKhachSan = khachSanBUS.getHotelByName(khachSanComboBox.getSelectedItem().toString()).getGia();
+        // JLabel lbChiPhiKhachSan = new JLabel(chiPhiKhachSan + " VNĐ");
+        JLabel lbChiPhiKhachSan = new JLabel("Chi phí: ");
+        // lbChiPhiKhachSan.setBorder(BorderFactory.createTitledBorder("Chi phí"));
+        // lbChiPhiKhachSan.setPreferredSize(new Dimension(200, 30));
+        // lbChiPhiKhachSan.setHorizontalAlignment(SwingConstants.LEFT); // Căn trái nội dung
+        // lbChiPhiKhachSan.setAlignmentX(Component.LEFT_ALIGNMENT); // Căn trái JLabel
+        // JTextField lbChiPhiKhachSan = new JTextField();
+        // lbChiPhiKhachSan.setBorder(BorderFactory.createTitledBorder("Chi phí"));
+        khachSanPanel.add(lbChiPhiKhachSan);
+
+        // lắng nghe sự kiện thay đổi khách sạn
+        khachSanComboBox.addActionListener(evt -> {
+            int chiPhi = khachSanBUS.getHotelByName(khachSanComboBox.getSelectedItem().toString()).getGia();
+            // lbChiPhiKhachSan.setText("Chi phí: " + chiPhi + " VNĐ");
+            lbChiPhiKhachSan.setText(chiPhi + " VNĐ");
+        });
 
         return khachSanPanel;
     }
@@ -453,7 +502,7 @@ public class KeHoachTour extends javax.swing.JDialog {
                     JTextField chiPhiThamQuan = (JTextField) diaDiemItem.getComponent(1);
                     JTextField moTa = (JTextField) diaDiemItem.getComponent(2);
                     JComboBox cbPhuongTien = (JComboBox) diaDiemItem.getComponent(3);
-                    JTextField chiPhiDiChuyen = (JTextField) diaDiemItem.getComponent(4);
+                    JLabel chiPhiDiChuyen = (JLabel) diaDiemItem.getComponent(4);
     
                     diaDiemThamQuanBUS.insert(
                         new DiaDiemThamQuanDTO(
@@ -462,7 +511,8 @@ public class KeHoachTour extends javax.swing.JDialog {
                             moTa.getText(), 
                             phuongTienBUS.getIdByName(cbPhuongTien.getSelectedItem().toString()), 
                             Long.parseLong(chiPhiThamQuan.getText()),
-                            Long.parseLong(chiPhiDiChuyen.getText())
+                            // Long.parseLong(chiPhiDiChuyen.getText())
+                            TextUtils.getFirstNumber(chiPhiDiChuyen.getText())
                         )
                     );
                 }
@@ -472,12 +522,13 @@ public class KeHoachTour extends javax.swing.JDialog {
                 for (int j = 0; j < khachSanPanel.getComponentCount(); j++) {
                     JPanel ksItem = (JPanel) khachSanPanel.getComponent(j);
                     JComboBox cbKhachSan = (JComboBox) ksItem.getComponent(0);
-                    JTextField chiPhiKhachSan = (JTextField) ksItem.getComponent(1);
+                    JLabel chiPhiKhachSan = (JLabel) ksItem.getComponent(1);
                     khachSanNghiNgoiBUS.insert(
                         new KhachSanNghiNgoiDTO (
                             maChiTietKeHoachTour, 
                             khachSanBUS.getIdByName(cbKhachSan.getSelectedItem().toString()), 
-                            Long.parseLong(chiPhiKhachSan.getText())
+                            // Long.parseLong(chiPhiKhachSan.getText())
+                            TextUtils.getFirstNumber(chiPhiKhachSan.getText())
                         )
                     );
                 }
@@ -486,14 +537,15 @@ public class KeHoachTour extends javax.swing.JDialog {
                 for (int k = 0; k < 3; k++) { // Bữa sáng, trưa, tối
                     JPanel buaAn = (JPanel) panelAn.getComponent(k);
                     JComboBox cbNhaHang = (JComboBox) buaAn.getComponent(0);
-                    JTextField chiPhi = (JTextField) buaAn.getComponent(1);
+                    JLabel chiPhi = (JLabel) buaAn.getComponent(1);
                     JTextField moTa = (JTextField) buaAn.getComponent(2);
                     buoiAnBUS.insert(
                         new BuoiAnDTO(
                             maChiTietKeHoachTour, 
                             buoiAnBUS.getLoaiBuaAn(k + 1), 
                             nhaHangBUS.getIdByName(cbNhaHang.getSelectedItem().toString()), 
-                            Double.parseDouble(chiPhi.getText()), 
+                            // Double.parseDouble(chiPhi.getText()), 
+                            TextUtils.getFirstNumber(chiPhi.getText()),
                             moTa.getText()
                         )
                     );
@@ -808,31 +860,31 @@ public class KeHoachTour extends javax.swing.JDialog {
                 JTextField chiPhiThamQuan = (JTextField) diaDiemItem.getComponent(1);
                 JTextField moTa = (JTextField) diaDiemItem.getComponent(2);
                 JComboBox cbPhuongTien = (JComboBox) diaDiemItem.getComponent(3);
-                JTextField chiPhiDiChuyen = (JTextField) diaDiemItem.getComponent(4);
+//                JTextField chiPhiDiChuyen = (JTextField) diaDiemItem.getComponent(4);
     
                 cbDiaDiem.setSelectedIndex(0); // Chọn địa điểm đầu tiên
                 chiPhiThamQuan.setText("100000"); // Chi phí tham quan mặc định
                 moTa.setText("Tham quan địa điểm nổi bật");
                 cbPhuongTien.setSelectedIndex(0); // Chọn phương tiện đầu tiên
-                chiPhiDiChuyen.setText("50000"); // Chi phí di chuyển mặc định
+//                chiPhiDiChuyen.setText("50000"); // Chi phí di chuyển mặc định
     
                 JPanel khachSanPanel = (JPanel) lichTrinhPanel.getComponent(2);
                 JPanel khachSanItem = (JPanel) khachSanPanel.getComponent(0);
                 JComboBox cbKhachSan = (JComboBox) khachSanItem.getComponent(0);
-                JTextField chiPhiKhachSan = (JTextField) khachSanItem.getComponent(1);
+//                JTextField chiPhiKhachSan = (JTextField) khachSanItem.getComponent(1);
     
                 cbKhachSan.setSelectedIndex(0); // Chọn khách sạn đầu tiên
-                chiPhiKhachSan.setText("300000"); // Chi phí khách sạn mặc định
+//                chiPhiKhachSan.setText("300000"); // Chi phí khách sạn mặc định
     
                 // Thiết lập giá trị mặc định cho ăn uống
                 for (int k = 0; k < 3; k++) { // Bữa sáng, trưa, tối
                     JPanel buaAnPanel = (JPanel) anUongPanel.getComponent(k);
                     JComboBox cbNhaHang = (JComboBox) buaAnPanel.getComponent(0);
-                    JTextField chiPhi = (JTextField) buaAnPanel.getComponent(1);
+                    // JTextField chiPhi = (JTextField) buaAnPanel.getComponent(1);
                     JTextField moTaBuaAn = (JTextField) buaAnPanel.getComponent(2);
     
                     cbNhaHang.setSelectedIndex(0); // Chọn nhà hàng đầu tiên
-                    chiPhi.setText("50000"); // Chi phí ăn uống mặc định
+                    // chiPhi.setText("50000"); // Chi phí ăn uống mặc định
                     moTaBuaAn.setText("Bữa ăn tiêu chuẩn");
                 }
     

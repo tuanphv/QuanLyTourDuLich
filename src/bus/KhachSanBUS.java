@@ -53,6 +53,15 @@ public class KhachSanBUS {
         return null;
     }
 
+    public KhachSanDTO getHotelByName(String tenKhachSan) {
+        for (KhachSanDTO hotel : listHotel) {
+            if (hotel.getTenKhachSan().equals(tenKhachSan)) {
+                return hotel;
+            }
+        }
+        return null;
+    }
+
     public int getIdByName(String tenKhachSan) {
         for (KhachSanDTO hotel : listHotel) {
             if (hotel.getTenKhachSan().equals(tenKhachSan)) {
