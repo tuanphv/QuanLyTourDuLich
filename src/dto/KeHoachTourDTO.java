@@ -29,17 +29,18 @@ public class KeHoachTourDTO {
         this.tongChiPhi = tongChiPhi;
         this.trangThai = trangThai;
     }
-    
+
     public KeHoachTourDTO(int maKHTour, int maTour, LocalDate thoiGianBD, LocalDate thoiGianKT, int slDaDat, int slToiDa, float tongChiPhi, TrangThaiKeHoachTour trangThai) {
         this.maKHTour = maKHTour;
         this.maTour = maTour;
         this.thoiGianBD = thoiGianBD;
+        this.thoiGianKT = thoiGianKT;
         this.slDaDat = slDaDat;
         this.slToiDa = slToiDa;
         this.tongChiPhi = tongChiPhi;
         this.trangThai = trangThai;
     }
-
+    
     public int getMaTour() {
         return maTour;
     }
@@ -108,9 +109,23 @@ public class KeHoachTourDTO {
         return tongChiPhi;
     }
 
-    public static String[] KH_TOUR_COLUMN_NAMES = {"Mã KH tour", "Mã tour", "TG bắt đầu", "TG kết thúc","Đã đặt", "Tối đa", "Trạng thái", "Tổng chi phí"};
+    @Override
+    public String toString() {
+        return "KeHoachTourDTO{" + "maKHTour=" + maKHTour + ", maTour=" + maTour + ", thoiGianBD=" + thoiGianBD + ", thoiGianKT=" + thoiGianKT + ", slDaDat=" + slDaDat + ", slToiDa=" + slToiDa + ", tongChiPhi=" + tongChiPhi + ", trangThai=" + trangThai + '}';
+    }
+
+    public static String[] KH_TOUR_COLUMN_NAMES = {"Mã KH tour", "Mã tour", "TG bắt đầu", "TG kết thúc", "Đã đặt", "Tối đa", "Trạng thái", "Tổng chi phí"};
 
     public Object[] toObjectArray() {
-        return new Object[]{maKHTour, maTour, FormatDate.toString(thoiGianBD), FormatDate.toString(thoiGianKT), slDaDat, slToiDa, trangThai.getMoTa(), TextUtils.formatCurrency(tongChiPhi)};
+        return new Object[]{
+            maKHTour, 
+            maTour, 
+            FormatDate.toString(thoiGianBD), 
+            FormatDate.toString(thoiGianKT), 
+            slDaDat, 
+            slToiDa, 
+            trangThai.getMoTa(), 
+            TextUtils.formatCurrency(tongChiPhi)
+        };
     }
 }

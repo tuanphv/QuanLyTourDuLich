@@ -22,8 +22,8 @@ public class KeHoachTourDAO {
                 dsKeHoachTour.add(new KeHoachTourDTO(
                         rs.getInt("maKeHoachTour"),
                         rs.getInt("maTour"),
-                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
-                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
+                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoiGianBD").getTime())),
+                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoiGianKT").getTime())),
                         rs.getInt("slDaDat"),
                         rs.getInt("slToiDa"),
                         rs.getFloat("tongChiPhi"),

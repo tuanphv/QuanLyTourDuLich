@@ -12,11 +12,12 @@ public class ChiTietKeHoachTourDAO {
     public int insert(ChiTietKeHoachTourDTO chiTietKeHoachTour) {
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO chitietkehoachtour(maKeHoachTour, ngay, chiPhiNgay) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO chitietkehoachtour (maKeHoachTour, ngay, moTa, chiPhiNgay) VALUES (?, ?, ?, ?)";
             PreparedStatement pstm = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, chiTietKeHoachTour.getMaKeHoachTour());
             pstm.setDate(2, java.sql.Date.valueOf(chiTietKeHoachTour.getNgay()));
-            pstm.setLong(3, chiTietKeHoachTour.getChiPhiNgay());
+            pstm.setString(3, chiTietKeHoachTour.getMoTa());
+            pstm.setLong(4, chiTietKeHoachTour.getChiPhiNgay());
 
             int affectedRows = pstm.executeUpdate();
             if (affectedRows > 0) {
@@ -34,13 +35,14 @@ public class ChiTietKeHoachTourDAO {
     public boolean update(ChiTietKeHoachTourDTO chiTietKeHoachTour) {
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String sql = "UPDATE chitietkehoachtour SET maKeHoachTour = ?, ngay = ?, chiPhiNgay = ? WHERE maChiTietKeHoachTour = ?";
+            String sql = "UPDATE chitietkehoachtour SET maKeHoachTour = ?, ngay = ?, moTa = ?, chiPhiNgay = ? WHERE maChiTietKeHoachTour = ?";
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, chiTietKeHoachTour.getMaKeHoachTour());
             pstm.setDate(2, java.sql.Date.valueOf(chiTietKeHoachTour.getNgay()));
-            pstm.setLong(3, chiTietKeHoachTour.getChiPhiNgay());
-            pstm.setInt(4, chiTietKeHoachTour.getMaChiTietKeHoachTour());
-
+            pstm.setString(3, chiTietKeHoachTour.getMoTa());
+            pstm.setLong(4, chiTietKeHoachTour.getChiPhiNgay());
+            pstm.setInt(5, chiTietKeHoachTour.getMaChiTietKeHoachTour());
+           
             return pstm.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -51,7 +53,8 @@ public class ChiTietKeHoachTourDAO {
     public boolean delete(int maChiTietKeHoachTour) {
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String sql = "UPDATE chitietkehoachtour SET trangThai = 0 WHERE maChiTietKeHoachTour = ?";
+            String sql = "DELETE FROM chitietkehoachtour WHERE maChiTietKeHoachTour = ?";
+            // String sql = "UPDATE chitietkehoachtour SET trangThai = 0 WHERE maChiTietKeHoachTour = ?";
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, maChiTietKeHoachTour);
             return pstm.executeUpdate() > 0;
@@ -73,6 +76,7 @@ public class ChiTietKeHoachTourDAO {
                         rs.getInt("maChiTietKeHoachTour"),
                         rs.getInt("maKeHoachTour"),
                         rs.getDate("ngay").toLocalDate(),
+                        rs.getString("moTa"),
                         rs.getLong("chiPhiNgay")
                 ));
             }

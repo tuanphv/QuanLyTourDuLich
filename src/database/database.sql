@@ -115,7 +115,7 @@ CREATE TABLE DatTour (
     soLuong INT,
     tongTien FLOAT,
     trangThai ENUM('ChoThanhToan', 'DaThanhToan', 'DaHuy') DEFAULT 'ChoThanhToan',
-    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKeHoachTour),
+    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKeHoachTour) ON DELETE CASCADE,
     FOREIGN KEY (maKH) REFERENCES KhachHang(maKH)
 );
 
@@ -156,15 +156,16 @@ CREATE TABLE Ve (
     giaVe FLOAT,
     trangThai ENUM('DaPhatHanh', 'DaHuy', 'SuDung') DEFAULT 'DaPhatHanh',
     FOREIGN KEY (maDat, soThuTu) REFERENCES ChiTietHanhKhach(maDat, soThuTu),
-    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKeHoachTour)
+    FOREIGN KEY (maKHTour) REFERENCES KeHoachTour(maKeHoachTour) ON DELETE CASCADE
 );
 
 CREATE TABLE ChiTietKeHoachTour (
     maChiTietKeHoachTour INT AUTO_INCREMENT PRIMARY KEY,
     maKeHoachTour INT,
     ngay DATE,
+    moTa TEXT,
     chiPhiNgay BIGINT,
-    FOREIGN KEY (maKeHoachTour) REFERENCES KeHoachTour(maKeHoachTour)
+    FOREIGN KEY (maKeHoachTour) REFERENCES KeHoachTour(maKeHoachTour) ON DELETE CASCADE
 );
 
 CREATE TABLE DiaDiemThamQuan (
@@ -175,7 +176,7 @@ CREATE TABLE DiaDiemThamQuan (
     maPhuongTien INT,
     chiPhiThamQuan FLOAT,
     chiPhiDiChuyen FLOAT,
-    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour),     
+    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour) ON DELETE CASCADE,     
     FOREIGN KEY (maDiaDanh) REFERENCES DiaDanh(maDiaDanh),
     FOREIGN KEY (maPhuongTien) REFERENCES PhuongTien(maPhuongTien)
 );
@@ -186,7 +187,7 @@ CREATE TABLE KhachSanNghiNgoi (
     maChiTietKeHoachTour INT,
     chiPhiKhachSan FLOAT,
     FOREIGN KEY (maKhachSan) REFERENCES KhachSan(maKhachSan),
-    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour)
+    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour) ON DELETE CASCADE
 );
 
 CREATE TABLE BuoiAn (
@@ -197,6 +198,6 @@ CREATE TABLE BuoiAn (
     chiPhi FLOAT,
     moTa TEXT,
     FOREIGN KEY (maNhaHang) REFERENCES NhaHang(maNhaHang),
-    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour)
-)
+    FOREIGN KEY (maChiTietKeHoachTour) REFERENCES ChiTietKeHoachTour(maChiTietKeHoachTour) ON DELETE CASCADE
+);
 

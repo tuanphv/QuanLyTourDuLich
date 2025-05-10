@@ -6,24 +6,35 @@ public class ChiTietKeHoachTourDTO {
     int maChiTietKeHoachTour;
     int maKeHoachTour;
     LocalDate ngay;
+    String moTa;
     long chiPhiNgay;
 
     public ChiTietKeHoachTourDTO() {
     }
 
-    public ChiTietKeHoachTourDTO(int maKeHoachTour, LocalDate ngay, long chiPhiNgay) {
+    public ChiTietKeHoachTourDTO(int maKeHoachTour, LocalDate ngay, String moTa, long chiPhiNgay) {
         this.maKeHoachTour = maKeHoachTour;
         this.ngay = ngay;
+        this.moTa = moTa;
         this.chiPhiNgay = chiPhiNgay;
     }
 
-    public ChiTietKeHoachTourDTO(int maChiTietKeHoachTour, int maKeHoachTour, LocalDate ngay, long chiPhiNgay) {
+    public ChiTietKeHoachTourDTO(int maChiTietKeHoachTour, int maKeHoachTour, LocalDate ngay, String moTa, long chiPhiNgay) {
         this.maChiTietKeHoachTour = maChiTietKeHoachTour;
         this.maKeHoachTour = maKeHoachTour;
         this.ngay = ngay;
+        this.moTa = moTa;
         this.chiPhiNgay = chiPhiNgay;
     }
+    
+    public String getMoTa() {
+        return moTa;
+    }
 
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
+    
     public int getMaChiTietKeHoachTour() {
         return maChiTietKeHoachTour;
     }
@@ -58,8 +69,7 @@ public class ChiTietKeHoachTourDTO {
 
     @Override
     public String toString() {
-        return "ChiTietKeHoachTourDTO{" + "maChiTietKeHoachTour=" + maChiTietKeHoachTour + ", maKeHoachTour=" + maKeHoachTour + ", ngay=" + ngay + ", chiPhiNgay=" + chiPhiNgay + '}';
+        return "ChiTietKeHoachTourDTO{" + "maChiTietKeHoachTour=" + maChiTietKeHoachTour + ", maKeHoachTour=" + maKeHoachTour + ", ngay=" + ngay + ", moTa=" + moTa + ", chiPhiNgay=" + chiPhiNgay + '}';
     }
 
-    
 }

@@ -1,9 +1,8 @@
 package bus;
 
-import java.util.ArrayList;
-
-import dto.KeHoachTourDTO;
 import dao.KeHoachTourDAO;
+import dto.KeHoachTourDTO;
+import java.util.ArrayList;
 
 public class KeHoachTourBUS {
 
@@ -25,11 +24,12 @@ public class KeHoachTourBUS {
 
     public int addKeHoachTour(KeHoachTourDTO khTour) {
         KeHoachTourDAO dao = new KeHoachTourDAO();
-        int index = dao.addKeHoachTour(khTour);
-        if (index != -1) {
+        int id = dao.addKeHoachTour(khTour);
+        if (id != -1) {
+            khTour.setMaKHTour(id);
             dsKHTour.add(khTour);
         }
-        return index;
+        return id;
     }
 
     public int updateKeHoachTour(KeHoachTourDTO khTour) {
@@ -105,6 +105,15 @@ public class KeHoachTourBUS {
         } catch (NumberFormatException e) {
             return null;
         }  
+    }
+
+    public int getMaTourByMaKHTour(int maKHTour) {
+        for (KeHoachTourDTO khTour : dsKHTour) {
+            if (khTour.getMaKHTour() == maKHTour) {
+                return khTour.getMaTour();
+            }
+        }
+        return -1; // Không tìm thấy
     }
     
     public static void main(String[] args) {
