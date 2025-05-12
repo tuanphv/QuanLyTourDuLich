@@ -32,6 +32,7 @@ public class DatabaseConnection {
     }
 
     public static void main(String[] args) {
+        System.out.println("Kết nối thành công!");
         getConnection();
     }
 

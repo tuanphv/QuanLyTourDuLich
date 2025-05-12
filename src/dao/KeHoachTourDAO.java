@@ -43,10 +43,11 @@ public class KeHoachTourDAO {
 
             pstmt.setInt(1, khTour.getMaTour());
             pstmt.setDate(2, Date.valueOf(khTour.getThoiGianBD()));
-            pstmt.setInt(3, khTour.getSlDaDat());
-            pstmt.setInt(4, khTour.getSlToiDa());
-            pstmt.setString(5, khTour.getTrangThai().name());
-            pstmt.setFloat(6, khTour.getTongChiPhi());
+            pstmt.setDate(3, Date.valueOf(khTour.getThoiGianKT()));
+            pstmt.setInt(4, khTour.getSlDaDat());
+            pstmt.setInt(5, khTour.getSlToiDa());
+            pstmt.setString(6, khTour.getTrangThai().name());
+            pstmt.setFloat(7, khTour.getTongChiPhi());
 
             int affectedRows = pstmt.executeUpdate();
 

@@ -63,6 +63,15 @@ public class BuoiAnBUS {
         return result;
     }
 
+    public BuoiAnDTO getBuoiAnByMaChiTietKeHoachTourAndMaNhaHang(int maChiTietKeHoachTour, int maNhaHang) {
+        for (BuoiAnDTO buoiAn : listBuoiAn) {
+            if (buoiAn.getMaChiTietKeHoachTour() == maChiTietKeHoachTour && buoiAn.getMaNhaHang() == maNhaHang) {
+                return buoiAn;
+            }
+        }
+        return null;
+    }
+
     public String getLoaiBuaAn(int number) {
         return switch (number) {
             case 1 -> "Sáng";

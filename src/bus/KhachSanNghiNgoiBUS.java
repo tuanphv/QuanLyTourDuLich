@@ -53,4 +53,24 @@ public class KhachSanNghiNgoiBUS {
         return null;
     }
     
+    public ArrayList<KhachSanNghiNgoiDTO> getKhachSanNghiNgoiByMaChiTietKeHoachTour(int maChiTietKeHoachTour) {
+        ArrayList<KhachSanNghiNgoiDTO> result = new ArrayList<>();
+        for (KhachSanNghiNgoiDTO khachSanNghiNgoi : dsKhachSanNghiNgoi) {
+            if (khachSanNghiNgoi.getMaChiTietKeHoachTour() == maChiTietKeHoachTour) {
+                result.add(khachSanNghiNgoi);
+            }
+        }
+        return result;
+    }
+
+    public KhachSanNghiNgoiDTO getKhachSanNghiNgoiByMaChiTietKeHoachAndMaKhachSanNghiNgoi(int maChiTietKeHoachTour, int maKhachSan) {
+        for (KhachSanNghiNgoiDTO khachSanNghiNgoi : dsKhachSanNghiNgoi) {
+            if (khachSanNghiNgoi.getMaChiTietKeHoachTour() == maChiTietKeHoachTour && khachSanNghiNgoi.getMaKhachSan() == maKhachSan) {
+                return khachSanNghiNgoi;
+            }
+        }
+        return null;
+    }
+
+
 }

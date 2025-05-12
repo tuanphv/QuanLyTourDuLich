@@ -133,7 +133,7 @@ public class KeHoachTourForm extends javax.swing.JPanel {
     private void btnThemActionPerformed(ActionEvent evt) {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         // KeHoachTourDialog dialog = new KeHoachTourDialog(parentFrame);
-        KeHoachTour dialog = new KeHoachTour(parentFrame);
+        KeHoachTour dialog = new KeHoachTour(parentFrame, this, KeHoachTour.Action.INSERT);
         dialog.setVisible(true);
         if (dialog.isSave()) {
             dialog.saveKeHoachTour();
@@ -154,19 +154,22 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         if (index > -1) {
             KeHoachTourDTO khTour = new KeHoachTourBUS().getKeHoachTourById((int) model.getValueAt(index, 0));
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            KeHoachTourDialog dialog = new KeHoachTourDialog(parentFrame);
-            dialog.loadData(khTour);
+            // KeHoachTourDialog dialog = new KeHoachTourDialog(parentFrame);
+            KeHoachTour dialog = new KeHoachTour(parentFrame, this, KeHoachTour.Action.UPDATE);
+            dialog.setTitle("Cập nhật kế hoạch tour");
+            dialog.loadKeHoachTour(khTour);
+            // dialog.loadData(khTour);
             dialog.setLocationRelativeTo(parentFrame);
             dialog.setVisible(true);
-            if (dialog.isSave()) {
-                KeHoachTourDTO input = dialog.getInputData();
-                input.setMaKHTour(khTour.getMaKHTour());
-                if (updateTour(input)) {
-                    JOptionPane.showMessageDialog(this, "Đã cập nhật kế hoạch tour!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
-                }
-            }
+            // if (dialog.isSave()) {
+            //     KeHoachTourDTO input = dialog.getInputData();
+            //     input.setMaKHTour(khTour.getMaKHTour());
+            //     if (updateTour(input)) {
+            //         JOptionPane.showMessageDialog(this, "Đã cập nhật kế hoạch tour!");
+            //     } else {
+            //         JOptionPane.showMessageDialog(this, "Cập nhật thông tin không thành công!");
+            //     }
+            // }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn kế hoạch tour cần cập nhật!");
         }
@@ -175,19 +178,19 @@ public class KeHoachTourForm extends javax.swing.JPanel {
     private void btnXoaActionPerformed(ActionEvent evt) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         KeHoachTourBUS bus = new KeHoachTourBUS();
-        int i = table.getSelectedRow();
-        if (i >= 0) {
+        int rowSelected = table.getSelectedRow();
+        if (rowSelected >= 0) {
             int result = JOptionPane.showConfirmDialog(
                     this,
-                    "Bạn có chắc chắn muốn xóa?",
+                    "Bạn có chắc chắn muốn xóa kế hoạch tour " + model.getValueAt(rowSelected, 0) + "?",
                     "Xác nhận",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE
             );
 
             if (result == JOptionPane.OK_OPTION) {
-                if (bus.deleteKeHoachTour((int) model.getValueAt(i, 0))) {
-                    model.removeRow(i);
+                if (bus.deleteKeHoachTour((int) model.getValueAt(rowSelected, 0))) {
+                    model.removeRow(rowSelected);
                     JOptionPane.showMessageDialog(this, "Xóa tour thành công!");
                 }
             }
@@ -202,16 +205,16 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
     }
 
-    public boolean addTour(KeHoachTourDTO khTour) {
+    public int addTour(KeHoachTourDTO khTour) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         KeHoachTourBUS bus = new KeHoachTourBUS();
         int index = bus.addKeHoachTour(khTour);
         if (index != -1) {
             khTour.setMaKHTour(index);
             model.addRow(khTour.toObjectArray());
-            return true;
+            return index;
         }
-        return false;
+        return -1;
     }
 
     public boolean updateTour(KeHoachTourDTO khTour) {
@@ -231,7 +234,13 @@ public class KeHoachTourForm extends javax.swing.JPanel {
     private void loadDataToTable(ArrayList<KeHoachTourDTO> khTours) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        khTours.forEach((var e) -> model.addRow(e.toObjectArray()));
+        // khTours.forEach((var e) -> {
+        //     model.addRow(e.toObjectArray());
+        // });
+        for (KeHoachTourDTO khTour : khTours) {
+            model.addRow(khTour.toObjectArray());
+            // System.out.println(khTour);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

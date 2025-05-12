@@ -15,7 +15,10 @@ public class ChiTietKeHoachTourBUS {
 
     public int insert(ChiTietKeHoachTourDTO chiTietKeHoachTour) {
         int id = chiTietKeHoachTourDAO.insert(chiTietKeHoachTour);
-        if (id != -1) listChiTietKeHoachTour.add(chiTietKeHoachTour);
+        if (id != -1) {
+            chiTietKeHoachTour.setMaChiTietKeHoachTour(id);
+            listChiTietKeHoachTour.add(chiTietKeHoachTour);
+        }
         return id;
     }
 

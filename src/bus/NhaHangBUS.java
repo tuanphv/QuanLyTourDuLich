@@ -53,6 +53,15 @@ public class NhaHangBUS {
         return null;
     }
 
+    public NhaHangDTO getRestaurantByName(String tenNhaHang) {
+        for (NhaHangDTO nhaHang : listRestaurant) {
+            if (nhaHang.getTenNhaHang().equals(tenNhaHang)) {
+                return nhaHang;
+            }
+        }
+        return null;
+    }
+
     public int getIdByName(String tenNhaHang) {
         for (NhaHangDTO nhaHang : listRestaurant) {
             if (nhaHang.getTenNhaHang().equals(tenNhaHang)) {

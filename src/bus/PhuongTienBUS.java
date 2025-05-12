@@ -53,6 +53,15 @@ public class PhuongTienBUS {
         return null;
     }
 
+    public PhuongTienDTO getVehicleByName(String tenPhuongTien) {
+        for (PhuongTienDTO phuongTien : listVehicle) {
+            if (phuongTien.getTenPhuongTien().equals(tenPhuongTien)) {
+                return phuongTien;
+            }
+        }
+        return null;
+    }
+
     public int getIdByName(String tenPhuongTien) {
         for (PhuongTienDTO phuongTien : listVehicle) {
             if (phuongTien.getTenPhuongTien().equals(tenPhuongTien)) {

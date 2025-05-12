@@ -52,5 +52,24 @@ public class DiaDiemThamQuanBUS {
         }
         return null;
     }
+
+    public ArrayList<DiaDiemThamQuanDTO> getDiaDiemThamQuanByMaChiTietKeHoachTour(int maChiTietKeHoachTour) {
+        ArrayList<DiaDiemThamQuanDTO> result = new ArrayList<>();
+        for (DiaDiemThamQuanDTO diaDiemThamQuan : listDiaDiemThamQuan) {
+            if (diaDiemThamQuan.getMaChiTietKeHoachTour() == maChiTietKeHoachTour) {
+                result.add(diaDiemThamQuan);
+            }
+        }
+        return result;
+    }
+
+    public DiaDiemThamQuanDTO getDiaDiemThamQuanByMaChiTietKeHoachAndMaDiaDanh(int maChiTietKeHoachTour, int maDiaDanh) {
+        for (DiaDiemThamQuanDTO diaDiemThamQuan : listDiaDiemThamQuan) {
+            if (diaDiemThamQuan.getMaChiTietKeHoachTour() == maChiTietKeHoachTour && diaDiemThamQuan.getMaDiaDanh() == maDiaDanh) {
+                return diaDiemThamQuan;
+            }
+        }
+        return null;
+    }
     
 }

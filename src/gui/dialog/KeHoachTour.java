@@ -1,9 +1,12 @@
 package gui.dialog;
 
 import bus.BuoiAnBUS;
+import bus.ChiTietHanhKhachBUS;
 import bus.ChiTietKeHoachTourBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.sql.Date;
@@ -20,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import bus.DiaDanhBUS;
@@ -31,6 +35,7 @@ import bus.NhaHangBUS;
 import bus.PhuongTienBUS;
 import bus.TourBUS;
 import dto.BuoiAnDTO;
+import dto.ChiTietHanhKhachDTO;
 import dto.ChiTietKeHoachTourDTO;
 import dto.DiaDanhDTO;
 import dto.DiaDiemThamQuanDTO;
@@ -41,10 +46,22 @@ import dto.NhaHangDTO;
 import dto.PhuongTienDTO;
 import dto.TourDTO;
 import enums.TrangThaiKeHoachTour;
+import gui.form.KeHoachTourForm;
+import java.lang.reflect.Array;
+import javax.swing.JLabel;
+import org.w3c.dom.Text;
 import utils.DateUtils;
+import utils.TextUtils;
 
 public class KeHoachTour extends javax.swing.JDialog {
-    private boolean  save;
+    private boolean save;
+    private Action action;
+    KeHoachTourForm keHoachTourForm;
+    KeHoachTourDTO keHoachTourDTO;
+
+    public static enum Action {
+        INSERT, UPDATE
+    }
 
     TourBUS tourBUS = new TourBUS();
     KeHoachTourBUS keHoachTourBUS = new KeHoachTourBUS();
@@ -62,13 +79,15 @@ public class KeHoachTour extends javax.swing.JDialog {
     ArrayList<DiaDanhDTO> listDiaDanh;
     ArrayList<PhuongTienDTO> listPhuongTien;
     ArrayList<KhachSanDTO> listKhachSan;
+    ArrayList<ChiTietKeHoachTourDTO> listChiTietKeHoachTour;
 
     // SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
   
-    public KeHoachTour(java.awt.Frame parent) {
+    public KeHoachTour(java.awt.Frame parent, KeHoachTourForm keHoachTourForm, Action action) {
         super(parent, "Thêm kế hoạch tour", true);
+        this.keHoachTourForm = keHoachTourForm;
+        this.action = action;
         initComponents();
-
 
         dateStart.setDateFormatString("dd-MM-yyyy");
         dateEnd.setDateFormatString("dd-MM-yyyy");
@@ -85,6 +104,8 @@ public class KeHoachTour extends javax.swing.JDialog {
         listDiaDanh = diaDanhBUS.getDsDiaDanh();
         listPhuongTien = phuongTienBUS.getListVehicle();
         listKhachSan = khachSanBUS.getListHotel();
+        listChiTietKeHoachTour = chiTietKeHoachTourBUS.getAllChiTietKeHoachTour();
+
         loadComboBox();
 
         dateStart.addPropertyChangeListener("date", evt -> {
@@ -97,8 +118,8 @@ public class KeHoachTour extends javax.swing.JDialog {
         // pack();
         setLocationRelativeTo(null);
 
-        initializeValues(); // Khởi tạo giá trị mặc định
-        initializeSchedule(); // Khởi tạo lịch trình mặc định
+        // initializeValues(); // Khởi tạo giá trị mặc định
+        // initializeSchedule(); // Khởi tạo lịch trình mặc định
     }
 
     public boolean isSave() {
@@ -109,7 +130,7 @@ public class KeHoachTour extends javax.swing.JDialog {
         // Lấy số ngày của tour đã chọn
         java.util.Date startDate = dateStart.getDate();
         if (startDate == null) {
-            System.err.println("Ngày bắt đầu không hợp lệ");
+            // System.err.println("Ngày bắt đầu không hợp lệ");
             return;
         }
 
@@ -164,61 +185,58 @@ public class KeHoachTour extends javax.swing.JDialog {
         
         // panelChiTietKeHoachTour.revalidate();
         // panelChiTietKeHoachTour.repaint();
+    }
 
-        // JOptionPane.showMessageDialog(null, "Success!");
+    // Phương thức tiện ích để tạo một JPanel có BoxLayout Y và titled border
+    private JPanel createTitledPanel(String title) {
+        JPanel p = new JPanel();
+        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        p.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.GRAY),
+            title, TitledBorder.LEFT, TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 14)
+        ));
+        return p;
+    }
+
+    // Phương thức tiện ích tạo titled border
+    private TitledBorder createTitleBorder(String title) {
+        TitledBorder titleBorder = BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.GRAY),
+            title,
+            TitledBorder.LEFT, TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 14)
+        );
+        return titleBorder;
     }
 
     public JPanel createLichTrinhPanel(int dayNumber) {
-        JPanel dayPanel = new JPanel();
-        dayPanel.setLayout(new BoxLayout(dayPanel, BoxLayout.Y_AXIS));
-        dayPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Ngày " + dayNumber,
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
+        JPanel dayPanel = createTitledPanel("Ngày " + dayNumber);
 
         // Tiêu đề ngày
         JPanel titlePanel = new JPanel(new BorderLayout());
-        // JPanel titlePanel = new JPanel();
         // titlePanel.add(new JLabel("Ngày " + dayNumber), BorderLayout.WEST);
         JTextField titleField = new JTextField();
-        TitledBorder titleBorder = BorderFactory.createTitledBorder("Tiêu đề");
-        titleBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
-        titleField.setBorder(titleBorder);
+        // TitledBorder titleBorder = BorderFactory.createTitledBorder("Tiêu đề");
+        // titleBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
+        titleField.setBorder(createTitleBorder("Tiêu đề"));
         titlePanel.add(titleField, BorderLayout.CENTER);
-        titlePanel.add(titleField);
+        // titlePanel.add(titleField);
         dayPanel.add(titlePanel);
 
         // Panel chứa các địa điểm
-        JPanel locationPanel = new JPanel();
-        locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.Y_AXIS));
-        locationPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Địa điểm tham quan",
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
-
+        JPanel locationPanel = createTitledPanel("Địa điểm tham quan");
         // thêm 1 địa điểm mặc định
-        locationPanel.add(createFormDiaDiem());
-        locationPanel.revalidate();
-        locationPanel.repaint();
+        // locationPanel.add(createFormDiaDiem());
+        // locationPanel.repaint();
+        // locationPanel.revalidate();
 
         // Panel chứa khách sạn nghỉ ngơi
-        JPanel hotelPanel = new JPanel();
-        hotelPanel.setLayout(new BoxLayout(hotelPanel, BoxLayout.Y_AXIS));
-        hotelPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Khách sạn nghỉ ngơi",
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
-
+        JPanel hotelPanel = createTitledPanel("Khách sạn nghỉ ngơi");
         // thêm 1 khách sạn mặc định
-        hotelPanel.add(createFormKhachSan());
-        hotelPanel.revalidate();
-        hotelPanel.repaint();   
+        // hotelPanel.add(createFormKhachSan());
+        // hotelPanel.repaint();
+        // hotelPanel.revalidate();
 
         // Nút thêm địa điểm
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -245,100 +263,59 @@ public class KeHoachTour extends javax.swing.JDialog {
             hotelPanel.repaint();
         });
 
+        // Ẩn tiêu đề nếu không có nội dung
+        if (locationPanel.getComponentCount() == 0) {
+            locationPanel.setBorder(null);
+        }
+        if (hotelPanel.getComponentCount() == 0) {
+            hotelPanel.setBorder(null);
+        }
+
         return dayPanel;
     }
 
+    public JPanel createMealPanel(String mealName, ArrayList<String> listTenNhaHang) {
+        JPanel mealPanel = createTitledPanel(mealName);
+        JComboBox<String> comboBox = new JComboBox<>(listTenNhaHang.toArray(new String[0]));
+        int chiPhi = nhaHangBUS.getRestaurantByName(comboBox.getSelectedItem().toString()).getGia();
+        JLabel lbChiPhi = new JLabel("Chi phí: " + chiPhi + " VNĐ");
+        JTextField moTa = new JTextField();
+        moTa.setBorder(BorderFactory.createTitledBorder("Mô tả"));
+
+        mealPanel.add(comboBox);
+        mealPanel.add(lbChiPhi);
+        mealPanel.add(moTa);
+
+        // Lắng nghe sự kiện chọn nhà hàng
+        comboBox.addActionListener(evt -> {
+            int chiPhiSelected = nhaHangBUS.getRestaurantByName(comboBox.getSelectedItem().toString()).getGia();
+            lbChiPhi.setText("Chi phí: " + chiPhiSelected + " VNĐ");
+        });
+
+        return mealPanel;
+    }
+
     public JPanel createAnUongPanel(int dayNumber) {
-        JPanel anUongPanel = new JPanel();
-        anUongPanel.setLayout(new BoxLayout(anUongPanel, BoxLayout.Y_AXIS));
-        anUongPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Ngày " + dayNumber,
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
+        JPanel anUongPanel = createTitledPanel("Ngày " + dayNumber);
 
         // Lấy danh sách nhà hàng
         ArrayList<String> listTenNhaHang = new ArrayList<>();
         for (NhaHangDTO nhaHang : listNhaHang) {
             listTenNhaHang.add(nhaHang.getTenNhaHang());
         }
-        // JComboBox comboBoxNhaHang = new JComboBox(listTenNhaHang.toArray(new String[0]));
 
-        // Thêm các thành phần khác vào anUongPanel nếu cần
-        JPanel buaSangPanel = new JPanel();
-        buaSangPanel.setLayout(new BoxLayout(buaSangPanel, BoxLayout.Y_AXIS));
-        buaSangPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Bữa sáng",
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
-        JComboBox comboBoxBuaSang = new JComboBox(listTenNhaHang.toArray(new String[0]));
-
-        // comboBoxBuaSang.setModel(new DefaultComboBoxModel<>(new String[] { "Bánh mì", "Phở", "Cơm tấm" }));
-        JTextField chiPhiBuaSang = new JTextField();
-        chiPhiBuaSang.setBorder(BorderFactory.createTitledBorder("Chi phí"));
-        JTextField moTaBuaSang = new JTextField();
-        moTaBuaSang.setBorder(BorderFactory.createTitledBorder("Mô tả"));
-        buaSangPanel.add(comboBoxBuaSang);
-        buaSangPanel.add(chiPhiBuaSang);
-        buaSangPanel.add(moTaBuaSang);
-
-        JPanel buaTruaPanel = new JPanel();
-        buaTruaPanel.setLayout(new BoxLayout(buaTruaPanel, BoxLayout.Y_AXIS));
-        buaTruaPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Bữa trưa",
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
-        JComboBox comboBoxBuaTrua = new JComboBox(listTenNhaHang.toArray(new String[0]));
-        
-        // comboBoxBuaTrua.setModel(new DefaultComboBoxModel<>(new String[] { "Bánh mì", "Phở", "Cơm tấm" }));
-        JTextField chiPhiBuaTrua = new JTextField();
-        chiPhiBuaTrua.setBorder(BorderFactory.createTitledBorder("Chi phí"));
-        JTextField moTaBuaTrua = new JTextField();
-        moTaBuaTrua.setBorder(BorderFactory.createTitledBorder("Mô tả"));
-        buaTruaPanel.add(comboBoxBuaTrua);
-        buaTruaPanel.add(chiPhiBuaTrua);
-        buaTruaPanel.add(moTaBuaTrua);
-
-        JPanel buaToiPanel = new JPanel();
-        buaToiPanel.setLayout(new BoxLayout(buaToiPanel, BoxLayout.Y_AXIS));
-        buaToiPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Bữa tối",
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
-        JComboBox comboBoxBuaToi = new JComboBox(listTenNhaHang.toArray(new String[0]));
-        
-        // comboBoxBuaToi.setModel(new DefaultComboBoxModel<>(new String[] { "Bánh mì", "Phở", "Cơm tấm" }));
-        JTextField chiPhiBuaToi = new JTextField();
-        chiPhiBuaToi.setBorder(BorderFactory.createTitledBorder("Chi phí"));
-        JTextField moTaBuaToi = new JTextField();
-        moTaBuaToi.setBorder(BorderFactory.createTitledBorder("Mô tả"));
-        buaToiPanel.add(comboBoxBuaToi);
-        buaToiPanel.add(chiPhiBuaToi);
-        buaToiPanel.add(moTaBuaToi);
-
-        anUongPanel.add(buaSangPanel);
-        anUongPanel.add(buaTruaPanel);
-        anUongPanel.add(buaToiPanel);
+        // Danh sách các bữa ăn
+        String [] mealNames = {"Bữa sáng", "Bữa trưa", "Bữa tối"};
+        for (String meal : mealNames) {
+            JPanel mealPanel = createMealPanel(meal, listTenNhaHang);
+            anUongPanel.add(mealPanel);
+        }
 
         return anUongPanel;
     }
 
     public JPanel createFormDiaDiem() {
-        JPanel diaDiemPanel = new JPanel();
-        diaDiemPanel.setLayout(new BoxLayout(diaDiemPanel, BoxLayout.Y_AXIS));
-        diaDiemPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Địa điểm",
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
+        JPanel diaDiemPanel = createTitledPanel("Địa điểm tham quan");
 
         // Lấy danh sách địa điểm
         ArrayList<String> listTenDiaDiem = new ArrayList<>();
@@ -348,6 +325,8 @@ public class KeHoachTour extends javax.swing.JDialog {
         JComboBox<String> diaDiemComboBox = new JComboBox<>(listTenDiaDiem.toArray(new String[0]));
         diaDiemPanel.add(diaDiemComboBox);
 
+        // int chiPhiThamQuan = diaDanhBUS.getDiaDanhByName(diaDiemComboBox.getSelectedItem().toString()).getChiPhiThamQuan();
+        // JLabel lbChiPhiThamQuan = new JLabel(chiPhiThamQuan + " VNĐ");
         JTextField tfChiPhiThamQuan = new JTextField();
         tfChiPhiThamQuan.setBorder(BorderFactory.createTitledBorder("Chi phí tham quan"));
         diaDiemPanel.add(tfChiPhiThamQuan);
@@ -364,26 +343,26 @@ public class KeHoachTour extends javax.swing.JDialog {
 
         // JComboBox<String> phuongTienComboBox = new JComboBox<>();
         JComboBox<String> phuongTienComboBox = new JComboBox<>(listTenPhuongTien.toArray(new String[0]));
-        // phuongTienComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Máy bay", "Xe khách", "Tàu hỏa" }));
         phuongTienComboBox.setBorder(BorderFactory.createTitledBorder("Phương tiện di chuyển"));
         diaDiemPanel.add(phuongTienComboBox);
         
-        JTextField tfChiPhiDiChuyen = new JTextField();
-        tfChiPhiDiChuyen.setBorder(BorderFactory.createTitledBorder("Chi phí di chuyển"));
-        diaDiemPanel.add(tfChiPhiDiChuyen);
+        int chiPhiDiChuyen = phuongTienBUS.getVehicleByName(phuongTienComboBox.getSelectedItem().toString()).getGia();
+        JLabel lbChiPhiDiChuyen = new JLabel("Chi phí: " + chiPhiDiChuyen + " VNĐ");
+        // JTextField tfChiPhiDiChuyen = new JTextField();
+        // lbChiPhiDiChuyen.setBorder(BorderFactory.createTitledBorder("Chi phí di chuyển"));
+        diaDiemPanel.add(lbChiPhiDiChuyen);
+
+        // lắng nghe sự kiện thay đổi phương tiện
+        phuongTienComboBox.addActionListener(evt -> {
+            int chiPhi = phuongTienBUS.getVehicleByName(phuongTienComboBox.getSelectedItem().toString()).getGia();
+            lbChiPhiDiChuyen.setText("Chi phí: " + chiPhi + " VNĐ");
+        });
 
         return diaDiemPanel;
     }
 
     public JPanel createFormKhachSan() {
-        JPanel khachSanPanel = new JPanel();
-        khachSanPanel.setLayout(new BoxLayout(khachSanPanel, BoxLayout.Y_AXIS));
-        khachSanPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            "Khách sạn",
-            TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 14)
-        ));
+        JPanel khachSanPanel = createTitledPanel("Khách sạn");
 
         // Lấy danh sách khách sạn
         ArrayList<String> listTenKhachSan = new ArrayList<>();
@@ -393,9 +372,22 @@ public class KeHoachTour extends javax.swing.JDialog {
         JComboBox<String> khachSanComboBox = new JComboBox<>(listTenKhachSan.toArray(new String[0]));
         khachSanPanel.add(khachSanComboBox);
 
-        JTextField tfChiPhi = new JTextField();
-        tfChiPhi.setBorder(BorderFactory.createTitledBorder("Chi phí"));
-        khachSanPanel.add(tfChiPhi);
+        int chiPhiKhachSan = khachSanBUS.getHotelByName(khachSanComboBox.getSelectedItem().toString()).getGia();
+        // JLabel lbChiPhiKhachSan = new JLabel(chiPhiKhachSan + " VNĐ");
+        JLabel lbChiPhiKhachSan = new JLabel("Chi phí: " + chiPhiKhachSan + " VNĐ");
+        // lbChiPhiKhachSan.setBorder(BorderFactory.createTitledBorder("Chi phí"));
+        // lbChiPhiKhachSan.setPreferredSize(new Dimension(200, 30));
+        // lbChiPhiKhachSan.setHorizontalAlignment(SwingConstants.LEFT); // Căn trái nội dung
+        // lbChiPhiKhachSan.setAlignmentX(Component.LEFT_ALIGNMENT); // Căn trái JLabel
+        // JTextField lbChiPhiKhachSan = new JTextField();
+        // lbChiPhiKhachSan.setBorder(BorderFactory.createTitledBorder("Chi phí"));
+        khachSanPanel.add(lbChiPhiKhachSan);
+
+        // lắng nghe sự kiện thay đổi khách sạn
+        khachSanComboBox.addActionListener(evt -> {
+            int chiPhi = khachSanBUS.getHotelByName(khachSanComboBox.getSelectedItem().toString()).getGia();
+            lbChiPhiKhachSan.setText("Chi phí: " + chiPhi + " VNĐ");
+        });
 
         return khachSanPanel;
     }
@@ -406,46 +398,50 @@ public class KeHoachTour extends javax.swing.JDialog {
             int maTour = Integer.parseInt(cbTour.getSelectedItem().toString().split(" - ")[0].trim());
             java.sql.Date startDate = new java.sql.Date(dateStart.getDate().getTime());
             java.sql.Date endDate = new java.sql.Date(dateEnd.getDate().getTime());
-            // int soLuongDaDat = Integer.parseInt(tfSoLuongDaDat.getText().trim());
+            int soLuongDaDat = Integer.parseInt(tfSoLuongDaDat.getText().trim());
             int soLuongToiDa = Integer.parseInt(tfSoLuongToiDa.getText().trim());
             float tongChiPhi = Float.parseFloat(tfTongChiPhi.getText().trim());
             TrangThaiKeHoachTour trangThai = (TrangThaiKeHoachTour) cbtrangThai.getSelectedItem();
     
             // === LƯU THÔNG TIN KẾ HOẠCH TOUR ===
-            int maKeHoachTour = keHoachTourBUS.addKeHoachTour(
+            int maKeHoachTour = keHoachTourForm.addTour(
                 new KeHoachTourDTO(
                     maTour, 
                     startDate.toLocalDate(), 
                     endDate.toLocalDate(), 
-                    // soLuongDaDat, 
-                    0,
+                    soLuongDaDat, 
+                    // 0,
                     soLuongToiDa, 
                     tongChiPhi, 
                     trangThai
                 )
             );
-    
+
+            int chiPhiTour = 0;
+                
             // === LƯU LỊCH TRÌNH VÀ ĂN UỐNG THEO NGÀY ===
             int soNgayTour = tourBUS.getTourById(maTour).getSoNgay();
     
             for (int i = 0; i < soNgayTour; i++) {
+                
+                JPanel panelLichTrinhNgay = (JPanel) panelLichTrinh.getComponent(i);
+                JPanel panelAn = (JPanel) panelAnUong.getComponent(i);
+                
+                // Lấy title ngày
+                JTextField titleField = (JTextField) ((JPanel) panelLichTrinhNgay.getComponent(0)).getComponent(0);
+                String tieuDe = titleField.getText().trim();
+                
                 int maChiTietKeHoachTour = chiTietKeHoachTourBUS.insert(
                     new ChiTietKeHoachTourDTO(
                         maKeHoachTour, 
                         startDate.toLocalDate().plusDays(i + 1),
+                        tieuDe,
                         0
                     )
                 );
-                // chưa xử lí chi phí ngày
-
-                JPanel panelLichTrinhNgay = (JPanel) panelLichTrinh.getComponent(i);
-                JPanel panelAn = (JPanel) panelAnUong.getComponent(i);
-    
-                // Lấy title ngày
-                JTextField titleField = (JTextField) ((JPanel) panelLichTrinhNgay.getComponent(0)).getComponent(0);
-                String tieuDe = titleField.getText().trim();
-    
+                
                 // === Lưu Địa điểm ===
+                long tongChiPhiNgay = 0;
                 JPanel diaDiemPanel = (JPanel) panelLichTrinhNgay.getComponent(1);
                 for (int j = 0; j < diaDiemPanel.getComponentCount(); j++) {
                     JPanel diaDiemItem = (JPanel) diaDiemPanel.getComponent(j);
@@ -453,16 +449,23 @@ public class KeHoachTour extends javax.swing.JDialog {
                     JTextField chiPhiThamQuan = (JTextField) diaDiemItem.getComponent(1);
                     JTextField moTa = (JTextField) diaDiemItem.getComponent(2);
                     JComboBox cbPhuongTien = (JComboBox) diaDiemItem.getComponent(3);
-                    JTextField chiPhiDiChuyen = (JTextField) diaDiemItem.getComponent(4);
+                    JLabel chiPhiDiChuyen = (JLabel) diaDiemItem.getComponent(4);
     
+                    // Tính chi phí dịch vụ
+                    long chiPhiThamQuanValue = TextUtils.getFirstNumber(chiPhiThamQuan.getText());
+                    long chiPhiDiChuyenValue = TextUtils.getFirstNumber(chiPhiDiChuyen.getText());
+                    tongChiPhiNgay += chiPhiThamQuanValue + chiPhiDiChuyenValue;
+
                     diaDiemThamQuanBUS.insert(
                         new DiaDiemThamQuanDTO(
                             maChiTietKeHoachTour, 
                             diaDanhBUS.getIdByName(cbDiaDiem.getSelectedItem().toString()), 
                             moTa.getText(), 
                             phuongTienBUS.getIdByName(cbPhuongTien.getSelectedItem().toString()), 
-                            Long.parseLong(chiPhiThamQuan.getText()),
-                            Long.parseLong(chiPhiDiChuyen.getText())
+                            TextUtils.getFirstNumber(chiPhiThamQuan.getText()),
+                            // Long.parseLong(chiPhiThamQuan.getText()),
+                            // Long.parseLong(chiPhiDiChuyen.getText())
+                            TextUtils.getFirstNumber(chiPhiDiChuyen.getText())
                         )
                     );
                 }
@@ -472,12 +475,18 @@ public class KeHoachTour extends javax.swing.JDialog {
                 for (int j = 0; j < khachSanPanel.getComponentCount(); j++) {
                     JPanel ksItem = (JPanel) khachSanPanel.getComponent(j);
                     JComboBox cbKhachSan = (JComboBox) ksItem.getComponent(0);
-                    JTextField chiPhiKhachSan = (JTextField) ksItem.getComponent(1);
+                    JLabel chiPhiKhachSan = (JLabel) ksItem.getComponent(1);
+
+                    // Tính chi phí dịch vụ
+                    long chiPhiKhachSanValue = TextUtils.getFirstNumber(chiPhiKhachSan.getText());
+                    tongChiPhiNgay += chiPhiKhachSanValue;
+
                     khachSanNghiNgoiBUS.insert(
                         new KhachSanNghiNgoiDTO (
                             maChiTietKeHoachTour, 
                             khachSanBUS.getIdByName(cbKhachSan.getSelectedItem().toString()), 
-                            Long.parseLong(chiPhiKhachSan.getText())
+                            // Long.parseLong(chiPhiKhachSan.getText())
+                            TextUtils.getFirstNumber(chiPhiKhachSan.getText())
                         )
                     );
                 }
@@ -486,19 +495,54 @@ public class KeHoachTour extends javax.swing.JDialog {
                 for (int k = 0; k < 3; k++) { // Bữa sáng, trưa, tối
                     JPanel buaAn = (JPanel) panelAn.getComponent(k);
                     JComboBox cbNhaHang = (JComboBox) buaAn.getComponent(0);
-                    JTextField chiPhi = (JTextField) buaAn.getComponent(1);
+                    JLabel chiPhi = (JLabel) buaAn.getComponent(1);
                     JTextField moTa = (JTextField) buaAn.getComponent(2);
+
+                    // Tính chi phí dịch vụ
+                    long chiPhiBuoiAnValue = TextUtils.getFirstNumber(chiPhi.getText());
+                    tongChiPhiNgay += chiPhiBuoiAnValue;
+
                     buoiAnBUS.insert(
                         new BuoiAnDTO(
                             maChiTietKeHoachTour, 
                             buoiAnBUS.getLoaiBuaAn(k + 1), 
                             nhaHangBUS.getIdByName(cbNhaHang.getSelectedItem().toString()), 
-                            Double.parseDouble(chiPhi.getText()), 
+                            // Double.parseDouble(chiPhi.getText()), 
+                            TextUtils.getFirstNumber(chiPhi.getText()),
                             moTa.getText()
                         )
                     );
                 }
+            
+                // Cập nhật chi phí ngày
+                chiTietKeHoachTourBUS.update(
+                    new ChiTietKeHoachTourDTO(
+                        maChiTietKeHoachTour,
+                        maKeHoachTour, 
+                        startDate.toLocalDate().plusDays(i + 1), 
+                        tieuDe,
+                        tongChiPhiNgay
+                    )
+                );
+
+                // tính toán chi phí tour
+                chiPhiTour += tongChiPhiNgay;
             }
+
+            // Cập nhật chi phí tour
+            keHoachTourBUS.updateKeHoachTour(
+                new KeHoachTourDTO(
+                    maKeHoachTour, 
+                    maTour, 
+                    startDate.toLocalDate(), 
+                    endDate.toLocalDate(), 
+                    soLuongDaDat, 
+                    // 0,
+                    soLuongToiDa, 
+                    chiPhiTour, 
+                    trangThai
+                )
+            );
             JOptionPane.showMessageDialog(this, "Lưu kế hoạch tour thành công!");
             this.dispose();
     
@@ -508,6 +552,240 @@ public class KeHoachTour extends javax.swing.JDialog {
         }
     }
     
+    public void updateKeHoachTour() {
+        // keHoachTourDTO.setMaTour(Integer.parseInt(cbTour.getSelectedItem().toString().split(" - ")[0].trim()));
+        keHoachTourDTO.setThoiGianBD(DateUtils.dateToLocalDate(dateStart.getDate()));
+        keHoachTourDTO.setThoiGianKT(DateUtils.dateToLocalDate(dateStart.getDate()));
+        // keHoachTourDTO.setSlDaDat(Integer.parseInt(tfSoLuongDaDat.getText().trim()));
+        keHoachTourDTO.setSlToiDa(Integer.parseInt(tfSoLuongToiDa.getText().trim()));
+        keHoachTourDTO.setTongChiPhi(Float.parseFloat(tfTongChiPhi.getText().trim()));
+        keHoachTourDTO.setTrangThai((TrangThaiKeHoachTour) cbtrangThai.getSelectedItem());
+
+        // Cập nhật kế hoạch tour
+        keHoachTourForm.updateTour(keHoachTourDTO);
+
+        // Cập nhật lịch trình
+        ArrayList<ChiTietKeHoachTourDTO> dsChiTietKeHoachTour = chiTietKeHoachTourBUS.getChiTietKeHoachTourByMaKeHoachTour(keHoachTourDTO.getMaKHTour());
+        int soNgayTour = dsChiTietKeHoachTour.size();
+        for (int i = 0; i < soNgayTour; i++) {
+            ChiTietKeHoachTourDTO chiTietKeHoachTour = dsChiTietKeHoachTour.get(i);
+            int maChiTietKeHoachTour = chiTietKeHoachTour.getMaChiTietKeHoachTour();
+            
+            JPanel panelLichTrinhNgay = (JPanel) panelLichTrinh.getComponent(i);
+            JPanel panelAn = (JPanel) panelAnUong.getComponent(i);
+
+            // Lấy title ngày
+            JTextField titleField = (JTextField) ((JPanel) panelLichTrinhNgay.getComponent(0)).getComponent(0);
+            String tieuDe = titleField.getText().trim();
+
+            // tinh toán chi phí
+            long tongChiPhiNgay = 0;
+
+            // cập nhật địa điểm tham quan
+            JPanel diaDiemPanel = (JPanel) panelLichTrinhNgay.getComponent(1);
+            ArrayList<DiaDiemThamQuanDTO> dsDiaDiemThamQuan = diaDiemThamQuanBUS.getDiaDiemThamQuanByMaChiTietKeHoachTour(maChiTietKeHoachTour);
+            for (int j = 0; j < diaDiemPanel.getComponentCount(); j++) {
+                JPanel diaDiemItem = (JPanel) diaDiemPanel.getComponent(j);
+                JComboBox cbDiaDiem = (JComboBox) diaDiemItem.getComponent(0);
+                JTextField chiPhiThamQuan = (JTextField) diaDiemItem.getComponent(1);
+                JTextField moTa = (JTextField) diaDiemItem.getComponent(2);
+                JComboBox cbPhuongTien = (JComboBox) diaDiemItem.getComponent(3);
+                JLabel chiPhiDiChuyen = (JLabel) diaDiemItem.getComponent(4);
+
+                // Tính chi phí dịch vụ
+                long chiPhiThamQuanValue = TextUtils.getFirstNumber(chiPhiThamQuan.getText());
+                long chiPhiDiChuyenValue = TextUtils.getFirstNumber(chiPhiDiChuyen.getText());
+                tongChiPhiNgay += chiPhiThamQuanValue + chiPhiDiChuyenValue;
+
+                // cập nhật địa điểm tham quan
+                diaDiemThamQuanBUS.update(
+                    new DiaDiemThamQuanDTO(
+                        dsDiaDiemThamQuan.get(j).getMaDiaDiemThamQuan(),
+                        maChiTietKeHoachTour, 
+                        diaDanhBUS.getIdByName(cbDiaDiem.getSelectedItem().toString()), 
+                        moTa.getText(), 
+                        phuongTienBUS.getIdByName(cbPhuongTien.getSelectedItem().toString()), 
+                        TextUtils.getFirstNumber(chiPhiThamQuan.getText()),
+                        // Long.parseLong(chiPhiThamQuan.getText()),
+                        // Long.parseLong(chiPhiDiChuyen.getText()),
+                        TextUtils.getFirstNumber(chiPhiDiChuyen.getText())
+                    )
+                );
+            }
+
+            // cập nhật khách sạn
+            JPanel khachSanPanel = (JPanel) panelLichTrinhNgay.getComponent(2);
+            ArrayList<KhachSanNghiNgoiDTO> dsKhachSanNghiNgoi = khachSanNghiNgoiBUS.getKhachSanNghiNgoiByMaChiTietKeHoachTour(maChiTietKeHoachTour);
+            for (int j = 0; j < khachSanPanel.getComponentCount(); j++) {
+                JPanel ksItem = (JPanel) khachSanPanel.getComponent(j);
+                JComboBox cbKhachSan = (JComboBox) ksItem.getComponent(0);
+                JLabel chiPhiKhachSan = (JLabel) ksItem.getComponent(1);
+
+                // Tính chi phí dịch vụ
+                long chiPhiKhachSanValue = TextUtils.getFirstNumber(chiPhiKhachSan.getText());
+                tongChiPhiNgay += chiPhiKhachSanValue;
+
+                // cập nhật khách sạn
+                khachSanNghiNgoiBUS.update(
+                    new KhachSanNghiNgoiDTO(
+                        dsKhachSanNghiNgoi.get(j).getMaKhachSanNghiNgoi(),
+                        maChiTietKeHoachTour, 
+                        khachSanBUS.getIdByName(cbKhachSan.getSelectedItem().toString()), 
+                        // Long.parseLong(chiPhiKhachSan.getText())
+                        TextUtils.getFirstNumber(chiPhiKhachSan.getText())
+                    )
+                );
+            }
+
+            // cập nhật ăn uống
+            ArrayList<BuoiAnDTO> dsBuoiAn = buoiAnBUS.getBuoiAnByMaChiTietKeHoachTour(maChiTietKeHoachTour);
+            for (int k = 0; k < 3; k++) { // Bữa sáng, trưa, tối
+                JPanel buaAn = (JPanel) panelAn.getComponent(k);
+                JComboBox cbNhaHang = (JComboBox) buaAn.getComponent(0);
+                JLabel chiPhi = (JLabel) buaAn.getComponent(1);
+                JTextField moTa = (JTextField) buaAn.getComponent(2);
+
+                // Tính chi phí dịch vụ
+                long chiPhiBuoiAnValue = TextUtils.getFirstNumber(chiPhi.getText());
+                tongChiPhiNgay += chiPhiBuoiAnValue;
+
+                // cập nhật ăn uống
+                buoiAnBUS.update(
+                    new BuoiAnDTO(
+                        dsBuoiAn.get(k).getMaBuoiAn(),
+                        maChiTietKeHoachTour, 
+                        buoiAnBUS.getLoaiBuaAn(k + 1), 
+                        nhaHangBUS.getIdByName(cbNhaHang.getSelectedItem().toString()), 
+                        // Double.parseDouble(chiPhi.getText()), 
+                        TextUtils.getFirstNumber(chiPhi.getText()),
+                        moTa.getText()
+                    )
+                );
+            }
+
+            // cập nhật lịch trình
+            chiTietKeHoachTourBUS.update(
+                new ChiTietKeHoachTourDTO(
+                    maChiTietKeHoachTour,
+                    keHoachTourDTO.getMaKHTour(), 
+                    keHoachTourDTO.getThoiGianBD().plusDays(i + 1),
+                    tieuDe,
+                    tongChiPhiNgay
+                )
+            );
+        }
+        JOptionPane.showMessageDialog(this, "Cập nhật kế hoạch tour thành công!");
+        this.dispose();
+    }
+
+    public void loadKeHoachTour(KeHoachTourDTO keHoachTour) {
+        this.keHoachTourDTO = keHoachTour;
+
+        int maKeHoachTour = keHoachTour.getMaKHTour();
+        int maTour = keHoachTour.getMaTour();
+        // Load thông tin kế hoạch tour vào form
+        cbTour.setSelectedItem(maTour + " - " + tourBUS.getTourById(maTour).getTenTour());
+
+        // System.out.println("Mã tour: " + keHoachTour.getMaTour());
+        // System.out.println("Tour: " + tourBUS.getTourById(keHoachTour.getMaTour()).getTenTour());
+        dateStart.setDate(Date.valueOf(keHoachTour.getThoiGianBD()));
+        // System.out.println("Ngày bắt đầu: " + keHoachTour.getThoiGianBD());
+        // System.out.println("Ngày kết thúc: " + keHoachTour.getThoiGianKT());
+        dateEnd.setDate(Date.valueOf(keHoachTour.getThoiGianKT()));
+        tfSoLuongDaDat.setText(String.valueOf(keHoachTour.getSlDaDat()));
+        tfSoLuongToiDa.setText(String.valueOf(keHoachTour.getSlToiDa()));
+        tfTongChiPhi.setText(String.valueOf(keHoachTour.getTongChiPhi()));
+        cbtrangThai.setSelectedItem(keHoachTour.getTrangThai());
+
+        // int soNgayTour = tourBUS.getTourById(maKeHoachTour).getSoNgay();
+        // Xoá các thành phần hiện tại trong panel
+        panelLichTrinh.removeAll();
+        panelAnUong.removeAll();
+
+        // lấy thông tin chỉ tiết kế hoạch của tour
+        ArrayList<ChiTietKeHoachTourDTO> chiTietKeHoachTour = chiTietKeHoachTourBUS.getChiTietKeHoachTourByMaKeHoachTour(maKeHoachTour);
+        // System.out.println("Chi tiết kế hoạch tour: " + chiTietKeHoachTour.size());
+        // for (int i = 0; i < chiTietKeHoachTour.size(); i++) {
+        //     ChiTietKeHoachTourDTO chiTiet = chiTietKeHoachTour.get(i);
+        //     System.out.println("Mã chi tiết kế hoạch tour: " + chiTiet.getMaChiTietKeHoachTour());
+        // }
+        int soNgayTour = chiTietKeHoachTour.size();
+        // System.out.println("Số ngày tour: " + soNgayTour);
+        for (int i = 0; i < soNgayTour; i++) {
+            ChiTietKeHoachTourDTO chiTiet = chiTietKeHoachTour.get(i);
+            int maChiTietKeHoachTour = chiTiet.getMaChiTietKeHoachTour();
+            // System.out.println("Mã chi tiết kế hoạch tour: " + maChiTietKeHoachTour);
+            // Tạo panel cho lịch trình và ăn uống
+            JPanel lichTrinhPanel = createLichTrinhPanel(i + 1);
+            JPanel anUongPanel = createAnUongPanel(i + 1);
+
+            // Lấy thông tin lịch trình và ăn uống từ cơ sở dữ liệu
+            ArrayList<DiaDiemThamQuanDTO> listDiaDiemThamQuan = diaDiemThamQuanBUS.getDiaDiemThamQuanByMaChiTietKeHoachTour(maChiTietKeHoachTour);
+            ArrayList<KhachSanNghiNgoiDTO> listKhachSanNghiNgoi = khachSanNghiNgoiBUS.getKhachSanNghiNgoiByMaChiTietKeHoachTour(maChiTietKeHoachTour);
+            ArrayList<BuoiAnDTO> listBuoiAn = buoiAnBUS.getBuoiAnByMaChiTietKeHoachTour(maChiTietKeHoachTour);
+            // System.out.println("Số địa điểm tham quan: " + listDiaDiemThamQuan.size());
+            // System.out.println("Số khách sạn: " + listKhachSanNghiNgoi.size());
+            // System.out.println("Số bữa ăn: " + listBuoiAn.size());
+
+            // Thêm các thông tin vào panel
+            JTextField titleField = (JTextField) ((JPanel) lichTrinhPanel.getComponent(0)).getComponent(0);
+            titleField.setText(chiTiet.getMoTa());
+
+            // Thêm địa điểm tham quan
+            JPanel diaDiemPanel = (JPanel) lichTrinhPanel.getComponent(1);
+            for (DiaDiemThamQuanDTO diaDiem : listDiaDiemThamQuan) {
+                JPanel diaDiemItem = createFormDiaDiem();
+                JComboBox cbDiaDiem = (JComboBox) diaDiemItem.getComponent(0);
+                JTextField chiPhiThamQuan = (JTextField) diaDiemItem.getComponent(1);
+                JTextField moTa = (JTextField) diaDiemItem.getComponent(2);
+                JComboBox cbPhuongTien = (JComboBox) diaDiemItem.getComponent(3);
+                JLabel chiPhiDiChuyen = (JLabel) diaDiemItem.getComponent(4);
+
+                cbDiaDiem.setSelectedItem(diaDanhBUS.getNameById(diaDiem.getMaDiaDanh()));
+                chiPhiThamQuan.setText("Chi phí: " + diaDiem.getChiPhiThamQuan() + " VNĐ");
+                moTa.setText(diaDiem.getMoTaHoatDong());
+                cbPhuongTien.setSelectedItem(phuongTienBUS.getNameById(diaDiem.getMaPhuongTienDiChuyen()));
+                chiPhiDiChuyen.setText("Chi phí: " + diaDiem.getChiPhiDiChuyen() + " VNĐ");
+                diaDiemPanel.add(diaDiemItem);
+            }
+
+            // Thêm khách sạn nghỉ ngơi
+            JPanel khachSanPanel = (JPanel) lichTrinhPanel.getComponent(2);
+            for (KhachSanNghiNgoiDTO khachSan : listKhachSanNghiNgoi) {
+                JPanel khachSanItem = createFormKhachSan();
+                JComboBox cbKhachSan = (JComboBox) khachSanItem.getComponent(0);
+                JLabel chiPhiKhachSan = (JLabel) khachSanItem.getComponent(1);
+
+                cbKhachSan.setSelectedItem(khachSanBUS.getNameById(khachSan.getMaKhachSan()));
+                chiPhiKhachSan.setText("Chi phí: " + khachSan.getChiPhiKhachSan() + " VNĐ");
+                khachSanPanel.add(khachSanItem);
+            }
+
+            // Thêm ăn uống
+            for (int j = 0; j < 3; j++) { // Bữa sáng, trưa, tối
+                JPanel buaAnPanel = (JPanel) anUongPanel.getComponent(j);
+                JComboBox cbNhaHang = (JComboBox) buaAnPanel.getComponent(0);
+                JLabel chiPhi = (JLabel) buaAnPanel.getComponent(1);
+                JTextField moTa = (JTextField) buaAnPanel.getComponent(2);
+
+                BuoiAnDTO buoiAn = listBuoiAn.get(j);
+                cbNhaHang.setSelectedItem(nhaHangBUS.getNameById(buoiAn.getMaNhaHang()));
+                chiPhi.setText("Chi phí: " + buoiAn.getChiPhi() + " VNĐ");
+                moTa.setText(buoiAn.getMoTa());
+            }
+
+            // Thêm panel lịch trình và ăn uống vào panel chính
+            panelLichTrinh.add(lichTrinhPanel);
+            panelAnUong.add(anUongPanel);
+        }
+    
+        // Cập nhật lại giao diện
+        panelLichTrinh.revalidate();
+        panelLichTrinh.repaint();
+        panelAnUong.revalidate();
+        panelAnUong.repaint();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -747,7 +1025,19 @@ public class KeHoachTour extends javax.swing.JDialog {
     }//GEN-LAST:event_cbTourActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        save = true;
+        switch (action) {
+            case INSERT:
+                // Lưu kế hoạch tour
+                saveKeHoachTour();
+                break;
+            case UPDATE:
+                // Cập nhật kế hoạch tour
+                updateKeHoachTour();
+                break;
+            default:
+                throw new AssertionError();
+        }
+        // saveKeHoachTour();
         dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -808,31 +1098,25 @@ public class KeHoachTour extends javax.swing.JDialog {
                 JTextField chiPhiThamQuan = (JTextField) diaDiemItem.getComponent(1);
                 JTextField moTa = (JTextField) diaDiemItem.getComponent(2);
                 JComboBox cbPhuongTien = (JComboBox) diaDiemItem.getComponent(3);
-                JTextField chiPhiDiChuyen = (JTextField) diaDiemItem.getComponent(4);
     
                 cbDiaDiem.setSelectedIndex(0); // Chọn địa điểm đầu tiên
                 chiPhiThamQuan.setText("100000"); // Chi phí tham quan mặc định
                 moTa.setText("Tham quan địa điểm nổi bật");
                 cbPhuongTien.setSelectedIndex(0); // Chọn phương tiện đầu tiên
-                chiPhiDiChuyen.setText("50000"); // Chi phí di chuyển mặc định
     
                 JPanel khachSanPanel = (JPanel) lichTrinhPanel.getComponent(2);
                 JPanel khachSanItem = (JPanel) khachSanPanel.getComponent(0);
                 JComboBox cbKhachSan = (JComboBox) khachSanItem.getComponent(0);
-                JTextField chiPhiKhachSan = (JTextField) khachSanItem.getComponent(1);
     
                 cbKhachSan.setSelectedIndex(0); // Chọn khách sạn đầu tiên
-                chiPhiKhachSan.setText("300000"); // Chi phí khách sạn mặc định
     
                 // Thiết lập giá trị mặc định cho ăn uống
                 for (int k = 0; k < 3; k++) { // Bữa sáng, trưa, tối
                     JPanel buaAnPanel = (JPanel) anUongPanel.getComponent(k);
                     JComboBox cbNhaHang = (JComboBox) buaAnPanel.getComponent(0);
-                    JTextField chiPhi = (JTextField) buaAnPanel.getComponent(1);
                     JTextField moTaBuaAn = (JTextField) buaAnPanel.getComponent(2);
     
                     cbNhaHang.setSelectedIndex(0); // Chọn nhà hàng đầu tiên
-                    chiPhi.setText("50000"); // Chi phí ăn uống mặc định
                     moTaBuaAn.setText("Bữa ăn tiêu chuẩn");
                 }
     
@@ -850,49 +1134,6 @@ public class KeHoachTour extends javax.swing.JDialog {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Lỗi khi khởi tạo lịch trình: " + e.getMessage());
         }
-    }
-
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KeHoachTour.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KeHoachTour.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KeHoachTour.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KeHoachTour.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                KeHoachTour dialog = new KeHoachTour(new javax.swing.JFrame());
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -921,3 +1162,4 @@ public class KeHoachTour extends javax.swing.JDialog {
     private javax.swing.JTextField tfTongChiPhi;
     // End of variables declaration//GEN-END:variables
 }
+
