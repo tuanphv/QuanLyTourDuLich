@@ -26,7 +26,8 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        DefaultTableModel model = new DefaultTableModel(KeHoachTourDTO.KH_TOUR_COLUMN_NAMES, 0) {
+        DefaultTableModel model;
+        model = new DefaultTableModel(KeHoachTourDTO.KH_TOUR_COLUMN_NAMES, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return column != 0;
@@ -40,6 +41,7 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         } else {
             System.out.println("DiaDanhForm đang chạy ở design time mode");
         }
+        
         myToolBar1.setSearchType(new String[]{"Mã tour", "Tên tour", "Số lượng tối đa"});
         myToolBar1.setSearchHandler(new SearchHandler() {
             @Override
@@ -55,6 +57,7 @@ public class KeHoachTourForm extends javax.swing.JPanel {
                 loadDataToTable(khTours);
             }
         });
+
     }
 
     @SuppressWarnings("unchecked")

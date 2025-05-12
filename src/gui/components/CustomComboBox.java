@@ -6,31 +6,34 @@ import javax.swing.plaf.basic.BasicComboBoxEditor;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.plaf.basic.ComboPopup;
 
 public class CustomComboBox<T> extends JComboBox<T> {
 
     private static final int CORNER_RADIUS = 8; // Adjust this value to control roundness
 
     /**
-     * Creates new form CustomComboBox - This constructor is specifically for NetBeans Form Designer
+     * Creates new form CustomComboBox - This constructor is specifically for
+     * NetBeans Form Designer
      */
     public CustomComboBox() {
         super();
         initCustomUI();
     }
-    
+
     // Constructor with model
     public CustomComboBox(ComboBoxModel<T> model) {
         super(model);
         initCustomUI();
     }
-    
+
     // Constructor with array
     public CustomComboBox(T[] items) {
         super(items);
         initCustomUI();
     }
-    
+
     // Common initialization code
     private void initCustomUI() {
         try {
@@ -40,7 +43,7 @@ public class CustomComboBox<T> extends JComboBox<T> {
             setBackground(Color.WHITE);
             setEditor(new RoundedEditor()); // Use our custom rounded editor
             setBorder(new EmptyBorder(0, 0, 0, 0)); // Remove default border, we'll draw our own
-            
+
         } catch (Exception e) {
             // Silent catch for design-time exceptions
             System.err.println("Error initializing CustomComboBox: " + e.getMessage());
@@ -49,8 +52,9 @@ public class CustomComboBox<T> extends JComboBox<T> {
 
     // Custom editor with rounded corners
     private class RoundedEditor extends BasicComboBoxEditor {
+
         private JTextField editor;
-        
+
         public RoundedEditor() {
             editor = new JTextField() {
                 @Override
@@ -59,28 +63,28 @@ public class CustomComboBox<T> extends JComboBox<T> {
                         Graphics2D g2 = (Graphics2D) g.create();
                         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                         g2.setColor(getBackground());
-                        g2.fillRoundRect(1, 1, getWidth()-2, getHeight()-2, CORNER_RADIUS, CORNER_RADIUS);
+                        g2.fillRoundRect(1, 1, getWidth() - 2, getHeight() - 2, CORNER_RADIUS, CORNER_RADIUS);
                         g2.dispose();
                     }
                     super.paintComponent(g);
                 }
             };
-            
+
             editor.setBorder(new EmptyBorder(2, 8, 2, 0)); // Padding instead of border
             editor.setFont(new Font("Segoe UI", Font.PLAIN, 14));
             editor.setOpaque(false); // Make non-opaque to show the rounded corners
         }
-        
+
         @Override
         public Component getEditorComponent() {
             return editor;
         }
-        
+
         @Override
         public Object getItem() {
             return editor.getText();
         }
-        
+
         @Override
         public void setItem(Object item) {
             if (item != null) {
@@ -93,6 +97,23 @@ public class CustomComboBox<T> extends JComboBox<T> {
 
     // UI tùy chỉnh - Rounded border combobox
     private class RoundedComboBoxUI extends BasicComboBoxUI {
+
+        @Override
+        protected ComboPopup createPopup() {
+            BasicComboPopup popup = new BasicComboPopup(comboBox) {
+                @Override
+                protected JScrollPane createScroller() {
+                    JScrollPane sp = super.createScroller();
+                    sp.getVerticalScrollBar().setUI(new MyScrollBarUI());
+                    sp.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+                    sp.getViewport().setBackground(Color.white);
+                    return sp;
+                }
+            };
+            popup.getAccessibleContext().setAccessibleParent(comboBox);
+            return popup;
+        }
+
         @Override
         protected JButton createArrowButton() {
             JButton button = new JButton("▾"); // Unicode triangle symbol
@@ -111,35 +132,36 @@ public class CustomComboBox<T> extends JComboBox<T> {
             comboBox.setForeground(Color.BLACK);
             comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         }
-        
+
         @Override
         public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
             // Do not paint the background here, we'll do it in paint()
         }
-        
+
         @Override
         public void paint(Graphics g, JComponent c) {
             Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            
+
             // Draw the rounded border
             g2.setColor(Color.LIGHT_GRAY); // Border color
             RoundRectangle2D roundedRect = new RoundRectangle2D.Float(
-                    0, 0, c.getWidth() - 1, c.getHeight() - 1, 
+                    0, 0, c.getWidth() - 1, c.getHeight() - 1,
                     CORNER_RADIUS, CORNER_RADIUS);
             g2.draw(roundedRect);
-            
+
             // Fill the background
             g2.setColor(c.getBackground());
-            g2.fillRoundRect(1, 1, c.getWidth() - 2, c.getHeight() - 2, 
+            g2.fillRoundRect(1, 1, c.getWidth() - 2, c.getHeight() - 2,
                     CORNER_RADIUS - 1, CORNER_RADIUS - 1);
-            
+
             super.paint(g, c);
         }
     }
 
     // Renderer with rounded corners for dropdown items
     private static class CustomComboBoxRenderer extends JLabel implements ListCellRenderer<Object> {
+
         public CustomComboBoxRenderer() {
             setOpaque(true);
             setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -148,7 +170,7 @@ public class CustomComboBox<T> extends JComboBox<T> {
 
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value,
-                                                     int index, boolean isSelected, boolean cellHasFocus) {
+                int index, boolean isSelected, boolean cellHasFocus) {
             setText(value != null ? value.toString() : "");
 
             if (isSelected) {

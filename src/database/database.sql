@@ -125,7 +125,7 @@ CREATE TABLE ChiTietHanhKhach (
     soThuTu INT,
     hoTen VARCHAR(100),
     ngaySinh DATE,
-    loaiHanhKhach ENUM('NguoiLon', 'TreEm', 'TreSoSinh'),
+    loaiHanhKhach ENUM('NguoiLon', 'TreEm', 'NguoiGia', 'TreSoSinh'),
     soGiayTo VARCHAR(50),
     laNguoiDat BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (maDat, soThuTu),

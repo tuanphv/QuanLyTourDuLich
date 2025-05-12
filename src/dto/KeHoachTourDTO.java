@@ -2,7 +2,7 @@ package dto;
 
 import enums.TrangThaiKeHoachTour;
 import java.time.LocalDate;
-import utils.FormatDate;
+import utils.DateUtils;
 import utils.TextUtils;
 
 public class KeHoachTourDTO {
@@ -120,8 +120,8 @@ public class KeHoachTourDTO {
         return new Object[]{
             maKHTour, 
             maTour, 
-            FormatDate.toString(thoiGianBD), 
-            FormatDate.toString(thoiGianKT), 
+            DateUtils.toString(thoiGianBD), 
+            DateUtils.toString(thoiGianKT), 
             slDaDat, 
             slToiDa, 
             trangThai.getMoTa(), 

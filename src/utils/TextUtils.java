@@ -1,6 +1,7 @@
 package utils;
 
 import java.text.DecimalFormat;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -9,6 +10,16 @@ import java.util.regex.Pattern;
 public class TextUtils {
     public static String formatCurrency(float amount) {
         return new DecimalFormat("#,###").format(amount);
+    }
+    
+    public static String removeDiacritics(String input) {
+        if (input == null) {
+            return null;
+        }
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                .replaceAll("đ", "d")
+                .replaceAll("Đ", "D");
     }
     
     /**

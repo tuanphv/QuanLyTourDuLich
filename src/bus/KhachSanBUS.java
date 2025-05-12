@@ -79,4 +79,26 @@ public class KhachSanBUS {
         }
         return null;
     }
+
+    public ArrayList<KhachSanDTO> getKhachSanByDiaChi(String diaChi) {
+        ArrayList<KhachSanDTO> listKhachSan = new ArrayList<>();
+        for (KhachSanDTO khachSan : listHotel) {
+            if (khachSan.getDiaChi().toLowerCase().contains(diaChi.toLowerCase())) {
+                listKhachSan.add(khachSan);
+            }
+        }
+        return listKhachSan;
+    }
+
+    public ArrayList<KhachSanDTO> getKhachSanByChiPhi(int chiPhi) {
+        ArrayList<KhachSanDTO> listKhachSan = new ArrayList<>();
+        for (KhachSanDTO khachSan : listHotel) {
+            if (khachSan.getGia() <= chiPhi) {
+                listKhachSan.add(khachSan);
+            }
+        }
+        return listKhachSan;
+    }
+
 }
+

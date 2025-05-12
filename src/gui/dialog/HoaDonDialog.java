@@ -9,7 +9,7 @@ import dto.DatTourDTO;
 import enums.TrangThaiHoaDon;
 import java.time.LocalDateTime;
 import javax.swing.DefaultComboBoxModel;
-import utils.FormatDate;
+import utils.DateUtils;
 
 public class HoaDonDialog extends javax.swing.JDialog {
 
@@ -25,7 +25,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
         // Thêm vào phương thức constructor hoặc initComponents
         initComponents();
         setLocationRelativeTo(parent);
-        txtNgayLap.setText(FormatDate.toString(LocalDateTime.now(), "HH:mm dd/MM/yyyy"));
+        txtNgayLap.setText(DateUtils.toString(LocalDateTime.now(), "HH:mm dd/MM/yyyy"));
         cbHinhThucThanhToan.setModel(new DefaultComboBoxModel<>(new String[]{"Tien Mat", "Chuyen Khoan", "The Tin Dung"}));
         cbTranhThai.setModel(new DefaultComboBoxModel<>(new Object[]{TrangThaiHoaDon.CHO_XAC_NHAN, TrangThaiHoaDon.DA_THANH_TOAN}));
     }
@@ -288,7 +288,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
     public void loadData(HoaDonDTO hoaDon) {
         txtMaDatTour.setText(String.valueOf(hoaDon.getMaDat()));
         txtMaNV.setText(String.valueOf(hoaDon.getMaNV()));
-        txtNgayLap.setText(FormatDate.toString(hoaDon.getNgayLap(), "HH:mm dd/MM/yyyy"));
+        txtNgayLap.setText(DateUtils.toString(hoaDon.getNgayLap(), "HH:mm dd/MM/yyyy"));
         txtTongTien.setText(String.valueOf(hoaDon.getTongTien()));
         cbHinhThucThanhToan.setSelectedItem(hoaDon.getHinhThucThanhToan());
         cbTranhThai.setSelectedItem(hoaDon.getTrangThai());
@@ -306,7 +306,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
         hoaDon.setMaNV(Integer.parseInt(txtMaNV.getText()));
         hoaDon.setTongTien(Float.parseFloat(txtTongTien.getText()));
         hoaDon.setHinhThucThanhToan((String) cbHinhThucThanhToan.getSelectedItem());
-        hoaDon.setNgayLap(FormatDate.toDateTime(txtNgayLap.getText(), "HH:mm dd/MM/yyyy"));
+        hoaDon.setNgayLap(DateUtils.toDateTime(txtNgayLap.getText(), "HH:mm dd/MM/yyyy"));
         hoaDon.setTrangThai((TrangThaiHoaDon) cbTranhThai.getSelectedItem());
         System.out.println(hoaDon);
         return hoaDon;

@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import config.DatabaseConnection;
 import enums.TrangThaiTour;
+import java.sql.Date;
+import java.time.LocalDate;
+import utils.TextUtils;
 
 public class TourDAO {
 
@@ -100,6 +103,30 @@ public class TourDAO {
     
     public static void main(String[] args) {
         new TourDAO().getAllTours();
+    }
+    
+    public ArrayList<Object[]> thongKeTour(LocalDate startDate, LocalDate endDate) {
+        ArrayList<Object[]> result = new ArrayList<>();
+        String query = "SELECT t.maTour, t.tenTour, sum(dt.soLuong) as soLuongVe, sum(dt.tongTien) as doanhThu "
+                + "FROM Tour AS t "
+                + "JOIN KeHoachTour AS kht ON kht.maTour = t.maTour "
+                + "JOIN DatTour AS dt ON dt.maKHTour = kht.maKeHoachTour "
+                + "WHERE dt.ngayDat BETWEEN ? AND ? AND dt.trangThai != 'DaHuy' "
+                + "GROUP BY t.maTour "
+                + "ORDER BY doanhThu DESC";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setDate(1, Date.valueOf(startDate));
+            pstmt.setDate(2, Date.valueOf(endDate));
+            ResultSet rs = pstmt.executeQuery();
+            int i = 1;
+            while (rs.next()) {
+                Object[] row = new Object[] {i++, rs.getInt("maTour"), rs.getString("tenTour"), rs.getInt("soLuongVe"), TextUtils.formatCurrency(rs.getFloat("doanhThu"))};
+                result.add(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

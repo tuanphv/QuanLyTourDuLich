@@ -1,7 +1,14 @@
 package gui.components;
 
 import interfaces.SearchHandler;
+
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 public class MyToolBar extends javax.swing.JPanel {
 
@@ -12,6 +19,9 @@ public class MyToolBar extends javax.swing.JPanel {
      */
     public MyToolBar() {
         initComponents();
+
+        txtSearch.setSelectionColor(new Color(30, 144, 255));
+        txtSearch.setSelectedTextColor(Color.WHITE);
     }
 
     /**
@@ -51,8 +61,12 @@ public class MyToolBar extends javax.swing.JPanel {
         btnXuatExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/export.png"))); // NOI18N
         btnXuatExcel.setText("XUẤT EXCEL");
 
-        txtSearch.setHighlighter(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(64, 36));
+        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtSearchMousePressed(evt);
+            }
+        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSearchKeyPressed(evt);
@@ -141,9 +155,9 @@ public class MyToolBar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             doSearch();
-        }
+        } 
     }//GEN-LAST:event_txtSearchKeyPressed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -153,6 +167,10 @@ public class MyToolBar extends javax.swing.JPanel {
     private void btnReFreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReFreshActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReFreshActionPerformed
+
+    private void txtSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMousePressed
+        txtSearch.selectAll();
+    }//GEN-LAST:event_txtSearchMousePressed
 
     private void doSearch() {
         String text = txtSearch.getText().trim();

@@ -7,7 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import bus.TourBUS;
 import enums.TrangThaiKeHoachTour;
-import utils.FormatDate;
+import utils.DateUtils;
 
 public class KeHoachTourDialog extends javax.swing.JDialog {
 
@@ -254,7 +254,7 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
     public void loadData(KeHoachTourDTO khTour) {
         TourDTO tour = new TourBUS().getTourById(khTour.getMaTour());
         cbMaTour.setSelectedItem(tour.getMaTour() + " - " + tour.getTenTour());
-        jdcThoiGianBD.setDate(FormatDate.localDateToDate(khTour.getThoiGianBD()));
+        jdcThoiGianBD.setDate(DateUtils.localDateToDate(khTour.getThoiGianBD()));
         txtDaDat.setText(String.valueOf(khTour.getSlDaDat()));
         txtToiDa.setText(String.valueOf(khTour.getSlToiDa()));
         cbTrangThai.setSelectedItem(khTour.getTrangThai());
@@ -298,7 +298,7 @@ public class KeHoachTourDialog extends javax.swing.JDialog {
         KeHoachTourDTO khTour = new KeHoachTourDTO();
         String maTourText = cbMaTour.getSelectedItem().toString().split(" - ")[0].trim();
         khTour.setMaTour(Integer.parseInt(maTourText));
-        khTour.setThoiGianBD(FormatDate.dateToLocalDate(jdcThoiGianBD.getDate()));
+        khTour.setThoiGianBD(DateUtils.dateToLocalDate(jdcThoiGianBD.getDate()));
         khTour.setTrangThai((TrangThaiKeHoachTour)cbTrangThai.getSelectedItem());
         khTour.setSlDaDat(Integer.parseInt(txtDaDat.getText()));
         khTour.setSlToiDa(Integer.parseInt(txtToiDa.getText()));

@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Statement;
+import java.sql.Date;
+import utils.DateUtils;
 
 public class HoaDonDAO {
 
@@ -85,4 +87,10 @@ public class HoaDonDAO {
             return false;
         }
     }
+    
+//    public float[] thongKeDoanhThuTheoNam(int year) {
+//        Date start = Date.valueOf(DateUtils.getStartOfYear(year));
+//        Date end = Date.valueOf(DateUtils.getEndOfYear(year));
+//        
+//    }
 }

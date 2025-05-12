@@ -3,21 +3,24 @@ package utils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
- * Lớp tiện ích để xử lý và chuyển đổi định dạng ngày tháng sử dụng LocalDateTime
+ * Lớp tiện ích để xử lý và chuyển đổi định dạng ngày tháng sử dụng
+ * LocalDateTime
  */
-public class FormatDate {
+public class DateUtils {
 
     // Định dạng mặc định
     private static final String DEFAULT_PATTERN = "yyyy-MM-dd";
 
     /**
      * Chuyển LocalDate thành String theo định dạng mặc định
+     *
      * @param date Thời gian cần chuyển đổi
      * @return Chuỗi ngày tháng hoặc chuỗi rỗng nếu date là null
      */
@@ -27,6 +30,7 @@ public class FormatDate {
 
     /**
      * Chuyển LocalDateTime thành String theo định dạng tùy chỉnh
+     *
      * @param dateTime Thời gian cần chuyển đổi
      * @param pattern Mẫu định dạng (VD: "dd/MM/yyyy", "yyyy-MM-dd HH:mm:ss")
      * @return Chuỗi ngày tháng hoặc chuỗi rỗng nếu dateTime là null
@@ -44,9 +48,10 @@ public class FormatDate {
             return "";
         }
     }
-    
+
     /**
      * Chuyển LocalDate thành String theo định dạng tùy chỉnh
+     *
      * @param date Ngày cần chuyển đổi
      * @param pattern Mẫu định dạng (VD: "dd/MM/yyyy", "yyyy-MM-dd")
      * @return Chuỗi ngày tháng hoặc chuỗi rỗng nếu date là null
@@ -67,6 +72,7 @@ public class FormatDate {
 
     /**
      * Chuyển String thành LocalDateTime theo định dạng mặc định
+     *
      * @param dateTimeStr Chuỗi ngày tháng cần chuyển đổi
      * @return LocalDateTime hoặc null nếu không thể chuyển đổi
      */
@@ -76,6 +82,7 @@ public class FormatDate {
 
     /**
      * Chuyển String thành LocalDateTime theo định dạng tùy chỉnh
+     *
      * @param dateTimeStr Chuỗi ngày tháng cần chuyển đổi
      * @param pattern Mẫu định dạng (VD: "dd/MM/yyyy", "yyyy-MM-dd HH:mm:ss")
      * @return LocalDateTime hoặc null nếu không thể chuyển đổi
@@ -87,7 +94,7 @@ public class FormatDate {
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-            
+
             // Nếu pattern chỉ có phần ngày, thêm phần thời gian 00:00
             if (!pattern.contains("H") && !pattern.contains("h")) {
                 return LocalDate.parse(dateTimeStr, formatter).atStartOfDay();
@@ -99,18 +106,20 @@ public class FormatDate {
             return null;
         }
     }
-    
+
     /**
      * Chuyển String thành LocalDate theo định dạng mặc định
-     * @param dateStr Chuỗi ngày cần chuyển đổi 
+     *
+     * @param dateStr Chuỗi ngày cần chuyển đổi
      * @return LocalDate hoặc null nếu không thể chuyển đổi
      */
     public static LocalDate toDate(String dateStr) {
         return toDate(dateStr, DEFAULT_PATTERN);
     }
-    
+
     /**
      * Chuyển String thành LocalDate theo định dạng tùy chỉnh
+     *
      * @param dateStr Chuỗi ngày cần chuyển đổi
      * @param pattern Mẫu định dạng (VD: "dd/MM/yyyy", "yyyy-MM-dd")
      * @return LocalDate hoặc null nếu không thể chuyển đổi
@@ -131,6 +140,7 @@ public class FormatDate {
 
     /**
      * Cắt bỏ phần thời gian, chỉ giữ lại phần ngày
+     *
      * @param dateTime Thời gian cần xử lý
      * @return LocalDate chỉ chứa phần ngày
      */
@@ -143,6 +153,7 @@ public class FormatDate {
 
     /**
      * Đặt giờ, phút, giây cho một LocalDateTime
+     *
      * @param dateTime Thời gian gốc
      * @param hour Giờ (0-23)
      * @param minute Phút (0-59)
@@ -155,9 +166,10 @@ public class FormatDate {
         }
         return dateTime.withHour(hour).withMinute(minute).withSecond(second).withNano(0);
     }
-    
+
     /**
      * Đặt giờ, phút, giây cho một LocalDate
+     *
      * @param date Ngày gốc
      * @param hour Giờ (0-23)
      * @param minute Phút (0-59)
@@ -173,6 +185,7 @@ public class FormatDate {
 
     /**
      * Lấy thời điểm bắt đầu của ngày (00:00:00)
+     *
      * @param dateTime Thời gian bất kỳ
      * @return LocalDateTime với thời gian 00:00:00
      */
@@ -182,9 +195,10 @@ public class FormatDate {
         }
         return dateTime.toLocalDate().atStartOfDay();
     }
-    
+
     /**
      * Lấy thời điểm cuối ngày (23:59:59)
+     *
      * @param dateTime Thời gian bất kỳ
      * @return LocalDateTime với thời gian 23:59:59.999999999
      */
@@ -194,9 +208,10 @@ public class FormatDate {
         }
         return dateTime.toLocalDate().atTime(LocalTime.MAX);
     }
-    
+
     /**
      * Lấy ngày đầu tiên của tháng
+     *
      * @param dateTime Thời gian bất kỳ
      * @return LocalDateTime đầu tiên của tháng
      */
@@ -206,9 +221,10 @@ public class FormatDate {
         }
         return dateTime.withDayOfMonth(1).toLocalDate().atStartOfDay();
     }
-    
+
     /**
      * Lấy ngày cuối cùng của tháng
+     *
      * @param dateTime Thời gian bất kỳ
      * @return LocalDateTime cuối cùng của tháng
      */
@@ -219,11 +235,11 @@ public class FormatDate {
         return dateTime.toLocalDate().withDayOfMonth(
                 dateTime.toLocalDate().lengthOfMonth()).atTime(LocalTime.MAX);
     }
-    
+
     // Các phương thức tiện ích chuyển đổi giữa Date cũ và LocalDateTime
-    
     /**
      * Chuyển Date thành LocalDateTime
+     *
      * @param date Date cần chuyển đổi
      * @return LocalDateTime tương ứng
      */
@@ -236,6 +252,7 @@ public class FormatDate {
 
     /**
      * Chuyển Date thành LocalDateTime
+     *
      * @param date Date cần chuyển đổi
      * @return LocalDate tương ứng
      */
@@ -245,9 +262,10 @@ public class FormatDate {
         }
         return dateToLocalDateTime(date).toLocalDate();
     }
-    
+
     /**
      * Chuyển LocalDateTime thành Date
+     *
      * @param dateTime LocalDateTime cần chuyển đổi
      * @return Date tương ứng
      */
@@ -257,9 +275,10 @@ public class FormatDate {
         }
         return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
-    
+
     /**
      * Chuyển LocalDate thành Date
+     *
      * @param date LocalDate cần chuyển đổi
      * @return Date tương ứng (thời gian sẽ là 00:00:00)
      */
@@ -268,5 +287,21 @@ public class FormatDate {
             return null;
         }
         return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static LocalDate getStartOfYear(int year) {
+        return LocalDate.of(year, 1, 1);
+    }
+
+    public static LocalDate getEndOfYear(int year) {
+        return LocalDate.of(year, 12, 31);
+    }
+
+    public static LocalDate getStartOfMonth(int year, int month) {
+        return YearMonth.of(year, month).atDay(1);
+    }
+
+    public static LocalDate getEndOfMonth(int year, int month) {
+        return YearMonth.of(year, month).atEndOfMonth();
     }
 }

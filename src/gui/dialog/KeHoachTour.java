@@ -50,7 +50,7 @@ import gui.form.KeHoachTourForm;
 import java.lang.reflect.Array;
 import javax.swing.JLabel;
 import org.w3c.dom.Text;
-import utils.FormatDate;
+import utils.DateUtils;
 import utils.TextUtils;
 
 public class KeHoachTour extends javax.swing.JDialog {
@@ -554,8 +554,8 @@ public class KeHoachTour extends javax.swing.JDialog {
     
     public void updateKeHoachTour() {
         // keHoachTourDTO.setMaTour(Integer.parseInt(cbTour.getSelectedItem().toString().split(" - ")[0].trim()));
-        keHoachTourDTO.setThoiGianBD(FormatDate.dateToLocalDate(dateStart.getDate()));
-        keHoachTourDTO.setThoiGianKT(FormatDate.dateToLocalDate(dateStart.getDate()));
+        keHoachTourDTO.setThoiGianBD(DateUtils.dateToLocalDate(dateStart.getDate()));
+        keHoachTourDTO.setThoiGianKT(DateUtils.dateToLocalDate(dateStart.getDate()));
         // keHoachTourDTO.setSlDaDat(Integer.parseInt(tfSoLuongDaDat.getText().trim()));
         keHoachTourDTO.setSlToiDa(Integer.parseInt(tfSoLuongToiDa.getText().trim()));
         keHoachTourDTO.setTongChiPhi(Float.parseFloat(tfTongChiPhi.getText().trim()));

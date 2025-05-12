@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ChiTietHanhKhachDAO {
 
@@ -51,6 +52,24 @@ public class ChiTietHanhKhachDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public ArrayList<Object[]> thongKeLoaiHanhKhach() {
+        ArrayList<Object[]> data = new ArrayList<>();
+        String query = "SELECT ct.loaiHanhKhach, COUNT(ct.maDat) AS soLuong "
+                + "FROM ChiTietHanhKhach AS ct "
+                + "GROUP BY ct.loaiHanhKhach "
+                + "ORDER BY soLuong";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Object[] row = new Object[]{LoaiHanhKhach.fromValue(rs.getString(1)), rs.getInt(2)};
+                data.add(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
     
     public static void main(String[] args) {

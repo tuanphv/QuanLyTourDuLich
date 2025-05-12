@@ -9,7 +9,7 @@ import enums.LoaiHanhKhach;
 import java.time.LocalDate;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import utils.FormatDate;
+import utils.DateUtils;
 
 /**
  *
@@ -31,7 +31,7 @@ public class ChiTietHanhKhachPanel extends javax.swing.JPanel {
     public ChiTietHanhKhachDTO getInput() {
         ChiTietHanhKhachDTO dto = new ChiTietHanhKhachDTO();
         dto.setHoTen(txtHoTen.getText());
-        dto.setNgaySinh(FormatDate.dateToLocalDate(chonNgaySinh.getDate()));
+        dto.setNgaySinh(DateUtils.dateToLocalDate(chonNgaySinh.getDate()));
         dto.setLoaiHanhKhach((LoaiHanhKhach) cbLoaiHanhKhach.getSelectedItem());
         dto.setSoGiayTo(txtSoGiayTo.getText());
         dto.setLaNguoiDat(cbNguoiDat.isSelected());
