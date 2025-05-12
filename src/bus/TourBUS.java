@@ -1,7 +1,7 @@
 package bus;
 
-import dto.TourDTO;
 import dao.TourDAO;
+import dto.TourDTO;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -109,4 +109,6 @@ public class TourBUS {
     public ArrayList<TourDTO> getDsTour() {
         return dsTour;
     }
+
 }
+

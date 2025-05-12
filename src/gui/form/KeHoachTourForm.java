@@ -1,7 +1,10 @@
 package gui.form;
 
-import dto.KeHoachTourDTO;
 import bus.KeHoachTourBUS;
+import dto.KeHoachTourDTO;
+import gui.components.MyScrollBarUI;
+import gui.dialog.KeHoachTour;
+import interfaces.SearchHandler;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -12,10 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import gui.components.MyScrollBarUI;
-import gui.dialog.KeHoachTour;
-import gui.dialog.KeHoachTourDialog;
-import interfaces.SearchHandler;
 
 public class KeHoachTourForm extends javax.swing.JPanel {
 
@@ -41,20 +40,20 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         } else {
             System.out.println("DiaDanhForm đang chạy ở design time mode");
         }
-        myToolBar1.setSearchType(new String[]{"Mã tour", "Số lượng tối đa"});
+        myToolBar1.setSearchType(new String[]{"Mã tour", "Tên tour", "Số lượng tối đa"});
         myToolBar1.setSearchHandler(new SearchHandler() {
             @Override
             public void onSearch(String type, String text) {
                 ArrayList<KeHoachTourDTO> khTours;
-                KeHoachTourBUS bus = new KeHoachTourBUS();
+                KeHoachTourBUS keHoachTourBUS = new KeHoachTourBUS();
                 switch (type) {
-                    case "Mã tour" -> khTours = bus.getKeHoachTourByMaTour(text);
-                    case "Số lượng tối đa" -> khTours = bus.getKeHoachTourBySLToiDa(text);
+                    case "Mã tour" -> khTours = keHoachTourBUS.getKeHoachTourByMaTour(text);
+                    case "Tên tour" -> khTours = keHoachTourBUS.getKeHoachTourByNameTour(text);
+                    case "Số lượng tối đa" -> khTours = keHoachTourBUS.getKeHoachTourBySLToiDa(text);
                     default -> throw new AssertionError();
                 }
                 loadDataToTable(khTours);
             }
-            
         });
     }
 
