@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import utils.FormatDate;
+import utils.DateUtils;
 
 public class KeHoachTourDAO {
 
@@ -22,8 +22,8 @@ public class KeHoachTourDAO {
                 dsKeHoachTour.add(new KeHoachTourDTO(
                         rs.getInt("maKeHoachTour"),
                         rs.getInt("maTour"),
-                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
-                        FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
+                        DateUtils.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
+                        DateUtils.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
                         rs.getInt("slDaDat"),
                         rs.getInt("slToiDa"),
                         rs.getFloat("tongChiPhi"),
@@ -102,8 +102,8 @@ public class KeHoachTourDAO {
             return new KeHoachTourDTO(
                     rs.getInt("maKHTour"),
                     rs.getInt("maTour"),
-                    FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
-                    FormatDate.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
+                    DateUtils.dateToLocalDate(new java.util.Date(rs.getDate("thoigianBD").getTime())),
+                    DateUtils.dateToLocalDate(new java.util.Date(rs.getDate("thoigianKT").getTime())),
                     rs.getInt("slDaDat"),
                     rs.getInt("slToiDa"),
                     rs.getFloat("tongChiPhi"),

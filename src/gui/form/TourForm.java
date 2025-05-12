@@ -29,7 +29,7 @@ public class TourForm extends javax.swing.JPanel {
         DefaultTableModel model = new DefaultTableModel(TourDTO.TOUR_COLUMN_NAMES, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column != 0;
+                return false;
             }
         };
         table.setModel(model);

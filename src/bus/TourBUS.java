@@ -2,27 +2,29 @@ package bus;
 
 import dto.TourDTO;
 import dao.TourDAO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import utils.TextUtils;
 
 public class TourBUS {
 
     private static ArrayList<TourDTO> dsTour;
+    private TourDAO dao;
 
     public TourBUS() {
+        dao = new TourDAO();
         dsTour = new ArrayList<>();
         loadData(); // tải dữ liệu ban đầu khi khởi tạo BUS
     }
 
     // Hàm loadData: lấy danh sách tour từ cơ sở dữ liệu thông qua DAO
     private void loadData() {
-        TourDAO dao = new TourDAO();
         dsTour = dao.getAllTours();
     }
 
     // Hàm thêm Tour
     public int addTour(TourDTO tour) {
-        TourDAO dao = new TourDAO();
         int index = dao.addTour(tour);
         if (index != -1) {
             // Thêm vào dsTour nếu thao tác INSERT thành công.
@@ -37,7 +39,6 @@ public class TourBUS {
      * @return index of element to be updated
      */
     public int updateTour(TourDTO tour) {
-        TourDAO dao = new TourDAO();
         boolean success = dao.updateTour(tour);
         if (success) {
             // Cập nhật trong dsTour
@@ -53,7 +54,6 @@ public class TourBUS {
 
     // Hàm xóa Tour theo mã tour
     public boolean deleteTour(int maTour) {
-        TourDAO dao = new TourDAO();
         boolean success = dao.deleteTour(maTour);
         if (success) {
             // Xóa khỏi dsTour bằng cách sử dụng Iterator
@@ -81,7 +81,7 @@ public class TourBUS {
     public ArrayList<TourDTO> timTheoTen(String text) {
         ArrayList<TourDTO> result = new ArrayList<>();
         for (TourDTO tour : dsTour) {
-            if (tour.getTenTour().toLowerCase().contains(text.toLowerCase()))
+            if (TextUtils.removeDiacritics(tour.getTenTour()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase()))
                 result.add(tour);
         }
         return result;
@@ -90,7 +90,7 @@ public class TourBUS {
     public ArrayList<TourDTO> timTheoDiemDen(String text) {
         ArrayList<TourDTO> result = new ArrayList<>();
         for (TourDTO tour : dsTour) {
-            if (tour.getDiemDen().toLowerCase().contains(text.toLowerCase()))
+            if (TextUtils.removeDiacritics(tour.getDiemDen()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase()))
                 result.add(tour);
         }
         return result;
@@ -99,10 +99,14 @@ public class TourBUS {
     public ArrayList<TourDTO> timTheoDiemKhoiHanh(String text) {
         ArrayList<TourDTO> result = new ArrayList<>();
         for (TourDTO tour : dsTour) {
-            if (tour.getDiemKhoiHanh().toLowerCase().contains(text.toLowerCase()))
+            if (TextUtils.removeDiacritics(tour.getDiemKhoiHanh()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase()))
                 result.add(tour);
         }
         return result;
+    }
+    
+    public ArrayList<Object[]> thongKeTour(LocalDate startDate, LocalDate endDate) {
+        return dao.thongKeTour(startDate, endDate);
     }
     
     // Getter cho danh sách tours (nếu cần truy cập từ bên ngoài)

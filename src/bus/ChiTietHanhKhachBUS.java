@@ -26,4 +26,8 @@ public class ChiTietHanhKhachBUS {
         }
         return success;
     }
+    
+    public ArrayList<Object[]> thongKeLoaiHanhKhach() {
+        return dao.thongKeLoaiHanhKhach();
+    }
 }

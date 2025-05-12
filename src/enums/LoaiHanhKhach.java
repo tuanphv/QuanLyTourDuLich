@@ -2,6 +2,7 @@
 package enums;
 public enum LoaiHanhKhach {
     NGUOI_LON("NguoiLon", "Người lớn", 1.0f),
+    NGUOI_GIA("NguoiGia", "Người già", 0.8f),
     TRE_EM("TreEm", "Trẻ em", 0.5f),
     TRE_SO_SINH("TreSoSinh", "Trẻ sơ sinh", 0f);
 

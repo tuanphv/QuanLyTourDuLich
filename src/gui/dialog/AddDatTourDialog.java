@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
-import utils.FormatDate;
+import utils.DateUtils;
 
 public class AddDatTourDialog extends javax.swing.JDialog {
 
@@ -30,7 +30,7 @@ public class AddDatTourDialog extends javax.swing.JDialog {
         cardNames.add("cardNhapThongTin");
         spSoLuong.setModel(new SpinnerNumberModel(1, 1, 50, 1));
         btnBack.setVisible(false);
-        txtNgayDat.setText(FormatDate.toString(LocalDate.now(), "dd/MM/yyyy"));
+        txtNgayDat.setText(DateUtils.toString(LocalDate.now(), "dd/MM/yyyy"));
     }
 
     /**

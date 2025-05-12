@@ -41,7 +41,7 @@ import dto.NhaHangDTO;
 import dto.PhuongTienDTO;
 import dto.TourDTO;
 import enums.TrangThaiKeHoachTour;
-import utils.FormatDate;
+import utils.DateUtils;
 
 public class KeHoachTour extends javax.swing.JDialog {
     private boolean  save;

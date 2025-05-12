@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import dao.HoaDonDAO;
 import dto.HoaDonDTO;
-import enums.TrangThaiHoaDon;
+import java.time.LocalDate;
+import utils.DateUtils;
 
 public class HoaDonBUS {
     private static ArrayList<HoaDonDTO> dsHoaDon;
@@ -84,5 +85,18 @@ public class HoaDonBUS {
             }
         }
         return null;
+    }
+    
+    public float[] thongKeDoanhThuTheoNam(int year) {
+        LocalDate start = DateUtils.getStartOfYear(year);
+        LocalDate end = DateUtils.getEndOfYear(year);
+        float[] data = new float[12];
+        for (HoaDonDTO hoaDon:dsHoaDon) {
+            LocalDate date = hoaDon.getNgayLap().toLocalDate();
+            if (date.isAfter(start) && date.isBefore(end)) {
+                data[date.getMonthValue()-1] += hoaDon.getTongTien();
+            }
+        }
+        return data;
     }
 }

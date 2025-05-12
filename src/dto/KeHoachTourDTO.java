@@ -2,7 +2,7 @@ package dto;
 
 import enums.TrangThaiKeHoachTour;
 import java.time.LocalDate;
-import utils.FormatDate;
+import utils.DateUtils;
 import utils.TextUtils;
 
 public class KeHoachTourDTO {
@@ -111,6 +111,6 @@ public class KeHoachTourDTO {
     public static String[] KH_TOUR_COLUMN_NAMES = {"Mã KH tour", "Mã tour", "TG bắt đầu", "TG kết thúc","Đã đặt", "Tối đa", "Trạng thái", "Tổng chi phí"};
 
     public Object[] toObjectArray() {
-        return new Object[]{maKHTour, maTour, FormatDate.toString(thoiGianBD), FormatDate.toString(thoiGianKT), slDaDat, slToiDa, trangThai.getMoTa(), TextUtils.formatCurrency(tongChiPhi)};
+        return new Object[]{maKHTour, maTour, DateUtils.toString(thoiGianBD), DateUtils.toString(thoiGianKT), slDaDat, slToiDa, trangThai.getMoTa(), TextUtils.formatCurrency(tongChiPhi)};
     }
 }

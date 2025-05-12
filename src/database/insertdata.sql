@@ -121,129 +121,285 @@ VALUES
 ('Thác Datanla', 'Lâm Đồng', 'Thác nước đẹp nằm giữa rừng thông, có trò chơi mạo hiểm'),
 ('Bãi biển Mỹ Khê', 'Đà Nẵng', 'Một trong những bãi biển đẹp nhất hành tinh theo Forbes');
 
+-- Đặt Tour (40 mẫu)
 INSERT INTO DatTour (maKHTour, maKH, ngayDat, soLuong, tongTien, trangThai) VALUES
-(1, 1, '2025-05-01', 3, 5000000, 'DaThanhToan'),
-(2, 2, '2025-05-02', 2, 4500000, 'ChoThanhToan'),
-(3, 3, '2025-05-03', 4, 10000000, 'DaThanhToan'),
-(4, 4, '2025-05-04', 1, 5000000, 'DaHuy'),
-(5, 5, '2025-05-05', 2, 3750000, 'DaThanhToan'),
-(6, 6, '2025-05-06', 3, 4050000, 'ChoThanhToan'),
-(7, 7, '2025-05-07', 5, 5400000, 'DaThanhToan'),
-(8, 8, '2025-05-08', 2, 2400000, 'DaThanhToan'),
-(9, 9, '2025-05-09', 4, 7250000, 'ChoThanhToan'),
-(10, 10, '2025-05-10', 4, 7500000, 'DaThanhToan');
+(1, 1, '2024-01-15', 1, 1500000, 'DaThanhToan'),
+(2, 2, '2024-02-10', 1, 1200000, 'DaThanhToan'),
+(3, 3, '2024-03-05', 3, 4500000, 'ChoThanhToan'),
+(4, 4, '2024-04-25', 2, 2500000, 'DaThanhToan'),
+(5, 5, '2024-05-18', 1, 1100000, 'ChoThanhToan'),
+(6, 6, '2024-06-10', 1, 1800000, 'DaThanhToan'),
+(7, 7, '2024-07-20', 2, 2100000, 'DaHuy'),
+(8, 8, '2024-08-12', 1, 2000000, 'ChoThanhToan'),
+(9, 9, '2024-09-15', 1, 1600000, 'DaThanhToan'),
+(10, 10, '2024-10-05', 1, 1300000, 'DaThanhToan'),
+(11, 11, '2024-11-11', 2, 2400000, 'ChoThanhToan'),
+(12, 12, '2024-12-01', 1, 1700000, 'DaThanhToan'),
+(13, 13, '2025-01-30', 1, 1400000, 'DaThanhToan'),
+(14, 14, '2025-02-22', 2, 2200000, 'ChoThanhToan'),
+(15, 15, '2025-03-10', 1, 1500000, 'DaThanhToan'),
+(16, 6, '2025-04-25', 1, 1300000, 'DaThanhToan'),
+(17, 7, '2025-05-17', 1, 1900000, 'DaHuy'),
+(18, 8, '2025-06-19', 1, 1100000, 'ChoThanhToan'),
+(19, 9, '2025-07-02', 2, 2600000, 'DaThanhToan'),
+(20, 10, '2025-08-14', 2, 2300000, 'DaThanhToan'),
+(1, 1, '2025-09-08', 1, 1500000, 'ChoThanhToan'),
+(2, 2, '2025-10-15', 1, 1600000, 'DaThanhToan'),
+(3, 3, '2025-11-03', 1, 1700000, 'DaThanhToan'),
+(4, 4, '2025-12-10', 1, 1800000, 'DaThanhToan'),
+(5, 5, '2024-02-28', 2, 2200000, 'DaHuy'),
+(6, 6, '2024-04-01', 2, 2000000, 'DaThanhToan'),
+(7, 7, '2024-06-30', 1, 1400000, 'ChoThanhToan'),
+(8, 8, '2024-08-05', 1, 1900000, 'DaThanhToan'),
+(9, 9, '2024-10-18', 2, 2500000, 'DaThanhToan'),
+(10, 10, '2024-11-07', 1, 1200000, 'DaThanhToan'),
+(11, 11, '2025-01-01', 1, 1300000, 'ChoThanhToan'),
+(12, 12, '2025-02-18', 1, 1600000, 'DaThanhToan'),
+(13, 13, '2025-03-11', 2, 2100000, 'DaThanhToan'),
+(14, 14, '2025-04-05', 1, 1800000, 'DaHuy'),
+(15, 15, '2025-05-21', 1, 1700000, 'DaThanhToan'),
+(16, 1, '2025-06-25', 1, 1400000, 'ChoThanhToan'),
+(17, 2, '2025-07-08', 2, 2400000, 'DaThanhToan'),
+(18, 3, '2025-08-19', 1, 1300000, 'DaThanhToan'),
+(19, 4, '2025-09-01', 1, 1100000, 'DaThanhToan'),
+(20, 5, '2025-10-12', 1, 1500000, 'DaThanhToan');
 
+
+-- Hóa Đơn (40 mẫu)
 INSERT INTO HoaDon (maDat, maNV, ngayLap, tongTien, hinhThucThanhToan, trangThai) VALUES
-(1, 1, '2025-05-01', 5000000, 'Chuyen Khoan', 'DaThanhToan'),
-(2, 2, '2025-05-02', 4500000, 'Tien Mat', 'ChoXacNhan'),
-(3, 3, '2025-05-03', 10000000, 'Chuyen Khoan', 'DaThanhToan'),
-(4, 4, '2025-05-04', 5000000, 'Tien Mat', 'Huy'),
-(5, 5, '2025-05-05', 3750000, 'Chuyen Khoan', 'DaThanhToan'),
-(6, 1, '2025-05-06', 4050000, 'The Tin Dung', 'ChoXacNhan'),
-(7, 2, '2025-05-07', 5400000, 'Chuyen Khoan', 'DaThanhToan'),
-(8, 3, '2025-05-08', 2400000, 'Tien Mat', 'DaThanhToan'),
-(9, 4, '2025-05-09', 7250000, 'Chuyen Khoan', 'ChoXacNhan'),
-(10, 5, '2025-05-10', 7500000, 'The Tin Dung', 'DaThanhToan');
+(1, 1, '2024-01-16', 1500000, 'Chuyển khoản', 'DaThanhToan'),
+(2, 2, '2024-02-11', 1200000, 'Tiền mặt', 'DaThanhToan'),
+(3, 3, '2024-03-06', 4500000, 'Chuyển khoản', 'ChoXacNhan'),
+(4, 4, '2024-04-26', 2500000, 'Tiền mặt', 'DaThanhToan'),
+(5, 5, '2024-05-19', 1100000, 'Chuyển khoản', 'ChoXacNhan'),
+(6, 1, '2024-06-11', 1800000, 'Tiền mặt', 'DaThanhToan'),
+(7, 2, '2024-07-21', 2100000, 'Chuyển khoản', 'Huy'),
+(8, 3, '2024-08-13', 2000000, 'Tiền mặt', 'ChoXacNhan'),
+(9, 4, '2024-09-16', 1600000, 'Chuyển khoản', 'DaThanhToan'),
+(10, 5, '2024-10-06', 1300000, 'Tiền mặt', 'DaThanhToan'),
+(11, 1, '2024-11-12', 2400000, 'Chuyển khoản', 'ChoXacNhan'),
+(12, 2, '2024-12-02', 1700000, 'Tiền mặt', 'DaThanhToan'),
+(13, 3, '2025-01-31', 1400000, 'Chuyển khoản', 'DaThanhToan'),
+(14, 4, '2025-02-23', 2200000, 'Tiền mặt', 'ChoXacNhan'),
+(15, 5, '2025-03-11', 1500000, 'Chuyển khoản', 'DaThanhToan'),
+(16, 1, '2025-04-26', 1300000, 'Tiền mặt', 'DaThanhToan'),
+(17, 2, '2025-05-18', 1900000, 'Chuyển khoản', 'Huy'),
+(18, 3, '2025-06-20', 1100000, 'Tiền mặt', 'ChoXacNhan'),
+(19, 4, '2025-07-03', 2600000, 'Chuyển khoản', 'DaThanhToan'),
+(20, 5, '2025-08-15', 2300000, 'Tiền mặt', 'DaThanhToan'),
+(21, 1, '2025-09-09', 1500000, 'Chuyển khoản', 'ChoXacNhan'),
+(22, 2, '2025-10-16', 1600000, 'Tiền mặt', 'DaThanhToan'),
+(23, 3, '2025-11-04', 1700000, 'Chuyển khoản', 'DaThanhToan'),
+(24, 4, '2025-12-11', 1800000, 'Tiền mặt', 'DaThanhToan'),
+(25, 5, '2024-03-01', 2200000, 'Chuyển khoản', 'Huy'),
+(26, 1, '2024-04-02', 2000000, 'Tiền mặt', 'DaThanhToan'),
+(27, 2, '2024-07-01', 1400000, 'Chuyển khoản', 'ChoXacNhan'),
+(28, 3, '2024-08-06', 1900000, 'Tiền mặt', 'DaThanhToan'),
+(29, 4, '2024-10-19', 2500000, 'Chuyển khoản', 'DaThanhToan'),
+(30, 5, '2024-11-08', 1200000, 'Tiền mặt', 'DaThanhToan'),
+(31, 1, '2025-01-02', 1300000, 'Chuyển khoản', 'ChoXacNhan'),
+(32, 2, '2025-02-19', 1600000, 'Tiền mặt', 'DaThanhToan'),
+(33, 3, '2025-03-12', 2100000, 'Chuyển khoản', 'DaThanhToan'),
+(34, 4, '2025-04-06', 1800000, 'Tiền mặt', 'Huy'),
+(35, 5, '2025-05-22', 1700000, 'Chuyển khoản', 'DaThanhToan'),
+(36, 1, '2025-06-26', 1400000, 'Tiền mặt', 'ChoXacNhan'),
+(37, 2, '2025-07-09', 2400000, 'Chuyển khoản', 'DaThanhToan'),
+(38, 3, '2025-08-20', 1300000, 'Tiền mặt', 'DaThanhToan'),
+(39, 4, '2025-09-02', 1100000, 'Chuyển khoản', 'DaThanhToan'),
+(40, 5, '2025-10-13', 1500000, 'Tiền mặt', 'DaThanhToan');
 
-INSERT INTO ChiTietHanhKhach (maDat, soThuTu, hoTen, ngaySinh, loaiHanhKhach, soGiayTo, laNguoiDat) VALUES 
--- Đơn 1: 3 khách
-(1, 1, 'Nguyen Van A', '1990-01-01', 'NguoiLon', 'CM001', TRUE),
-(1, 2, 'Tran Thi B', '1992-02-02', 'NguoiLon', 'CM002', FALSE),
-(1, 3, 'Nguyen C', '2015-03-03', 'TreEm', 'TE001', FALSE),
+-- Chi Tiết Hành Khách (40 mẫu)
+INSERT INTO ChiTietHanhKhach (maDat, soThuTu, hoTen, ngaySinh, loaiHanhKhach, soGiayTo, laNguoiDat) VALUES
+(1, 1, 'Nguyen Van A', '1990-05-12', 'NguoiLon', 'A123456789', TRUE),
 
--- Đơn 2: 2 khách
-(2, 1, 'Le Van D', '1985-04-04', 'NguoiLon', 'CM003', TRUE),
-(2, 2, 'Le Thi E', '2016-05-05', 'TreEm', 'TE002', FALSE),
+(2, 1, 'Tran Thi B', '1992-07-18', 'NguoiLon', 'B987654321', FALSE),
 
--- Đơn 3: 4 khách
-(3, 1, 'Pham Van F', '1978-06-06', 'NguoiLon', 'CM004', TRUE),
-(3, 2, 'Tran G', '1999-07-07', 'NguoiLon', 'CM005', FALSE),
-(3, 3, 'Be H', '2020-08-08', 'TreSoSinh', 'SS001', FALSE),
-(3, 4, 'Nguyen I', '2012-09-09', 'TreEm', 'TE003', FALSE),
+(3, 1, 'Pham Minh C', '2005-02-25', 'TreEm', 'C112233445', FALSE),
+(3, 2, 'Le Thi D', '1990-08-15', 'NguoiLon', 'D556677889', TRUE),
+(3, 3, 'Nguyen Hoang E', '1955-10-22', 'NguoiGia', 'E443322110', FALSE),
 
--- Đơn 4: 1 khách
-(4, 1, 'Doan J', '1990-10-10', 'NguoiLon', 'CM006', TRUE),
+(4, 1, 'Tran Lan F', '2002-11-03', 'TreEm', 'F223344556', FALSE),
+(4, 2, 'Pham Kim G', '1993-03-11', 'NguoiLon', 'G778899001', TRUE),
 
--- Đơn 5: 2 khách
-(5, 1, 'Ly K', '1981-11-11', 'NguoiLon', 'CM007', TRUE),
-(5, 2, 'Hoang L', '2010-12-12', 'TreEm', 'TE004', FALSE),
+(5, 1, 'Nguyen Thi H', '1988-05-09', 'NguoiLon', 'H889900112', TRUE),
 
--- Đơn 6: 3 khách
-(6, 1, 'Pham M', '1995-01-13', 'NguoiLon', 'CM008', TRUE),
-(6, 2, 'Nguyen N', '2014-02-14', 'TreEm', 'TE005', FALSE),
-(6, 3, 'Be O', '2023-03-15', 'TreSoSinh', 'SS002', FALSE),
+(6, 1, 'Tran Thi I', '1991-11-21', 'NguoiLon', 'I665544332', FALSE),
+(6, 2, 'Pham Minh J', '2000-04-10', 'TreEm', 'J554433221', TRUE),
 
--- Đơn 7: 5 khách
-(7, 1, 'Phan P', '1980-04-16', 'NguoiLon', 'CM009', TRUE),
-(7, 2, 'Tran Q', '2000-05-17', 'NguoiLon', 'CM010', FALSE),
-(7, 3, 'Nguyen R', '2015-06-18', 'TreEm', 'TE006', FALSE),
-(7, 4, 'Le S', '2019-07-19', 'TreEm', 'TE007', FALSE),
-(7, 5, 'Be T', '2022-08-20', 'TreSoSinh', 'SS003', FALSE),
+(7, 1, 'Le Hoang K', '1995-02-28', 'NguoiLon', 'K998877665', TRUE),
+(7, 2, 'Nguyen Thi L', '2003-07-25', 'TreEm', 'L443322110', FALSE),
 
--- Đơn 8: 2 khách
-(8, 1, 'Do U', '1993-09-21', 'NguoiLon', 'CM011', TRUE),
-(8, 2, 'Vo V', '2016-10-22', 'TreEm', 'TE008', FALSE),
+(8, 1, 'Pham Hoang M', '1997-03-06', 'NguoiLon', 'M223344556', TRUE),
+(8, 2, 'Le Minh N', '1961-09-17', 'NguoiGia', 'N776655443', TRUE),
 
--- Đơn 9: 4 khách
-(9, 1, 'Nguyen W', '1975-11-23', 'NguoiLon', 'CM012', TRUE),
-(9, 2, 'Nguyen X', '1988-12-24', 'NguoiLon', 'CM013', FALSE),
-(9, 3, 'Be Y', '2020-01-25', 'TreEm', 'TE009', FALSE),
-(9, 4, 'Be Z', '2024-02-26', 'TreSoSinh', 'SS004', FALSE),
+(9, 1, 'Nguyen Thi O', '1994-08-12', 'NguoiLon', 'O887766554', TRUE),
+(9, 2, 'Pham Minh P', '1998-12-04', 'NguoiLon', 'P998877665', FALSE),
 
--- Đơn 10: 4 khách
-(10, 1, 'Ho A1', '1984-03-27', 'NguoiLon', 'CM014', TRUE),
-(10, 2, 'Nguyen A2', '2006-04-28', 'NguoiLon', 'CM015', FALSE),
-(10, 3, 'Nguyen A3', '2013-05-29', 'TreEm', 'TE010', FALSE),
-(10, 4, 'Be A4', '2023-06-30', 'TreSoSinh', 'SS005', FALSE);
+(10, 1, 'Le Hoang Q', '2006-02-18', 'TreEm', 'Q223344556', TRUE),
+(10, 2, 'Nguyen Thi R', '2005-10-01', 'TreEm', 'R334455667', TRUE),
 
--- Vé tương ứng từng hành khách
+(11, 1, 'Nguyen Thi S', '1999-06-29', 'NguoiLon', 'S887766554', TRUE),
+(11, 2, 'Pham Thi T', '2002-03-09', 'TreEm', 'T667788990', TRUE),
+
+(12, 1, 'Le Thi U', '2004-01-22', 'TreSoSinh', 'U889900112', FALSE),
+
+(13, 1, 'Nguyen Thi V', '1992-05-10', 'NguoiLon', 'V776655443', TRUE),
+(13, 2, 'Pham Hoang W', '2000-02-28', 'NguoiLon', 'W998877665', FALSE),
+
+(14, 1, 'Le Minh X', '2003-04-15', 'TreEm', 'X223344556', TRUE),
+
+(15, 1, 'Nguyen Thi Y', '1990-11-03', 'NguoiLon', 'Y334455667', FALSE),
+
+(16, 1, 'Pham Thi Z', '2002-06-17', 'TreEm', 'Z667788990', TRUE),
+
+(17, 1, 'Nguyen Thi AA', '1997-05-11', 'NguoiLon', 'AA778899001', TRUE),
+
+(18, 1, 'Pham Hoang BB', '2000-09-28', 'NguoiLon', 'BB667788990', FALSE),
+
+(19, 1, 'Nguyen Minh CC', '2006-01-15', 'TreEm', 'CC223344556', TRUE),
+
+(20, 1, 'Le Thi DD', '2001-08-20', 'TreEm', 'DD334455667', TRUE),
+
+(21, 1, 'Nguyen Thi EE', '1995-03-10', 'NguoiLon', 'EE998877665', TRUE),
+
+(22, 1, 'Pham Minh FF', '1999-06-01', 'NguoiLon', 'FF223344556', FALSE),
+
+(23, 1, 'Le Thi GG', '1990-12-18', 'NguoiLon', 'GG667788990', TRUE),
+
+(24, 1, 'Nguyen Thi HH', '2000-05-25', 'TreEm', 'HH889900112', FALSE),
+(24, 2, 'Pham Minh II', '1993-07-19', 'NguoiLon', 'II776655443', TRUE),
+
+(25, 1, 'Le Thi JJ', '2001-08-30', 'TreEm', 'JJ998877665', FALSE),
+
+(26, 1, 'Nguyen Thi KK', '1994-11-15', 'NguoiLon', 'KK667788990', TRUE),
+(26, 2, 'Pham Minh LL', '2003-02-22', 'TreEm', 'LL223344556', FALSE),
+
+(27, 1, 'Le Hoang MM', '1992-04-14', 'NguoiLon', 'MM334455667', TRUE),
+
+(28, 1, 'Nguyen Thi NN', '1996-09-05', 'NguoiLon', 'NN223344556', TRUE),
+(28, 2, 'Pham Minh OO', '2000-01-10', 'TreEm', 'OO556677889', TRUE),
+
+(29, 1, 'Le Thi PP', '2004-06-25', 'NguoiLon', 'PP223344556', TRUE),
+(29, 2, 'Nguyen Thi QQ', '2003-09-17', 'TreEm', 'QQ998877665', FALSE),
+
+(30, 1, 'Pham Minh RR', '2000-07-14', 'NguoiLon', 'RR667788990', TRUE),
+
+(31, 1, 'Nguyen Thi SS', '1995-03-22', 'NguoiLon', 'SS334455667', TRUE),
+(31, 2, 'Le Hoang TT', '2002-01-11', 'TreEm', 'TT998877665', FALSE),
+
+(32, 1, 'Nguyen Thi UU', '1997-02-03', 'NguoiLon', 'UU667788990', TRUE),
+
+(33, 1, 'Pham Minh VV', '2005-10-09', 'TreEm', 'VV223344556', FALSE),
+(33, 2, 'Le Thi WW', '1999-07-28', 'NguoiLon', 'WW889900112', TRUE),
+
+(34, 1, 'Nguyen Thi XX', '1992-06-21', 'NguoiLon', 'XX776655443', TRUE),
+
+(35, 1, 'Pham Minh YY', '2002-11-16', 'TreEm', 'YY223344556', TRUE),
+
+(36, 1, 'Le Hoang ZZ', '1998-05-22', 'NguoiLon', 'ZZ556677889', TRUE),
+
+(37, 1, 'Nguyen Thi AAA', '2003-03-30', 'TreEm', 'AAA223344556', TRUE),
+
+(38, 1, 'Pham Minh BBB', '1997-08-14', 'NguoiLon', 'BBB667788990', TRUE),
+
+(39, 1, 'Le Thi CCC', '2001-12-25', 'TreEm', 'CCC223344556', FALSE),
+
+(40, 1, 'Nguyen Thi DDD', '2004-07-05', 'TreEm', 'DDD998877665', TRUE);
+
+-- Vé Du Lịch (40 mẫu)
 INSERT INTO Ve (maDat, soThuTu, maKHTour, hoTen, ngayKhoiHanh, ngayCap, giaVe, trangThai) VALUES
--- Đơn 1 (KHTour 1, tổng chi phí 2,000,000)
-(1, 1, 1, 'Nguyen Van A', '2025-06-10', '2025-05-01', 2000000, 'SuDung'),
-(1, 2, 1, 'Tran Thi B', '2025-06-10', '2025-05-01', 2000000, 'DaPhatHanh'),
-(1, 3, 1, 'Nguyen C', '2025-06-10', '2025-05-01', 1000000, 'DaPhatHanh'),
+(1, 1, 1, 'Nguyen Van A', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
 
--- Đơn 2 (KHTour 2, tổng chi phí 3,000,000)
-(2, 1, 2, 'Le Van D', '2025-06-11', '2025-05-02', 3000000, 'DaPhatHanh'),
-(2, 2, 2, 'Le Thi E', '2025-06-11', '2025-05-02', 1500000, 'DaPhatHanh'),
+(2, 1, 2, 'Tran Thi B', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
 
--- Đơn 3 (KHTour 3, tổng chi phí 4,000,000)
-(3, 1, 3, 'Pham Van F', '2025-06-12', '2025-05-03', 4000000, 'DaPhatHanh'),
-(3, 2, 3, 'Tran G', '2025-06-12', '2025-05-03', 4000000, 'DaPhatHanh'),
-(3, 3, 3, 'Be H', '2025-06-12', '2025-05-03', 0, 'DaPhatHanh'),
-(3, 4, 3, 'Nguyen I', '2025-06-12', '2025-05-03', 2000000, 'DaPhatHanh'),
+(3, 1, 3, 'Pham Minh C', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+(3, 2, 3, 'Le Thi D', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(3, 3, 3, 'Nguyen Hoang E', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
 
--- Đơn 4 (KHTour 4, tổng chi phí 5,000,000)
-(4, 1, 4, 'Doan J', '2025-06-13', '2025-05-04', 5000000, 'DaHuy'),
+(4, 1, 4, 'Tran Lan F', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+(4, 2, 4, 'Pham Kim G', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
 
--- Đơn 5 (KHTour 5, tổng chi phí 2,500,000)
-(5, 1, 5, 'Ly K', '2025-06-14', '2025-05-05', 2500000, 'DaPhatHanh'),
-(5, 2, 5, 'Hoang L', '2025-06-14', '2025-05-05', 1250000, 'DaPhatHanh'),
+(5, 1, 5, 'Nguyen Thi H', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
 
--- Đơn 6 (KHTour 6, tổng chi phí 2,700,000)
-(6, 1, 6, 'Pham M', '2025-06-15', '2025-05-06', 2700000, 'DaPhatHanh'),
-(6, 2, 6, 'Nguyen N', '2025-06-15', '2025-05-06', 1350000, 'DaPhatHanh'),
-(6, 3, 6, 'Be O', '2025-06-15', '2025-05-06', 0, 'DaPhatHanh'),
+(6, 1, 6, 'Tran Thi I', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(6, 2, 6, 'Pham Minh J', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
 
--- Đơn 7 (KHTour 7, tổng chi phí 1,800,000)
-(7, 1, 7, 'Phan P', '2025-06-16', '2025-05-07', 1800000, 'DaPhatHanh'),
-(7, 2, 7, 'Tran Q', '2025-06-16', '2025-05-07', 1800000, 'DaPhatHanh'),
-(7, 3, 7, 'Nguyen R', '2025-06-16', '2025-05-07', 900000, 'SuDung'),
-(7, 4, 7, 'Le S', '2025-06-16', '2025-05-07', 900000, 'SuDung'),
-(7, 5, 7, 'Be T', '2025-06-16', '2025-05-07', 0, 'DaPhatHanh'),
+(7, 1, 7, 'Le Hoang K', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(7, 2, 7, 'Nguyen Thi L', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
 
--- Đơn 8 (KHTour 8, tổng chi phí 1,600,000)
-(8, 1, 8, 'Do U', '2025-06-17', '2025-05-08', 1600000, 'DaPhatHanh'),
-(8, 2, 8, 'Vo V', '2025-06-17', '2025-05-08', 800000, 'DaPhatHanh'),
+(8, 1, 8, 'Pham Hoang M', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(8, 2, 8, 'Le Minh N', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
 
--- Đơn 9 (KHTour 9, tổng chi phí 2,900,000)
-(9, 1, 9, 'Nguyen W', '2025-06-18', '2025-05-09', 2900000, 'DaPhatHanh'),
-(9, 2, 9, 'Nguyen X', '2025-06-18', '2025-05-09', 2900000, 'DaPhatHanh'),
-(9, 3, 9, 'Be Y', '2025-06-18', '2025-05-09', 1450000, 'SuDung'),
-(9, 4, 9, 'Be Z', '2025-06-18', '2025-05-09', 0, 'SuDung'),
+(9, 1, 9, 'Nguyen Thi O', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(9, 2, 9, 'Pham Minh P', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
 
--- Đơn 10 (KHTour 10, tổng chi phí 3,000,000)
-(10, 1, 10, 'Ho A1', '2025-06-19', '2025-05-10', 3000000, 'DaPhatHanh'),
-(10, 2, 10, 'Nguyen A2', '2025-06-19', '2025-05-10', 3000000, 'SuDung'),
-(10, 3, 10, 'Nguyen A3', '2025-06-19', '2025-05-10', 1500000, 'DaPhatHanh'),
-(10, 4, 10, 'Be A4', '2025-06-19', '2025-05-10', 0, 'DaPhatHanh');
+(10, 1, 10, 'Le Hoang Q', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+(10, 2, 10, 'Nguyen Thi R', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(11, 1, 11, 'Nguyen Thi S', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(11, 2, 11, 'Pham Thi T', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(12, 1, 12, 'Le Thi U', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(13, 1, 13, 'Nguyen Thi V', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(13, 2, 13, 'Pham Hoang W', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(14, 1, 14, 'Le Minh X', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(15, 1, 15, 'Nguyen Thi Y', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(16, 1, 16, 'Pham Thi Z', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(17, 1, 17, 'Nguyen Thi AA', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(18, 1, 18, 'Pham Hoang BB', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(19, 1, 19, 'Nguyen Minh CC', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(20, 1, 20, 'Le Thi DD', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(21, 1, 1, 'Nguyen Thi EE', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(22, 1, 2, 'Pham Minh FF', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(23, 1, 3, 'Le Thi GG', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(24, 1, 4, 'Nguyen Thi HH', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+(24, 2, 4, 'Pham Minh II', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(25, 1, 5, 'Le Thi JJ', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(26, 1, 6, 'Nguyen Thi KK', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(26, 2, 6, 'Pham Minh LL', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(27, 1, 7, 'Le Hoang MM', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(28, 1, 8, 'Nguyen Thi NN', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(28, 2, 8, 'Pham Minh OO', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(29, 1, 9, 'Le Thi PP', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+(29, 2, 9, 'Nguyen Thi QQ', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(30, 1, 10, 'Pham Minh RR', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(31, 1, 11, 'Nguyen Thi SS', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+(31, 2, 11, 'Le Hoang TT', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(32, 1, 12, 'Nguyen Thi UU', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(33, 1, 13, 'Pham Minh VV', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+(33, 2, 13, 'Le Thi WW', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(34, 1, 14, 'Nguyen Thi XX', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(35, 1, 15, 'Pham Minh YY', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(36, 1, 16, 'Le Hoang ZZ', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(37, 1, 17, 'Nguyen Thi AAA', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(38, 1, 18, 'Pham Hoang BBB', '2025-05-08', '2025-05-08', 100000, 'DaPhatHanh'),
+
+(39, 1, 19, 'Le Thi CCC', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
+
+(40, 1, 20, 'Nguyen Thi DDD', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh');
