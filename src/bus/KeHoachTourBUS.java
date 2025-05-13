@@ -131,6 +131,5 @@ public class KeHoachTourBUS {
         new KeHoachTourBUS().loadData();
     }
 
-    
 }
 

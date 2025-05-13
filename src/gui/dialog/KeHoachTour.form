@@ -68,13 +68,13 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="dateEnd" max="32767" attributes="0"/>
-                              <Component id="cbTour" alignment="1" max="32767" attributes="0"/>
-                              <Component id="dateStart" alignment="1" max="32767" attributes="0"/>
-                              <Component id="tfSoLuongDaDat" max="32767" attributes="0"/>
-                              <Component id="tfSoLuongToiDa" max="32767" attributes="0"/>
-                              <Component id="cbtrangThai" max="32767" attributes="0"/>
-                              <Component id="tfTongChiPhi" min="-2" pref="467" max="-2" attributes="0"/>
+                              <Component id="dateEnd" linkSize="5" max="32767" attributes="0"/>
+                              <Component id="cbTour" linkSize="5" alignment="1" max="32767" attributes="0"/>
+                              <Component id="dateStart" linkSize="5" alignment="1" max="32767" attributes="0"/>
+                              <Component id="tfSoLuongDaDat" linkSize="5" max="32767" attributes="0"/>
+                              <Component id="tfSoLuongToiDa" linkSize="5" max="32767" attributes="0"/>
+                              <Component id="cbtrangThai" linkSize="5" max="32767" attributes="0"/>
+                              <Component id="tfTongChiPhi" linkSize="5" min="-2" pref="467" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -93,37 +93,37 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbTour" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="cbTour" linkSize="6" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                       <Component id="jLabel1" linkSize="4" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" max="32767" attributes="0"/>
-                      <Component id="dateStart" pref="44" max="32767" attributes="0"/>
+                      <Component id="jLabel2" linkSize="4" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="dateStart" linkSize="6" min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="dateEnd" max="32767" attributes="0"/>
+                      <Component id="dateEnd" linkSize="6" max="32767" attributes="0"/>
                       <Component id="jLabel3" linkSize="4" pref="38" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel4" linkSize="4" alignment="1" pref="37" max="32767" attributes="0"/>
-                      <Component id="tfSoLuongDaDat" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="tfSoLuongDaDat" linkSize="6" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" linkSize="4" alignment="3" pref="35" max="32767" attributes="0"/>
-                      <Component id="tfSoLuongToiDa" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="tfSoLuongToiDa" linkSize="6" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel6" linkSize="4" pref="35" max="32767" attributes="0"/>
-                      <Component id="tfTongChiPhi" max="32767" attributes="0"/>
+                      <Component id="tfTongChiPhi" linkSize="6" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbtrangThai" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="cbtrangThai" linkSize="6" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="jLabel7" linkSize="4" alignment="3" pref="41" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -211,30 +211,33 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JScrollPane" name="scrollPanelChiTietKeHoachTour">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelChiTietKeHoachTour">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="panelAnUong" max="32767" attributes="0"/>
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel10" alignment="0" pref="474" max="32767" attributes="0"/>
-                                  <Component id="panelLichTrinh" max="32767" attributes="0"/>
-                                  <Component id="jLabel11" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                          </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="panelLichTrinh" max="32767" attributes="0"/>
+                          <Component id="jLabel10" alignment="0" pref="473" max="32767" attributes="0"/>
+                          <Component id="jLabel11" alignment="1" max="32767" attributes="0"/>
+                          <Component id="panelAnUong" alignment="1" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -242,12 +245,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel10" pref="55" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel10" pref="52" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="panelLichTrinh" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel11" pref="54" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel11" pref="37" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="panelAnUong" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -273,7 +276,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="383" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="402" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -296,7 +299,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="429" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="436" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

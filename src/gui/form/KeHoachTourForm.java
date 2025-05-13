@@ -14,9 +14,12 @@ import dto.ChiTietKeHoachTourDTO;
 import dto.DiaDiemThamQuanDTO;
 import dto.KeHoachTourDTO;
 import dto.KhachSanNghiNgoiDTO;
+import gui.components.MyButton;
 import gui.components.MyScrollBarUI;
 import gui.dialog.KeHoachTour;
+import gui.dialog.KeHoachTourDialog;
 import interfaces.SearchHandler;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -274,12 +277,41 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public JPanel createLichTrinhPanel(int dayNumber) {
+        JPanel dayPanel = keHoachTourDialog.createTitledPanel("Ngày " + dayNumber);
+        dayPanel.setBackground(new Color(255, 255, 255));
+
+        // Tiêu đề ngày
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        JTextField titleField = new JTextField();
+        titleField.setBorder(keHoachTourDialog.createTitleBorder("Tiêu đề"));
+        titlePanel.add(titleField, BorderLayout.CENTER);
+        dayPanel.add(titlePanel);
+
+        // Panel chứa các địa điểm
+        JPanel locationPanel = keHoachTourDialog.createTitledPanel("Địa điểm tham quan");
+
+        // Panel chứa khách sạn nghỉ ngơi
+        JPanel hotelPanel = keHoachTourDialog.createTitledPanel("Khách sạn nghỉ ngơi");
+
+        dayPanel.add(locationPanel);
+        dayPanel.add(hotelPanel);
+
+        // Ẩn tiêu đề nếu không có nội dung
+        if (locationPanel.getComponentCount() == 0) {
+            locationPanel.setBorder(null);
+        }
+        if (hotelPanel.getComponentCount() == 0) {
+            hotelPanel.setBorder(null);
+        }
+
+        return dayPanel;
+    }
+
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int rowSelected = table.getSelectedRow();
         int maKeHoachTour = (int) table.getModel().getValueAt(rowSelected, 0);
         KeHoachTourDTO keHoachTour = keHoachTourBUS.getKeHoachTourById(maKeHoachTour);
-
-       
 
         panelLichTrinh.removeAll();
         panelAnUong.removeAll();
@@ -292,7 +324,7 @@ public class KeHoachTourForm extends javax.swing.JPanel {
             ChiTietKeHoachTourDTO chiTietKeHoach = chiTietKeHoachTour.get(i);
             int maChiTietKeHoach = chiTietKeHoach.getMaChiTietKeHoachTour();
 
-            JPanel lichTrinhPanel = keHoachTourDialog.createLichTrinhPanel(i + 1);
+            JPanel lichTrinhPanel = createLichTrinhPanel(i + 1);
             JPanel anUongPanel = keHoachTourDialog.createAnUongPanel(i + 1);
 
             // Lấy thông tin lịch trình và ăn uống từ cơ sở dữ liệu
