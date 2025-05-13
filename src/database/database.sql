@@ -103,6 +103,7 @@ CREATE TABLE diadanh (
     maDiaDanh INT AUTO_INCREMENT PRIMARY KEY,
     tenDD VARCHAR(100),
     tinhThanh VARCHAR(100),
+    chiPhi FLOAT,
     diemNoiBat TEXT
 );
 

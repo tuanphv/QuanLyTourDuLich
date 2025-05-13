@@ -63,15 +63,9 @@ public class KhachSanForm extends javax.swing.JPanel {
     private void loadDataToTable(ArrayList<KhachSanDTO> listKhachSan) {
         modalTableKhachSan.setRowCount(0);
         for (KhachSanDTO khachSan : listKhachSan) {
-            // modalTableKhachSan.addRow(new Object[] {
-            //     khachSan.getMaKhachSan(), 
-            //     khachSan.getTenKhachSan(), 
-            //     khachSan.getDiaChi(), 
-            //     khachSan.getGia(), 
-            //     khachSan.getSoDienThoai(),
-            //     khachSan.getTrangThai()
-            // });
-            modalTableKhachSan.addRow(khachSan.toObject());
+            if (khachSan.getTrangThai() == 1) {
+                modalTableKhachSan.addRow(khachSan.toObject());
+            }
         }
     }
 

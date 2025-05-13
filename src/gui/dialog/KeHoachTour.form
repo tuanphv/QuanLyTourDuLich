@@ -160,6 +160,9 @@
         <Component class="com.toedter.calendar.JDateChooser" name="dateStart">
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dateEnd">
+          <Properties>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -183,7 +186,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfSoLuongDaDat">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfSoLuongToiDa">
@@ -191,6 +194,9 @@
         <Component class="gui.components.CustomComboBox" name="cbtrangThai">
         </Component>
         <Component class="javax.swing.JTextField" name="tfTongChiPhi">
+          <Properties>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="gui.components.MyButton" name="btnSave">
           <Properties>

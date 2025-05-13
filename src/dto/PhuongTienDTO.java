@@ -1,5 +1,7 @@
 package dto;
 
+import utils.TextUtils;
+
 public class PhuongTienDTO {
     private int maPhuongTien;
     private String tenPhuongTien;
@@ -99,7 +101,7 @@ public class PhuongTienDTO {
         "Số chỗ ngồi",
         "Giá",
         "Số điện thoại",
-        "Trạng thái"
+        // "Trạng thái"
     };
 
     public Object[] toOject() {
@@ -108,9 +110,9 @@ public class PhuongTienDTO {
             tenPhuongTien,
             loaiPhuongTien,
             soChoNgoi,
-            gia,
+            TextUtils.formatCurrency(gia),
             soDienThoai,
-            trangThai
+            // trangThai
         };
     }
 

@@ -14,10 +14,8 @@ import dto.ChiTietKeHoachTourDTO;
 import dto.DiaDiemThamQuanDTO;
 import dto.KeHoachTourDTO;
 import dto.KhachSanNghiNgoiDTO;
-import gui.components.MyButton;
 import gui.components.MyScrollBarUI;
 import gui.dialog.KeHoachTour;
-import gui.dialog.KeHoachTourDialog;
 import interfaces.SearchHandler;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -54,6 +52,14 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+
+        scrollChiTietKeHoachTour.getVerticalScrollBar().setUI(new MyScrollBarUI());
+        scrollChiTietKeHoachTour.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        scrollChiTietKeHoachTour.getViewport().setBackground(Color.white);
+        JPanel p2 = new JPanel();
+        p2.setBackground(Color.WHITE);
+        scrollChiTietKeHoachTour.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p2);
+
         DefaultTableModel model;
         model = new DefaultTableModel(KeHoachTourDTO.KH_TOUR_COLUMN_NAMES, 0) {
             @Override

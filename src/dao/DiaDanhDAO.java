@@ -20,6 +20,7 @@ public class DiaDanhDAO {
                         rs.getInt("maDiaDanh"),
                         rs.getString("tenDD"),
                         rs.getString("tinhThanh"),
+                        rs.getInt("chiPhi"),
                         rs.getString("diemNoiBat")
                 ));
             }
@@ -36,6 +37,7 @@ public class DiaDanhDAO {
 
             pstmt.setString(1, diadanh.getTenDD());
             pstmt.setString(2, diadanh.getTinhThanh());
+            pstmt.setInt(3, diadanh.getChiPhi());
             pstmt.setString(3, diadanh.getDiemNoiBat());
 
             int affectedRows = pstmt.executeUpdate();
@@ -72,6 +74,7 @@ public class DiaDanhDAO {
 
             pstmt.setString(1, diadanh.getTenDD());
             pstmt.setString(2, diadanh.getTinhThanh());
+            pstmt.setInt(3, diadanh.getChiPhi());
             pstmt.setString(3, diadanh.getDiemNoiBat());
             pstmt.setInt(4, diadanh.getMaDD());
 

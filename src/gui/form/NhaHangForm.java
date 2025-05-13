@@ -63,15 +63,9 @@ public class NhaHangForm extends javax.swing.JPanel {
     private void loadDataToTable(ArrayList<NhaHangDTO> listNhaHang) {
         modalTableNhaHang.setRowCount(0);
         for (NhaHangDTO nhaHang : listNhaHang) {
-            // modalTableNhaHang.addRow(new Object[] {
-            //     nhaHang.getMaNhaHang(),
-            //     nhaHang.getTenNhaHang(),
-            //     nhaHang.getDiaChi(),
-            //     nhaHang.getGia(),
-            //     nhaHang.getSoDienThoai(),
-            //     nhaHang.getTrangThai()
-            // });
-            modalTableNhaHang.addRow(nhaHang.toObject());
+            if (nhaHang.getTrangThai() == 1) {
+                modalTableNhaHang.addRow(nhaHang.toObject());
+            }
         }
     }
 

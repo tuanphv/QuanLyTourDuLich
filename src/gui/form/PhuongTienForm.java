@@ -63,16 +63,9 @@ public class PhuongTienForm extends javax.swing.JPanel {
     private void loadDataToTable(ArrayList<PhuongTienDTO> listPhuongTien) {
         modelTablePhuongTien.setRowCount(0);
         for (PhuongTienDTO phuongTien : listPhuongTien) {
-            // modelTablePhuongTien.addRow(new Object[] {
-            //     phuongTien.getMaPhuongTien(),
-            //     phuongTien.getTenPhuongTien(),
-            //     phuongTien.getLoaiPhuongTien(),
-            //     phuongTien.getSoChoNgoi(),
-            //     phuongTien.getGia(),
-            //     phuongTien.getSoDienThoai(),
-            //     phuongTien.getTrangThai()
-            // });
-            modelTablePhuongTien.addRow(phuongTien.toOject());
+            if (phuongTien.getTrangThai() == 1) {
+                modelTablePhuongTien.addRow(phuongTien.toOject());
+            }
         }
     }
 

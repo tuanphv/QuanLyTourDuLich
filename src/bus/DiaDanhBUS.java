@@ -87,6 +87,15 @@ public class DiaDanhBUS {
         return null;
     }
 
+    public DiaDanhDTO getDiaDanhByName(String name) {
+        for (DiaDanhDTO dd : dsDiaDanh) {
+            if (dd.getTenDD().equals(name)) {
+                return dd;
+            }
+        }
+        return null;
+    }
+
     // Getter danh sách địa danh
     public ArrayList<DiaDanhDTO> getDsDiaDanh() {
         return dsDiaDanh;
@@ -139,4 +148,5 @@ public class DiaDanhBUS {
         }));
         return excelWriter.writeWithDialog("DanhSachDiaDanh.xlsx", data);
     }
+
 }
