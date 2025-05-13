@@ -137,7 +137,7 @@ CREATE TABLE HoaDon (
     maHD INT PRIMARY KEY AUTO_INCREMENT,
     maDat INT,
     maNV INT,
-    ngayLap DATE,
+    ngayLap DATETIME,
     tongTien FLOAT,
     hinhThucThanhToan VARCHAR(50),
     trangThai ENUM('DaThanhToan', 'ChoXacNhan', 'Huy') DEFAULT 'ChoXacNhan',

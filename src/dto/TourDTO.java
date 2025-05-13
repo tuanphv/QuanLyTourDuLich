@@ -1,6 +1,7 @@
 package dto;
 
 import enums.TrangThaiTour;
+import utils.TextUtils;
 
 public class TourDTO {
 
@@ -123,7 +124,22 @@ public class TourDTO {
         this.soDem = soDem;
     }
 
-    public Object[] toObjectArray() {
+    public Object[] toTableRow() {
+        return new Object[]{
+            maTour,
+            tenTour,
+            TextUtils.formatCurrency(gia),
+            tinhTrang.getMoTa(),
+            moTa,
+            diemKhoiHanh,
+            diemDen,
+            loaiTour,
+            soNgay,
+            soDem
+        };
+    }
+    
+    public Object[] toExcelRow() {
         return new Object[]{
             maTour,
             tenTour,

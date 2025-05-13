@@ -86,8 +86,12 @@ public class HoaDonDTO {
         this.trangThai = trangThai;
     }
 
-    public Object[] toArray() {
+    public Object[] toTableRow() {
         return new Object[]{maHD, maDat, maNV, ngayLap, TextUtils.formatCurrency(tongTien), hinhThucThanhToan, trangThai};
+    }
+    
+    public Object[] toExcelRow() {
+        return new Object[]{maHD, maDat, maNV, ngayLap, tongTien, hinhThucThanhToan, trangThai.getMoTa()};
     }
 
     public static final String[] COLUMN_NAMES = {

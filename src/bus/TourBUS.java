@@ -5,6 +5,10 @@ import dao.TourDAO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import utils.CellUtils;
+import utils.ExcelWriter;
 import utils.TextUtils;
 
 public class TourBUS {
@@ -34,7 +38,7 @@ public class TourBUS {
     }
 
     /**
-     * 
+     *
      * @param tour Tour to be updated
      * @return index of element to be updated
      */
@@ -68,7 +72,7 @@ public class TourBUS {
         }
         return success;
     }
-    
+
     public TourDTO getTourById(int maTour) {
         for (TourDTO tour : dsTour) {
             if (tour.getMaTour() == maTour) {
@@ -77,40 +81,87 @@ public class TourBUS {
         }
         return null; // Nếu không tìm thấy
     }
-    
+
     public ArrayList<TourDTO> timTheoTen(String text) {
         ArrayList<TourDTO> result = new ArrayList<>();
         for (TourDTO tour : dsTour) {
-            if (TextUtils.removeDiacritics(tour.getTenTour()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase()))
+            if (TextUtils.removeDiacritics(tour.getTenTour()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase())) {
                 result.add(tour);
+            }
         }
         return result;
     }
-    
+
     public ArrayList<TourDTO> timTheoDiemDen(String text) {
         ArrayList<TourDTO> result = new ArrayList<>();
         for (TourDTO tour : dsTour) {
-            if (TextUtils.removeDiacritics(tour.getDiemDen()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase()))
+            if (TextUtils.removeDiacritics(tour.getDiemDen()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase())) {
                 result.add(tour);
+            }
         }
         return result;
     }
-    
+
     public ArrayList<TourDTO> timTheoDiemKhoiHanh(String text) {
         ArrayList<TourDTO> result = new ArrayList<>();
         for (TourDTO tour : dsTour) {
-            if (TextUtils.removeDiacritics(tour.getDiemKhoiHanh()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase()))
+            if (TextUtils.removeDiacritics(tour.getDiemKhoiHanh()).toLowerCase().contains(TextUtils.removeDiacritics(text).toLowerCase())) {
                 result.add(tour);
+            }
         }
         return result;
     }
-    
+
     public ArrayList<Object[]> thongKeTour(LocalDate startDate, LocalDate endDate) {
         return dao.thongKeTour(startDate, endDate);
     }
-    
+
     // Getter cho danh sách tours (nếu cần truy cập từ bên ngoài)
     public ArrayList<TourDTO> getDsTour() {
         return dsTour;
+    }
+
+    public String exportExcel() {
+        ArrayList<Object[]> data = new ArrayList<>();
+        // tạo headers
+        Object[] headers = new Object[]{
+            "Mã Tour",
+            "Tên Tour",
+            "Giá",
+            "Tình Trạng",
+            "Mô Tả",
+            "Điểm Khởi Hành",
+            "Điểm Đến",
+            "Loại Tour",
+            "Số Ngày",
+            "Số Đêm"};
+        data.add(headers);
+        // add từng dòng
+        for (TourDTO tour : dsTour) {
+            data.add(tour.toExcelRow());
+        }
+
+        ExcelWriter excelWriter = new ExcelWriter(((cell, value, rowIndex, columnIndex) -> {
+            if (rowIndex == 0) {
+                CellStyle style = cell.getSheet().getWorkbook().createCellStyle();
+                Font font = cell.getSheet().getWorkbook().createFont();
+                font.setBold(true);
+                style.setFont(font);
+                cell.setCellStyle(style);
+                cell.setCellValue((String) value);
+            } else {
+                switch (columnIndex) {
+                    case 0, 8, 9 ->
+                        cell.setCellValue((Integer) value);
+                    case 1, 3, 4, 5, 6, 7 ->
+                        cell.setCellValue((String) value);
+                    case 2 -> {    
+                        cell.setCellStyle(CellUtils.getCurrencyStyle(cell.getSheet().getWorkbook()));
+                        cell.setCellValue((Float) value);
+                    }
+                }
+            }
+        }));
+        return excelWriter.writeWithDialog("DanhSachTour.xlsx", data);
     }
 }

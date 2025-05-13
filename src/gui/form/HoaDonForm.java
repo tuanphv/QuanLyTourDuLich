@@ -49,12 +49,18 @@ public class HoaDonForm extends javax.swing.JPanel {
                 ArrayList<HoaDonDTO> khTours;
                 HoaDonBUS bus = new HoaDonBUS();
                 switch (type) {
-                    case "Mã nhân viên" -> khTours = bus.getHoaDonByMaNV(Integer.parseInt(text));                
-                    default -> throw new AssertionError();
+                    case "Mã đặt tour" -> {
+                        khTours = new ArrayList<>();
+                        khTours.add(bus.getHoaDonByMaDat(Integer.parseInt(text)));
+                    }
+                    case "Mã nhân viên" ->
+                        khTours = bus.getHoaDonByMaNV(Integer.parseInt(text));
+                    default ->
+                        throw new AssertionError();
                 }
                 loadDataToTable(khTours);
             }
-            
+
         });
     }
 
@@ -341,16 +347,9 @@ public class HoaDonForm extends javax.swing.JPanel {
     }//GEN-LAST:event_tableHoaDonMouseClicked
 
     private void showHoaDon(HoaDonDTO hoaDon) {
-//        txtMaHoaDon.setText(String.valueOf(hoaDon.getMaHoaDon()));
-//        txtMaKH.setText(String.valueOf(hoaDon.getMaKH()));
-//        txtMaNV.setText(String.valueOf(hoaDon.getMaNV()));
-//        txtMaKHTour.setText(String.valueOf(hoaDon.getMaKHTour()));
-//        txtNgayLapPhieu.setText(FormatDate.toString(hoaDon.getNgayLapPhieu(), "dd/MM/yyyy"));
-//        txtSoVe.setText(String.valueOf(hoaDon.getSoVe()));
-//        txtGhiChu.setText(hoaDon.getGhiChu());
-//        txtMaKhuyenMai.setText(hoaDon.getMaKhuyenMai());
-        txtTongTien.setText(String.valueOf(hoaDon.getTongTien()));
+
     }
+
     private void btnThemActionPerformed(ActionEvent evt) {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         HoaDonDialog dialog = new HoaDonDialog(parentFrame);
@@ -411,11 +410,23 @@ public class HoaDonForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần xóa!");
         }
     }
+    
+    private void btnXuatExcelPerformed(ActionEvent evt) {
+        String savedFilePath = new HoaDonBUS().exportExcel();
+
+        if (savedFilePath != null) {
+            JOptionPane.showMessageDialog(null,
+                    "Đã lưu file thành công tại:\n" + savedFilePath,
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
     private void addToolBarAction() {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnXuatExcel().addActionListener(e -> btnXuatExcelPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> loadDataToTable(new HoaDonBUS().getDSHoaDon()));
     }
 
     public boolean addTour(HoaDonDTO hoaDon) {
@@ -424,7 +435,7 @@ public class HoaDonForm extends javax.swing.JPanel {
         int index = bus.addHoaDon(hoaDon);
         if (index != -1) {
             hoaDon.setMaHoaDon(index);
-            model.addRow(hoaDon.toArray());
+            model.addRow(hoaDon.toTableRow());
             return true;
         }
         return false;
@@ -435,7 +446,7 @@ public class HoaDonForm extends javax.swing.JPanel {
         HoaDonBUS bus = new HoaDonBUS();
         int index = bus.updateHoaDon(hoaDon);
         if (index != -1) {
-            Object[] a = hoaDon.toArray();
+            Object[] a = hoaDon.toTableRow();
             for (int i = 0; i < a.length; i++) {
                 model.setValueAt(a[i], index, i);
             }
@@ -447,7 +458,7 @@ public class HoaDonForm extends javax.swing.JPanel {
     private void loadDataToTable(ArrayList<HoaDonDTO> hoaDons) {
         DefaultTableModel model = (DefaultTableModel) tableHoaDon.getModel();
         model.setRowCount(0);
-        hoaDons.forEach((var e) -> model.addRow(e.toArray()));
+        hoaDons.forEach((var e) -> model.addRow(e.toTableRow()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
