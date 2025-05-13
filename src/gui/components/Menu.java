@@ -295,7 +295,7 @@ public class Menu extends javax.swing.JPanel {
     private void thongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongKeActionPerformed
         MenuItem src = (MenuItem) evt.getSource();
         changeBackground(src);
-        mainFrame.showCard("card13");
+        mainFrame.showCard("cardThongKe");
     }//GEN-LAST:event_thongKeActionPerformed
 
     private void tourActionPerformed(java.awt.event.ActionEvent evt) {                                     

@@ -26,7 +26,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
         txtNgayLap.setText(DateUtils.toString(LocalDateTime.now(), "HH:mm dd/MM/yyyy"));
-        cbHinhThucThanhToan.setModel(new DefaultComboBoxModel<>(new String[]{"Tien Mat", "Chuyen Khoan", "The Tin Dung"}));
+        cbHinhThucThanhToan.setModel(new DefaultComboBoxModel<>(new String[]{"Tiền mặt", "Chuyển khoản"}));
         cbTranhThai.setModel(new DefaultComboBoxModel<>(new Object[]{TrangThaiHoaDon.CHO_XAC_NHAN, TrangThaiHoaDon.DA_THANH_TOAN}));
     }
 
@@ -207,6 +207,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMaDatTourActionPerformed
 
     private void txtMaDatTourFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaDatTourFocusLost
+        if (txtMaDatTour.getText().trim().equals("")) return;
         int maDat = Integer.parseInt(txtMaDatTour.getText().trim());
         DatTourDTO dto = new DatTourBUS().getDatTourById(maDat);
         if (dto == null) {
@@ -294,6 +295,7 @@ public class HoaDonDialog extends javax.swing.JDialog {
         cbTranhThai.setSelectedItem(hoaDon.getTrangThai());
         cbTranhThai.setEnabled(true);
         txtMaDatTour.setEditable(false);
+        txtMaNV.setEditable(false);
     }
 
     public boolean isSave() {

@@ -64,26 +64,31 @@ INSERT INTO nhahang (maNhaHang, tenNhaHang, diaChi, gia, sdt, trangThai) VALUES
 
 INSERT INTO tour (tenTour, gia, tinhTrang, moTa, diemKhoiHanh, diemDen, loaiTour, soNgay, soDem)
 VALUES
-('Tour Hà Nội - Hạ Long', 1500000, 'DANG_MO', 'Tham quan Vịnh Hạ Long 2 ngày 1 đêm', 'Hà Nội', 'Hạ Long', 'Nội địa', 2, 1),
-('Tour Đà Nẵng - Hội An', 2000000, 'DA_DONG', 'Khám phá phố cổ Hội An', 'Đà Nẵng', 'Hội An', 'Nội địa', 3, 2),
-('Tour Sài Gòn - Phú Quốc', 3500000, 'DANG_MO', 'Tham quan đảo Phú Quốc', 'TP.HCM', 'Phú Quốc', 'Nội địa', 4, 3),
-('Tour Huế - Đà Lạt', 2800000, 'DA_DONG', 'Hành trình mộng mơ tại thành phố hoa', 'Huế', 'Đà Lạt', 'Nội địa', 3, 2),
-('Tour Hà Nội - Sapa', 1800000, 'DANG_MO', 'Khám phá núi rừng Tây Bắc', 'Hà Nội', 'Sapa', 'Nội địa', 3, 2),
-('Tour TP.HCM - Nha Trang', 2200000, 'DANG_MO', 'Tắm biển và tham quan Vinpearl Land', 'TP.HCM', 'Nha Trang', 'Nội địa', 3, 2),
-('Tour Đà Nẵng - Bà Nà Hills', 1700000, 'DA_DONG', 'Tham quan Cầu Vàng nổi tiếng', 'Đà Nẵng', 'Bà Nà Hills', 'Nội địa', 2, 1),
-('Tour Cần Thơ - Châu Đốc', 1600000, 'DANG_MO', 'Khám phá miền Tây sông nước', 'Cần Thơ', 'Châu Đốc', 'Nội địa', 2, 1),
-('Tour Đà Nẵng - Huế', 1900000, 'DANG_MO', 'Di sản văn hóa cố đô Huế', 'Đà Nẵng', 'Huế', 'Nội địa', 2, 1),
-('Tour Hải Phòng - Cát Bà', 1400000, 'DANG_MO', 'Tận hưởng biển xanh Cát Bà', 'Hải Phòng', 'Cát Bà', 'Nội địa', 2, 1),
-('Tour TP.HCM - Đà Lạt', 2100000, 'DANG_MO', 'Thành phố sương mù và hoa', 'TP.HCM', 'Đà Lạt', 'Nội địa', 3, 2),
-('Tour Hà Nội - Mộc Châu', 1700000, 'DANG_MO', 'Ngắm hoa cải trắng và đồi chè', 'Hà Nội', 'Mộc Châu', 'Nội địa', 3, 2),
-('Tour Vinh - Quảng Bình', 1600000, 'DANG_MO', 'Tham quan Phong Nha - Kẻ Bàng', 'Vinh', 'Quảng Bình', 'Nội địa', 3, 2),
-('Tour TP.HCM - Côn Đảo', 3200000, 'DANG_MO', 'Biển xanh và di tích lịch sử', 'TP.HCM', 'Côn Đảo', 'Nội địa', 4, 3),
-('Tour Nha Trang - Đà Lạt', 2000000, 'DANG_MO', 'Biển và rừng thông mộng mơ', 'Nha Trang', 'Đà Lạt', 'Nội địa', 3, 2),
-('Tour Hà Nội - Tam Đảo', 1300000, 'DANG_MO', 'Trải nghiệm không khí mát lành', 'Hà Nội', 'Tam Đảo', 'Nội địa', 2, 1),
-('Tour Buôn Ma Thuột - Gia Lai', 2100000, 'DANG_MO', 'Khám phá Tây Nguyên đại ngàn', 'Buôn Ma Thuột', 'Gia Lai', 'Nội địa', 3, 2),
-('Tour TP.HCM - Bến Tre', 1100000, 'DANG_MO', 'Miền Tây miệt vườn xanh mát', 'TP.HCM', 'Bến Tre', 'Nội địa', 2, 1),
-('Tour Hà Nội - Tràng An', 1500000, 'DANG_MO', 'Du ngoạn Tràng An - Bái Đính', 'Hà Nội', 'Ninh Bình', 'Nội địa', 2, 1),
-('Tour Quy Nhơn - Phú Yên', 2500000, 'DANG_MO', 'Tham quan Eo Gió và Ghềnh Đá Đĩa', 'Quy Nhơn', 'Phú Yên', 'Nội địa', 3, 2);
+-- Miền Bắc
+('Tour Hà Nội - Hạ Long', 1500000, 'DANG_MO', 'Tham quan Vịnh Hạ Long 2 ngày 1 đêm', 'Hà Nội', 'Hạ Long', 'Miền Bắc', 2, 1),
+('Tour Hà Nội - Sapa', 1800000, 'DANG_MO', 'Khám phá núi rừng Tây Bắc', 'Hà Nội', 'Sapa', 'Miền Bắc', 3, 2),
+('Tour Hà Nội - Mộc Châu', 1700000, 'DANG_MO', 'Ngắm hoa cải trắng và đồi chè', 'Hà Nội', 'Mộc Châu', 'Miền Bắc', 2, 1),
+('Tour Hà Nội - Tam Đảo', 1300000, 'DANG_MO', 'Trải nghiệm không khí mát lành', 'Hà Nội', 'Tam Đảo', 'Miền Bắc', 1, 0),
+('Tour Hà Nội - Tràng An', 1500000, 'DANG_MO', 'Du ngoạn Tràng An - Bái Đính', 'Hà Nội', 'Ninh Bình', 'Miền Bắc', 1, 0),
+('Tour Hải Phòng - Cát Bà', 1400000, 'DANG_MO', 'Tận hưởng biển xanh Cát Bà', 'Hải Phòng', 'Cát Bà', 'Miền Bắc', 3, 2),
+
+-- Miền Trung
+('Tour Đà Nẵng - Hội An', 2000000, 'DA_DONG', 'Khám phá phố cổ Hội An', 'Đà Nẵng', 'Hội An', 'Miền Trung', 2, 1),
+('Tour Huế - Đà Lạt', 2800000, 'DA_DONG', 'Hành trình mộng mơ tại thành phố hoa', 'Huế', 'Đà Lạt', 'Miền Trung', 4, 3),
+('Tour Đà Nẵng - Bà Nà Hills', 1700000, 'DA_DONG', 'Tham quan Cầu Vàng nổi tiếng', 'Đà Nẵng', 'Bà Nà Hills', 'Miền Trung', 1, 0),
+('Tour Đà Nẵng - Huế', 1900000, 'DANG_MO', 'Di sản văn hóa cố đô Huế', 'Đà Nẵng', 'Huế', 'Miền Trung', 2, 1),
+('Tour Vinh - Quảng Bình', 1600000, 'DANG_MO', 'Tham quan Phong Nha - Kẻ Bàng', 'Vinh', 'Quảng Bình', 'Miền Trung', 3, 2),
+('Tour Nha Trang - Đà Lạt', 2000000, 'DANG_MO', 'Biển và rừng thông mộng mơ', 'Nha Trang', 'Đà Lạt', 'Miền Trung', 2, 1),
+('Tour Buôn Ma Thuột - Gia Lai', 2100000, 'DANG_MO', 'Khám phá Tây Nguyên đại ngàn', 'Buôn Ma Thuột', 'Gia Lai', 'Miền Trung', 5, 4),
+('Tour Quy Nhơn - Phú Yên', 2500000, 'DANG_MO', 'Tham quan Eo Gió và Ghềnh Đá Đĩa', 'Quy Nhơn', 'Phú Yên', 'Miền Trung', 3, 2),
+
+-- Miền Nam
+('Tour Sài Gòn - Phú Quốc', 3500000, 'DANG_MO', 'Tham quan đảo Phú Quốc', 'TP.HCM', 'Phú Quốc', 'Miền Nam', 4, 3),
+('Tour TP.HCM - Nha Trang', 2200000, 'DANG_MO', 'Tắm biển và tham quan Vinpearl Land', 'TP.HCM', 'Nha Trang', 'Miền Nam', 3, 2),
+('Tour TP.HCM - Đà Lạt', 2100000, 'DANG_MO', 'Thành phố sương mù và hoa', 'TP.HCM', 'Đà Lạt', 'Miền Nam', 2, 1),
+('Tour TP.HCM - Côn Đảo', 3200000, 'DANG_MO', 'Biển xanh và di tích lịch sử', 'TP.HCM', 'Côn Đảo', 'Miền Nam', 5, 4),
+('Tour TP.HCM - Bến Tre', 1100000, 'DANG_MO', 'Miền Tây miệt vườn xanh mát', 'TP.HCM', 'Bến Tre', 'Miền Nam', 1, 0),
+('Tour Cần Thơ - Châu Đốc', 1600000, 'DANG_MO', 'Khám phá miền Tây sông nước', 'Cần Thơ', 'Châu Đốc', 'Miền Nam', 2, 1);
 
 INSERT INTO KeHoachTour (maTour, thoiGianBD, thoiGianKT, slDaDat, slToiDa, trangThai, tongChiPhi)
 VALUES
@@ -403,3 +408,15 @@ INSERT INTO Ve (maDat, soThuTu, maKHTour, hoTen, ngayKhoiHanh, ngayCap, giaVe, t
 (39, 1, 19, 'Le Thi CCC', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh'),
 
 (40, 1, 20, 'Nguyen Thi DDD', '2025-05-08', '2025-05-08', 50000, 'DaPhatHanh');
+
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE KeHoachTour k
+SET slDaDat = (
+    SELECT COUNT(*)
+    FROM Ve v
+    WHERE v.maKHTour = k.maKeHoachTour
+      AND v.trangThai != 'DaHuy'
+);
+
+SET SQL_SAFE_UPDATES = 1;

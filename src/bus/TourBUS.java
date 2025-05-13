@@ -14,12 +14,14 @@ import utils.TextUtils;
 public class TourBUS {
 
     private static ArrayList<TourDTO> dsTour;
-    private TourDAO dao;
+    private static TourDAO dao;
 
     public TourBUS() {
-        dao = new TourDAO();
-        dsTour = new ArrayList<>();
-        loadData(); // tải dữ liệu ban đầu khi khởi tạo BUS
+        if (dao == null && dsTour == null) {
+            dao = new TourDAO();
+            dsTour = new ArrayList<>();
+            loadData();
+        }
     }
 
     // Hàm loadData: lấy danh sách tour từ cơ sở dữ liệu thông qua DAO
@@ -155,7 +157,7 @@ public class TourBUS {
                         cell.setCellValue((Integer) value);
                     case 1, 3, 4, 5, 6, 7 ->
                         cell.setCellValue((String) value);
-                    case 2 -> {    
+                    case 2 -> {
                         cell.setCellStyle(CellUtils.getCurrencyStyle(cell.getSheet().getWorkbook()));
                         cell.setCellValue((Float) value);
                     }
@@ -165,5 +167,26 @@ public class TourBUS {
         return excelWriter.writeWithDialog("DanhSachTour.xlsx", data);
     }
 
+    public ArrayList<TourDTO> filter(Float min, Float max, String loai, boolean is1Day, boolean is2To4Day, boolean is5PlusDay) {
+        ArrayList result = new ArrayList();
+        for (TourDTO tour : dsTour) {
+            if (min != null && tour.getGia() < min) {
+                continue;
+            }
+            if (max != null && tour.getGia() > max) {
+                continue;
+            }
+            if (!loai.equals("Tất cả") && !loai.equals(tour.getLoaiTour())) {
+                continue;
+            }
+            int day = tour.getSoNgay();
+            if ((is1Day || is2To4Day || is5PlusDay) && !((is1Day && day == 1)
+                    || (is2To4Day && day >= 2 && day <= 4)
+                    || (is5PlusDay && day >= 5))) {
+                continue;
+            }
+            result.add(tour);
+        }
+        return result;
+    }
 }
-

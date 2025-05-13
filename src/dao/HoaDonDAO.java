@@ -60,7 +60,7 @@ public class HoaDonDAO {
     }
 
     public boolean updateHoaDon(HoaDonDTO hoaDon) {
-        String query = "UPDATE hoadon SET maKH = ?, maKHTour = ?, soVe = ?, maNV = ?, tongTien = ?, ghiChu = ?, maKhuyenMai = ?, ngayLapPhieu = ?, trangThai = ? WHERE maHoaDon = ?";
+        String query = "UPDATE hoadon SET maDat = ?, maNV = ?, ngayLap = ?, tongTien = ?, hinhThucThanhToan = ? , trangThai = ? WHERE maHD = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, hoaDon.getMaDat());
             pstmt.setInt(2, hoaDon.getMaNV());
@@ -69,7 +69,6 @@ public class HoaDonDAO {
             pstmt.setString(5, hoaDon.getHinhThucThanhToan());
             pstmt.setString(6, hoaDon.getTrangThai().getValue());
             pstmt.setInt(7, hoaDon.getMaHoaDon());
-            System.out.println(hoaDon);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -9,58 +9,42 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.Function;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Lớp đọc dữ liệu từ file Excel
  */
-public class ExcelReader {
+public class ExcelReader<T> {
 
     /**
      * Đọc dữ liệu từ file Excel
-     * 
+     *
      * @param filePath đường dẫn tới file Excel
-     * @param types    mảng các kiểu dữ liệu cho mỗi cột
+     * @param rowMapper hàm ánh xạ từ Row -> T
      * @return ArrayList chứa các dòng dữ liệu
      */
-    public ArrayList<Object[]> read(String filePath, Class<?>[] types) {
-        ArrayList<Object[]> result = new ArrayList<>();
+    public ArrayList<T> read(String filePath, Function<Row, T> rowMapper) {
+        ArrayList<T> result = new ArrayList<>();
 
         if (filePath == null || filePath.isBlank()) {
             System.out.println("❌ Đường dẫn file không hợp lệ");
             return result;
         }
 
-        try (FileInputStream fis = new FileInputStream(new File(filePath));
-                Workbook workbook = new XSSFWorkbook(fis)) {
+        try (FileInputStream fis = new FileInputStream(new File(filePath)); Workbook workbook = new XSSFWorkbook(fis)) {
 
             Sheet sheet = workbook.getSheetAt(0);
-            int maxColumns = getColumnCount(sheet, types);
-
-            // Xử lý tất cả các dòng trong sheet
-            for (int i = 0; i <= sheet.getLastRowNum(); i++) {
+            // bỏ qua header
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
-                if (row == null)
+                if (row == null) {
                     continue;
-
-                Object[] rowData = new Object[maxColumns];
-                boolean hasData = false;
-
-                for (int j = 0; j < maxColumns; j++) {
-                    Cell cell = row.getCell(j);
-                    if (cell == null)
-                        continue;
-
-                    Object value = getCellValue(cell, types != null && j < types.length ? types[j] : String.class);
-                    rowData[j] = value;
-
-                    if (value != null) {
-                        hasData = true;
-                    }
                 }
 
-                if (hasData) {
+                T rowData = rowMapper.apply(row); // ánh xạ dòng sang DTO
+                if (rowData != null) {
                     result.add(rowData);
                 }
             }
@@ -76,56 +60,47 @@ public class ExcelReader {
 
     /**
      * Cho phép người dùng chọn file Excel và đọc dữ liệu
-     * 
-     * @param types mảng các kiểu dữ liệu cho mỗi cột
+     *
+     * @param rowMapper hàm ánh xạ từ Row -> T
      * @return ArrayList chứa các dòng dữ liệu
      */
-    public ArrayList<Object[]> readWithDialog(Class<?>[] types) {
+    public ArrayList<T> readWithDialog(Function<Row, T> rowMapper) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files (*.xlsx)", "xlsx"));
         fileChooser.setDialogTitle("Chọn file Excel để nhập dữ liệu");
 
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return read(fileChooser.getSelectedFile().getAbsolutePath(), types);
+            return read(fileChooser.getSelectedFile().getAbsolutePath(), rowMapper);
         }
 
         return new ArrayList<>();
     }
 
     /**
-     * Xác định số cột cần đọc
-     */
-    private int getColumnCount(Sheet sheet, Class<?>[] types) {
-        // Nếu có types, dùng độ dài của types
-        if (types != null && types.length > 0) {
-            return types.length;
-        }
-
-        // Kiểm tra số cột từ dòng đầu tiên
-        Row firstRow = sheet.getRow(0);
-        return firstRow != null ? firstRow.getLastCellNum() : 0;
-    }
-
-    /**
      * Lấy giá trị từ cell theo kiểu dữ liệu mong muốn
      */
     private Object getCellValue(Cell cell, Class<?> type) {
-        if (cell == null)
+        if (cell == null) {
             return null;
+        }
 
         try {
             switch (cell.getCellType()) {
                 case STRING:
                     String str = cell.getStringCellValue();
-                    if (str.isBlank())
+                    if (str.isBlank()) {
                         return null;
+                    }
 
-                    if (type == Integer.class || type == int.class)
+                    if (type == Integer.class || type == int.class) {
                         return Integer.valueOf(str.trim());
-                    if (type == Double.class || type == double.class)
+                    }
+                    if (type == Double.class || type == double.class) {
                         return Double.valueOf(str.trim());
-                    if (type == Boolean.class || type == boolean.class)
+                    }
+                    if (type == Boolean.class || type == boolean.class) {
                         return Boolean.valueOf(str.trim());
+                    }
 
                     // Xử lý ngày tháng với nhiều định dạng
                     if (type == Date.class) {
@@ -133,12 +108,12 @@ public class ExcelReader {
 
                         // Thử các định dạng phổ biến
                         String[] dateFormats = {
-                                "yyyy-MM-dd", // 2023-04-25
-                                "dd/MM/yyyy", // 25/04/2023
-                                "dd-MM-yyyy", // 25-04-2023
-                                "MM/dd/yyyy", // 04/25/2023
-                                "yyyy/MM/dd", // 2023/04/25
-                                "m/d/yyyy", // 4/25/2023
+                            "yyyy-MM-dd", // 2023-04-25
+                            "dd/MM/yyyy", // 25/04/2023
+                            "dd-MM-yyyy", // 25-04-2023
+                            "MM/dd/yyyy", // 04/25/2023
+                            "yyyy/MM/dd", // 2023/04/25
+                            "m/d/yyyy", // 4/25/2023
                         };
 
                         for (String format : dateFormats) {
@@ -162,12 +137,15 @@ public class ExcelReader {
                     }
 
                     double num = cell.getNumericCellValue();
-                    if (type == Integer.class || type == int.class)
+                    if (type == Integer.class || type == int.class) {
                         return (int) num;
-                    if (type == Double.class || type == double.class)
+                    }
+                    if (type == Double.class || type == double.class) {
                         return (double) num;
-                    if (type == Boolean.class || type == boolean.class)
+                    }
+                    if (type == Boolean.class || type == boolean.class) {
                         return num != 0.0;
+                    }
                     if (type == String.class) {
                         return num == Math.floor(num) ? Long.toString((long) num) : Double.toString(num);
                     }

@@ -285,21 +285,23 @@ public class DatTourForm extends javax.swing.JPanel {
         if (index != -1) {
             // thêm dattour
             dto.setMaDat(index);
-            KeHoachTourDTO khTour = new KeHoachTourBUS().getKeHoachTourById(dto.getMaKHTour());
             model.addRow(dto.toArray());
+            
+            // thêm số lượng vé đã đặt
+            KeHoachTourBUS khBUS = new KeHoachTourBUS();
+            KeHoachTourDTO khTour = khBUS.getKeHoachTourById(dto.getMaKHTour());
+            khTour.setSlDaDat(khTour.getSlDaDat() + dto.getSoLuong());
+            if (khBUS.updateKeHoachTour(khTour) != -1) System.out.println("Cập nhật số lượng thành công");;
             // thêm chi tiết hành khách
             ChiTietHanhKhachBUS bus = new ChiTietHanhKhachBUS();
             for (int i = 0; i < listCTietHKhach.size(); i++) {
                 ChiTietHanhKhachDTO e = listCTietHKhach.get(i);
                 e.setMaDat(index);
-                e.setSoThuTu(i);
-                if (!bus.addCTietHKhach(e)) {
-                    new DatTourBUS().deleteDatTour(index);
-                    return false;
-                } else {
+                e.setSoThuTu(i+1);
+                if (bus.addCTietHKhach(e)) {
                     VeDTO ve = new VeDTO();
                     ve.setMaDat(index);
-                    ve.setSoThuTu(i);
+                    ve.setSoThuTu(i+1);
                     ve.setMaKHTour(dto.getMaKHTour());
                     ve.setHoTen(e.getHoTen());
                     ve.setNgayKhoiHanh(khTour.getThoiGianBD());

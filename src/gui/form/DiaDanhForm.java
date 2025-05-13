@@ -16,12 +16,16 @@ import bus.DiaDanhBUS;
 import gui.components.MyScrollBarUI;
 import gui.dialog.DiaDanhDialog;
 import utils.ExcelReader;
-import utils.TypeUtils;
 
 public class DiaDanhForm extends javax.swing.JPanel {
 
+    private ArrayList<DiaDanhDTO> dataFromExcel;
+    private DiaDanhBUS bus;
+
     public DiaDanhForm() {
         initComponents();
+        btnLuu.setVisible(false);
+        btnHuy.setVisible(false);
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
         spTable.getViewport().setBackground(Color.white);
@@ -31,13 +35,13 @@ public class DiaDanhForm extends javax.swing.JPanel {
         DefaultTableModel model = new DefaultTableModel(DiaDanhDTO.DIA_DANH_COLUMN_NAMES, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column != 0;
+                return false;
             }
         };
         table.setModel(model);
         if (!java.beans.Beans.isDesignTime()) {
-            // Chỉ loadData khi KHÔNG ở design time
-            loadDataToTable();
+            bus = new DiaDanhBUS();
+            loadDataToTable(bus.getDsDiaDanh());
             addToolBarAction();
         } else {
             System.out.println("DiaDanhForm đang chạy ở design time mode");
@@ -53,9 +57,11 @@ public class DiaDanhForm extends javax.swing.JPanel {
         spTable = new javax.swing.JScrollPane();
         table = new gui.components.Table();
         jLabel1 = new javax.swing.JLabel();
+        btnHuy = new gui.components.MyButton();
+        btnLuu = new gui.components.MyButton();
         myToolBar1 = new gui.components.MyToolBar();
 
-        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1660, 1000));
 
         spTable.setBorder(null);
 
@@ -74,25 +80,58 @@ public class DiaDanhForm extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Bảng địa danh");
 
+        btnHuy.setBackground(new java.awt.Color(255, 102, 102));
+        btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/x-mark.png"))); // NOI18N
+        btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
+
+        btnLuu.setBackground(new java.awt.Color(0, 255, 51));
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+        btnLuu.setText("Lưu");
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)
+                        .addGap(20, 20, 20))
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)))
                 .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -117,9 +156,22 @@ public class DiaDanhForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        saveData();
+    }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        JOptionPane.showMessageDialog(null,
+                    "Hủy thêm dữ liệu file excel",
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        btnLuu.setVisible(false);
+        btnHuy.setVisible(false);
+        loadDataToTable(bus.getDsDiaDanh());
+        dataFromExcel = null;
+    }//GEN-LAST:event_btnHuyActionPerformed
+
     public boolean addDiaDanh(DiaDanhDTO dd) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        DiaDanhBUS bus = new DiaDanhBUS();
         int index = bus.addDiaDanh(dd);
         if (index != -1) {
             dd.setMaDD(index);
@@ -131,7 +183,6 @@ public class DiaDanhForm extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        DiaDanhBUS bus = new DiaDanhBUS();
         int i = table.getSelectedRow();
         if (i >= 0) {
             int result = JOptionPane.showConfirmDialog(
@@ -156,7 +207,6 @@ public class DiaDanhForm extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         int index = table.getSelectedRow();
         if (index > -1) {
-            DiaDanhBUS bus = new DiaDanhBUS();
             DiaDanhDTO dd = bus.getDiaDanhByMa((int) model.getValueAt(index, 0));
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             DiaDanhDialog dialog = new DiaDanhDialog(parentFrame);
@@ -193,12 +243,24 @@ public class DiaDanhForm extends javax.swing.JPanel {
     }
 
     private void btnNhapExcelActionPerformed(java.awt.event.ActionEvent evt) {
-        ExcelReader read = new ExcelReader();
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        ArrayList<Object[]> list = read.readWithDialog(TypeUtils.getTypes(new DiaDanhDTO()));
-        if (!list.isEmpty()) {
-            model.setRowCount(0);
-            list.forEach(e -> model.addRow(e));
+        ExcelReader<DiaDanhDTO> read = new ExcelReader();
+        dataFromExcel = read.readWithDialog(row -> {
+            try {
+                return new DiaDanhDTO(
+                        (int) row.getCell(0).getNumericCellValue(),
+                        row.getCell(1).getStringCellValue(),
+                        row.getCell(2).getStringCellValue(),
+                        row.getCell(3).getStringCellValue()
+                );
+            } catch (Exception e) {
+                System.out.println("⚠️ Dòng lỗi: " + row.getRowNum());
+                return null;
+            }
+        });
+        if (!dataFromExcel.isEmpty()) {
+            btnLuu.setVisible(true);
+            btnHuy.setVisible(true);
+            loadDataToTable(dataFromExcel);
         }
     }
 
@@ -222,7 +284,6 @@ public class DiaDanhForm extends javax.swing.JPanel {
 
     public boolean updateDiaDanh(DiaDanhDTO dd) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        DiaDanhBUS bus = new DiaDanhBUS();
         int index = bus.updateDiaDanh(dd);
         if (index != -1) {
             model.setValueAt(dd.getTenDD(), index, 1);
@@ -233,15 +294,39 @@ public class DiaDanhForm extends javax.swing.JPanel {
         return false;
     }
 
-    private void loadDataToTable() {
-        DiaDanhBUS bus = new DiaDanhBUS();
-        ArrayList<DiaDanhDTO> DiaDanhs = bus.getDsDiaDanh();
+    private void loadDataToTable(ArrayList<DiaDanhDTO> list) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        DiaDanhs.forEach((var e) -> model.addRow(e.toObjectArray()));
+        list.forEach((var e) -> model.addRow(e.toObjectArray()));
+    }
+
+    private void saveData() {
+        int failCount = 0;
+        if (dataFromExcel != null) {
+            for (DiaDanhDTO dd : dataFromExcel) {
+                if (bus.addDiaDanh(dd) == -1) {
+                    failCount++;
+                }
+            }
+        }
+        if (failCount > 0) {
+            JOptionPane.showMessageDialog(null,
+                    "Lưu không thành công " + failCount + " dòng",
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Lưu thành công " + (dataFromExcel.size() - failCount) + " dòng",
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+        btnLuu.setVisible(false);
+        btnHuy.setVisible(false);
+        dataFromExcel = null;
+        loadDataToTable(bus.getDsDiaDanh());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private gui.components.MyButton btnHuy;
+    private gui.components.MyButton btnLuu;
     private javax.swing.JLabel jLabel1;
     private gui.components.MyToolBar myToolBar1;
     private gui.components.PanelBorder panelBorder1;
