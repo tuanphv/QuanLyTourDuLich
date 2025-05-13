@@ -16,7 +16,6 @@ import bus.DiaDanhBUS;
 import gui.components.MyScrollBarUI;
 import gui.dialog.DiaDanhDialog;
 import utils.ExcelReader;
-import utils.ExcelWriter;
 import utils.TypeUtils;
 
 public class DiaDanhForm extends javax.swing.JPanel {
@@ -204,8 +203,7 @@ public class DiaDanhForm extends javax.swing.JPanel {
     }
 
     private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {
-        ExcelWriter excelWriter = new ExcelWriter();
-        String savedFilePath = excelWriter.exportFromTable("DanhSachDiaDanh.xlsx", table.getModel());
+        String savedFilePath = new DiaDanhBUS().exportExcel();
 
         if (savedFilePath != null) {
             JOptionPane.showMessageDialog(null,

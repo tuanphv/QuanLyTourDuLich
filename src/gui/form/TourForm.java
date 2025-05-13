@@ -295,11 +295,23 @@ public class TourForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn tour cần xóa!");
         }
     }
+    
+    private void btnXuatExcelActionPerformed(ActionEvent evt) {
+        String savedFilePath = new TourBUS().exportExcel();
+
+        if (savedFilePath != null) {
+            JOptionPane.showMessageDialog(null,
+                    "Đã lưu file thành công tại:\n" + savedFilePath,
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
     private void addToolBarAction() {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnXuatExcel().addActionListener(e -> btnXuatExcelActionPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> loadDataToTable(new TourBUS().getDsTour()));
     }
 
     public boolean addTour(TourDTO tour) {
@@ -308,7 +320,7 @@ public class TourForm extends javax.swing.JPanel {
         int index = bus.addTour(tour);
         if (index != -1) {
             tour.setMaTour(index);
-            model.addRow(tour.toObjectArray());
+            model.addRow(tour.toTableRow());
             return true;
         }
         return false;
@@ -320,15 +332,10 @@ public class TourForm extends javax.swing.JPanel {
         int index = bus.updateTour(tour);
         System.out.println("Update Tour: " + index);
         if (index != -1) {
-            model.setValueAt(tour.getTenTour(), index, 1);
-            model.setValueAt(tour.getGia(), index, 2);
-            model.setValueAt(tour.getTinhTrang().getMoTa(), index, 3);
-            model.setValueAt(tour.getMoTa(), index, 4);
-            model.setValueAt(tour.getDiemKhoiHanh(), index, 5);
-            model.setValueAt(tour.getDiemDen(), index, 6);
-            model.setValueAt(tour.getLoaiTour(), index, 7);
-            model.setValueAt(tour.getSoNgay(), index, 8);
-            model.setValueAt(tour.getSoDem(), index, 9);
+            Object[] rowData = tour.toTableRow();
+            for (int i = 0; i<rowData.length; i++) {
+                model.setValueAt(rowData[i], index, i);
+            }
             return true;
         }
         return false;
@@ -337,7 +344,7 @@ public class TourForm extends javax.swing.JPanel {
     private void loadDataToTable(ArrayList<TourDTO> tours) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        tours.forEach((var e) -> model.addRow(e.toObjectArray()));
+        tours.forEach((var e) -> model.addRow(e.toTableRow()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

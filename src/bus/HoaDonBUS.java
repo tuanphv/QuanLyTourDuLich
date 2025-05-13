@@ -5,9 +5,17 @@ import java.util.ArrayList;
 import dao.HoaDonDAO;
 import dto.HoaDonDTO;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import utils.CellUtils;
 import utils.DateUtils;
+import utils.ExcelWriter;
 
 public class HoaDonBUS {
+
     private static ArrayList<HoaDonDTO> dsHoaDon;
     private HoaDonDAO dao;
 
@@ -77,7 +85,7 @@ public class HoaDonBUS {
         }
         return result;
     }
-    
+
     public HoaDonDTO getHoaDonByMaDat(int maDat) {
         for (HoaDonDTO hoaDon : dsHoaDon) {
             if (hoaDon.getMaDat() == maDat) {
@@ -86,17 +94,55 @@ public class HoaDonBUS {
         }
         return null;
     }
-    
+
     public float[] thongKeDoanhThuTheoNam(int year) {
         LocalDate start = DateUtils.getStartOfYear(year);
         LocalDate end = DateUtils.getEndOfYear(year);
         float[] data = new float[12];
-        for (HoaDonDTO hoaDon:dsHoaDon) {
+        for (HoaDonDTO hoaDon : dsHoaDon) {
             LocalDate date = hoaDon.getNgayLap().toLocalDate();
             if (date.isAfter(start) && date.isBefore(end)) {
-                data[date.getMonthValue()-1] += hoaDon.getTongTien();
+                data[date.getMonthValue() - 1] += hoaDon.getTongTien();
             }
         }
         return data;
+    }
+
+    public String exportExcel() {
+        ArrayList<Object[]> data = new ArrayList<>();
+        // tạo headers
+        Object[] headers = HoaDonDTO.COLUMN_NAMES;
+        data.add(headers);
+        // add từng dòng
+        for (HoaDonDTO hoaDon : dsHoaDon) {
+            data.add(hoaDon.toExcelRow());
+        }
+
+        ExcelWriter excelWriter = new ExcelWriter(((cell, value, rowIndex, columnIndex) -> {
+            if (rowIndex == 0) {
+                CellStyle style = cell.getSheet().getWorkbook().createCellStyle();
+                Font font = cell.getSheet().getWorkbook().createFont();
+                font.setBold(true);
+                style.setFont(font);
+                cell.setCellStyle(style);
+                cell.setCellValue((String) value);
+            } else {
+                switch (columnIndex) {
+                    case 0, 1, 2 ->
+                        cell.setCellValue((Integer) value);
+                    case 3 -> {
+                        cell.setCellStyle(CellUtils.getDateTimeStyle(cell.getSheet().getWorkbook()));
+                        cell.setCellValue(DateUtils.localDateTimeToDate((LocalDateTime) value));
+                    }
+                    case 4 -> {
+                        cell.setCellStyle(CellUtils.getCurrencyStyle(cell.getSheet().getWorkbook()));
+                        cell.setCellValue((Float) value);
+                    }
+                    case 5, 6 ->
+                        cell.setCellValue((String) value);
+                }
+            }
+        }));
+        return excelWriter.writeWithDialog("DanhSachHoaDon.xlsx", data);
     }
 }

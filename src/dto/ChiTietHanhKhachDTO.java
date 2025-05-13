@@ -1,10 +1,10 @@
-
 package dto;
 
 import enums.LoaiHanhKhach;
 import java.time.LocalDate;
 
 public class ChiTietHanhKhachDTO {
+
     private int maDat;
     private int soThuTu;
     private String hoTen;
@@ -83,9 +83,21 @@ public class ChiTietHanhKhachDTO {
         this.laNguoiDat = laNguoiDat;
     }
 
+    public static String[] COLUMN_NAMES = new String[]{"STT", "Họ tên", "Ngày sinh", "Loai hành khách", "Số giấy tờ", "Là người đặt"};
+
+    public Object[] toTableRow() {
+        return new Object[]{
+            soThuTu,
+            hoTen,
+            ngaySinh,
+            loaiHanhKhach,
+            soGiayTo,
+            laNguoiDat
+        };
+    }
+
     @Override
     public String toString() {
         return "ChiTietHanhKhachDTO{" + "maDat=" + maDat + ", soThuTu=" + soThuTu + ", hoTen=" + hoTen + ", ngaySinh=" + ngaySinh + ", loaiHanhKhach=" + loaiHanhKhach + ", soGiayTo=" + soGiayTo + ", laNguoiDat=" + laNguoiDat + '}';
     }
 }
-

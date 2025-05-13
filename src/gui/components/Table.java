@@ -2,6 +2,7 @@ package gui.components;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -11,6 +12,7 @@ public class Table extends JTable {
     public Table() {
         setShowHorizontalLines(true);
         setRowHeight(40);
+        setFont(new Font("Segoe UI", 0, 14));
         setGridColor(new Color(230, 230, 230));
         getTableHeader().setReorderingAllowed(false);
         getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {

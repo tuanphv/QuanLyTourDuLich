@@ -30,4 +30,13 @@ public class ChiTietHanhKhachBUS {
     public ArrayList<Object[]> thongKeLoaiHanhKhach() {
         return dao.thongKeLoaiHanhKhach();
     }
+    
+    public ArrayList<ChiTietHanhKhachDTO> getChiTietHanhKhachByMaDat(int maDat) {
+        ArrayList<ChiTietHanhKhachDTO> result = new ArrayList<>();
+        for (ChiTietHanhKhachDTO cTiet: dsCTietHKhach) {
+            if (cTiet.getMaDat() == maDat)
+                result.add(cTiet);
+        }
+        return result;
+    }
 }
