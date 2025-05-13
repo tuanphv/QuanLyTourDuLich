@@ -25,7 +25,8 @@ public class DiaDanhBUS {
 
     // Thêm địa danh
     public int addDiaDanh(DiaDanhDTO diaDanh) {
-        if ("".equals(diaDanh.getTenDD()) || "".equals(diaDanh.getTinhThanh()) || "".equals(diaDanh.getDiemNoiBat())) {
+        if (getDiaDanhByMa(diaDanh.getMaDD())!=null) {
+            System.out.println("Địa danh đã tồn tại");
             return -1;
         }
         DiaDanhDAO dao = new DiaDanhDAO();

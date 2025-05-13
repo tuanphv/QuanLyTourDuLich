@@ -44,7 +44,7 @@ public class Main extends javax.swing.JFrame {
         cardPanel.add(hoaDonForm, "cardHoaDon");
         cardPanel.add(datTourForm, "cardDatTour");
         cardPanel.add(veForm, "cardVe");
-        cardPanel.add(thongKeForm, "card13");
+        cardPanel.add(thongKeForm, "cardThongKe");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);

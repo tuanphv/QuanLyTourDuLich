@@ -3,6 +3,7 @@ package gui.dialog;
 import bus.KeHoachTourBUS;
 import dto.ChiTietHanhKhachDTO;
 import dto.DatTourDTO;
+import dto.KeHoachTourDTO;
 import gui.panel.ChiTietHanhKhachPanel;
 import java.awt.CardLayout;
 import java.text.DecimalFormat;
@@ -69,6 +70,11 @@ public class AddDatTourDialog extends javax.swing.JDialog {
         jLabel1.setText("Mã kế hoạch tour");
 
         txtMaKHTour.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMaKHTour.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMaKHTourFocusLost(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setText("Mã khách hàng");
@@ -286,7 +292,7 @@ public class AddDatTourDialog extends javax.swing.JDialog {
                     btnNext.setText("SUBMIT");
                     txtSLVe.setText(String.valueOf((int) spSoLuong.getValue()));
                     float total = 0;
-                    for (ChiTietHanhKhachPanel e: dsPanelChiTiet) {
+                    for (ChiTietHanhKhachPanel e : dsPanelChiTiet) {
                         total += e.tinhGiaVe(giaVe);
                     };
                     txtTongTien.setText(new DecimalFormat("#,###.##").format(total));
@@ -321,6 +327,15 @@ public class AddDatTourDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void txtMaKHTourFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaKHTourFocusLost
+        int maKHTour = Integer.parseInt(txtMaKHTour.getText().trim());
+        KeHoachTourDTO khTour = new KeHoachTourBUS().getKeHoachTourById(maKHTour);
+        if (khTour != null) {
+            int soVeConLai = khTour.getSlToiDa() - khTour.getSlDaDat();
+            spSoLuong.setModel(new SpinnerNumberModel(Integer.min((int)spSoLuong.getValue(), soVeConLai), 1, soVeConLai, 1));
+        }
+    }//GEN-LAST:event_txtMaKHTourFocusLost
+
     private void doSubmit() {
         save = true;
         dispose();
@@ -329,9 +344,9 @@ public class AddDatTourDialog extends javax.swing.JDialog {
     public DatTourDTO getInputData() {
         return datTourDTO;
     }
-    
+
     public ArrayList<ChiTietHanhKhachDTO> getChiTietHanhKhachList() {
-        for (int i=0; i<dsPanelChiTiet.size(); i++) {
+        for (int i = 0; i < dsPanelChiTiet.size(); i++) {
             dsChiTietHK.add(dsPanelChiTiet.get(i).getInput());
         }
         return dsChiTietHK;
@@ -356,9 +371,14 @@ public class AddDatTourDialog extends javax.swing.JDialog {
             return false;
         }
         try {
-            String maKHTour = txtMaKHTour.getText().trim();
-            Integer.valueOf(maKHTour);
-            txtMaKHTour.setText(maKHTour);
+            int maKHTour = Integer.parseInt(txtMaKHTour.getText().trim());
+            KeHoachTourDTO khTour = new KeHoachTourBUS().getKeHoachTourById(maKHTour);
+            if (khTour == null) {
+                JOptionPane.showMessageDialog(this, "Mã kế hoạch tour không tồn tại!", "Lỗi nhập liệu",
+                        JOptionPane.WARNING_MESSAGE);
+                txtMaKHTour.requestFocus();
+                return false;
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Mã kế hoạch tour phải là số nguyên!", "Lỗi nhập liệu",
                     JOptionPane.WARNING_MESSAGE);

@@ -40,11 +40,6 @@
   </Layout>
   <SubComponents>
     <Container class="gui.components.PanelBorder" name="panelBorder1">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
