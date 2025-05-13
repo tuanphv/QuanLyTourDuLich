@@ -80,4 +80,25 @@ public class NhaHangBUS {
         return null;
     }
     
+    public ArrayList<NhaHangDTO> getNhaHangByDiaChi(String diaChi) {
+        ArrayList<NhaHangDTO> listNhaHang = new ArrayList<>();
+        for (NhaHangDTO nhaHang : listRestaurant) {
+            if (nhaHang.getDiaChi().toLowerCase().contains(diaChi.toLowerCase())) {
+                listNhaHang.add(nhaHang);
+            }
+        }
+        return listNhaHang;
+    }
+
+    public ArrayList<NhaHangDTO> getNhaHangByChiPhi(int chiPhi) {
+        ArrayList<NhaHangDTO> listNhaHang = new ArrayList<>();
+        for (NhaHangDTO nhaHang : listRestaurant) {
+            if (nhaHang.getGia() <= chiPhi) {
+                listNhaHang.add(nhaHang);
+            }            
+        }
+        return listNhaHang;
+    }
+
 }
+

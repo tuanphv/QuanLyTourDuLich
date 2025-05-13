@@ -1,21 +1,20 @@
 package gui.form;
 
+import bus.KhachSanBUS;
+import dto.KhachSanDTO;
+import gui.components.MyScrollBarUI;
+import gui.dialog.InputKhachSan;
+import interfaces.SearchHandler;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Window;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-
-import dto.KhachSanDTO;
-import bus.KhachSanBUS;
-import gui.components.MyScrollBarUI;
-import gui.dialog.InputKhachSan;
 
 public class KhachSanForm extends javax.swing.JPanel {
     int rowSelected;
@@ -26,7 +25,6 @@ public class KhachSanForm extends javax.swing.JPanel {
     public KhachSanForm() {
         initComponents();
         modalTableKhachSan = new DefaultTableModel(KhachSanDTO.KHACH_SAN_COLUMN_NAMES, 0);
-        
 
         scrollTableKhachSan.getVerticalScrollBar().setUI(new MyScrollBarUI());
         scrollTableKhachSan.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
@@ -40,24 +38,40 @@ public class KhachSanForm extends javax.swing.JPanel {
             // Chỉ loadData khi KHÔNG ở design time
             khachSanBUS = new KhachSanBUS();
             listKhachSan = khachSanBUS.getListHotel();
-            loadDataToTable();
+            loadDataToTable(listKhachSan);
             addToolBarAction();
         } else {
             System.out.println("DiaDanhForm đang chạy ở design time mode");
         }
+
+        myToolBar1.setSearchType(new String[] {"Địa chỉ", "Chi phí"});
+        myToolBar1.setSearchHandler(new SearchHandler() {
+            @Override
+            public void onSearch(String type, String text) {
+                ArrayList<KhachSanDTO> dsKhachSan;
+                switch (type) {
+                    case "Địa chỉ" -> dsKhachSan = khachSanBUS.getKhachSanByDiaChi(text);
+                    case "Chi phí" -> dsKhachSan = khachSanBUS.getKhachSanByChiPhi(Integer.parseInt(text.trim()));
+                    default -> throw new AssertionError();
+                }
+                loadDataToTable(dsKhachSan);
+            }
+        });
+        
     }
 
-    private void loadDataToTable() {
+    private void loadDataToTable(ArrayList<KhachSanDTO> listKhachSan) {
         modalTableKhachSan.setRowCount(0);
         for (KhachSanDTO khachSan : listKhachSan) {
-            modalTableKhachSan.addRow(new Object[] {
-                khachSan.getMaKhachSan(), 
-                khachSan.getTenKhachSan(), 
-                khachSan.getDiaChi(), 
-                khachSan.getGia(), 
-                khachSan.getSoDienThoai(),
-                khachSan.getTrangThai()
-            });
+            // modalTableKhachSan.addRow(new Object[] {
+            //     khachSan.getMaKhachSan(), 
+            //     khachSan.getTenKhachSan(), 
+            //     khachSan.getDiaChi(), 
+            //     khachSan.getGia(), 
+            //     khachSan.getSoDienThoai(),
+            //     khachSan.getTrangThai()
+            // });
+            modalTableKhachSan.addRow(khachSan.toObject());
         }
     }
 

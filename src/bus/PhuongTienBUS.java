@@ -80,4 +80,35 @@ public class PhuongTienBUS {
         return null;
     }
     
+    public ArrayList<PhuongTienDTO> getListPhuongTienBySoCho(int soChoNgoi) {
+        ArrayList<PhuongTienDTO> listPhuongTien = new ArrayList<>();
+        for (PhuongTienDTO phuongTien : listVehicle) {
+            if (phuongTien.getSoChoNgoi() > soChoNgoi) {
+                listPhuongTien.add(phuongTien);
+            }
+        }
+        return listPhuongTien;
+    }
+
+    public ArrayList<PhuongTienDTO> getListPhuongTienByLoaiPhuongTien(String tenPhuongTien) {
+        ArrayList<PhuongTienDTO> listPhuongTien = new ArrayList<>();
+        for (PhuongTienDTO phuongTien : listVehicle) {
+            if (phuongTien.getLoaiPhuongTien().toLowerCase().contains(tenPhuongTien.toLowerCase())) {
+                listPhuongTien.add(phuongTien);
+            }
+        }
+        return listPhuongTien;
+    }
+
+    public ArrayList<PhuongTienDTO> getListPhuongTienByChiPhi(int chiPhi) {
+        ArrayList<PhuongTienDTO> listPhuongTien = new ArrayList<>();
+        for (PhuongTienDTO phuongTien : listVehicle) {
+            if (phuongTien.getGia() <= chiPhi) {
+                listPhuongTien.add(phuongTien);
+            }
+        }
+        return listPhuongTien;
+    }
+
 }
+

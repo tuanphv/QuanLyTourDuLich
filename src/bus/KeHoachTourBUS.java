@@ -107,6 +107,17 @@ public class KeHoachTourBUS {
         }  
     }
 
+    public ArrayList<KeHoachTourDTO> getKeHoachTourByNameTour(String nameTour) {
+        ArrayList<KeHoachTourDTO> listKeHoachTour = new ArrayList<>();
+        TourBUS tourBus = new TourBUS();
+        for (KeHoachTourDTO keHoachTour : dsKHTour) {
+            if (tourBus.getTourById(keHoachTour.getMaTour()).getTenTour().toLowerCase().contains(nameTour.toLowerCase())) {
+                listKeHoachTour.add(keHoachTour);
+            }
+        }
+        return listKeHoachTour;
+    }
+
     public int getMaTourByMaKHTour(int maKHTour) {
         for (KeHoachTourDTO khTour : dsKHTour) {
             if (khTour.getMaKHTour() == maKHTour) {
@@ -119,4 +130,7 @@ public class KeHoachTourBUS {
     public static void main(String[] args) {
         new KeHoachTourBUS().loadData();
     }
+
+    
 }
+

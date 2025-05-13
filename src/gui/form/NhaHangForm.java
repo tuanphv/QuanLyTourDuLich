@@ -1,21 +1,20 @@
 package gui.form;
 
+import bus.NhaHangBUS;
+import dto.NhaHangDTO;
+import gui.components.MyScrollBarUI;
+import gui.dialog.InputNhaHang;
+import interfaces.SearchHandler;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Window;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-
-import dto.NhaHangDTO;
-import bus.NhaHangBUS;
-import gui.dialog.InputNhaHang;
-import gui.components.MyScrollBarUI;
 
 public class NhaHangForm extends javax.swing.JPanel {
     int rowSelected;
@@ -26,7 +25,6 @@ public class NhaHangForm extends javax.swing.JPanel {
     public NhaHangForm() {
         initComponents();
         modalTableNhaHang = new DefaultTableModel(NhaHangDTO.NHA_HANG_COLUMN_NAMES, 0);
-        
 
         scrollTableNhaHang.getVerticalScrollBar().setUI(new MyScrollBarUI());
         scrollTableNhaHang.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
@@ -40,24 +38,40 @@ public class NhaHangForm extends javax.swing.JPanel {
             // Chỉ loadData khi KHÔNG ở design time
             nhaHangBUS = new NhaHangBUS();
             listNhaHang = nhaHangBUS.getListRestaurant();
-            loadDataToTable();
+            loadDataToTable(listNhaHang);
             addToolBarAction();
         } else {
             System.out.println("DiaDanhForm đang chạy ở design time mode");
         }
+        
+        myToolBar1.setSearchType(new String[] {"Địa chỉ", "Chi phí"});
+        myToolBar1.setSearchHandler(new SearchHandler() {
+            @Override
+            public void onSearch(String type, String text) {
+                ArrayList<NhaHangDTO> dsNhaHang;
+                switch (type) {
+                    case "Địa chỉ" -> dsNhaHang = nhaHangBUS.getNhaHangByDiaChi(text);
+                    case "Chi phí" -> dsNhaHang = nhaHangBUS.getNhaHangByChiPhi(Integer.parseInt(text.trim()));
+                    default -> throw new AssertionError();
+                }
+                loadDataToTable(dsNhaHang);
+            }
+        });
+
     }
 
-    private void loadDataToTable() {
+    private void loadDataToTable(ArrayList<NhaHangDTO> listNhaHang) {
         modalTableNhaHang.setRowCount(0);
         for (NhaHangDTO nhaHang : listNhaHang) {
-            modalTableNhaHang.addRow(new Object[] {
-                nhaHang.getMaNhaHang(),
-                nhaHang.getTenNhaHang(),
-                nhaHang.getDiaChi(),
-                nhaHang.getGia(),
-                nhaHang.getSoDienThoai(),
-                nhaHang.getTrangThai()
-            });
+            // modalTableNhaHang.addRow(new Object[] {
+            //     nhaHang.getMaNhaHang(),
+            //     nhaHang.getTenNhaHang(),
+            //     nhaHang.getDiaChi(),
+            //     nhaHang.getGia(),
+            //     nhaHang.getSoDienThoai(),
+            //     nhaHang.getTrangThai()
+            // });
+            modalTableNhaHang.addRow(nhaHang.toObject());
         }
     }
 

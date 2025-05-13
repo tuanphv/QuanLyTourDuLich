@@ -1,21 +1,20 @@
 package gui.form;
 
+import bus.PhuongTienBUS;
+import dto.PhuongTienDTO;
+import gui.components.MyScrollBarUI;
+import gui.dialog.InputPhuongTien;
+import interfaces.SearchHandler;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Window;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-
-import dto.PhuongTienDTO;
-import bus.PhuongTienBUS;
-import gui.components.MyScrollBarUI;
-import gui.dialog.InputPhuongTien;
 
 public class PhuongTienForm extends javax.swing.JPanel {
     int rowSelected;
@@ -38,25 +37,42 @@ public class PhuongTienForm extends javax.swing.JPanel {
             // Chỉ loadData khi KHÔNG ở design time
             phuongTienBUS = new PhuongTienBUS();
             listPhuongTien = phuongTienBUS.getListVehicle();
-            loadDataToTable();
+            loadDataToTable(listPhuongTien);
             addToolBarAction();
         } else {
             System.out.println("DiaDanhForm đang chạy ở design time mode");
         }
+
+        myToolBar1.setSearchType(new String[] {"Loại phương tiện", "Số chỗ ngồi", "Chi phí"});
+        myToolBar1.setSearchHandler(new SearchHandler() {
+            @Override
+            public void onSearch(String type, String text) {
+                ArrayList<PhuongTienDTO> dsPhuongTien;
+                switch (type) {
+                    case "Loại phương tiện" -> dsPhuongTien = phuongTienBUS.getListPhuongTienByLoaiPhuongTien(text);
+                    case "Số chỗ ngồi" -> dsPhuongTien = phuongTienBUS.getListPhuongTienBySoCho(Integer.parseInt(text.trim()));
+                    case "Chi phí" -> dsPhuongTien = phuongTienBUS.getListPhuongTienByChiPhi(Integer.parseInt(text.trim()));
+                    default -> throw new AssertionError();
+                }
+                loadDataToTable(dsPhuongTien);
+            }
+        });
+
     }
 
-    private void loadDataToTable() {
+    private void loadDataToTable(ArrayList<PhuongTienDTO> listPhuongTien) {
         modelTablePhuongTien.setRowCount(0);
         for (PhuongTienDTO phuongTien : listPhuongTien) {
-            modelTablePhuongTien.addRow(new Object[] {
-                phuongTien.getMaPhuongTien(),
-                phuongTien.getTenPhuongTien(),
-                phuongTien.getLoaiPhuongTien(),
-                phuongTien.getSoChoNgoi(),
-                phuongTien.getGia(),
-                phuongTien.getSoDienThoai(),
-                phuongTien.getTrangThai()
-            });
+            // modelTablePhuongTien.addRow(new Object[] {
+            //     phuongTien.getMaPhuongTien(),
+            //     phuongTien.getTenPhuongTien(),
+            //     phuongTien.getLoaiPhuongTien(),
+            //     phuongTien.getSoChoNgoi(),
+            //     phuongTien.getGia(),
+            //     phuongTien.getSoDienThoai(),
+            //     phuongTien.getTrangThai()
+            // });
+            modelTablePhuongTien.addRow(phuongTien.toOject());
         }
     }
 
