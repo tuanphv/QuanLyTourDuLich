@@ -44,7 +44,10 @@ public class NhanVienBUS {
         return dsNhanVien;
     }
     public NhanVienDTO getById(int id) {
-        return dsNhanVien.stream().filter(kh -> kh.getMaNV() == id).findFirst().orElse(null);
+        NhanVienDTO nv = dsNhanVien.stream().filter(kh -> kh.getMaNV() == id).findFirst().orElse(null);
+        if (nv == null)
+            return dao.getNhanVienByMa(id);
+        return nv;
     }
     private int getIndexById(int maNV) {
         for (int i = 0; i < dsNhanVien.size(); i++) {

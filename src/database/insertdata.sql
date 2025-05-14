@@ -235,21 +235,21 @@ INSERT INTO ChiTietHanhKhach (maDat, soThuTu, hoTen, ngaySinh, loaiHanhKhach, so
 (7, 2, 'Nguyen Thi L', '2003-07-25', 'TreEm', 'L443322110', FALSE),
 
 (8, 1, 'Pham Hoang M', '1997-03-06', 'NguoiLon', 'M223344556', TRUE),
-(8, 2, 'Le Minh N', '1961-09-17', 'NguoiGia', 'N776655443', TRUE),
+(8, 2, 'Le Minh N', '1961-09-17', 'NguoiGia', 'N776655443', FALSE),
 
 (9, 1, 'Nguyen Thi O', '1994-08-12', 'NguoiLon', 'O887766554', TRUE),
-(9, 2, 'Pham Minh P', '1998-12-04', 'NguoiLon', 'P998877665', FALSE),
+(9, 2, 'Pham Minh P', '1998-12-04', 'TreSoSinh', 'P998877665', FALSE),
 
 (10, 1, 'Le Hoang Q', '2006-02-18', 'TreEm', 'Q223344556', TRUE),
-(10, 2, 'Nguyen Thi R', '2005-10-01', 'TreEm', 'R334455667', TRUE),
+(10, 2, 'Nguyen Thi R', '2005-10-01', 'TreEm', 'R334455667', FALSE),
 
 (11, 1, 'Nguyen Thi S', '1999-06-29', 'NguoiLon', 'S887766554', TRUE),
-(11, 2, 'Pham Thi T', '2002-03-09', 'TreEm', 'T667788990', TRUE),
+(11, 2, 'Pham Thi T', '2002-03-09', 'TreEm', 'T667788990', FALSE),
 
-(12, 1, 'Le Thi U', '2004-01-22', 'TreSoSinh', 'U889900112', FALSE),
+(12, 1, 'Le Thi U', '2004-01-22', 'NguoiLon', 'U889900112', FALSE),
 
 (13, 1, 'Nguyen Thi V', '1992-05-10', 'NguoiLon', 'V776655443', TRUE),
-(13, 2, 'Pham Hoang W', '2000-02-28', 'NguoiLon', 'W998877665', FALSE),
+(13, 2, 'Pham Hoang W', '2000-02-28', 'TreSoSinh', 'W998877665', FALSE),
 
 (14, 1, 'Le Minh X', '2003-04-15', 'TreEm', 'X223344556', TRUE),
 
@@ -282,7 +282,7 @@ INSERT INTO ChiTietHanhKhach (maDat, soThuTu, hoTen, ngaySinh, loaiHanhKhach, so
 (27, 1, 'Le Hoang MM', '1992-04-14', 'NguoiLon', 'MM334455667', TRUE),
 
 (28, 1, 'Nguyen Thi NN', '1996-09-05', 'NguoiLon', 'NN223344556', TRUE),
-(28, 2, 'Pham Minh OO', '2000-01-10', 'TreEm', 'OO556677889', TRUE),
+(28, 2, 'Pham Minh OO', '2000-01-10', 'TreEm', 'OO556677889', FALSE),
 
 (29, 1, 'Le Thi PP', '2004-06-25', 'NguoiLon', 'PP223344556', TRUE),
 (29, 2, 'Nguyen Thi QQ', '2003-09-17', 'TreEm', 'QQ998877665', FALSE),

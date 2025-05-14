@@ -104,23 +104,25 @@ public class KhachHangDAO {
     public KhachHangDTO getKhachHangByMa(int ma) {
         String sql = "SELECT * FROM khachhang WHERE maKH = " + ma;
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-            return new KhachHangDTO(
-                    rs.getInt("maKH"),
-                    rs.getString("username"),
-                    rs.getString("password"),
-                    rs.getString("ho"),
-                    rs.getString("ten"),
-                    rs.getString("ngaySinh"),
-                    rs.getString("gioiTinh"),
-                    rs.getString("soDT"),
-                    rs.getString("email"),
-                    rs.getString("cc_hc"),
-                    rs.getString("ngayDK"),
-                    rs.getInt("trangThai")
-            );
+            if (rs.next()) {
+                return new KhachHangDTO(
+                        rs.getInt("maKH"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("ho"),
+                        rs.getString("ten"),
+                        rs.getString("ngaySinh"),
+                        rs.getString("gioiTinh"),
+                        rs.getString("soDT"),
+                        rs.getString("email"),
+                        rs.getString("cc_hc"),
+                        rs.getString("ngayDK"),
+                        rs.getInt("trangThai")
+                );
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
-        }
+            }
+        return null;
     }
 }

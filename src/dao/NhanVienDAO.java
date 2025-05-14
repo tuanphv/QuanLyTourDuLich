@@ -104,25 +104,28 @@ public class NhanVienDAO {
     }
 
     public NhanVienDTO getNhanVienByMa(int ma) {
-        String sql = "SELECT * FROM nhanvien WHERE ma = " + ma;
+        String sql = "SELECT * FROM nhanvien WHERE maNV = " + ma;
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-            return new NhanVienDTO(
-                    rs.getInt("maNV"),
-                    rs.getString("username"),
-                    rs.getString("password"),
-                    rs.getString("ho"),
-                    rs.getString("ten"),
-                    rs.getString("ngaySinh"),
-                    rs.getString("gioiTinh"),
-                    rs.getString("soDT"),
-                    rs.getString("email"),
-                    rs.getString("cc_hc"),
-                    rs.getString("ngayVaoLam"),
-                    rs.getString("chucVu"),
-                    rs.getInt("trangThai")
-            );
+            if (rs.next()) {
+                return new NhanVienDTO(
+                        rs.getInt("maNV"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("ho"),
+                        rs.getString("ten"),
+                        rs.getString("ngaySinh"),
+                        rs.getString("gioiTinh"),
+                        rs.getString("soDT"),
+                        rs.getString("email"),
+                        rs.getString("cc_hc"),
+                        rs.getString("ngayVaoLam"),
+                        rs.getString("chucVu"),
+                        rs.getInt("trangThai")
+                );
+            }
         } catch (SQLException e) {
-            return null;
+            e.printStackTrace();
         }
+        return null;
     }
 }
