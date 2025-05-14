@@ -48,7 +48,7 @@ CREATE TABLE phuongtien (
     soChoNgoi INT,
     gia FLOAT,
     sdt VARCHAR(20),
-    trangThai BOOLEAN 
+    trangThai INT DEFAULT 1 
 );
 
 -- 4. Bảng Khách sạn
@@ -58,7 +58,7 @@ CREATE TABLE khachsan (
     diaChi VARCHAR(255),
     gia FLOAT,
     sdt VARCHAR(20),
-    trangThai BOOLEAN 
+    trangThai INT DEFAULT 1 
 );
 
 -- 5. Bảng Nhà hàng
@@ -68,7 +68,7 @@ CREATE TABLE nhahang (
     diaChi VARCHAR(255),
     gia FLOAT,
     sdt VARCHAR(20),
-    trangThai BOOLEAN 
+    trangThai INT DEFAULT 1 
 );
 
 -- 6. Bảng Tour
@@ -103,6 +103,7 @@ CREATE TABLE diadanh (
     maDiaDanh INT AUTO_INCREMENT PRIMARY KEY,
     tenDD VARCHAR(100),
     tinhThanh VARCHAR(100),
+    chiPhi FLOAT,
     diemNoiBat TEXT
 );
 

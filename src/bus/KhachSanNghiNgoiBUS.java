@@ -10,6 +10,10 @@ public class KhachSanNghiNgoiBUS {
 
     public KhachSanNghiNgoiBUS() {
         khachSanNghiNgoiDAO = new KhachSanNghiNgoiDAO();
+        loadData(); // Tải dữ liệu ban đầu
+    }
+
+    public void loadData() {
         dsKhachSanNghiNgoi = khachSanNghiNgoiDAO.getAllKhachSanNghiNgoi();
     }
 
@@ -54,6 +58,7 @@ public class KhachSanNghiNgoiBUS {
     }
     
     public ArrayList<KhachSanNghiNgoiDTO> getKhachSanNghiNgoiByMaChiTietKeHoachTour(int maChiTietKeHoachTour) {
+        loadData();
         ArrayList<KhachSanNghiNgoiDTO> result = new ArrayList<>();
         for (KhachSanNghiNgoiDTO khachSanNghiNgoi : dsKhachSanNghiNgoi) {
             if (khachSanNghiNgoi.getMaChiTietKeHoachTour() == maChiTietKeHoachTour) {

@@ -63,16 +63,9 @@ public class PhuongTienForm extends javax.swing.JPanel {
     private void loadDataToTable(ArrayList<PhuongTienDTO> listPhuongTien) {
         modelTablePhuongTien.setRowCount(0);
         for (PhuongTienDTO phuongTien : listPhuongTien) {
-            // modelTablePhuongTien.addRow(new Object[] {
-            //     phuongTien.getMaPhuongTien(),
-            //     phuongTien.getTenPhuongTien(),
-            //     phuongTien.getLoaiPhuongTien(),
-            //     phuongTien.getSoChoNgoi(),
-            //     phuongTien.getGia(),
-            //     phuongTien.getSoDienThoai(),
-            //     phuongTien.getTrangThai()
-            // });
-            modelTablePhuongTien.addRow(phuongTien.toOject());
+            if (phuongTien.getTrangThai() == 1) {
+                modelTablePhuongTien.addRow(phuongTien.toOject());
+            }
         }
     }
 
@@ -172,15 +165,7 @@ public class PhuongTienForm extends javax.swing.JPanel {
             return;
         }
 
-        PhuongTienDTO phuongTien = new PhuongTienDTO(
-            (int) tablePhuongTien.getModel().getValueAt(rowSelected, 0),
-            tablePhuongTien.getModel().getValueAt(rowSelected, 1).toString(),
-            tablePhuongTien.getModel().getValueAt(rowSelected, 2).toString(),
-            (int) tablePhuongTien.getModel().getValueAt(rowSelected, 3),
-            (int) tablePhuongTien.getModel().getValueAt(rowSelected, 4),
-            tablePhuongTien.getModel().getValueAt(rowSelected, 5).toString(),
-            (int) tablePhuongTien.getModel().getValueAt(rowSelected, 6)
-        );
+        PhuongTienDTO phuongTien = phuongTienBUS.getVehicleById((int) modelTablePhuongTien.getValueAt(rowSelected, 0));
         Window parent = SwingUtilities.getWindowAncestor(this);
         InputPhuongTien inputPhuongTien = new InputPhuongTien((Frame) parent, InputPhuongTien.Mode.UPDATE, this);
         inputPhuongTien.uploadDataToModal(phuongTien);
@@ -191,12 +176,10 @@ public class PhuongTienForm extends javax.swing.JPanel {
     public void updatePhuongTien(PhuongTienDTO phuongTien) {
         boolean success = phuongTienBUS.update(phuongTien);
         if (success) {
-            modelTablePhuongTien.setValueAt(phuongTien.getTenPhuongTien(), rowSelected, 1);
-            modelTablePhuongTien.setValueAt(phuongTien.getLoaiPhuongTien(), rowSelected, 2);
-            modelTablePhuongTien.setValueAt(phuongTien.getSoChoNgoi(), rowSelected, 3);
-            modelTablePhuongTien.setValueAt(phuongTien.getGia(), rowSelected, 4);
-            modelTablePhuongTien.setValueAt(phuongTien.getSoDienThoai(), rowSelected, 5);
-            modelTablePhuongTien.setValueAt(phuongTien.getTrangThai(), rowSelected, 6);
+            Object[] data = phuongTien.toOject();
+            for (int i = 0; i < data.length; i++) {
+                modelTablePhuongTien.setValueAt(data[i], rowSelected, i);
+            }
             JOptionPane.showMessageDialog(this, "Update thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "ERROR!");
@@ -212,8 +195,8 @@ public class PhuongTienForm extends javax.swing.JPanel {
         } 
 
         int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modelTablePhuongTien.getValueAt(rowSelected, 1), 
-        "Xoá nhà hàng", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
-        if (answer == JOptionPane.YES_OPTION) {
+        "Xác nhận xoá", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (answer == JOptionPane.OK_OPTION) {
             phuongTienBUS.delete((int) modelTablePhuongTien.getValueAt(rowSelected, 0));
             modelTablePhuongTien.removeRow(rowSelected);
             JOptionPane.showMessageDialog(this, "Xoá thành công!");
@@ -226,6 +209,10 @@ public class PhuongTienForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> {
+            loadDataToTable(listPhuongTien);
+            myToolBar1.setSearchText("");
+        });
     }
 
 
@@ -237,3 +224,4 @@ public class PhuongTienForm extends javax.swing.JPanel {
     private gui.components.Table tablePhuongTien;
     // End of variables declaration//GEN-END:variables
 }
+

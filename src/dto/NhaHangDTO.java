@@ -1,5 +1,7 @@
 package dto;
 
+import utils.TextUtils;
+
 public class NhaHangDTO {
     private int maNhaHang;
     private String tenNhaHang;
@@ -11,12 +13,11 @@ public class NhaHangDTO {
     public NhaHangDTO() {
     }
 
-    public NhaHangDTO(String tenNhaHang, String diaChi, int gia, String soDienThoai, int trangThai) {
+    public NhaHangDTO(String tenNhaHang, String diaChi, int gia, String soDienThoai) {
         this.tenNhaHang = tenNhaHang;
         this.diaChi = diaChi;
         this.gia = gia;
         this.soDienThoai = soDienThoai;
-        this.trangThai = trangThai;
     }
 
     public NhaHangDTO(int maNhaHang, String tenNhaHang, String diaChi, int gia, String soDienThoai, int trangThai) {
@@ -87,7 +88,7 @@ public class NhaHangDTO {
         "Địa chỉ",
         "Giá",
         "Số điện thoại",
-        "Trạng thái"
+        // "Trạng thái"
     };
 
     public Object[] toObject() {
@@ -95,9 +96,9 @@ public class NhaHangDTO {
             maNhaHang, 
             tenNhaHang,
             diaChi,
-            gia,
+            TextUtils.formatCurrency(gia),
             soDienThoai,
-            trangThai
+            // trangThai
         };
     }
     

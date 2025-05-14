@@ -9,6 +9,7 @@ import bus.KhachSanBUS;
 import bus.KhachSanNghiNgoiBUS;
 import bus.NhaHangBUS;
 import bus.PhuongTienBUS;
+import bus.TourBUS;
 import dto.BuoiAnDTO;
 import dto.ChiTietKeHoachTourDTO;
 import dto.DiaDiemThamQuanDTO;
@@ -17,6 +18,7 @@ import dto.KhachSanNghiNgoiDTO;
 import gui.components.MyScrollBarUI;
 import gui.dialog.KeHoachTour;
 import interfaces.SearchHandler;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -32,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class KeHoachTourForm extends javax.swing.JPanel {
     KeHoachTourBUS keHoachTourBUS = new KeHoachTourBUS();
-    ChiTietKeHoachTourBUS chiTietKeHoachTourBUS = new ChiTietKeHoachTourBUS();
+    ChiTietKeHoachTourBUS chiTietKeHoachTourBUS;
     DiaDanhBUS diaDanhBUS = new DiaDanhBUS();
     PhuongTienBUS phuongTienBUS = new PhuongTienBUS();
     NhaHangBUS nhaHangBUS = new NhaHangBUS();
@@ -44,13 +46,22 @@ public class KeHoachTourForm extends javax.swing.JPanel {
 
     public KeHoachTourForm() {
         initComponents();
-        
+        chiTietKeHoachTourBUS = new ChiTietKeHoachTourBUS();
+
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
         spTable.getViewport().setBackground(Color.white);
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+
+        scrollChiTietKeHoachTour.getVerticalScrollBar().setUI(new MyScrollBarUI());
+        scrollChiTietKeHoachTour.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        scrollChiTietKeHoachTour.getViewport().setBackground(Color.white);
+        JPanel p2 = new JPanel();
+        p2.setBackground(Color.WHITE);
+        scrollChiTietKeHoachTour.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p2);
+
         DefaultTableModel model;
         model = new DefaultTableModel(KeHoachTourDTO.KH_TOUR_COLUMN_NAMES, 0) {
             @Override
@@ -274,25 +285,62 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public JPanel createLichTrinhPanel(int dayNumber) {
+        JPanel dayPanel = keHoachTourDialog.createTitledPanel("Ngày " + dayNumber);
+        dayPanel.setBackground(new Color(255, 255, 255));
+
+        // Tiêu đề ngày
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        JTextField titleField = new JTextField();
+        titleField.setBorder(keHoachTourDialog.createTitleBorder("Tiêu đề"));
+        titlePanel.add(titleField, BorderLayout.CENTER);
+        dayPanel.add(titlePanel);
+
+        // Panel chứa các địa điểm
+        JPanel locationPanel = keHoachTourDialog.createTitledPanel("Địa điểm tham quan");
+
+        // Panel chứa khách sạn nghỉ ngơi
+        JPanel hotelPanel = keHoachTourDialog.createTitledPanel("Khách sạn nghỉ ngơi");
+
+        dayPanel.add(locationPanel);
+        dayPanel.add(hotelPanel);
+
+        // Ẩn tiêu đề nếu không có nội dung
+        if (locationPanel.getComponentCount() == 0) {
+            locationPanel.setBorder(null);
+        }
+        if (hotelPanel.getComponentCount() == 0) {
+            hotelPanel.setBorder(null);
+        }
+
+        return dayPanel;
+    }
+
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int rowSelected = table.getSelectedRow();
         int maKeHoachTour = (int) table.getModel().getValueAt(rowSelected, 0);
+        System.out.println("Kế hoạch tour ID: " + maKeHoachTour);
+        // TourBUS tourBUS = new TourBUS();
+        // System.out.println("Tên tour: " + tourBUS.getTourById(keHoachTourBUS.getKeHoachTourById(maKeHoachTour).getMaTour()).getTenTour());
         KeHoachTourDTO keHoachTour = keHoachTourBUS.getKeHoachTourById(maKeHoachTour);
-
-       
 
         panelLichTrinh.removeAll();
         panelAnUong.removeAll();
 
         // lấy thông tin chi tiết kế hoạch tour
-        ArrayList<ChiTietKeHoachTourDTO> chiTietKeHoachTour = chiTietKeHoachTourBUS.getChiTietKeHoachTourByMaKeHoachTour(maKeHoachTour);
+        // ArrayList<ChiTietKeHoachTourDTO> chiTietKeHoachTour = chiTietKeHoachTourBUS.getChiTietKeHoachTourByMaKeHoachTour(maKeHoachTour);
+        ArrayList<ChiTietKeHoachTourDTO> allChiTietKeHoachTour = chiTietKeHoachTourBUS.getAllChiTietKeHoachTour();
+        System.out.println("Tổng số chi tiết kế hoạch tour: " + allChiTietKeHoachTour.size());
+        ArrayList<ChiTietKeHoachTourDTO> chiTietKeHoachTour = chiTietKeHoachTourBUS.getChiTietKeHoachTourByMaKeHoachTour(keHoachTour.getMaKHTour());
+        System.out.println("Kế hoạch tour: " + keHoachTour);
+        System.out.println("Chi tiết kế hoạch tour: " + chiTietKeHoachTour.size());
         int soNgayTour = chiTietKeHoachTour.size();
 
         for (int i = 0; i < soNgayTour; i++) {
             ChiTietKeHoachTourDTO chiTietKeHoach = chiTietKeHoachTour.get(i);
             int maChiTietKeHoach = chiTietKeHoach.getMaChiTietKeHoachTour();
 
-            JPanel lichTrinhPanel = keHoachTourDialog.createLichTrinhPanel(i + 1);
+            JPanel lichTrinhPanel = createLichTrinhPanel(i + 1);
             JPanel anUongPanel = keHoachTourDialog.createAnUongPanel(i + 1);
 
             // Lấy thông tin lịch trình và ăn uống từ cơ sở dữ liệu
@@ -338,9 +386,9 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         // KeHoachTourDialog dialog = new KeHoachTourDialog(parentFrame);
         KeHoachTour dialog = new KeHoachTour(parentFrame, this, KeHoachTour.Action.INSERT);
         dialog.setVisible(true);
-        if (dialog.isSave()) {
-            dialog.saveKeHoachTour();
-            JOptionPane.showMessageDialog(this, "Đã thêm kế hoạch tour!");
+        // if (dialog.isSave()) {
+        //     dialog.saveKeHoachTour();
+        //     JOptionPane.showMessageDialog(this, "Đã thêm kế hoạch tour!");
 
             // KeHoachTourDTO input = dialog.getInputData();
             // if (addTour(input)) {
@@ -348,7 +396,7 @@ public class KeHoachTourForm extends javax.swing.JPanel {
             // } else {
             //     JOptionPane.showMessageDialog(this, "Thêm kế hoạch tour không thành công!");
             // }
-        }
+        // }
     }
 
     private void btnSuaActionPerformed(ActionEvent evt) {
@@ -406,6 +454,14 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> {
+            loadDataToTable(keHoachTourBUS.getDSKHTour());
+            panelLichTrinh.removeAll();
+            panelAnUong.removeAll();
+            lbLichTrinh.setVisible(false);
+            lbAnUong.setVisible(false);
+            myToolBar1.setSearchText("");
+        });
     }
 
     public int addTour(KeHoachTourDTO khTour) {

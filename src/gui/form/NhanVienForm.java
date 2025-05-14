@@ -1,14 +1,13 @@
 package gui.form;
 
-import dto.NhanVienDTO;
 import bus.NhanVienBUS;
+import dto.NhanVienDTO;
 import gui.components.MyScrollBarUI;
 import gui.dialog.InputNhanVien;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class NhanVienForm extends javax.swing.JPanel {
     private int rowSelected;
@@ -112,6 +111,11 @@ public class NhanVienForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnAddActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnUpdateActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnDeleteActionPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> {
+            danhSachNhanVien = nhanVienBUS.getList();
+            loadDataToTable();
+            myToolBar1.setSearchText("");
+        });
     }
 
     @SuppressWarnings("unchecked")

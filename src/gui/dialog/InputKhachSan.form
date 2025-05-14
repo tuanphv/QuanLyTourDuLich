@@ -24,94 +24,65 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" linkSize="1" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
-                              <Component id="jLabel2" linkSize="1" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
-                              <Component id="jLabel3" linkSize="1" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="jLabel4" linkSize="1" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="jLabel5" linkSize="1" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jLabel6" linkSize="1" min="-2" pref="37" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfDiaChi" linkSize="3" pref="75" max="32767" attributes="0"/>
-                          <Component id="tfTenKhachSan" linkSize="3" pref="75" max="32767" attributes="0"/>
-                          <Component id="tfMaKhachSan" linkSize="3" pref="315" max="32767" attributes="0"/>
-                          <Component id="tfGia" linkSize="3" pref="75" max="32767" attributes="0"/>
-                          <Component id="tfSoDienThoai" linkSize="3" pref="75" max="32767" attributes="0"/>
-                          <Component id="cbTrangThai" linkSize="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                      <Component id="btnSubmit" linkSize="6" min="-2" pref="120" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnHuy" linkSize="6" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jLabel4" linkSize="11" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel3" linkSize="11" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel2" linkSize="11" alignment="0" pref="124" max="32767" attributes="0"/>
+                  <Component id="jLabel5" linkSize="11" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="tfGia" linkSize="12" alignment="0" pref="276" max="32767" attributes="0"/>
+                  <Component id="tfDiaChi" linkSize="12" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tfTenKhachSan" linkSize="12" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tfSoDienThoai" linkSize="12" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnSubmit" linkSize="10" min="-2" pref="101" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="btnHuy" linkSize="10" min="-2" pref="43" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="tfMaKhachSan" linkSize="4" pref="37" max="32767" attributes="0"/>
-                  <Component id="jLabel1" linkSize="5" max="32767" attributes="0"/>
+                  <Component id="tfTenKhachSan" linkSize="13" pref="39" max="32767" attributes="0"/>
+                  <Component id="jLabel2" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="tfDiaChi" linkSize="13" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="jLabel3" linkSize="9" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" linkSize="5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="tfTenKhachSan" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" linkSize="9" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfGia" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" linkSize="5" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="tfDiaChi" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel5" linkSize="9" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfSoDienThoai" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" linkSize="5" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="tfGia" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" linkSize="5" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="tfSoDienThoai" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel6" linkSize="5" alignment="3" max="32767" attributes="0"/>
-                  <Component id="cbTrangThai" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSubmit" linkSize="7" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="btnHuy" linkSize="7" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="M&#xe3; kh&#xe1;ch s&#x1ea1;n"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfMaKhachSan">
-      <Properties>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#xea;n kh&#xe1;ch s&#x1ea1;n"/>
@@ -147,24 +118,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cbTrangThai">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Ho&#x1ea1;t &#x111;&#x1ed9;ng"/>
-            <StringItem index="1" value="&#x110;&#xe3; kho&#xe1;"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnHuy">
       <Properties>

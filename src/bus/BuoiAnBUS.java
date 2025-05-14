@@ -10,6 +10,10 @@ public class BuoiAnBUS {
 
     public BuoiAnBUS() {
         buoiAnDAO = new BuoiAnDAO();
+        loadData(); // Tải dữ liệu ban đầu
+    }
+
+    public void loadData() {
         listBuoiAn = buoiAnDAO.getAllBuoiAn();
     }
 
@@ -54,6 +58,7 @@ public class BuoiAnBUS {
     }
     
     public ArrayList<BuoiAnDTO> getBuoiAnByMaChiTietKeHoachTour(int maChiTietKeHoachTour) {
+        loadData();
         ArrayList<BuoiAnDTO> result = new ArrayList<>();
         for (BuoiAnDTO buoiAn : listBuoiAn) {
             if (buoiAn.getMaChiTietKeHoachTour() == maChiTietKeHoachTour) {

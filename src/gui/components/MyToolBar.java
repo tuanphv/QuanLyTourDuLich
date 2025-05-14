@@ -6,9 +6,6 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
 
 public class MyToolBar extends javax.swing.JPanel {
 
@@ -85,11 +82,6 @@ public class MyToolBar extends javax.swing.JPanel {
 
         btnReFresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
         btnReFresh.setText("Refresh");
-        btnReFresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReFreshActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
         panelBorder2.setLayout(panelBorder2Layout);
@@ -164,10 +156,6 @@ public class MyToolBar extends javax.swing.JPanel {
         doSearch();
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void btnReFreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReFreshActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReFreshActionPerformed
-
     private void txtSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMousePressed
         txtSearch.selectAll();
     }//GEN-LAST:event_txtSearchMousePressed
@@ -211,6 +199,15 @@ public class MyToolBar extends javax.swing.JPanel {
     
     public MyButton getBtnRefresh() {
         return btnReFresh;
+    }
+
+    public String getSearchText() {
+        return txtSearch.getText().trim();
+    }
+
+    public String setSearchText(String text) {
+        txtSearch.setText(text);
+        return text;
     }
 
     public void setBtnThem(ButtonToolBar btn) {

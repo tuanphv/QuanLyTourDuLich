@@ -10,6 +10,10 @@ public class ChiTietKeHoachTourBUS {
 
     public ChiTietKeHoachTourBUS() {
         chiTietKeHoachTourDAO = new ChiTietKeHoachTourDAO();
+        loadData(); // Tải dữ liệu ban đầu
+    }
+
+    public void loadData() {
         listChiTietKeHoachTour = chiTietKeHoachTourDAO.getAllChiTietKeHoachTour();
     }
 
@@ -57,6 +61,7 @@ public class ChiTietKeHoachTourBUS {
     }
     
     public ArrayList<ChiTietKeHoachTourDTO> getChiTietKeHoachTourByMaKeHoachTour(int maKeHoachTour) {
+        loadData(); // Tải lại dữ liệu từ cơ sở dữ liệu
         ArrayList<ChiTietKeHoachTourDTO> result = new ArrayList<>();
         for (ChiTietKeHoachTourDTO chiTietKeHoachTour : listChiTietKeHoachTour) {
             if (chiTietKeHoachTour.getMaKeHoachTour() == maKeHoachTour) {
@@ -65,4 +70,5 @@ public class ChiTietKeHoachTourBUS {
         }
         return result;
     }
+
 }

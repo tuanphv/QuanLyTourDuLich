@@ -249,8 +249,9 @@ public class DiaDanhForm extends javax.swing.JPanel {
                 return new DiaDanhDTO(
                         (int) row.getCell(0).getNumericCellValue(),
                         row.getCell(1).getStringCellValue(),
-                        row.getCell(2).getStringCellValue(),
-                        row.getCell(3).getStringCellValue()
+                        row.getCell(2).getStringCellValue(), 
+                        (int) row.getCell(3).getNumericCellValue(),
+                        row.getCell(4).getStringCellValue()
                 );
             } catch (Exception e) {
                 System.out.println("⚠️ Dòng lỗi: " + row.getRowNum());
@@ -278,6 +279,10 @@ public class DiaDanhForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> {
+            loadDataToTable(bus.getDsDiaDanh());
+            myToolBar1.setSearchText("");
+        });
         myToolBar1.getBtnNhapExcel().addActionListener(e -> btnNhapExcelActionPerformed(e));
         myToolBar1.getBtnXuatExcel().addActionListener(e -> btnXuatExcelActionPerformed(e));
     }
@@ -288,7 +293,8 @@ public class DiaDanhForm extends javax.swing.JPanel {
         if (index != -1) {
             model.setValueAt(dd.getTenDD(), index, 1);
             model.setValueAt(dd.getTinhThanh(), index, 2);
-            model.setValueAt(dd.getDiemNoiBat(), index, 3);
+            model.setValueAt(dd.getChiPhi(), index, 3);
+            model.setValueAt(dd.getDiemNoiBat(), index, 4);
             return true;
         }
         return false;
