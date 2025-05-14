@@ -2,6 +2,7 @@ package utils;
 
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Workbook;
 
 public class CellUtils {
@@ -18,5 +19,13 @@ public class CellUtils {
         short format = workbook.createDataFormat().getFormat("dd/MM/yyyy HH:mm:ss");
         dateTimeStyle.setDataFormat(format);
         return dateTimeStyle;
+    }
+
+    public static CellStyle getBoldStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBold(true);
+        style.setFont(font);
+        return style;
     }
 }

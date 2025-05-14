@@ -49,21 +49,22 @@ public class HoaDonForm extends javax.swing.JPanel {
         myToolBar1.setSearchHandler(new SearchHandler() {
             @Override
             public void onSearch(String type, String text) {
-                ArrayList<HoaDonDTO> khTours;
+                ArrayList<HoaDonDTO> tours;
                 HoaDonBUS bus = new HoaDonBUS();
                 if (!text.isBlank()) {
                     switch (type) {
                         case "Mã đặt tour" -> {
-                            khTours = new ArrayList<>();
-                            khTours.add(bus.getHoaDonByMaDat(Integer.parseInt(text)));
+                            tours = new ArrayList<>();
+                            tours.add(bus.getHoaDonByMaDat(Integer.parseInt(text)));
                         }
                         case "Mã nhân viên" ->
-                            khTours = bus.getHoaDonByMaNV(Integer.parseInt(text));
+                            tours = bus.getHoaDonByMaNV(Integer.parseInt(text));
                         default ->
                             throw new AssertionError();
                     }
-                    loadDataToTable(khTours);
-                }
+                } else 
+                    tours = bus.getDSHoaDon();
+                loadDataToTable(tours);
             }
 
         });
@@ -98,7 +99,7 @@ public class HoaDonForm extends javax.swing.JPanel {
         tableChiTietVe = new gui.components.Table();
         jLabel10 = new javax.swing.JLabel();
         txtTrangThai = new javax.swing.JTextField();
-        myButton1 = new gui.components.MyButton();
+        btnXuatHoaDon = new gui.components.MyButton();
 
         setPreferredSize(new java.awt.Dimension(1660, 1000));
 
@@ -208,11 +209,11 @@ public class HoaDonForm extends javax.swing.JPanel {
         txtTrangThai.setEditable(false);
         txtTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        myButton1.setBackground(new java.awt.Color(255, 51, 51));
-        myButton1.setText("Xuất hóa đơn");
-        myButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnXuatHoaDon.setBackground(new java.awt.Color(255, 51, 51));
+        btnXuatHoaDon.setText("Xuất hóa đơn");
+        btnXuatHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton1ActionPerformed(evt);
+                btnXuatHoaDonActionPerformed(evt);
             }
         });
 
@@ -255,7 +256,7 @@ public class HoaDonForm extends javax.swing.JPanel {
                 .addContainerGap(49, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuatHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(238, 238, 238))
         );
         panelBorder2Layout.setVerticalGroup(
@@ -286,8 +287,8 @@ public class HoaDonForm extends javax.swing.JPanel {
                     .addComponent(txtSoVe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(spChiTietVe, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95)
+                .addComponent(spChiTietVe, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
                 .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -296,7 +297,7 @@ public class HoaDonForm extends javax.swing.JPanel {
                     .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuatHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(174, Short.MAX_VALUE))
         );
 
@@ -335,14 +336,23 @@ public class HoaDonForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tableHoaDonMouseClicked
 
-    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+    private void btnXuatHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatHoaDonActionPerformed
         if (txtMaHoaDon.getText().isBlank()) {
             return;
         }
         HoaDonDTO hoaDon = new HoaDonBUS().getHoaDonById(Integer.parseInt(txtMaHoaDon.getText()));
-        String path = new ExportHoaDonPDF().writePdfWithDialog("HoaDon_" + hoaDon.getMaHoaDon(), hoaDon);
-        ExportHoaDonPDF.openPdf(path);
-    }//GEN-LAST:event_myButton1ActionPerformed
+        String path = new ExportHoaDonPDF().writePdfWithDialog("HOADON" + hoaDon.getMaHoaDon(), hoaDon);
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                "Bạn có muốn mở file không?",
+                "Xác nhận",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (result == JOptionPane.YES_OPTION)
+            ExportHoaDonPDF.openPdf(path);
+    }//GEN-LAST:event_btnXuatHoaDonActionPerformed
 
     private void showHoaDon(HoaDonDTO hoaDon) {
         txtMaHoaDon.setText(String.valueOf(hoaDon.getMaHoaDon()));
@@ -475,6 +485,7 @@ public class HoaDonForm extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private gui.components.MyButton btnXuatHoaDon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -484,7 +495,6 @@ public class HoaDonForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private gui.components.MyButton myButton1;
     private gui.components.MyToolBar myToolBar1;
     private gui.components.PanelBorder panelBorder1;
     private gui.components.PanelBorder panelBorder2;

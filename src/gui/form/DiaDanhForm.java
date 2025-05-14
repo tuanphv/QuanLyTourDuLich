@@ -321,7 +321,7 @@ public class DiaDanhForm extends javax.swing.JPanel {
                     "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null,
-                    "Lưu thành công " + (dataFromExcel.size() - failCount) + " dòng",
+                    "Lưu thành công " + dataFromExcel.size() + " dòng",
                     "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
         btnLuu.setVisible(false);

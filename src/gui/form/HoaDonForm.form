@@ -182,7 +182,7 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="myButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnXuatHoaDon" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -221,8 +221,8 @@
                       <Component id="jLabel10" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="spChiTietVe" min="-2" pref="200" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                  <Component id="spChiTietVe" min="-2" pref="236" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="txtTongTien" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -233,7 +233,7 @@
                       <Component id="jLabel9" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="myButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnXuatHoaDon" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="174" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -413,7 +413,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="gui.components.MyButton" name="myButton1">
+        <Component class="gui.components.MyButton" name="btnXuatHoaDon">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="ff" type="rgb"/>
@@ -421,7 +421,7 @@
             <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t h&#xf3;a &#x111;&#x1a1;n"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXuatHoaDonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

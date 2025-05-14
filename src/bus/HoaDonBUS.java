@@ -118,11 +118,7 @@ public class HoaDonBUS {
 
         ExcelWriter excelWriter = new ExcelWriter(((cell, value, rowIndex, columnIndex) -> {
             if (rowIndex == 0) {
-                CellStyle style = cell.getSheet().getWorkbook().createCellStyle();
-                Font font = cell.getSheet().getWorkbook().createFont();
-                font.setBold(true);
-                style.setFont(font);
-                cell.setCellStyle(style);
+                cell.setCellStyle(CellUtils.getBoldStyle(cell.getSheet().getWorkbook()));
                 cell.setCellValue((String) value);
             } else {
                 switch (columnIndex) {

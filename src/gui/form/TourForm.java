@@ -2,6 +2,7 @@ package gui.form;
 
 import dto.TourDTO;
 import bus.TourBUS;
+import enums.TrangThaiTour;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -15,13 +16,17 @@ import javax.swing.table.DefaultTableModel;
 import gui.components.MyScrollBarUI;
 import gui.dialog.TourDialog;
 import interfaces.SearchHandler;
+import utils.ExcelReader;
 
 public class TourForm extends javax.swing.JPanel {
 
     private TourBUS bus;
+    private ArrayList<TourDTO> dataFromExcel;
 
     public TourForm() {
         initComponents();
+        btnLuu.setVisible(false);
+        btnHuy.setVisible(false);
         spTable.getVerticalScrollBar().setUI(new MyScrollBarUI());
         spTable.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
         spTable.getViewport().setBackground(Color.white);
@@ -77,6 +82,8 @@ public class TourForm extends javax.swing.JPanel {
         spTable = new javax.swing.JScrollPane();
         table = new gui.components.Table();
         jLabel1 = new javax.swing.JLabel();
+        btnHuy = new gui.components.MyButton();
+        btnLuu = new gui.components.MyButton();
         myToolBar1 = new gui.components.MyToolBar();
         panelBorder2 = new gui.components.PanelBorder();
         jSeparator1 = new javax.swing.JSeparator();
@@ -111,23 +118,54 @@ public class TourForm extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Bảng Tour du lịch");
 
+        btnHuy.setBackground(new java.awt.Color(255, 102, 102));
+        btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/x-mark.png"))); // NOI18N
+        btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
+
+        btnLuu.setBackground(new java.awt.Color(0, 255, 51));
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+        btnLuu.setText("Lưu");
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)
+                        .addGap(20, 20, 20)))
                 .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -309,6 +347,20 @@ public class TourForm extends javax.swing.JPanel {
         // TODO: check bé hơn max cost
     }//GEN-LAST:event_txtMinCostFocusLost
 
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        saveData();
+    }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        JOptionPane.showMessageDialog(null,
+                "Hủy thêm dữ liệu file excel",
+                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        btnLuu.setVisible(false);
+        btnHuy.setVisible(false);
+        loadDataToTable(bus.getDsTour());
+        dataFromExcel = null;
+    }//GEN-LAST:event_btnHuyActionPerformed
+
     private void btnThemActionPerformed(ActionEvent evt) {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         TourDialog dialog = new TourDialog(parentFrame);
@@ -379,12 +431,41 @@ public class TourForm extends javax.swing.JPanel {
                     "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
+    private void btnNhapExcelActionPerformed(ActionEvent evt) {
+        ExcelReader<TourDTO> read = new ExcelReader();
+        dataFromExcel = read.readWithDialog(row -> {
+            try {
+                return new TourDTO(
+                        (int) row.getCell(0).getNumericCellValue(),
+                        row.getCell(1).getStringCellValue(),
+                        (float) row.getCell(2).getNumericCellValue(),
+                        TrangThaiTour.fromMoTa(row.getCell(3).getStringCellValue()),
+                        row.getCell(4).getStringCellValue(),
+                        row.getCell(5).getStringCellValue(),
+                        row.getCell(6).getStringCellValue(),
+                        row.getCell(7).getStringCellValue(),
+                        (int) row.getCell(8).getNumericCellValue(),
+                        (int) row.getCell(9).getNumericCellValue()
+                );
+            } catch (Exception e) {
+                System.out.println("⚠️ Dòng lỗi: " + row.getRowNum());
+                return null;
+            }
+        });
+        if (!dataFromExcel.isEmpty()) {
+            btnLuu.setVisible(true);
+            btnHuy.setVisible(true);
+            loadDataToTable(dataFromExcel);
+        }
+    }
 
     private void addToolBarAction() {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
         myToolBar1.getBtnXuatExcel().addActionListener(e -> btnXuatExcelActionPerformed(e));
+        myToolBar1.getBtnNhapExcel().addActionListener(e -> btnNhapExcelActionPerformed(e));
         myToolBar1.getBtnRefresh().addActionListener(e -> loadDataToTable(new TourBUS().getDsTour()));
     }
 
@@ -412,6 +493,30 @@ public class TourForm extends javax.swing.JPanel {
         }
         return false;
     }
+    
+    private void saveData() {
+        int failCount = 0;
+        if (dataFromExcel != null) {
+            for (TourDTO tour : dataFromExcel) {
+                if (bus.addTour(tour) == -1) {
+                    failCount++;
+                }
+            }
+        }
+        if (failCount > 0) {
+            JOptionPane.showMessageDialog(null,
+                    "Lỗi " + failCount + " dòng khi lưu",
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Lưu thành công " + dataFromExcel.size() + " dòng",
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+        btnLuu.setVisible(false);
+        btnHuy.setVisible(false);
+        dataFromExcel = null;
+        loadDataToTable(bus.getDsTour());
+    }
 
     private void loadDataToTable(ArrayList<TourDTO> tours) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -421,6 +526,8 @@ public class TourForm extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gui.components.MyButton btnFilter;
+    private gui.components.MyButton btnHuy;
+    private gui.components.MyButton btnLuu;
     private javax.swing.JCheckBox cb1Day;
     private javax.swing.JCheckBox cb2To4Day;
     private javax.swing.JCheckBox cb5PlusDay;
