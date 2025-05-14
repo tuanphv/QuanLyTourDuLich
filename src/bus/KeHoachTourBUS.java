@@ -127,8 +127,12 @@ public class KeHoachTourBUS {
         return -1; // Không tìm thấy
     }
     
-    public static void main(String[] args) {
-        new KeHoachTourBUS().loadData();
+    public KeHoachTourDTO getKeHoachTourByID(int maKHTour) {
+        for (KeHoachTourDTO khTourDTO: dsKHTour) {
+            if (khTourDTO.getMaKHTour() == maKHTour) 
+                return khTourDTO;
+        }
+        return null;
     }
 
     

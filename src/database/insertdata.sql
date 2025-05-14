@@ -419,4 +419,31 @@ SET slDaDat = (
       AND v.trangThai != 'DaHuy'
 );
 
+UPDATE Ve v
+SET giaVe = (
+	SELECT kh.tongChiPhi * 
+		CASE ct.loaiHanhKhach
+			WHEN 'NguoiLon' THEN 1
+            WHEN 'NguoiGia' THEN 0.8
+            WHEN 'TreEm' THEN 0.5
+            ELSE 0
+		END AS chiPhi
+    FROM KeHoachTour kh, ChiTietHanhKhach ct
+    WHERE kh.maKeHoachTour = v.maKHTour AND ct.maDat = v.maDat AND ct.soThuTu = v.soThuTu
+);
+
+UPDATE DatTour dt
+SET tongTien = (
+	SELECT SUM(v.giaVe)
+    FROM Ve v
+    WHERE v.maDat = dt.maDat
+);
+
+UPDATE HoaDon hd
+SET tongTien = (
+	SELECT dt.tongTien
+    FROM DatTour dt
+    WHERE dt.maDat = hd.maDat
+);
+
 SET SQL_SAFE_UPDATES = 1;

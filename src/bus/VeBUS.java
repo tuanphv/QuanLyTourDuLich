@@ -107,11 +107,20 @@ public class VeBUS {
     
     /**
      * Get list of Ve by MaHoaDon
-     * @param maHoaDon ID of the HoaDon
+     * @param maDat ID of the HoaDon
      * @return ArrayList of Ve related to the specified HoaDon
      */
-    public ArrayList<VeDTO> getVeByMaHoaDon(int maHoaDon) {
-        return veDAO.getVeByMaHoaDon(maHoaDon);
+    public ArrayList<VeDTO> getVeByMaDat(int maDat) {
+        return veDAO.getVeByMaDat(maDat);
+    }
+    
+    public VeDTO getVeByMaDatVaSTT(int maDat, int soThuTu) {
+        for (VeDTO ve : dsVe) {
+            if (ve.getMaDat() == maDat && ve.getSoThuTu() == soThuTu) {
+                return ve;
+            }
+        }
+        return null;
     }
     
     /**

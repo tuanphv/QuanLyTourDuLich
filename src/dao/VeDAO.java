@@ -120,12 +120,12 @@ public class VeDAO {
         return null;
     }
 
-    public ArrayList<VeDTO> getVeByMaHoaDon(int maHoaDon) {
+    public ArrayList<VeDTO> getVeByMaDat(int maDat) {
         ArrayList<VeDTO> dsVe = new ArrayList<>();
-        String query = "SELECT * FROM Ve WHERE maHoaDon = ?";
+        String query = "SELECT * FROM Ve WHERE maDat = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setInt(1, maHoaDon);
+            pstmt.setInt(1, maDat);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
