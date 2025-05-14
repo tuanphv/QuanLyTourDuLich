@@ -166,14 +166,7 @@ public class NhaHangForm extends javax.swing.JPanel {
             return;
         }
 
-        NhaHangDTO nhaHang = new NhaHangDTO(
-            (int) tableNhaHang.getModel().getValueAt(rowSelected, 0),
-            (String) tableNhaHang.getModel().getValueAt(rowSelected, 1),
-            (String) tableNhaHang.getModel().getValueAt(rowSelected, 2),
-            (int) tableNhaHang.getModel().getValueAt(rowSelected, 3),
-            (String) tableNhaHang.getModel().getValueAt(rowSelected, 4),
-            (int) tableNhaHang.getModel().getValueAt(rowSelected, 5)
-        );
+        NhaHangDTO nhaHang = nhaHangBUS.getRestaurantById((int) modalTableNhaHang.getValueAt(rowSelected, 0));
         Window parent = SwingUtilities.getWindowAncestor(this);
         InputNhaHang inputNhaHang = new InputNhaHang((Frame) parent, InputNhaHang.Mode.UPDATE, this);
         inputNhaHang.uploadDataToModal(nhaHang);
@@ -184,11 +177,10 @@ public class NhaHangForm extends javax.swing.JPanel {
     public void updateRestaurant(NhaHangDTO nhaHang) {
         boolean success = nhaHangBUS.update(nhaHang);
         if (success) {
-            modalTableNhaHang.setValueAt(nhaHang.getTenNhaHang(), rowSelected, 1);
-            modalTableNhaHang.setValueAt(nhaHang.getDiaChi(), rowSelected, 2);
-            modalTableNhaHang.setValueAt(nhaHang.getGia(), rowSelected, 3);
-            modalTableNhaHang.setValueAt(nhaHang.getSoDienThoai(), rowSelected, 4);
-            modalTableNhaHang.setValueAt(nhaHang.getTrangThai(), rowSelected, 5);
+            Object[] rowData = nhaHang.toObject();
+            for (int i = 0; i < rowData.length; i++) {
+                modalTableNhaHang.setValueAt(rowData[i], rowSelected, i);
+            }
             JOptionPane.showMessageDialog(this, "Update thành công!");
         }
     }
@@ -201,8 +193,8 @@ public class NhaHangForm extends javax.swing.JPanel {
         } 
 
         int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modalTableNhaHang.getValueAt(rowSelected, 1), 
-        "Xoá nhà hàng", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
-        if (answer == JOptionPane.YES_OPTION) {
+        "Xác nhận xoá", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (answer == JOptionPane.OK_OPTION) {
             nhaHangBUS.delete((int) modalTableNhaHang.getValueAt(rowSelected, 0));
             modalTableNhaHang.removeRow(rowSelected);
             JOptionPane.showMessageDialog(this, "Xoá thành công!");
@@ -215,6 +207,10 @@ public class NhaHangForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> {
+            loadDataToTable(listNhaHang);
+            myToolBar1.setSearchText("");
+        });
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

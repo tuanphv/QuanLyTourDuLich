@@ -454,6 +454,14 @@ public class KeHoachTourForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> {
+            loadDataToTable(keHoachTourBUS.getDSKHTour());
+            panelLichTrinh.removeAll();
+            panelAnUong.removeAll();
+            lbLichTrinh.setVisible(false);
+            lbAnUong.setVisible(false);
+            myToolBar1.setSearchText("");
+        });
     }
 
     public int addTour(KeHoachTourDTO khTour) {

@@ -13,12 +13,11 @@ public class NhaHangDTO {
     public NhaHangDTO() {
     }
 
-    public NhaHangDTO(String tenNhaHang, String diaChi, int gia, String soDienThoai, int trangThai) {
+    public NhaHangDTO(String tenNhaHang, String diaChi, int gia, String soDienThoai) {
         this.tenNhaHang = tenNhaHang;
         this.diaChi = diaChi;
         this.gia = gia;
         this.soDienThoai = soDienThoai;
-        this.trangThai = trangThai;
     }
 
     public NhaHangDTO(int maNhaHang, String tenNhaHang, String diaChi, int gia, String soDienThoai, int trangThai) {

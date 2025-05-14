@@ -153,8 +153,8 @@ public class KhachSanForm extends javax.swing.JPanel {
         } 
 
         int answer = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá " + modalTableKhachSan.getValueAt(rowSelected, 1), 
-        "Xoá khách sạn", JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE);
-        if (answer == JOptionPane.YES_OPTION) {
+        "Xác nhận xoá", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (answer == JOptionPane.OK_OPTION) {
             khachSanBUS.delete((int) modalTableKhachSan.getValueAt(rowSelected, 0));
             modalTableKhachSan.removeRow(rowSelected);
             JOptionPane.showMessageDialog(this, "Xoá thành công!");
@@ -186,14 +186,7 @@ public class KhachSanForm extends javax.swing.JPanel {
             return;
         }
 
-        KhachSanDTO khachSan = new KhachSanDTO(
-            (int) tableKhachSan.getModel().getValueAt(rowSelected, 0),
-            (String) tableKhachSan.getModel().getValueAt(rowSelected, 1),
-            (String) tableKhachSan.getModel().getValueAt(rowSelected, 2),
-            (int) tableKhachSan.getModel().getValueAt(rowSelected, 3),
-            (String) tableKhachSan.getModel().getValueAt(rowSelected, 4),
-            (int) tableKhachSan.getModel().getValueAt(rowSelected, 5)
-        );
+        KhachSanDTO khachSan = khachSanBUS.getHotelById((int) modalTableKhachSan.getValueAt(rowSelected, 0));
         Window parent = SwingUtilities.getWindowAncestor(this);
         InputKhachSan inputKhachSan = new InputKhachSan((Frame)parent, InputKhachSan.Mode.UPDATE, this);
         inputKhachSan.uploadDataToModal(khachSan);
@@ -204,11 +197,10 @@ public class KhachSanForm extends javax.swing.JPanel {
     public void updateHotel(KhachSanDTO khachSan) {
         boolean success = khachSanBUS.update(khachSan);
         if (success) {
-            modalTableKhachSan.setValueAt(khachSan.getTenKhachSan(), rowSelected, 1);
-            modalTableKhachSan.setValueAt(khachSan.getDiaChi(), rowSelected, 2);
-            modalTableKhachSan.setValueAt(khachSan.getGia(), rowSelected, 3);
-            modalTableKhachSan.setValueAt(khachSan.getSoDienThoai(), rowSelected, 4);
-            modalTableKhachSan.setValueAt(khachSan.getTrangThai(), rowSelected, 5);
+            Object[] rowData = khachSan.toObject();
+            for (int i = 0; i < rowData.length; i++) {
+                modalTableKhachSan.setValueAt(rowData[i], rowSelected, i);
+            }
             JOptionPane.showMessageDialog(this, "Update thành công!");
         }
     }
@@ -217,6 +209,11 @@ public class KhachSanForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnRefresh().addActionListener(e -> {
+            loadDataToTable(listKhachSan);
+            myToolBar1.setSearchText("");
+        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

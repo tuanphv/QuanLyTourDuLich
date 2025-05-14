@@ -14,13 +14,12 @@ public class PhuongTienDTO {
     public PhuongTienDTO() {
     }
 
-    public PhuongTienDTO(String tenPhuongTien, String loaiPhuongTien, int soChoNgoi, int gia, String soDienThoai, int trangThai) {
+    public PhuongTienDTO(String tenPhuongTien, String loaiPhuongTien, int soChoNgoi, int gia, String soDienThoai) {
         this.tenPhuongTien = tenPhuongTien;
         this.loaiPhuongTien = loaiPhuongTien;
         this.soChoNgoi = soChoNgoi;
         this.gia = gia;
         this.soDienThoai = soDienThoai;
-        this.trangThai = trangThai;
     }
 
     public PhuongTienDTO(int maPhuongTien, String tenPhuongTien, String loaiPhuongTien, int soChoNgoi, int gia, String soDienThoai, int trangThai) {
