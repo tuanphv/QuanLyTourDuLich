@@ -125,6 +125,7 @@ public class KeHoachTour extends javax.swing.JDialog {
 
         loadComboBox();
 
+        tfSoLuongDaDat.setText("0");
         dateStart.addPropertyChangeListener("date", evt -> {
             initEndDate();
         });
@@ -441,7 +442,7 @@ public class KeHoachTour extends javax.swing.JDialog {
             java.sql.Date endDate = new java.sql.Date(dateEnd.getDate().getTime());
             // int soLuongDaDat = Integer.parseInt(tfSoLuongDaDat.getText().trim());
             int soLuongToiDa = Integer.parseInt(tfSoLuongToiDa.getText().trim());
-            float tongChiPhi = Float.parseFloat(tfTongChiPhi.getText().trim());
+            // float tongChiPhi = Float.parseFloat(tfTongChiPhi.getText().trim());
             TrangThaiKeHoachTour trangThai = (TrangThaiKeHoachTour) cbtrangThai.getSelectedItem();
     
             // === LƯU THÔNG TIN KẾ HOẠCH TOUR ===
@@ -450,16 +451,14 @@ public class KeHoachTour extends javax.swing.JDialog {
                     maTour, 
                     startDate.toLocalDate(), 
                     endDate.toLocalDate(), 
-                    // soLuongDaDat, 
                     0,
                     soLuongToiDa, 
-                    tongChiPhi, 
+                    0,
                     trangThai
                 )
             );
 
             int chiPhiTour = 0;
-                
             // === LƯU LỊCH TRÌNH VÀ ĂN UỐNG THEO NGÀY ===
             int soNgayTour = tourBUS.getTourById(maTour).getSoNgay();
     
@@ -574,13 +573,13 @@ public class KeHoachTour extends javax.swing.JDialog {
             }
 
             // Cập nhật chi phí tour
-            keHoachTourBUS.updateKeHoachTour(
+            System.out.println("Chi phí tour: " + chiPhiTour);
+            keHoachTourForm.updateTour(
                 new KeHoachTourDTO(
                     maKeHoachTour, 
                     maTour, 
                     startDate.toLocalDate(), 
                     endDate.toLocalDate(), 
-                    // soLuongDaDat, 
                     0,
                     soLuongToiDa, 
                     chiPhiTour, 
@@ -825,8 +824,11 @@ public class KeHoachTour extends javax.swing.JDialog {
         panelAnUong.removeAll();
 
         // lấy thông tin chỉ tiết kế hoạch của tour
+        ArrayList<ChiTietKeHoachTourDTO> allChiTietKeHoachTour = chiTietKeHoachTourBUS.getAllChiTietKeHoachTour();
+        System.out.println("Tổng số chi tiết kế hoạch tour: " + allChiTietKeHoachTour.size());
         ArrayList<ChiTietKeHoachTourDTO> chiTietKeHoachTour = chiTietKeHoachTourBUS.getChiTietKeHoachTourByMaKeHoachTour(keHoachTour.getMaKHTour());
-        // System.out.println("Chi tiết kế hoạch tour: " + chiTietKeHoachTour.size());
+        System.out.println("Kế hoạch tour: " + keHoachTour);
+        System.out.println("Chi tiết kế hoạch tour: " + chiTietKeHoachTour.size());
         // for (int i = 0; i < chiTietKeHoachTour.size(); i++) {
         //     ChiTietKeHoachTourDTO chiTiet = chiTietKeHoachTour.get(i);
         //     System.out.println("Mã chi tiết kế hoạch tour: " + chiTiet.getMaChiTietKeHoachTour());

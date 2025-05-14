@@ -10,6 +10,10 @@ public class DiaDiemThamQuanBUS {
 
     public DiaDiemThamQuanBUS() {
         diaDiemThamQuanDAO = new DiaDiemThamQuanDAO();
+        loadData(); // Tải dữ liệu ban đầu
+    }
+
+    public void loadData() {
         listDiaDiemThamQuan = diaDiemThamQuanDAO.getAllDiaDiemThamQuan();
     }
 
@@ -54,6 +58,7 @@ public class DiaDiemThamQuanBUS {
     }
 
     public ArrayList<DiaDiemThamQuanDTO> getDiaDiemThamQuanByMaChiTietKeHoachTour(int maChiTietKeHoachTour) {
+        loadData();
         ArrayList<DiaDiemThamQuanDTO> result = new ArrayList<>();
         for (DiaDiemThamQuanDTO diaDiemThamQuan : listDiaDiemThamQuan) {
             if (diaDiemThamQuan.getMaChiTietKeHoachTour() == maChiTietKeHoachTour) {

@@ -20,6 +20,14 @@ public class KeHoachTourDTO {
         this.trangThai = TrangThaiKeHoachTour.DANG_MO;
     }
 
+    public KeHoachTourDTO(int maTour, LocalDate thoiGianBD, LocalDate thoiGianKT, int slToiDa, TrangThaiKeHoachTour trangThai) {
+        this.maTour = maTour;
+        this.thoiGianBD = thoiGianBD;
+        this.thoiGianKT = thoiGianKT;
+        this.slToiDa = slToiDa;
+        this.trangThai = trangThai;
+    }
+
     public KeHoachTourDTO(int maTour, LocalDate thoiGianBD, LocalDate thoiGianKT, int slDaDat, int slToiDa, float tongChiPhi, TrangThaiKeHoachTour trangThai) {
         this.maTour = maTour;
         this.thoiGianBD = thoiGianBD;
