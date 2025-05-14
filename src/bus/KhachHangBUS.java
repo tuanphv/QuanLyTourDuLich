@@ -3,6 +3,7 @@ package bus;
 import dto.KhachHangDTO;
 import dao.KhachHangDAO;
 import java.util.ArrayList;
+import utils.TextUtils;
 
 public class KhachHangBUS {
 
@@ -64,5 +65,37 @@ public class KhachHangBUS {
             }
         }
         return -1;
+    }
+    public ArrayList<KhachHangDTO> timTheoTen(String text) {
+        ArrayList<KhachHangDTO> result = new ArrayList<>();
+        for (KhachHangDTO kh : dsKhachHang) {
+            if (TextUtils.removeDiacritics(kh.getHoTen()).toLowerCase()
+                    .contains(TextUtils.removeDiacritics(text).toLowerCase())) {
+                result.add(kh);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<KhachHangDTO> timTheoMaKH(int maKH) {
+        ArrayList<KhachHangDTO> result = new ArrayList<>();
+        for (KhachHangDTO kh : dsKhachHang) {
+            if (kh.getMaKH() == maKH) {
+                result.add(kh);
+                break; // Mã KH là duy nhất
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<KhachHangDTO> timTheoCC(String cc) {
+        ArrayList<KhachHangDTO> result = new ArrayList<>();
+        for (KhachHangDTO kh : dsKhachHang) {
+            if (TextUtils.removeDiacritics(kh.getCC_HC()).toLowerCase()
+                    .contains(TextUtils.removeDiacritics(cc).toLowerCase())) {
+                result.add(kh);
+            }
+        }
+        return result;
     }
 }

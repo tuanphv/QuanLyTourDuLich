@@ -112,13 +112,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="gui.form.KeHoachTourForm" name="keHoachTourForm">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="cardKeHoachTour"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="gui.form.HoaDonForm" name="hoaDonForm">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new gui.form.HoaDonForm()"/>

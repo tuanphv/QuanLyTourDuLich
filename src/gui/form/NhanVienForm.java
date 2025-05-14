@@ -4,6 +4,7 @@ import bus.NhanVienBUS;
 import dto.NhanVienDTO;
 import gui.components.MyScrollBarUI;
 import gui.dialog.InputNhanVien;
+import interfaces.SearchHandler;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -31,20 +32,37 @@ public class NhanVienForm extends javax.swing.JPanel {
             // Chỉ loadData khi KHÔNG ở design time
             nhanVienBUS = new NhanVienBUS();
             danhSachNhanVien = nhanVienBUS.getList();
-            loadDataToTable();
+            loadDataToTable(danhSachNhanVien);
             addToolBarAction();
         } else {
-            System.out.println("DiaDanhForm đang chạy ở design time mode");
+            System.out.println("NhanVienForm đang chạy ở design time mode");
         }
+        myToolBar1.setSearchType(new String[]{"Mã nhân viên", "Tên nhân viên", "Chức vụ"});
+        myToolBar1.setSearchHandler(new SearchHandler() {
+            @Override
+            public void onSearch(String type, String text) {
+                ArrayList<NhanVienDTO> result;
+                switch (type) {
+                    case "Mã nhân viên" -> 
+                        result = nhanVienBUS.timTheoMa(text);
+                    case "Tên nhân viên" -> 
+                        result = nhanVienBUS.timTheoTen(text);
+                    case "Chức vụ" -> 
+                        result = nhanVienBUS.timTheoChucVu(text);
+                    default -> 
+                        result = nhanVienBUS.getList();
+                }
+                loadDataToTable(result);
+            }
+        });
     }
 
-    private void loadDataToTable() {
+    private void loadDataToTable(ArrayList<NhanVienDTO> list) {
         tableModel.setRowCount(0);
-        for (NhanVienDTO nv : danhSachNhanVien) {
+        for (NhanVienDTO nv : list) {
             tableModel.addRow(nv.toObject());
         }
     }
-
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
         rowSelected = table.getSelectedRow();
@@ -88,21 +106,16 @@ public class NhanVienForm extends javax.swing.JPanel {
         int id = nhanVienBUS.insert(nv);
         if (id != -1) {
             nv.setMaNV(id);
-            tableModel.addRow(nv.toObject());
+            danhSachNhanVien = nhanVienBUS.getList(); // Cập nhật danh sách
+            loadDataToTable(danhSachNhanVien); // Load lại toàn bộ
             JOptionPane.showMessageDialog(this, "Thêm thành công!");
         }
     }
 
     public void updateNhanVien(NhanVienDTO nv) {
         if (nhanVienBUS.update(nv)) {
-            tableModel.setValueAt(nv.getHoTen(), rowSelected, 1);
-            tableModel.setValueAt(nv.getNgaySinh(), rowSelected, 2);
-            tableModel.setValueAt(nv.getGioiTinh(), rowSelected, 3);
-            tableModel.setValueAt(nv.getSoDT(), rowSelected, 4);
-            tableModel.setValueAt(nv.getEmail(), rowSelected, 5);
-            tableModel.setValueAt(nv.getCC_HC(), rowSelected, 6);
-            tableModel.setValueAt(nv.getNgayVaoLam(), rowSelected, 7);            
-            tableModel.setValueAt(nv.getChucVu(), rowSelected, 8);
+            danhSachNhanVien = nhanVienBUS.getList(); // Cập nhật danh sách
+            loadDataToTable(danhSachNhanVien); // Load lại toàn bộ
             JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
         }
     }
@@ -111,11 +124,7 @@ public class NhanVienForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnAddActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnUpdateActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnDeleteActionPerformed(e));
-        myToolBar1.getBtnRefresh().addActionListener(e -> {
-            danhSachNhanVien = nhanVienBUS.getList();
-            loadDataToTable();
-            myToolBar1.setSearchText("");
-        });
+        myToolBar1.getBtnRefresh().addActionListener(e -> loadDataToTable(new NhanVienBUS().getList()));
     }
 
     @SuppressWarnings("unchecked")

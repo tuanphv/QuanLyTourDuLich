@@ -1,5 +1,6 @@
 package gui;
 
+import gui.form.LoginForm;
 import java.awt.CardLayout;
 
 public class Main extends javax.swing.JFrame {
@@ -94,7 +95,7 @@ public class Main extends javax.swing.JFrame {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            new Main().setVisible(true);
+            new LoginForm().setVisible(true); // Hiển thị form đăng nhập trước
         });
     }
     

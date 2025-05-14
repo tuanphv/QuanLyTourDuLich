@@ -55,4 +55,41 @@ public class NhanVienBUS {
         }
         return -1;
     }
+     public ArrayList<NhanVienDTO> timTheoMa(String ma) {
+            ArrayList<NhanVienDTO> result = new ArrayList<>();
+            for (NhanVienDTO nv : dsNhanVien) {
+                if (String.valueOf(nv.getMaNV()).contains(ma)) {
+                    result.add(nv);
+                }
+            }
+            return result;
+        }
+
+    public ArrayList<NhanVienDTO> timTheoTen(String ten) {
+        ArrayList<NhanVienDTO> result = new ArrayList<>();
+        for (NhanVienDTO nv : dsNhanVien) {
+            if (nv.getHoTen().toLowerCase().contains(ten.toLowerCase())) {
+                result.add(nv);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<NhanVienDTO> timTheoChucVu(String chucVu) {
+        ArrayList<NhanVienDTO> result = new ArrayList<>();
+        for (NhanVienDTO nv : dsNhanVien) {
+            if (nv.getChucVu().toLowerCase().contains(chucVu.toLowerCase())) {
+                result.add(nv);
+            }
+        }
+        return result;
+    }
+    public NhanVienDTO login(String username, String password) {
+        for (NhanVienDTO nv : dsNhanVien) {
+            if (nv.getUsername().equals(username) && nv.getPassword().equals(password)) {
+                return nv;
+            }
+        }
+        return null;
+    }
 }

@@ -4,6 +4,7 @@ import bus.KhachHangBUS;
 import dto.KhachHangDTO;
 import gui.components.MyScrollBarUI;
 import gui.dialog.InputKhachHang;
+import interfaces.SearchHandler;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -32,16 +33,40 @@ public class KhachHangForm extends javax.swing.JPanel {
             // Chỉ loadData khi KHÔNG ở design time
             khachHangBUS = new KhachHangBUS();
             danhSachKhachHang = khachHangBUS.getList();
-            loadDataToTable();
+            loadDataToTable(danhSachKhachHang);
             addToolBarAction();
         } else {
-            System.out.println("DiaDanhForm đang chạy ở design time mode");
+            System.out.println("KhachHangForm đang chạy ở design time mode");
         }
+            myToolBar1.setSearchType(new String[]{"Tên khách hàng", "Mã khách hàng", "CCCD khách hàng"});
+            myToolBar1.setSearchHandler(new SearchHandler() {
+            @Override
+            public void onSearch(String type, String text) {
+                ArrayList<KhachHangDTO> result = new ArrayList<>();
+                switch (type) {
+                    case "Mã khách hàng" -> {
+                        try {
+                            int maKH = Integer.parseInt(text);
+                            result = khachHangBUS.timTheoMaKH(maKH);
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(KhachHangForm.this, "Mã khách hàng phải là số!");
+                        }
+                    }
+                    case "Tên khách hàng" ->
+                        result = khachHangBUS.timTheoTen(text);                   
+                    case "CCCD khách hàng" ->
+                        result = khachHangBUS.timTheoCC(text);
+                    default ->
+                        throw new AssertionError();
+                }
+                loadDataToTable(result);
+            }
+        });
     }
 
-    private void loadDataToTable() {
+    private void loadDataToTable(ArrayList<KhachHangDTO> list) {
         tableModel.setRowCount(0);
-        for (KhachHangDTO kh : danhSachKhachHang) {
+        for (KhachHangDTO kh : list) {
             tableModel.addRow(kh.toObject());
         }
     }
@@ -88,21 +113,15 @@ public class KhachHangForm extends javax.swing.JPanel {
         int id = khachHangBUS.insert(kh);
         if (id != -1) {
             kh.setMaKH(id);
-            tableModel.addRow(kh.toObject());
-            JOptionPane.showMessageDialog(this, "Thêm thành công!");
+            danhSachKhachHang = khachHangBUS.getList();
+            loadDataToTable(danhSachKhachHang);
         }
     }
 
     public void updateKhachHang(KhachHangDTO kh) {
         if (khachHangBUS.update(kh)) {
-            tableModel.setValueAt(kh.getHoTen(), rowSelected, 1);
-            tableModel.setValueAt(kh.getNgaySinh(), rowSelected, 2);
-            tableModel.setValueAt(kh.getGioiTinh(), rowSelected, 3);
-            tableModel.setValueAt(kh.getSoDT(), rowSelected, 4);
-            tableModel.setValueAt(kh.getEmail(), rowSelected, 5);
-            tableModel.setValueAt(kh.getNgayDK(), rowSelected, 6);
-            tableModel.setValueAt(kh.getCC_HC(), rowSelected, 7);
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+            danhSachKhachHang = khachHangBUS.getList();
+            loadDataToTable(danhSachKhachHang);
         }
     }
 
@@ -110,11 +129,8 @@ public class KhachHangForm extends javax.swing.JPanel {
         myToolBar1.getBtnThem().addActionListener(e -> btnAddActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnUpdateActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnDeleteActionPerformed(e));
-        myToolBar1.getBtnRefresh().addActionListener(e -> {
-            danhSachKhachHang = khachHangBUS.getList();
-            loadDataToTable();
-            myToolBar1.setSearchText("");
-        });
+        myToolBar1.getBtnRefresh().addActionListener(e -> loadDataToTable(new KhachHangBUS().getList()));
+
     }
 
     @SuppressWarnings("unchecked")
