@@ -77,6 +77,12 @@ public class DiaDanhDTO {
         };
     }
     
+    public Object[] toExcelRow() {
+        return new Object[]{
+            maDD, tenDD, tinhThanh, chiPhi, diemNoiBat
+        };
+    }
+    
     public static final String[] DIA_DANH_COLUMN_NAMES = {"Mã địa danh", "Tên địa danh", "Tỉnh thành", "Chi phí", "Điểm nổi bật"};
     
 }

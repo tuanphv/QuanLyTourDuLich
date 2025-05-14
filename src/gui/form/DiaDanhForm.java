@@ -317,7 +317,7 @@ public class DiaDanhForm extends javax.swing.JPanel {
         }
         if (failCount > 0) {
             JOptionPane.showMessageDialog(null,
-                    "Lưu không thành công " + failCount + " dòng",
+                    "Lỗi " + failCount + " dòng khi lưu",
                     "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null,

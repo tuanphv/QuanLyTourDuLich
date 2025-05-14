@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import utils.CellUtils;
 import utils.ExcelWriter;
 
 public class DiaDanhBUS {
@@ -25,7 +26,7 @@ public class DiaDanhBUS {
 
     // Thêm địa danh
     public int addDiaDanh(DiaDanhDTO diaDanh) {
-        if (getDiaDanhByMa(diaDanh.getMaDD())!=null) {
+        if (getDiaDanhByMa(diaDanh.getMaDD()) != null) {
             System.out.println("Địa danh đã tồn tại");
             return -1;
         }
@@ -122,11 +123,11 @@ public class DiaDanhBUS {
     public String exportExcel() {
         ArrayList<Object[]> data = new ArrayList<>();
         // tạo headers
-        Object[] headers = new Object[]{"Mã địa danh", "Tên địa danh", "Tỉnh thành", "Điểm nổi bật"};
+        Object[] headers = new Object[]{"Mã địa danh", "Tên địa danh", "Tỉnh thành", "Chi phí", "Điểm nổi bật"};
         data.add(headers);
         // add từng dòng
         for (DiaDanhDTO diaDanh : dsDiaDanh) {
-            data.add(diaDanh.toObjectArray());
+            data.add(diaDanh.toExcelRow());
         }
 
         ExcelWriter excelWriter = new ExcelWriter(((cell, value, rowIndex, columnIndex) -> {
@@ -141,6 +142,10 @@ public class DiaDanhBUS {
                 switch (columnIndex) {
                     case 0 ->
                         cell.setCellValue((Integer) value);
+                    case 3 -> {
+                        cell.setCellStyle(CellUtils.getCurrencyStyle(cell.getSheet().getWorkbook()));
+                        cell.setCellValue((Integer) value);
+                    }
                     default ->
                         cell.setCellValue((String) value);
                 }
