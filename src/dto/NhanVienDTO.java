@@ -96,4 +96,20 @@ public class NhanVienDTO {
     public static final String[] NHAN_VIEN_COLUMN_NAMES = {
         "Mã NV", "Họ tên", "Ngày sinh", "Giới tính", "Điện thoại", "Email", "Căn cước/ Hộ chiếu", "Ngày vào làm", "Chức vụ"
     };
+
+    public Object[] toExcelRow() {
+        return new Object[]{
+            maNV,
+            username,
+            ho,
+            ten,
+            ngaySinh,
+            gioiTinh,
+            soDT,
+            email,
+            cc_hc,
+            ngayVaoLam,
+            chucVu
+        };
+    }
 }

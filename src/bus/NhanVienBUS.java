@@ -3,6 +3,8 @@ package bus;
 import dto.NhanVienDTO;
 import dao.NhanVienDAO;
 import java.util.ArrayList;
+import utils.CellUtils;
+import utils.ExcelWriter;
 
 public class NhanVienBUS {
     private NhanVienDAO dao;
@@ -91,5 +93,37 @@ public class NhanVienBUS {
             }
         }
         return null;
+    }
+    public String exportExcel() {
+        ArrayList<Object[]> data = new ArrayList<>();
+
+        // Tạo headers
+        Object[] headers = new Object[]{
+            "Mã NV", "Username", "Họ", "Tên", "Ngày sinh", 
+            "Giới tính", "SĐT", "Email", "CC/HC", "Ngày vào làm", "Chức vụ"
+        };
+        data.add(headers);
+
+        // Thêm từng dòng nhân viên
+        for (NhanVienDTO nv : dsNhanVien) {
+            data.add(nv.toExcelRow()); // toExcelRow() là phương thức bạn cần có trong NhanVienDTO
+        }
+
+        // Tạo ExcelWriter và xử lý cell
+        ExcelWriter excelWriter = new ExcelWriter((cell, value, rowIndex, columnIndex) -> {
+            if (rowIndex == 0) {
+                // Header
+                cell.setCellStyle(CellUtils.getBoldStyle(cell.getSheet().getWorkbook()));
+                cell.setCellValue((String) value);
+            } else {
+                switch (columnIndex) {
+                    case 0 -> cell.setCellValue((Integer) value); // Mã NV
+                    case 1, 2, 3, 5, 6, 7, 8, 10 -> cell.setCellValue((String) value); // text
+                    case 4, 9 -> cell.setCellValue(value.toString()); // ngày -> chuyển thành string
+                }
+            }
+        });
+
+        return excelWriter.writeWithDialog("DanhSachNhanVien.xlsx", data);
     }
 }

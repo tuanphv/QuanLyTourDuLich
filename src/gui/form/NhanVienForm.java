@@ -6,9 +6,11 @@ import gui.components.MyScrollBarUI;
 import gui.dialog.InputNhanVien;
 import interfaces.SearchHandler;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import utils.ExcelReader;
 
 public class NhanVienForm extends javax.swing.JPanel {
     private int rowSelected;
@@ -119,11 +121,65 @@ public class NhanVienForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
         }
     }
+    private void btnXuatExcelActionPerformed(ActionEvent evt) {
+        String savedFilePath = new NhanVienBUS().exportExcel();
+        if (savedFilePath != null) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Đã lưu file thành công tại:\n" + savedFilePath, 
+                "Thông báo", 
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }
+    private void btnNhapExcelActionPerformed(ActionEvent evt) {
+        ExcelReader<NhanVienDTO> reader = new ExcelReader<>();
+        ArrayList<NhanVienDTO> dataFromExcel = reader.readWithDialog(row -> {
+            try {
+                return new NhanVienDTO(
+                    0, // Mã NV tự động tăng
+                    row.getCell(1).getStringCellValue(), // username
+                    "", // password (mặc định)
+                    row.getCell(2).getStringCellValue(), // họ
+                    row.getCell(3).getStringCellValue(), // tên
+                    row.getCell(4).getStringCellValue(), // ngày sinh
+                    row.getCell(5).getStringCellValue(), // giới tính
+                    row.getCell(6).getStringCellValue(), // SĐT
+                    row.getCell(7).getStringCellValue(), // email
+                    row.getCell(8).getStringCellValue(), // CC/HC
+                    row.getCell(9).getStringCellValue(), // ngày vào làm
+                    row.getCell(10).getStringCellValue(), // chức vụ
+                    1 // trạng thái
+                );
+            } catch (Exception e) {
+                System.out.println("Lỗi dòng: " + row.getRowNum());
+                return null;
+            }
+        });
 
+        if (dataFromExcel != null && !dataFromExcel.isEmpty()) {
+            int successCount = 0;
+            for (NhanVienDTO nv : dataFromExcel) {
+                if (nhanVienBUS.insert(nv) != -1) {
+                    successCount++;
+                }
+            }
+            JOptionPane.showMessageDialog(
+                this, 
+                "Nhập thành công " + successCount + "/" + dataFromExcel.size() + " nhân viên!", 
+                "Thông báo", 
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            danhSachNhanVien = nhanVienBUS.getList();
+            loadDataToTable(danhSachNhanVien);
+        }
+    }
     private void addToolBarAction() {
         myToolBar1.getBtnThem().addActionListener(e -> btnAddActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnUpdateActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnDeleteActionPerformed(e));
+        myToolBar1.getBtnXuatExcel().addActionListener(e -> btnXuatExcelActionPerformed(e));
+        myToolBar1.getBtnNhapExcel().addActionListener(e -> btnNhapExcelActionPerformed(e));        
         myToolBar1.getBtnRefresh().addActionListener(e -> loadDataToTable(new NhanVienBUS().getList()));
     }
 
