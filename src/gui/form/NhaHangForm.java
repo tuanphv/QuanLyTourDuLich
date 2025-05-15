@@ -8,6 +8,7 @@ import gui.components.MyScrollBarUI;
 import gui.dialog.InputNhaHang;
 import interfaces.SearchHandler;
 import utils.ExcelReader;
+import utils.TextUtils;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -58,7 +59,7 @@ public class NhaHangForm extends javax.swing.JPanel {
                 ArrayList<NhaHangDTO> dsNhaHang;
                 switch (type) {
                     case "Địa chỉ" -> dsNhaHang = nhaHangBUS.getNhaHangByDiaChi(text);
-                    case "Chi phí" -> dsNhaHang = nhaHangBUS.getNhaHangByChiPhi(Integer.parseInt(text.trim()));
+                    case "Chi phí" -> dsNhaHang = nhaHangBUS.getNhaHangByChiPhi(TextUtils.parseGroupedInt(text.trim()));
                     default -> throw new AssertionError();
                 }
                 loadDataToTable(dsNhaHang);

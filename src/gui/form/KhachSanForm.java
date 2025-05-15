@@ -9,6 +9,7 @@ import gui.components.MyScrollBarUI;
 import gui.dialog.InputKhachSan;
 import interfaces.SearchHandler;
 import utils.ExcelReader;
+import utils.TextUtils;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -59,7 +60,7 @@ public class KhachSanForm extends javax.swing.JPanel {
                 ArrayList<KhachSanDTO> dsKhachSan;
                 switch (type) {
                     case "Địa chỉ" -> dsKhachSan = khachSanBUS.getKhachSanByDiaChi(text);
-                    case "Chi phí" -> dsKhachSan = khachSanBUS.getKhachSanByChiPhi(Integer.parseInt(text.trim()));
+                    case "Chi phí" -> dsKhachSan = khachSanBUS.getKhachSanByChiPhi(TextUtils.parseGroupedInt(text.trim()));
                     default -> throw new AssertionError();
                 }
                 loadDataToTable(dsKhachSan);

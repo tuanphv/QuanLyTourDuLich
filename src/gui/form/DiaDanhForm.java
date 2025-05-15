@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import utils.ExcelReader;
+import utils.TextUtils;
 
 public class DiaDanhForm extends javax.swing.JPanel {
 
@@ -55,17 +56,7 @@ public class DiaDanhForm extends javax.swing.JPanel {
                 switch (type) {
                     case "Tên địa danh" -> listDiaDanh = bus.getDiaDanhByTen(text);
                     case "Tỉnh thành" -> listDiaDanh = bus.getDiaDanhByTinh(text);
-                    case "Chi phí" -> {
-                        try {
-                            int chiPhi = Integer.parseInt(text);
-                            listDiaDanh = bus.getDiaDanhByChiPhi(chiPhi);
-                        } catch (NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null,
-                                    "Chi phí phải là số nguyên",
-                                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                            return;
-                        }
-                    }
+                    case "Chi phí" -> listDiaDanh = bus.getDiaDanhByChiPhi(TextUtils.parseGroupedInt(text.trim()));
                     default -> throw  new AssertionError();
                 }
                 loadDataToTable(listDiaDanh);

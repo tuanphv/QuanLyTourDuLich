@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import utils.TextUtils;
 
 public class PhuongTienForm extends javax.swing.JPanel {
     int rowSelected;
@@ -59,7 +60,11 @@ public class PhuongTienForm extends javax.swing.JPanel {
                 switch (type) {
                     case "Loại phương tiện" -> dsPhuongTien = phuongTienBUS.getListPhuongTienByLoaiPhuongTien(text);
                     case "Số chỗ ngồi" -> dsPhuongTien = phuongTienBUS.getListPhuongTienBySoCho(Integer.parseInt(text.trim()));
-                    case "Chi phí" -> dsPhuongTien = phuongTienBUS.getListPhuongTienByChiPhi(Integer.parseInt(text.trim()));
+                    case "Chi phí" -> {
+                        dsPhuongTien = phuongTienBUS.getListPhuongTienByChiPhi(TextUtils.parseGroupedInt(text.trim()));
+                        System.out.println(text.trim());
+                    }
+                        
                     default -> throw new AssertionError();
                 }
                 loadDataToTable(dsPhuongTien);

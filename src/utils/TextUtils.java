@@ -56,4 +56,23 @@ public class TextUtils {
             throw new IllegalArgumentException("Không tìm thấy số nào trong chuỗi: " + input);
         }
     }
+
+    /**
+    * Chuyển một chuỗi số có dấu phân nhóm (dấu phẩy) thành int.
+    *
+    * @param s Chuỗi số, ví dụ "1,700,000"
+    * @return Giá trị int tương ứng, ví dụ 1700000
+    * @throws NumberFormatException nếu chuỗi không phải số hợp lệ sau khi loại bỏ dấu phẩy
+    */
+    public static int parseGroupedInt(String s) {
+        if (s == null) {
+            throw new IllegalArgumentException("Input string must not be null");
+        }
+        // Loại bỏ tất cả dấu phẩy (có thể thêm .trim() nếu cần loại khoảng trắng)
+        String digitsOnly = s.replace(",", "");
+        // Chuyển thành int
+        return Integer.parseInt(digitsOnly);
+    }
+
+
 }
