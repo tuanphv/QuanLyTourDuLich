@@ -1,7 +1,11 @@
 package bus;
 
 import dao.NhaHangDAO;
+import dto.KhachSanDTO;
 import dto.NhaHangDTO;
+import utils.CellUtils;
+import utils.ExcelWriter;
+
 import java.util.ArrayList;
 
 public class NhaHangBUS {
@@ -98,6 +102,36 @@ public class NhaHangBUS {
             }            
         }
         return listNhaHang;
+    }
+
+    public String exportExcel() {
+        ArrayList<Object[]> data = new ArrayList<>();
+        // tạo headers
+        Object[] headers = new Object[]{"Mã nhà hàng", "Tên nhà hàng", "Địa chỉ", "Giá", "Số điện thoại"};
+        data.add(headers);
+        // add data
+        for (NhaHangDTO nhaHang : listRestaurant) {
+            data.add(nhaHang.toExcelRow());
+        }
+
+        ExcelWriter excelWriter = new ExcelWriter(((cell, value, rowIndex, columnIndex) -> {
+            if (rowIndex == 0) {
+                cell.setCellStyle(CellUtils.getBoldStyle(cell.getSheet().getWorkbook()));
+                cell.setCellValue((String) value);
+            } else {
+                switch (columnIndex) {
+                    case 0 ->
+                        cell.setCellValue((Integer) value);
+                    case 3 -> {
+                        cell.setCellStyle(CellUtils.getCurrencyStyle(cell.getSheet().getWorkbook()));
+                        cell.setCellValue((Integer) value);
+                    }
+                    default ->
+                        cell.setCellValue((String) value);
+                }
+            }
+        }));
+        return excelWriter.writeWithDialog("DanhSachNhaHang.xlsx", data);
     }
 
 }

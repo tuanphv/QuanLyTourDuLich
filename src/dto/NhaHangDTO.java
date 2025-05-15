@@ -19,6 +19,14 @@ public class NhaHangDTO {
         this.gia = gia;
         this.soDienThoai = soDienThoai;
     }
+    
+    public NhaHangDTO(int maNhaHang, String tenNhaHang, String diaChi, int gia, String soDienThoai) {
+        this.maNhaHang = maNhaHang;
+        this.tenNhaHang = tenNhaHang;
+        this.diaChi = diaChi;
+        this.gia = gia;
+        this.soDienThoai = soDienThoai;
+    }
 
     public NhaHangDTO(int maNhaHang, String tenNhaHang, String diaChi, int gia, String soDienThoai, int trangThai) {
         this.maNhaHang = maNhaHang;
@@ -99,6 +107,16 @@ public class NhaHangDTO {
             TextUtils.formatCurrency(gia),
             soDienThoai,
             // trangThai
+        };
+    }
+
+    public Object[] toExcelRow() {
+        return new Object[] {
+            maNhaHang,
+            tenNhaHang,
+            diaChi,
+            gia,
+            soDienThoai
         };
     }
     

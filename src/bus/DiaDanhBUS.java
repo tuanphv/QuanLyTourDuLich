@@ -120,6 +120,36 @@ public class DiaDanhBUS {
         return null;
     }
 
+    public ArrayList<DiaDanhDTO> getDiaDanhByTen(String ten) {
+        ArrayList<DiaDanhDTO> result = new ArrayList<>();
+        for (DiaDanhDTO diaDanh : dsDiaDanh) {
+            if (diaDanh.getTenDD().toLowerCase().contains(ten.toLowerCase())) {
+                result.add(diaDanh);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<DiaDanhDTO> getDiaDanhByTinh(String tinh) {
+        ArrayList<DiaDanhDTO> result = new ArrayList<>();
+        for (DiaDanhDTO diaDanh : dsDiaDanh) {
+            if (diaDanh.getTinhThanh().toLowerCase().equals(tinh.toLowerCase())) {
+                result.add(diaDanh);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<DiaDanhDTO> getDiaDanhByChiPhi(int chiPhi) {
+        ArrayList<DiaDanhDTO> result = new ArrayList<>();
+        for (DiaDanhDTO diaDanh : dsDiaDanh) {
+            if (diaDanh.getChiPhi() <= chiPhi) {
+                result.add(diaDanh);
+            }
+        }
+        return result;
+    }
+
     public String exportExcel() {
         ArrayList<Object[]> data = new ArrayList<>();
         // tạo headers

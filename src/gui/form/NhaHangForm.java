@@ -1,14 +1,19 @@
 package gui.form;
 
 import bus.NhaHangBUS;
+import bus.PhuongTienBUS;
 import dto.NhaHangDTO;
+import dto.PhuongTienDTO;
 import gui.components.MyScrollBarUI;
 import gui.dialog.InputNhaHang;
 import interfaces.SearchHandler;
+import utils.ExcelReader;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,6 +26,8 @@ public class NhaHangForm extends javax.swing.JPanel {
     DefaultTableModel modalTableNhaHang;
     NhaHangBUS nhaHangBUS;
     ArrayList<NhaHangDTO> listNhaHang;
+    private ArrayList<NhaHangDTO> dataFromExcel;
+
 
     public NhaHangForm() {
         initComponents();
@@ -203,10 +210,45 @@ public class NhaHangForm extends javax.swing.JPanel {
         }
     }
 
+    private void btnXuatExcelActionPerformed(ActionEvent evt) {
+        String savedFilePath = new NhaHangBUS().exportExcel();
+
+        if (savedFilePath != null) {
+            JOptionPane.showMessageDialog(null,
+                    "Đã lưu file thành công tại:\n" + savedFilePath,
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    private void btnNhapExcelActionPerformed(ActionEvent evt) {
+        ExcelReader<NhaHangDTO> read = new ExcelReader();
+        dataFromExcel = read.readWithDialog(row -> {
+            try {
+                return new NhaHangDTO(
+                        (int) row.getCell(0).getNumericCellValue(),
+                        row.getCell(1).getStringCellValue(),
+                        row.getCell(2).getStringCellValue(),
+                        (int) row.getCell(3).getNumericCellValue(),
+                        row.getCell(4).getStringCellValue()
+                );
+            } catch (Exception e) {
+                System.out.println("⚠️ Dòng lỗi: " + row.getRowNum());
+                return null;
+            }
+        });
+        if (!dataFromExcel.isEmpty()) {
+            // btnLuu.setVisible(true);
+            // btnHuy.setVisible(true);
+            loadDataToTable(dataFromExcel);
+        }
+    }
+
     private void addToolBarAction() {
         myToolBar1.getBtnThem().addActionListener(e -> btnThemActionPerformed(e));
         myToolBar1.getBtnSua().addActionListener(e -> btnSuaActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnXoaActionPerformed(e));
+        myToolBar1.getBtnNhapExcel().addActionListener(e -> btnNhapExcelActionPerformed(e));
+        myToolBar1.getBtnXuatExcel().addActionListener(e -> btnXuatExcelActionPerformed(e));
         myToolBar1.getBtnRefresh().addActionListener(e -> {
             loadDataToTable(listNhaHang);
             myToolBar1.setSearchText("");

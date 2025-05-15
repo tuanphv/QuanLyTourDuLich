@@ -22,6 +22,15 @@ public class PhuongTienDTO {
         this.soDienThoai = soDienThoai;
     }
 
+    public PhuongTienDTO(int maPhuongTien, String tenPhuongTien, String loaiPhuongTien, int soChoNgoi, int gia, String soDienThoai) {
+        this.maPhuongTien = maPhuongTien;
+        this.tenPhuongTien = tenPhuongTien;
+        this.loaiPhuongTien = loaiPhuongTien;
+        this.soChoNgoi = soChoNgoi;
+        this.gia = gia;
+        this.soDienThoai = soDienThoai;
+    }
+
     public PhuongTienDTO(int maPhuongTien, String tenPhuongTien, String loaiPhuongTien, int soChoNgoi, int gia, String soDienThoai, int trangThai) {
         this.maPhuongTien = maPhuongTien;
         this.tenPhuongTien = tenPhuongTien;
@@ -112,6 +121,17 @@ public class PhuongTienDTO {
             TextUtils.formatCurrency(gia),
             soDienThoai,
             // trangThai
+        };
+    }
+
+    public Object[] toExcelRow() {
+        return new Object[] {
+            maPhuongTien,
+            tenPhuongTien,
+            loaiPhuongTien,
+            soChoNgoi,
+            gia,
+            soDienThoai,
         };
     }
 

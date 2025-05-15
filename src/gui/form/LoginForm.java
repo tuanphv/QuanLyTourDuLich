@@ -3,9 +3,9 @@ package gui.form;
 import bus.NhanVienBUS;
 import dto.NhanVienDTO;
 import gui.Main;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import javax.swing.*;
 
 public class LoginForm extends JFrame {
     private JTextField txtUsername;
@@ -96,6 +96,8 @@ public class LoginForm extends JFrame {
     private void btnLoginActionPerformed(ActionEvent evt) {
         String username = txtUsername.getText().trim();
         String password = new String(txtPassword.getPassword());
+        // String username = "ttran";
+        // String password = "123456";
 
         NhanVienDTO nv = nhanVienBUS.login(username, password);
         if (nv != null) {

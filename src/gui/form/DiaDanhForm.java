@@ -1,20 +1,20 @@
 package gui.form;
 
+import bus.DiaDanhBUS;
+import dto.DiaDanhDTO;
+import gui.components.MyScrollBarUI;
+import gui.dialog.DiaDanhDialog;
+import interfaces.SearchHandler;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-
-import dto.DiaDanhDTO;
-import bus.DiaDanhBUS;
-import gui.components.MyScrollBarUI;
-import gui.dialog.DiaDanhDialog;
 import utils.ExcelReader;
 
 public class DiaDanhForm extends javax.swing.JPanel {
@@ -46,6 +46,32 @@ public class DiaDanhForm extends javax.swing.JPanel {
         } else {
             System.out.println("DiaDanhForm đang chạy ở design time mode");
         }
+
+        myToolBar1.setSearchType(new String[] {"Tên địa danh", "Tỉnh thành", "Chi phí"});
+        myToolBar1.setSearchHandler(new SearchHandler() {
+            @Override
+            public void onSearch(String type, String text) {
+                ArrayList<DiaDanhDTO> listDiaDanh;
+                switch (type) {
+                    case "Tên địa danh" -> listDiaDanh = bus.getDiaDanhByTen(text);
+                    case "Tỉnh thành" -> listDiaDanh = bus.getDiaDanhByTinh(text);
+                    case "Chi phí" -> {
+                        try {
+                            int chiPhi = Integer.parseInt(text);
+                            listDiaDanh = bus.getDiaDanhByChiPhi(chiPhi);
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Chi phí phải là số nguyên",
+                                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                            return;
+                        }
+                    }
+                    default -> throw  new AssertionError();
+                }
+                loadDataToTable(listDiaDanh);
+            }
+        });
+
     }
 
     @SuppressWarnings("unchecked")

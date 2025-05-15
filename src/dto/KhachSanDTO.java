@@ -20,6 +20,14 @@ public class KhachSanDTO {
         this.soDienThoai = soDienThoai;
     }
 
+    public KhachSanDTO(int maKhachSan, String tenKhachSan, String diaChi, int gia, String soDienThoai) {
+        this.maKhachSan = maKhachSan;
+        this.tenKhachSan = tenKhachSan;
+        this.diaChi = diaChi;
+        this.gia = gia;
+        this.soDienThoai = soDienThoai;
+    }
+
     public KhachSanDTO(int maKhachSan, String tenKhachSan, String diaChi, int gia, String soDienThoai, int trangThai) {
         this.maKhachSan = maKhachSan;
         this.tenKhachSan = tenKhachSan;
@@ -102,4 +110,15 @@ public class KhachSanDTO {
         // "Trạng thái"
     };
     
+    public Object[] toExcelRow() {
+        return new Object[] {
+            maKhachSan,
+            tenKhachSan, 
+            diaChi,
+            gia,
+            soDienThoai,
+            // trangThai
+        };
+    }
+
 }

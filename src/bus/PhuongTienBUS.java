@@ -1,7 +1,11 @@
 package bus;
 
 import dao.PhuongTienDAO;
+import dto.DiaDanhDTO;
 import dto.PhuongTienDTO;
+import utils.CellUtils;
+import utils.ExcelWriter;
+
 import java.util.ArrayList;
 
 public class PhuongTienBUS {
@@ -108,6 +112,36 @@ public class PhuongTienBUS {
             }
         }
         return listPhuongTien;
+    }
+
+    public String exportExcel() {
+        ArrayList<Object[]> data = new ArrayList<>();
+        // tạo headers
+        String [] headers = {"Mã phương tiện", "Tên phương tiện", "Loại phương tiện", "Số chỗ ngồi", "Giá", "Số điện thoại"};
+        data.add(headers);
+        // add từng dòng
+        for (PhuongTienDTO phuongTien : listVehicle) {
+            data.add(phuongTien.toExcelRow());
+        }
+
+        ExcelWriter excelWriter = new ExcelWriter(((cell, value, rowIndex, columnIndex) -> {
+            if (rowIndex == 0) {
+                cell.setCellStyle(CellUtils.getBoldStyle(cell.getSheet().getWorkbook()));
+                cell.setCellValue((String) value);
+            } else {
+                switch (columnIndex) {
+                    case 0, 3 ->
+                        cell.setCellValue((Integer) value);
+                    case 4 -> {
+                        cell.setCellStyle(CellUtils.getCurrencyStyle(cell.getSheet().getWorkbook()));
+                        cell.setCellValue((Integer) value);
+                    }
+                    default ->
+                        cell.setCellValue((String) value);
+                }
+            }
+        }));
+        return excelWriter.writeWithDialog("DanhSachPhuongTien.xlsx", data);
     }
 
 }
