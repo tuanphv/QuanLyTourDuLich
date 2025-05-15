@@ -3,6 +3,8 @@ package bus;
 import dto.KhachHangDTO;
 import dao.KhachHangDAO;
 import java.util.ArrayList;
+import utils.CellUtils;
+import utils.ExcelWriter;
 import utils.TextUtils;
 
 public class KhachHangBUS {
@@ -97,5 +99,33 @@ public class KhachHangBUS {
             }
         }
         return result;
+    }
+        public String exportExcel() {
+        ArrayList<Object[]> data = new ArrayList<>();
+        // Tạo headers
+        Object[] headers = new Object[]{
+            "Mã KH", "Username", "Họ", "Tên", "Ngày sinh", 
+            "Giới tính", "SĐT", "Email", "CC/HC", "Ngày đăng kí"
+        };
+        data.add(headers);
+        // Thêm từng dòng nhân viên
+        for (KhachHangDTO nv : dsKhachHang) {
+            data.add(nv.toExcelRow()); // toExcelRow() là phương thức bạn cần có trong NhanVienDTO
+        }
+        // Tạo ExcelWriter và xử lý cell
+        ExcelWriter excelWriter = new ExcelWriter((cell, value, rowIndex, columnIndex) -> {
+            if (rowIndex == 0) {
+                // Header
+                cell.setCellStyle(CellUtils.getBoldStyle(cell.getSheet().getWorkbook()));
+                cell.setCellValue((String) value);
+            } else {
+                switch (columnIndex) {
+                    case 0 -> cell.setCellValue((Integer) value); // Mã KH
+                    case 1, 2, 3, 5, 6, 7, 9 -> cell.setCellValue((String) value); // text
+                    case 4, 8 -> cell.setCellValue(value.toString()); // ngày -> chuyển thành string
+                }
+            }
+        });
+        return excelWriter.writeWithDialog("DanhSachKhachHang.xlsx", data);
     }
 }

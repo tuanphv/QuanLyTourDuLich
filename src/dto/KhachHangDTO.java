@@ -81,7 +81,20 @@ public class KhachHangDTO {
             maKH, getHoTen(), ngaySinh, gioiTinh, soDT, email, ngayDK, cc_hc
         };
     }
-
+    public Object[] toExcelRow() {
+        return new Object[]{
+            maKH,
+            username,
+            ho,
+            ten,
+            ngaySinh,
+            gioiTinh,
+            soDT,
+            email,
+            cc_hc,
+            ngayDK
+        };
+    }
     public static final String[] KHACH_HANG_COLUMN_NAMES = {
         "Mã KH", "Họ tên", "Ngày sinh", "Giới tính", "Điện thoại", "Email", "Ngày đăng kí", "Căn cước/ Hộ chiếu"
     };

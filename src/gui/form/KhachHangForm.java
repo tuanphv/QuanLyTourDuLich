@@ -6,9 +6,11 @@ import gui.components.MyScrollBarUI;
 import gui.dialog.InputKhachHang;
 import interfaces.SearchHandler;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import utils.ExcelReader;
 
 public class KhachHangForm extends javax.swing.JPanel {
     private int rowSelected;
@@ -108,7 +110,58 @@ public class KhachHangForm extends javax.swing.JPanel {
         InputKhachHang dialog = new InputKhachHang((Frame) SwingUtilities.getWindowAncestor(this), InputKhachHang.Mode.ADD, this);
         dialog.setVisible(true);
     }
+    private void btnXuatExcelActionPerformed(ActionEvent evt) {
+        String savedFilePath = new KhachHangBUS().exportExcel();
+        if (savedFilePath != null) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Đã lưu file thành công tại:\n" + savedFilePath, 
+                "Thông báo", 
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }
+    private void btnNhapExcelActionPerformed(ActionEvent evt) {
+        ExcelReader<KhachHangDTO> reader = new ExcelReader<>();
+        ArrayList<KhachHangDTO> dataFromExcel = reader.readWithDialog(row -> {
+            try {
+                return new KhachHangDTO(
+                    0, // Mã NV tự động tăng
+                    row.getCell(1).getStringCellValue(), // username
+                    "", // password (mặc định)
+                    row.getCell(2).getStringCellValue(), // họ
+                    row.getCell(3).getStringCellValue(), // tên
+                    row.getCell(4).getStringCellValue(), // ngày sinh
+                    row.getCell(5).getStringCellValue(), // giới tính
+                    row.getCell(6).getStringCellValue(), // SĐT
+                    row.getCell(7).getStringCellValue(), // email
+                    row.getCell(8).getStringCellValue(), // CC/HC
+                    row.getCell(9).getStringCellValue(), // ngày vào làm
+                    1 // trạng thái
+                );
+            } catch (Exception e) {
+                System.out.println("Lỗi dòng: " + row.getRowNum());
+                return null;
+            }
+        });
 
+        if (dataFromExcel != null && !dataFromExcel.isEmpty()) {
+            int successCount = 0;
+            for (KhachHangDTO nv : dataFromExcel) {
+                if (khachHangBUS.insert(nv) != -1) {
+                    successCount++;
+                }
+            }
+            JOptionPane.showMessageDialog(
+                this, 
+                "Nhập thành công " + successCount + "/" + dataFromExcel.size() + " khách hàng!", 
+                "Thông báo", 
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            danhSachKhachHang = khachHangBUS.getList();
+            loadDataToTable(danhSachKhachHang);
+        }
+    }
     public void addKhachHang(KhachHangDTO kh) {
         int id = khachHangBUS.insert(kh);
         if (id != -1) {
@@ -130,7 +183,8 @@ public class KhachHangForm extends javax.swing.JPanel {
         myToolBar1.getBtnSua().addActionListener(e -> btnUpdateActionPerformed(e));
         myToolBar1.getBtnXoa().addActionListener(e -> btnDeleteActionPerformed(e));
         myToolBar1.getBtnRefresh().addActionListener(e -> loadDataToTable(new KhachHangBUS().getList()));
-
+        myToolBar1.getBtnXuatExcel().addActionListener(e -> btnXuatExcelActionPerformed(e));
+        myToolBar1.getBtnNhapExcel().addActionListener(e -> btnNhapExcelActionPerformed(e));       
     }
 
     @SuppressWarnings("unchecked")
